@@ -48,7 +48,7 @@ export function Hero() {
             </span>
           </span>
         </h1>
-        <p className="mt-4 max-w-2xl text-[clamp(1.0625rem,0.95rem+0.55vw,1.5rem)] leading-snug text-ink-muted text-balance">
+        <p className="mt-4 max-w-4xl text-[clamp(1.0625rem,0.95rem+0.55vw,1.5rem)] leading-snug text-ink-muted text-balance">
           {hero.support}
         </p>
         <div className="mt-6 flex flex-wrap items-center justify-center gap-3">

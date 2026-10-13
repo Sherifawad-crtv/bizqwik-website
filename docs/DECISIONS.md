@@ -55,3 +55,6 @@ Append-only. One line of context, the decision, and the date.
   "community ops." carries the highlighter underline. The page title/description in
   `content/site.ts`, `brand.tagline` and the Contact lede still use the old line; they
   are separate pieces of copy and were not changed.
+- **D-018 (2026-10-13) Hero subtitle is "Coach attendance, scheduling, bookings and wallets,
+  organized in one place."** (by direction; replaces the brief's "Founder, accountant, front
+  desk, coaches and clients, all in sync."). That sentence is no longer used on the page.
