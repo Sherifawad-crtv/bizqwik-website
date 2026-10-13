@@ -32,3 +32,13 @@ Append-only. One line of context, the decision, and the date.
   our light/violet identity. Scrubbed to scroll, not toggled. Solar icons are
   not installed yet: the menu button is drawn in CSS; add `@solar-icons/react`
   with the sections that need it.
+- **D-011 (2026-10-13) Solar icons installed** (`@solar-icons/react`, Linear
+  weight, per-icon imports through `components/ui/Icon.tsx`). Only listed icons are
+  bundled; add new ones in that one file.
+- **D-012 (2026-10-13) Hero = pinned, scrubbed scatter-to-dock of real HTML UI.**
+  The app screen is built from the real Overview structure rather than screenshots,
+  so pieces can move independently. Overrides the brief's "use real screenshots"
+  note for the hero only. Demo numbers are illustrative (D-013).
+- **D-013 (2026-10-13) Demo data is illustrative** and lives in
+  `src/content/demoApp.ts`; figures are internally consistent. Replace with approved
+  demo content before launch (brief GAP 7).

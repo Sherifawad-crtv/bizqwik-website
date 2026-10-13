@@ -79,6 +79,30 @@ Code: `src/components/nav/` (`Navbar.tsx` markup + state, `motion.ts` GSAP).
   `scroll-padding-top: 6rem` (Lenis honours it; do not also set a Lenis offset).
 - `ui/Button.tsx`: link-as-button (`primary` violet, `secondary` surface).
 
+## Hero (reference: your empty-iPhone demo frames, structure only)
+Code: `src/components/hero/` (`Hero.tsx` layout, `PhoneMockup.tsx`, `FounderHome.tsx`
+pieces, `phone.ts` geometry + piece table, `hero-motion.ts` GSAP).
+- **Layout:** text block (eyebrow, H1 in two lines, support, CTAs, fine print, five-app
+  proof strip when the viewport is >= 900px tall) above an empty phone that bleeds off
+  the bottom, faded into the page. The H1 is capped near 84px so the phone has room.
+- **Start (scroll 0):** empty phone, nine founder-home pieces tilted around it
+  (greeting, avatar, range selector, revenue card, four KPI tiles, chart, nav).
+- **Scroll (pinned for 1.9 viewport heights, scrubbed 0.7s):** text drifts up and out,
+  phone rises under the navbar, pieces fly in and dock one after another, then the
+  status bar, nav pill, chart bars and the revenue count-up finish the screen.
+- **The screen is real UI, not an image:** the product's Overview (mirrors
+  `Sherifawad-crtv/bizqwik` `src/routes/Oversight.tsx`) built in a 390px design space
+  and scaled to the screen (`--k`). Tailwind sizes inside `FounderHome.tsx` are
+  design px. Data: `src/content/demoApp.ts` (illustrative).
+- **Frame:** `public/devices/iphone-frame.webp` (980x2000, transparent screen at
+  x51 y45 878x1910, ~135px corner radius). Layer order: clipped screen, frame, pieces.
+- **Scatter is computed, not hard-coded:** each piece has side, reach, height, tilt and
+  scale in `phone.ts`; positions are derived from the viewport at every refresh, and
+  shrink on narrow screens so the phone still reads as empty.
+- **Reduced motion:** no pin, no scrub; the finished screen is shown.
+- To change the vision: edit `PIECES` (where things start and the settling order),
+  `PIN_VH` / `END_TOP` and the timeline offsets in `hero-motion.ts`.
+
 ## Assets
 `public/brand/wordmark.png`, `public/brand/mark.png`: use as supplied, light
 backgrounds only, never recolour or stretch. Fonts: `src/assets/fonts/`.

@@ -21,3 +21,4 @@ Convention (same as the app repo, `Sherifawad-crtv/bizqwik`):
 | 0001 | 2026-10-13 | [Foundation: scaffold, fonts, tokens](0001-2026-10-13-foundation.md) |
 | 0002 | 2026-10-13 | [Content layer + motion foundation](0002-2026-10-13-content-and-motion.md) |
 | 0003 | 2026-10-13 | [Navbar: wide ⇄ narrow, mobile pill + sheet](0003-2026-10-13-navbar.md) |
+| 0004 | 2026-10-13 | [Hero: pinned scatter-to-dock phone](0004-2026-10-13-hero.md) |

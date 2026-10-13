@@ -1,7 +1,7 @@
 export const hero = {
   eyebrow: "For gyms, studios and clubs",
-  /** "community." gets the highlighter underline. */
-  headline: { before: "One ecosystem. Your whole ", highlight: "community." },
+  /** Two lines. "community." gets the highlighter underline. */
+  headline: { line1: "One ecosystem.", line2Before: "Your whole ", highlight: "community." },
   support: "Founder, accountant, front desk, coaches and clients, all in sync.",
   proofLabel: "Five apps · One ecosystem",
   finePrint: "Plans in EGP, billed monthly.",

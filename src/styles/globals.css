@@ -45,6 +45,11 @@
   }
 }
 
+/* Hero pieces stay hidden until the hero timeline has placed them (avoids a flash of the docked screen). */
+[data-hero]:not([data-ready]) [data-piece] {
+  opacity: 0;
+}
+
 @layer utilities {
   .tabular {
     font-variant-numeric: tabular-nums;

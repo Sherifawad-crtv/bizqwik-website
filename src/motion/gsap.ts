@@ -10,5 +10,7 @@ import { SplitText } from "gsap/SplitText";
  * is guaranteed and plugin additions stay in one file.
  */
 gsap.registerPlugin(ScrollTrigger, SplitText);
+// Mobile browser chrome showing/hiding must not re-layout pinned sections.
+ScrollTrigger.config({ ignoreMobileResize: true });
 
 export { gsap, ScrollTrigger, SplitText };
