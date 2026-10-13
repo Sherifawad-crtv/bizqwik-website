@@ -42,3 +42,11 @@ Append-only. One line of context, the decision, and the date.
 - **D-013 (2026-10-13) Demo data is illustrative** and lives in
   `src/content/demoApp.ts`; figures are internally consistent. Replace with approved
   demo content before launch (brief GAP 7).
+- **D-014 (2026-10-13) Hero copy is title + subtitle + two CTAs only.** The brief's
+  eyebrow, "billed monthly" fine print and five-app proof strip are dropped by
+  direction (too much noise). Their text was removed from `content/hero.ts`.
+- **D-015 (2026-10-13) The phone screen is built at true iPhone Pro Max size**
+  (440 x 957 pt) with the product's real dimensions; docking positions are measured
+  from layout, never hand-placed. Supersedes the 390px design space of D-012.
+- **D-016 (2026-10-13) The navbar's centre pill is fixed;** only the logo and CTA move
+  to it, and only after the hero's pin ends.

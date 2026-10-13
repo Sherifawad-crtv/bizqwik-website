@@ -63,10 +63,17 @@ smooth scroll. Ambition: Awwwards-level, scroll-driven, cinematic.
 ## Navbar (reference: Nefin nav screenshots, restyled in our tokens)
 Code: `src/components/nav/` (`Navbar.tsx` markup + state, `motion.ts` GSAP).
 - **Desktop (>= 1024px)**, three free-floating pieces, no bar background.
-  *Wide* (scroll 0): wordmark left, glass link pill centred, violet "Talk to us"
-  right, spread across the 1280 container. *Narrow* (scrolled 160px): one
-  centred cluster, the wordmark becomes the emblem tile; 12px gaps.
-  The change is scrubbed to scroll (0.6s smoothing) both ways.
+  *Wide*: wordmark at the left edge, glass link pill, violet "Talk to us" at the
+  right edge of the 1280 container. *Narrow*: logo and CTA have travelled in to
+  sit 12px either side of the pill; the wordmark has become the emblem tile.
+  **The pill never moves or resizes: it is the fixed centre (viewport centre in
+  every state). Only the side items travel to it.**
+  The change is scrubbed to scroll (0.6s smoothing) both ways, over 160px.
+- **When:** it starts only after the page's hero has finished (the hero's pin
+  ends); until then the navbar stays wide. On pages without a hero it starts at
+  the top. Implemented with `HERO_PIN_ID` (hero-motion.ts) read by nav/motion.ts;
+  the hero refreshes first (`refreshPriority`). Note: this needs content after
+  the hero to be visible; `/` currently ends with the hero.
 - **Mobile (< 1024px)**: one glass pill, wordmark left, rounded-square menu
   button right. On scroll it insets 24px, slims 64 to 56px and rises. The button
   opens a glass sheet: four links (staggered in), Talk to us, phone, email.
@@ -82,25 +89,32 @@ Code: `src/components/nav/` (`Navbar.tsx` markup + state, `motion.ts` GSAP).
 ## Hero (reference: your empty-iPhone demo frames, structure only)
 Code: `src/components/hero/` (`Hero.tsx` layout, `PhoneMockup.tsx`, `FounderHome.tsx`
 pieces, `phone.ts` geometry + piece table, `hero-motion.ts` GSAP).
-- **Layout:** text block (eyebrow, H1 in two lines, support, CTAs, fine print, five-app
-  proof strip when the viewport is >= 900px tall) above an empty phone that bleeds off
-  the bottom, faded into the page. The H1 is capped near 84px so the phone has room.
-- **Start (scroll 0):** empty phone, nine founder-home pieces tilted around it
-  (greeting, avatar, range selector, revenue card, four KPI tiles, chart, nav).
+- **Layout:** only the title (two lines), subtitle and the two CTAs above an empty
+  phone that bleeds off the bottom, faded into the page. No eyebrow, fine print or
+  proof strip (removed by direction: the hero stays quiet).
+- **Start (scroll 0):** empty phone, eleven founder-home pieces tilted around it
+  (greeting, avatar, range selector, revenue card, four KPI tiles, chart; nav pill
+  and FAB rise in from below at the end).
 - **Scroll (pinned for 1.9 viewport heights, scrubbed 0.7s):** text drifts up and out,
   phone rises under the navbar, pieces fly in and dock one after another, then the
   status bar, nav pill, chart bars and the revenue count-up finish the screen.
-- **The screen is real UI, not an image:** the product's Overview (mirrors
-  `Sherifawad-crtv/bizqwik` `src/routes/Oversight.tsx`) built in a 390px design space
-  and scaled to the screen (`--k`). Tailwind sizes inside `FounderHome.tsx` are
-  design px. Data: `src/content/demoApp.ts` (illustrative).
+- **The screen is real UI at true device size:** an iPhone Pro Max screen is
+  440 x 957 pt (the frame's screen has exactly that aspect). `FounderHome.tsx`
+  uses the product's real numbers (16px side padding, 20px + 62pt safe area on top,
+  64px avatar, 28px gaps, KPI grid gap 10, 64px nav pill with five 52px tabs beside a
+  64px FAB, 12px + 34pt home indicator below), ported from `Sherifawad-crtv/bizqwik`
+  (`Oversight.tsx`, `Shell.tsx`, `BottomNav.tsx`, `Fab.tsx`, `HomeAvatar.tsx`).
+  Pieces are plain flow children, so the browser lays them out like the app does; the
+  design space is scaled to the screen (`--k`). Tailwind sizes in that file are points.
+  Data: `src/content/demoApp.ts` (illustrative).
 - **Frame:** `public/devices/iphone-frame.webp` (980x2000, transparent screen at
   x51 y45 878x1910, ~135px corner radius). Layer order: clipped screen, frame, pieces.
-- **Scatter is computed, not hard-coded:** each piece has side, reach, height, tilt and
-  scale in `phone.ts`; positions are derived from the viewport at every refresh, and
-  shrink on narrow screens so the phone still reads as empty.
+- **Docking is measured, scatter is computed:** where a piece lands is read from the
+  real layout (`offsetLeft/Top`); `SCATTER` in `phone.ts` only holds side, reach,
+  height, tilt, scale and order. Positions are re-derived at every refresh, and shrink
+  on narrow screens so the phone still reads as empty.
 - **Reduced motion:** no pin, no scrub; the finished screen is shown.
-- To change the vision: edit `PIECES` (where things start and the settling order),
+- To change the vision: edit `SCATTER` (where things start and the settling order),
   `PIN_VH` / `END_TOP` and the timeline offsets in `hero-motion.ts`.
 
 ## Assets

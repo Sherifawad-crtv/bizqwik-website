@@ -1,7 +1,8 @@
 /**
  * Geometry of public/devices/iphone-frame.webp (980 x 2000 px, transparent screen),
- * measured from the file's alpha channel. The app UI is built in a 390-wide
- * "design space" (the product's mobile width) and scaled to fit the screen.
+ * measured from the file's alpha channel. Its screen has the aspect ratio of an
+ * iPhone Pro Max (440 x 956 pt), so the app UI is built in exactly that logical
+ * size, with the product's real dimensions, and scaled to fit the frame's screen.
  */
 export const FRAME = { w: 980, h: 2000 } as const;
 
@@ -15,11 +16,14 @@ export const SCREEN = {
   radius: 135 / 980,
 } as const;
 
-/** Design space: 390 wide, height follows the screen's aspect ratio (~848). */
-export const DESIGN = { w: 390, h: Math.round((1910 / 878) * 390) } as const;
+/** iPhone Pro Max logical screen, in points. */
+export const DESIGN = { w: 440, h: 957 } as const;
 
-/** Frame edge distance from the screen edge, in design px (for scatter maths). */
-export const FRAME_MARGIN = (51 / 878) * 390;
+/** iOS safe areas on that device: Dynamic Island top, home indicator bottom. */
+export const SAFE = { top: 62, bottom: 34 } as const;
+
+/** Frame bezel thickness in design points (for scatter maths). */
+export const FRAME_MARGIN = (51 / 878) * DESIGN.w;
 
 export type PieceId =
   | "greeting"
@@ -31,15 +35,15 @@ export type PieceId =
   | "subscribers"
   | "wallet"
   | "chart"
-  | "nav";
+  | "nav"
+  | "fab";
 
-export interface PieceLayout {
-  /** Docked position and size inside the 390 x 848 design space. */
-  left: number;
-  top: number;
-  w: number;
-  h: number;
-  /** Scatter: which side of the phone, how far out (0 near, 1 far), height (0 top, 1 bottom of the visible phone). */
+/**
+ * Scatter only. Where each piece docks is whatever the real layout gives it
+ * (measured from the DOM), so nothing here can drift from the app's dimensions.
+ */
+export interface PieceScatter {
+  /** Side of the phone, how far out (0 near, 1 far), height (0 top, 1 bottom of the visible phone). */
   side: -1 | 1;
   reach: number;
   fy: number;
@@ -49,15 +53,14 @@ export interface PieceLayout {
   order: number;
 }
 
-export const PIECES: Record<PieceId, PieceLayout> = {
-  greeting: { left: 20, top: 72, w: 230, h: 36, side: -1, reach: 1, fy: 0.04, rot: -8, scale: 1.1, order: 0 },
-  avatar: { left: 306, top: 64, w: 64, h: 64, side: 1, reach: 0.85, fy: 0.02, rot: 12, scale: 1.1, order: 1 },
-  range: { left: 20, top: 138, w: 350, h: 44, side: 1, reach: 1, fy: 0.08, rot: 7, scale: 1.05, order: 2 },
-  revenue: { left: 20, top: 192, w: 350, h: 132, side: -1, reach: 0.15, fy: 0.22, rot: -11, scale: 1.1, order: 3 },
-  profit: { left: 20, top: 332, w: 170, h: 120, side: -1, reach: 1, fy: 0.6, rot: 12, scale: 1.08, order: 4 },
-  payouts: { left: 200, top: 332, w: 170, h: 120, side: 1, reach: 1, fy: 0.62, rot: -8, scale: 1.08, order: 5 },
-  subscribers: { left: 20, top: 462, w: 170, h: 120, side: -1, reach: 0.3, fy: 0.88, rot: -6, scale: 1.1, order: 6 },
-  wallet: { left: 200, top: 462, w: 170, h: 120, side: 1, reach: 0.35, fy: 0.9, rot: 14, scale: 1.08, order: 7 },
-  chart: { left: 20, top: 592, w: 350, h: 164, side: 1, reach: 0.15, fy: 0.3, rot: 13, scale: 1.1, order: 8 },
-  nav: { left: 20, top: 768, w: 350, h: 64, side: 1, reach: 0, fy: 1, rot: 0, scale: 1, order: 9 },
+export const SCATTER: Record<Exclude<PieceId, "nav" | "fab">, PieceScatter> = {
+  greeting: { side: -1, reach: 1, fy: 0.04, rot: -8, scale: 1.1, order: 0 },
+  avatar: { side: 1, reach: 0.85, fy: 0.02, rot: 12, scale: 1.1, order: 1 },
+  range: { side: 1, reach: 1, fy: 0.08, rot: 7, scale: 1.05, order: 2 },
+  revenue: { side: -1, reach: 0.15, fy: 0.22, rot: -11, scale: 1.1, order: 3 },
+  profit: { side: -1, reach: 1, fy: 0.6, rot: 12, scale: 1.08, order: 4 },
+  payouts: { side: 1, reach: 1, fy: 0.62, rot: -8, scale: 1.08, order: 5 },
+  subscribers: { side: -1, reach: 0.3, fy: 0.88, rot: -6, scale: 1.1, order: 6 },
+  wallet: { side: 1, reach: 0.35, fy: 0.9, rot: 14, scale: 1.08, order: 7 },
+  chart: { side: 1, reach: 0.15, fy: 0.3, rot: 13, scale: 1.1, order: 8 },
 };

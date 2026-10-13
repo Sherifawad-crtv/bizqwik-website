@@ -59,7 +59,7 @@ export const PhoneMockup = forwardRef<HTMLDivElement, { alt: string }>(function 
 
       {/* Pieces: above the frame, never clipped */}
       <div className="absolute" style={screenBox} aria-hidden>
-        <div data-design className="origin-top-left" style={{ width: DESIGN.w, height: DESIGN.h, transform: "scale(var(--k))" }}>
+        <div data-design className="relative origin-top-left" style={{ width: DESIGN.w, height: DESIGN.h, transform: "scale(var(--k))" }}>
           <FounderPieces />
         </div>
       </div>

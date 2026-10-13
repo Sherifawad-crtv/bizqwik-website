@@ -2,14 +2,13 @@
 
 import { useEffect, useRef } from "react";
 import { Button } from "@/components/ui/Button";
-import { Icon, type IconName } from "@/components/ui/Icon";
-import { appSummaries, cta, hero } from "@/content";
+import { cta, hero } from "@/content";
 import { ScrollTrigger } from "@/motion/gsap";
 import { initHeroMotion } from "./hero-motion";
 import { PhoneMockup } from "./PhoneMockup";
 
 /**
- * Hero: promise + CTAs above, an empty phone below it bleeding off the bottom,
+ * Hero: title, subtitle and two CTAs above, an empty phone below it bleeding off the bottom,
  * the founder-home UI scattered around it. Scrolling pins the section and
  * assembles the screen (see hero-motion.ts).
  */
@@ -37,10 +36,9 @@ export function Hero() {
         data-hero-text
         className="relative z-10 mx-auto flex max-w-4xl flex-col items-center px-5 pt-[calc(76px+clamp(8px,2.6svh,36px))] text-center"
       >
-        <p className="font-mono text-label font-bold uppercase text-primary-pressed">{hero.eyebrow}</p>
         <h1
           id="hero-title"
-          className="mt-3 text-[clamp(2.75rem,1rem+4.3vw,5.25rem)] font-extrabold leading-[0.98] tracking-[-0.035em] text-balance"
+          className="text-[clamp(2.75rem,1rem+4.3vw,5.25rem)] font-extrabold leading-[0.98] tracking-[-0.035em] text-balance"
         >
           <span className="block">{hero.headline.line1}</span>
           <span className="block">
@@ -60,18 +58,6 @@ export function Hero() {
           <Button href={cta.secondary.href} size="lg" variant="secondary">
             {cta.secondary.label}
           </Button>
-        </div>
-        <p className="mt-3 font-mono text-[12px] uppercase tracking-[0.06em] text-ink-muted">{hero.finePrint}</p>
-
-        <div className="mt-5 hidden items-center gap-4 [@media(min-height:900px)]:flex" aria-label={hero.proofLabel}>
-          <ul className="flex gap-2">
-            {appSummaries.map((a) => (
-              <li key={a.id} className="grid size-11 place-items-center rounded-tile bg-primary-tint text-primary-pressed">
-                <Icon name={a.icon as IconName} size={22} />
-              </li>
-            ))}
-          </ul>
-          <span className="font-mono text-label font-bold uppercase text-ink-muted">{hero.proofLabel}</span>
         </div>
       </div>
 

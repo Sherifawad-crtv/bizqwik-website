@@ -15,7 +15,6 @@ const glass = "bg-surface/70 backdrop-blur-xl backdrop-saturate-150 shadow-float
 
 export function Navbar() {
   const header = useRef<HTMLElement>(null);
-  const outer = useRef<HTMLDivElement>(null);
   const bar = useRef<HTMLDivElement>(null);
   const logo = useRef<HTMLAnchorElement>(null);
   const wordmark = useRef<HTMLSpanElement>(null);
@@ -33,7 +32,6 @@ export function Navbar() {
   useEffect(() => {
     const refs = {
       header: header.current,
-      outer: outer.current,
       bar: bar.current,
       logo: logo.current,
       wordmark: wordmark.current,
@@ -129,13 +127,13 @@ export function Navbar() {
       </a>
 
       <header ref={header} className="pointer-events-none fixed inset-x-0 top-0 z-50 px-4 pt-3.5 lg:px-8 lg:pt-5">
-        <div ref={outer} className="mx-auto max-w-page">
+        <div className="mx-auto max-w-page">
           <div
             ref={bar}
-            className={`pointer-events-auto relative mx-auto flex h-16 w-full items-center justify-between rounded-[28px] pl-5 pr-2 lg:h-14 lg:rounded-none lg:bg-transparent lg:p-0 lg:shadow-none lg:backdrop-blur-none ${glass}`}
+            className={`pointer-events-auto relative mx-auto flex h-16 w-full items-center justify-between rounded-[28px] pl-5 pr-2 lg:h-14 lg:justify-center lg:rounded-none lg:bg-transparent lg:p-0 lg:shadow-none lg:backdrop-blur-none ${glass}`}
           >
             {/* Logo: wordmark (wide) → emblem tile (narrow, desktop). */}
-            <a ref={logo} href="#top" aria-label="Bizqwik, back to top" className="relative block h-14 w-[132px] shrink-0 lg:w-[148px]">
+            <a ref={logo} href="#top" aria-label="Bizqwik, back to top" className="relative block h-14 w-[132px] shrink-0 lg:absolute lg:left-0 lg:top-0 lg:w-[148px]">
               <span ref={wordmark} className="absolute inset-y-0 left-0 flex items-center">
                 <Image src="/brand/wordmark.png" alt="Bizqwik" width={1712} height={396} priority className="h-[30px] w-auto lg:h-[34px]" />
               </span>
@@ -183,7 +181,7 @@ export function Navbar() {
             </nav>
 
             {/* Desktop CTA */}
-            <div ref={cta_} className="hidden lg:block">
+            <div ref={cta_} className="hidden lg:absolute lg:right-0 lg:top-0 lg:block">
               <Button href={cta.primary.href}>{cta.primary.label}</Button>
             </div>
 
