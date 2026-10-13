@@ -73,11 +73,7 @@
   --breakpoint-lg: 64rem; /* 1024 — real layout swap */
   --breakpoint-xl: 80rem; /* 1280 */
 
-  /* ---- Motion (brief §3.8 defaults; direction pending) ---- */
-  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
-  --duration-reveal: 350ms;
-  --reveal-distance: 16px;
-  --stagger: 60ms;
+  /* Motion tokens live in src/motion/tokens.ts (GSAP needs numbers, not CSS vars). */
 }
 
 /* Font families are set by next/font in src/app/fonts.ts (self-hosted). */

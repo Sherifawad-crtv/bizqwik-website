@@ -1,11 +1,12 @@
 import type { Metadata, Viewport } from "next";
+import { SmoothScroll } from "@/motion/SmoothScroll";
 import { spaceMono, urbanist } from "./fonts";
+import { seo } from "@/content";
 import "../styles/globals.css";
 
 export const metadata: Metadata = {
-  title: "Bizqwik | One ecosystem. Your whole community.",
-  description:
-    "Five connected apps run your gym: founder, accountant, front desk, coaches and a branded client app. Plans from 1,290 EGP a month.",
+  title: seo.title,
+  description: seo.description,
   icons: {
     icon: [
       { url: "/favicon-32.png", sizes: "32x32", type: "image/png" },
@@ -26,7 +27,10 @@ export const viewport: Viewport = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className={`${urbanist.variable} ${spaceMono.variable}`}>
-      <body>{children}</body>
+      <body>
+        <SmoothScroll />
+        {children}
+      </body>
     </html>
   );
 }

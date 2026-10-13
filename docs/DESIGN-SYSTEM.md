@@ -48,9 +48,17 @@ Content max `max-w-page` (1280). Section padding 120px desktop / 72px mobile.
 Breakpoints: 768 (`sm`), 1024 (`lg`, real layout swap), 1280 (`xl`).
 Gutters 16–20px mobile, 28–32px desktop. Touch targets >= 44px.
 
-## Motion (defaults from brief §3.8, pending direction)
-`--ease-out`, `--duration-reveal` 350ms, `--reveal-distance` 16px,
-`--stagger` 60ms. Everything respects `prefers-reduced-motion`.
+## Motion
+GSAP + ScrollTrigger + SplitText (SplitText is free in GSAP 3.13+) with Lenis
+smooth scroll. Ambition: Awwwards-level, scroll-driven, cinematic.
+- All durations, eases, staggers and the Lenis feel live in `src/motion/tokens.ts`.
+- Plugins are registered once in `src/motion/gsap.ts`; import `gsap`,
+  `ScrollTrigger`, `SplitText` from there only.
+- `src/motion/SmoothScroll.tsx` (mounted in the root layout) runs Lenis off
+  GSAP's ticker so scroll and ScrollTrigger share one clock. Anchor links are
+  offset for the sticky nav.
+- Reduced motion: Lenis is not started (native scroll). Every animation must
+  also provide an instant, no-movement state.
 
 ## Assets
 `public/brand/wordmark.png`, `public/brand/mark.png`: use as supplied, light

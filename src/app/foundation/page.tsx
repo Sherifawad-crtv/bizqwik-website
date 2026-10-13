@@ -87,8 +87,8 @@ export default function Foundation() {
         <h1 className="mt-4 text-h1 font-extrabold">Tokens, type and shape.</h1>
         <p className="mt-6 max-w-2xl text-body text-ink-muted">
           Ported from the app repo and the landing brief. Reviewed here, defined in{" "}
-          <code className="font-mono text-[0.8em]">src/styles/tokens.css</code>. Layout, imagery and motion
-          wait for design direction.
+          <code className="font-mono text-[0.8em]">src/styles/tokens.css</code>. Motion lives in{" "}
+          <code className="font-mono text-[0.8em]">src/motion/</code> (GSAP + Lenis).
         </p>
       </header>
 

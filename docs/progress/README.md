@@ -19,3 +19,4 @@ Convention (same as the app repo, `Sherifawad-crtv/bizqwik`):
 | # | Date | Entry |
 |---|---|---|
 | 0001 | 2026-10-13 | [Foundation: scaffold, fonts, tokens](0001-2026-10-13-foundation.md) |
+| 0002 | 2026-10-13 | [Content layer + motion foundation](0002-2026-10-13-content-and-motion.md) |
