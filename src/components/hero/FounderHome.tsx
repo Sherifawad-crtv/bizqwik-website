@@ -1,3 +1,4 @@
+import Image from "next/image";
 import type { ReactNode } from "react";
 import { Icon, type IconName } from "@/components/ui/Icon";
 import { founderDemo as d } from "@/content/demoApp";
@@ -117,9 +118,8 @@ export function FounderPieces() {
         <Piece id="greeting" className="text-[28px] font-extrabold leading-[1.15] tracking-[-.02em]">
           {d.greeting}
         </Piece>
-        <Piece id="avatar" className="relative grid size-16 shrink-0 place-items-center rounded-full text-[22px] font-extrabold text-surface">
-          <span className="absolute inset-0 rounded-full" style={{ background: "linear-gradient(135deg,#7b5cff,#4a2fe0)" }} />
-          <span className="relative">{d.initials}</span>
+        <Piece id="avatar" className="relative size-16 shrink-0 overflow-hidden rounded-full">
+          <Image src={d.avatar} alt="" width={64} height={64} unoptimized priority className="size-full object-cover" />
         </Piece>
       </div>
 

@@ -6,7 +6,7 @@
  */
 export const founderDemo = {
   greeting: "Hi, Karim",
-  initials: "KA",
+  avatar: "/demo/founder-avatar.webp", // 256px WebP, shown at 64pt
   ranges: ["Month", "3M", "6M", "12M"],
   activeRange: "Month",
   caption: "Oct 2026",

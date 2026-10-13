@@ -23,3 +23,4 @@ Convention (same as the app repo, `Sherifawad-crtv/bizqwik`):
 | 0003 | 2026-10-13 | [Navbar: wide ⇄ narrow, mobile pill + sheet](0003-2026-10-13-navbar.md) |
 | 0004 | 2026-10-13 | [Hero: pinned scatter-to-dock phone](0004-2026-10-13-hero.md) |
 | 0005 | 2026-10-13 | [Hero decluttered, true-size screen, navbar centred and post-hero](0005-2026-10-13-hero-fixes.md) |
+| 0006 | 2026-10-13 | [Founder avatar photo](0006-2026-10-13-founder-avatar.md) |
