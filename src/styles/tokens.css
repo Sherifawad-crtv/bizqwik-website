@@ -1,0 +1,97 @@
+/*
+ * Bizqwik design tokens — the single source of truth for the website.
+ *
+ * Ported from the app repo (Sherifawad-crtv/bizqwik, src/index.css "Foundation
+ * tokens") and cross-checked against BIZQWIK_LANDING_PAGE_BRIEF.md §3. Every
+ * value is a CSS variable, so a rebrand or a dark section is a one-file change.
+ * Tailwind v4 turns each --color-*, --radius-*, --shadow-*, --text-* into a
+ * utility (bg-paper, rounded-card, shadow-card, text-h1 ...).
+ *
+ * Changing a token? Add a line to docs/progress/ and update docs/DESIGN-SYSTEM.md.
+ */
+
+@theme {
+  /* ---- Colour: surfaces and ink ---- */
+  --color-paper: #f3f2ee; /* page background */
+  --color-surface: #fbfaf7; /* cards — never pure white */
+  --color-sunken: #ecebe5; /* wells, tags, selector background */
+  --color-line: #e3e1da; /* hairlines */
+  --color-ink: #1a1726; /* main text */
+  --color-ink-muted: #6c687a; /* secondary text */
+  --color-ink-faint: #9a96a6; /* decorative only — fails contrast for text */
+
+  /* ---- Colour: primary violet ---- */
+  --color-primary: #5a41ff; /* key numbers, highlighted plan, primary actions */
+  --color-primary-pressed: #4832d6; /* hover/pressed, small violet text */
+  --color-primary-tint: rgb(90 65 255 / 0.1); /* icon tiles, soft containers */
+  --color-primary-tint-strong: rgb(90 65 255 / 0.12);
+  --color-primary-light: #a193ff; /* secondary accent, aesthetics only */
+  --color-primary-dark: #2e1f99;
+
+  /* ---- Colour: status / tags ---- */
+  --color-amber-fg: #946200;
+  --color-amber-bg: #f6e7c4; /* "Scale plan only" tags */
+  --color-green-fg: #177a4b;
+  --color-green-bg: #d8efe0; /* included ticks */
+  --color-danger-fg: #b23a3a;
+  --color-danger-bg: #f6dedc;
+
+  /* ---- Radius ---- */
+  --radius-tile: 16px; /* small tiles 16–20 */
+  --radius-input: 20px;
+  --radius-button: 24px;
+  --radius-card: 28px; /* cards 28–32 */
+  --radius-card-lg: 32px;
+
+  /* ---- Elevation ---- */
+  --shadow-card: 0 1px 2px rgb(26 23 38 / 0.04), 0 8px 24px -12px rgb(26 23 38 / 0.1);
+  --shadow-float: 0 14px 34px rgb(26 23 38 / 0.18);
+  --shadow-glow: 0 24px 60px -16px rgb(90 65 255 / 0.45); /* Grow card only */
+
+  /* ---- Typography scale (desktop → mobile, fluid) ---- */
+  --text-h1: clamp(2.75rem, 1.2rem + 6.4vw, 6.5rem);
+  --text-h1--line-height: 0.98;
+  --text-h1--letter-spacing: -0.035em;
+  --text-h1--font-weight: 800;
+  --text-h2: clamp(2.25rem, 0.9rem + 5.4vw, 6rem);
+  --text-h2--line-height: 1;
+  --text-h2--letter-spacing: -0.03em;
+  --text-h2--font-weight: 800;
+  --text-h3: clamp(1.375rem, 1rem + 1.6vw, 2.125rem);
+  --text-h3--line-height: 1.15;
+  --text-h3--letter-spacing: -0.02em;
+  --text-h3--font-weight: 700;
+  --text-body: clamp(1.0625rem, 0.9rem + 0.6vw, 1.625rem);
+  --text-body--line-height: 1.45;
+  --text-label: clamp(0.75rem, 0.7rem + 0.2vw, 1rem);
+  --text-label--line-height: 1.3;
+  --text-label--letter-spacing: 0.08em;
+
+  /* ---- Layout ---- */
+  --container-page: 80rem; /* 1280 content max-width */
+  --breakpoint-sm: 48rem; /* 768 */
+  --breakpoint-lg: 64rem; /* 1024 — real layout swap */
+  --breakpoint-xl: 80rem; /* 1280 */
+
+  /* ---- Motion (brief §3.8 defaults; direction pending) ---- */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --duration-reveal: 350ms;
+  --reveal-distance: 16px;
+  --stagger: 60ms;
+}
+
+/* Font families are set by next/font in src/app/fonts.ts (self-hosted). */
+@theme inline {
+  --font-sans: var(--font-urbanist), system-ui, sans-serif;
+  --font-mono: var(--font-space-mono), ui-monospace, monospace;
+}
+
+/* Non-utility tokens (gradients can't be @theme colours). */
+:root {
+  --gradient-mark: linear-gradient(135deg, #7b5cff, #4a2fe0); /* emblem only */
+  --gradient-grow: linear-gradient(160deg, #6a52ff, #5a41ff 45%, #4c34e6); /* Grow card only */
+  --wash-violet: radial-gradient(closest-side, rgb(90 65 255 / 0.07), transparent); /* 5–7% section wash */
+
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+}

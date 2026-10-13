@@ -1,0 +1,21 @@
+# Progress log
+
+One markdown entry per push, newest number highest. Each entry records **what
+that push changed and why**, plus how it was verified, so a designer or
+developer picking this up can read the history as a narrative.
+
+Convention (same as the app repo, `Sherifawad-crtv/bizqwik`):
+
+- File name: `NNNN-YYYY-MM-DD-short-slug.md` (zero-padded, monotonic).
+- Sections: **What changed**, **Why**, **Verification**, **Open / next**.
+- Entries are point-in-time and never edited after their push. Corrections go
+  in a new entry.
+- Anything that changes a token, a font or a motion rule also updates
+  `docs/DESIGN-SYSTEM.md` in the same push.
+- Decisions that outlive one push go in `docs/DECISIONS.md`.
+
+## Index
+
+| # | Date | Entry |
+|---|---|---|
+| 0001 | 2026-10-13 | [Foundation: scaffold, fonts, tokens](0001-2026-10-13-foundation.md) |

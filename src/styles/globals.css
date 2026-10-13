@@ -1,0 +1,64 @@
+@import "tailwindcss";
+@import "./tokens.css";
+
+@layer base {
+  html {
+    color-scheme: light;
+    background: var(--color-paper);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-text-size-adjust: 100%;
+    scroll-padding-top: 6rem; /* anchored sections clear the sticky nav pill */
+  }
+
+  body {
+    margin: 0;
+    min-height: 100svh;
+    overflow-x: clip; /* no horizontal page scroll, without breaking position: sticky */
+    font-size: var(--text-body);
+    line-height: var(--text-body--line-height);
+  }
+
+  a {
+    color: var(--color-primary-pressed); /* pressed shade for small violet text (6.9:1) */
+    text-decoration: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  /* Visible focus on every control: 3px violet at 40%. */
+  :focus-visible {
+    outline: 3px solid rgb(90 65 255 / 0.4);
+    outline-offset: 3px;
+  }
+
+  ::selection {
+    background: var(--color-primary-tint-strong);
+  }
+
+  /* Squircle corners where supported (matches the apps); plain radius elsewhere. */
+  [data-sq] {
+    corner-shape: squircle;
+  }
+}
+
+@layer utilities {
+  .tabular {
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+/* Reduced motion: no movement, instant states (brief §3.8, §11). */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
