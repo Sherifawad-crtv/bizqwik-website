@@ -31,6 +31,4 @@ export const smoothScroll = {
   /** 0–1: lower = heavier, more cinematic glide. */
   lerp: 0.085,
   wheelMultiplier: 1,
-  /** Offset so anchored sections clear the sticky nav pill. */
-  anchorOffset: -96,
 } as const;

@@ -4,6 +4,7 @@ import Lenis from "lenis";
 import "lenis/dist/lenis.css";
 import { useEffect } from "react";
 import { gsap, ScrollTrigger } from "./gsap";
+import { setLenis } from "./lenis";
 import { smoothScroll } from "./tokens";
 
 /**
@@ -22,8 +23,10 @@ export function SmoothScroll() {
         autoRaf: false,
         lerp: smoothScroll.lerp,
         wheelMultiplier: smoothScroll.wheelMultiplier,
-        anchors: { offset: smoothScroll.anchorOffset },
+        // Anchor offset comes from `scroll-padding-top` in globals.css (Lenis honours it).
+        anchors: true,
       });
+      setLenis(lenis);
       lenis.on("scroll", ScrollTrigger.update);
       tick = (time) => lenis?.raf(time * 1000);
       gsap.ticker.add(tick);
@@ -33,6 +36,7 @@ export function SmoothScroll() {
     const stop = () => {
       if (tick) gsap.ticker.remove(tick);
       lenis?.destroy();
+      setLenis(null);
       lenis = null;
       tick = null;
     };

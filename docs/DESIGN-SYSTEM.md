@@ -60,6 +60,25 @@ smooth scroll. Ambition: Awwwards-level, scroll-driven, cinematic.
 - Reduced motion: Lenis is not started (native scroll). Every animation must
   also provide an instant, no-movement state.
 
+## Navbar (reference: Nefin nav screenshots, restyled in our tokens)
+Code: `src/components/nav/` (`Navbar.tsx` markup + state, `motion.ts` GSAP).
+- **Desktop (>= 1024px)**, three free-floating pieces, no bar background.
+  *Wide* (scroll 0): wordmark left, glass link pill centred, violet "Talk to us"
+  right, spread across the 1280 container. *Narrow* (scrolled 160px): one
+  centred cluster, the wordmark becomes the emblem tile; 12px gaps.
+  The change is scrubbed to scroll (0.6s smoothing) both ways.
+- **Mobile (< 1024px)**: one glass pill, wordmark left, rounded-square menu
+  button right. On scroll it insets 24px, slims 64 to 56px and rises. The button
+  opens a glass sheet: four links (staggered in), Talk to us, phone, email.
+  Scroll is locked (Lenis stop) while open; Escape and any link close it.
+- **Active link**: sliding Surface indicator + violet dot, driven by
+  IntersectionObserver over `#apps #plans #add-ons #faq` (hidden at the top).
+- **Glass**: `bg-surface/70 backdrop-blur-xl backdrop-saturate-150 shadow-float`.
+- Reduced motion: both states switch instantly at the halfway point (80px).
+- Skip link is first in the tab order. Anchors clear the nav via
+  `scroll-padding-top: 6rem` (Lenis honours it; do not also set a Lenis offset).
+- `ui/Button.tsx`: link-as-button (`primary` violet, `secondary` surface).
+
 ## Assets
 `public/brand/wordmark.png`, `public/brand/mark.png`: use as supplied, light
 backgrounds only, never recolour or stretch. Fonts: `src/assets/fonts/`.

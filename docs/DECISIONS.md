@@ -27,3 +27,8 @@ Append-only. One line of context, the decision, and the date.
 - **D-009 (2026-10-13) Content lives in typed files** (`src/content/`), never in
   components. `npm run check:content` guards the hard rules (prices, Enterprise
   has no number, one badge, no prices on add-ons, no forbidden claims).
+- **D-010 (2026-10-13) Navbar follows the reference's two-state behaviour**
+  (wide at top, narrow cluster when scrolled; single glass pill on mobile) in
+  our light/violet identity. Scrubbed to scroll, not toggled. Solar icons are
+  not installed yet: the menu button is drawn in CSS; add `@solar-icons/react`
+  with the sections that need it.

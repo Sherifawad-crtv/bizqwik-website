@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from "next";
+import { Navbar } from "@/components/nav/Navbar";
 import { SmoothScroll } from "@/motion/SmoothScroll";
 import { spaceMono, urbanist } from "./fonts";
 import { seo } from "@/content";
@@ -29,6 +30,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en" className={`${urbanist.variable} ${spaceMono.variable}`}>
       <body>
         <SmoothScroll />
+        <Navbar />
         {children}
       </body>
     </html>
