@@ -24,3 +24,4 @@ Convention (same as the app repo, `Sherifawad-crtv/bizqwik`):
 | 0004 | 2026-10-13 | [Hero: pinned scatter-to-dock phone](0004-2026-10-13-hero.md) |
 | 0005 | 2026-10-13 | [Hero decluttered, true-size screen, navbar centred and post-hero](0005-2026-10-13-hero-fixes.md) |
 | 0006 | 2026-10-13 | [Founder avatar photo](0006-2026-10-13-founder-avatar.md) |
+| 0007 | 2026-10-13 | [New hero headline](0007-2026-10-13-headline.md) |

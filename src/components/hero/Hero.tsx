@@ -34,11 +34,11 @@ export function Hero() {
     >
       <div
         data-hero-text
-        className="relative z-10 mx-auto flex max-w-4xl flex-col items-center px-5 pt-[calc(76px+clamp(8px,2.6svh,36px))] text-center"
+        className="relative z-10 mx-auto flex max-w-6xl flex-col items-center px-5 pt-[calc(76px+clamp(8px,2.6svh,36px))] text-center"
       >
         <h1
           id="hero-title"
-          className="text-[clamp(2.75rem,1rem+4.3vw,5.25rem)] font-extrabold leading-[0.98] tracking-[-0.035em] text-balance"
+          className="text-[clamp(2.5rem,0.8rem+4vw,4.75rem)] font-extrabold leading-[0.98] tracking-[-0.035em] text-balance"
         >
           <span className="block">{hero.headline.line1}</span>
           <span className="block">

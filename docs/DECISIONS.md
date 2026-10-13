@@ -50,3 +50,8 @@ Append-only. One line of context, the decision, and the date.
   from layout, never hand-placed. Supersedes the 390px design space of D-012.
 - **D-016 (2026-10-13) The navbar's centre pill is fixed;** only the logo and CTA move
   to it, and only after the hero's pin ends.
+- **D-017 (2026-10-13) Hero headline is "One ecosystem. / Declutter your community ops."**
+  (by direction; replaces the brief's FINAL "One ecosystem. Your whole community.").
+  "community ops." carries the highlighter underline. The page title/description in
+  `content/site.ts`, `brand.tagline` and the Contact lede still use the old line; they
+  are separate pieces of copy and were not changed.
