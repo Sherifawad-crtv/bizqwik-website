@@ -2,7 +2,7 @@ import { gsap, ScrollTrigger } from "@/motion/gsap";
 import { DESIGN, FRAME_MARGIN, SCATTER, SCREEN, type PieceId } from "./phone";
 
 /** Scroll distance of the pinned hero, in viewport heights. */
-const PIN_VH = 2.2;
+const PIN_VH = 1.9;
 /** Where the phone's top edge ends up (px from viewport top): just below the navbar. */
 const END_TOP = 96;
 /** Other code (the navbar) reads when the hero ends through this id. */
@@ -70,9 +70,8 @@ export function initHeroMotion(root: HTMLElement): () => void {
     const ordered = (Object.keys(SCATTER) as (keyof typeof SCATTER)[]).sort((a, b) => SCATTER[a].order - SCATTER[b].order);
 
     // Manual faces are centred on their piece; the timeline morphs them into the Bizqwik face.
-    // Each manual face gets the order card's 1px hairline (transparent for now) so it can become that card.
     const chaosFaces = all<HTMLElement>("[data-chaos]");
-    gsap.set(chaosFaces, { xPercent: -50, yPercent: -50, borderWidth: 1, borderStyle: "solid", borderColor: "rgba(227,225,218,0)" });
+    gsap.set(chaosFaces, { xPercent: -50, yPercent: -50 });
 
     count.textContent = fmt(0);
 
@@ -83,62 +82,37 @@ export function initHeroMotion(root: HTMLElement): () => void {
       .to(fade, { autoAlpha: 0, duration: 0.4 }, 0.3)
       .fromTo(screen, { backgroundColor: css.getPropertyValue("--color-surface") }, { backgroundColor: css.getPropertyValue("--color-paper"), duration: 0.3 }, 0.2);
 
-    // Morph timings, in timeline units (the whole timeline is ~1.2 long).
-    const MORPH = 0.55; // length of one piece's transformation
     ordered.forEach((id, i) => {
-      const t0 = 0.02 + i * 0.04;
+      const t0 = 0.02 + i * 0.045;
       // Flight. Function values: re-measured on every ScrollTrigger refresh (resize, font load).
       const from = { x: () => scatter(id).x, y: () => scatter(id).y, rotation: SCATTER[id].rot, scale: () => scatter(id).scale };
       tl.fromTo(piece(id), from, { x: 0, y: 0, rotation: 0, scale: 1, ease: "power3.inOut", duration: 0.5 }, t0);
 
+      // Morph, mid-flight: the manual thing reshapes into the card, and dissolves into its Bizqwik face.
       const order = piece(id).querySelector<HTMLElement>("[data-order]")!;
       const chaos = piece(id).querySelector<HTMLElement>("[data-chaos]");
       if (!chaos) return;
-
-      /*
-       * The manual thing BECOMES the empty app card, then the app's content arrives under it:
-       *  1. shape, corners, tilt, colour, edge and shadow tween into the card's;
-       *  2. its own contents fade out early, while it is still solid paper;
-       *  3. the Bizqwik face fades in underneath the nearly finished card;
-       *  4. only then does the shell dissolve, so there is never a see-through moment.
-       */
-      const m0 = t0 + 0.08;
       const radius = `${Math.min(parseFloat(getComputedStyle(order).borderTopLeftRadius) || 0, 9999)}px`;
-      const startBg = getComputedStyle(chaos).backgroundColor;
-      const startShadow = getComputedStyle(chaos).boxShadow;
-      const noShadow = startShadow.replace(/rgba?\([^)]*\)/g, "rgba(26, 23, 38, 0)").replace(/-?\d+(\.\d+)?px/g, "0px");
-
       tl.fromTo(
         chaos,
-        { autoAlpha: 1, rotation: Number(chaos.dataset.rot), backgroundColor: startBg, boxShadow: startShadow },
-        {
-          rotation: 0,
-          width: () => order.offsetWidth,
-          height: () => order.offsetHeight,
-          borderRadius: radius,
-          backgroundColor: css.getPropertyValue("--color-surface"),
-          borderColor: css.getPropertyValue("--color-line"),
-          boxShadow: noShadow,
-          ease: "power3.inOut",
-          duration: MORPH * 0.8,
-        },
-        m0,
-      )
-        .to(chaos.firstElementChild, { autoAlpha: 0, ease: "power1.in", duration: MORPH * 0.4 }, m0)
-        .fromTo(order, { autoAlpha: 0, scale: 0.985 }, { autoAlpha: 1, scale: 1, ease: "power2.out", duration: MORPH * 0.4 }, m0 + MORPH * 0.5)
-        .to(chaos, { autoAlpha: 0, ease: "none", duration: MORPH * 0.15 }, m0 + MORPH * 0.85);
-
-      if (chaos.dataset.torn !== undefined) tl.fromTo(chaos, { maskSize: "14px 100%" }, { maskSize: "1px 100%", ease: "power2.inOut", duration: MORPH * 0.6 }, m0);
+        { autoAlpha: 1, rotation: Number(chaos.dataset.rot), filter: "blur(0px)" },
+        { autoAlpha: 0, rotation: 0, width: () => order.offsetWidth, height: () => order.offsetHeight, borderRadius: radius, filter: "blur(7px)", ease: "power2.inOut", duration: 0.3 },
+        t0 + 0.16,
+      ).fromTo(
+        order,
+        { autoAlpha: 0, filter: "blur(8px)", scale: 0.94 },
+        { autoAlpha: 1, filter: "blur(0px)", scale: 1, ease: "power2.out", duration: 0.28 },
+        t0 + 0.24,
+      );
     });
     // Bottom bar rises in from below the screen: nav pill, then its sibling FAB.
-    tl.fromTo(piece("nav"), { y: 160, autoAlpha: 0 }, { y: 0, autoAlpha: 1, ease: "power3.out", duration: 0.35 }, 0.78)
-      .fromTo(piece("fab"), { y: 160, autoAlpha: 0 }, { y: 0, autoAlpha: 1, ease: "power3.out", duration: 0.35 }, 0.84)
-      .fromTo(chrome, { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.25 }, 0.7)
-      // Bars grow once the chart's own face is in (the spreadsheet has fully become the card).
-      .fromTo(bars, { scaleY: 0, transformOrigin: "50% 100%" }, { scaleY: 1, ease: "power2.out", duration: 0.25, stagger: 0.015 }, 0.84);
+    tl.fromTo(piece("nav"), { y: 160, autoAlpha: 0 }, { y: 0, autoAlpha: 1, ease: "power3.out", duration: 0.3 }, 0.6)
+      .fromTo(piece("fab"), { y: 160, autoAlpha: 0 }, { y: 0, autoAlpha: 1, ease: "power3.out", duration: 0.3 }, 0.66)
+      .fromTo(chrome, { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.2 }, 0.6)
+      .fromTo(bars, { scaleY: 0, transformOrigin: "50% 100%" }, { scaleY: 1, ease: "power2.out", duration: 0.28, stagger: 0.02 }, 0.62);
 
     const counter = { v: 0 };
-    tl.to(counter, { v: target, ease: "power2.out", duration: 0.5, onUpdate: () => (count.textContent = fmt(Math.round(counter.v))) }, 0.6);
+    tl.to(counter, { v: target, ease: "power2.out", duration: 0.45, onUpdate: () => (count.textContent = fmt(Math.round(counter.v))) }, 0.5);
 
     ScrollTrigger.create({
       id: HERO_PIN_ID,

@@ -97,14 +97,9 @@ pieces, `phone.ts` geometry + piece table, `hero-motion.ts` GSAP).
   and FAB have no manual face; they rise in from below at the end.
 - **Manual to Bizqwik morph:** every piece has two faces. `Chaos.tsx` holds the manual
   ones (HTML/CSS, off-brand on purpose: warm paper, Excel green, kraft, handwriting);
-  `FounderHome.tsx` holds the Bizqwik ones. The manual thing *becomes* the empty app card:
-  (1) size, corner radius, tilt, colour, hairline edge and shadow tween into the card's
-  (the receipt's torn edge straightens); (2) its own contents fade out early, while it is
-  still solid; (3) the Bizqwik face fades in underneath the nearly finished card; (4) only
-  then does the shell dissolve, so a piece is never see-through. Cards therefore land as
-  quiet blank shells and the app content arrives into them. No blur (cheaper to render).
-  Knobs in `hero-motion.ts`: `MORPH` (one piece's length), `t0` stagger (0.04), `m0` offset
-  (+0.08), and `PIN_VH` (scroll length, 2.2 viewport heights).
+  `FounderHome.tsx` holds the Bizqwik ones. Mid-flight the manual face reshapes to the
+  card's size and radius, straightens, blurs out, while the Bizqwik face blurs in
+  (`hero-motion.ts`, offsets `t0 + 0.16` and `t0 + 0.24`).
 
 | Piece | Manual face | Becomes |
 |---|---|---|
@@ -121,7 +116,7 @@ pieces, `phone.ts` geometry + piece table, `hero-motion.ts` GSAP).
 To add or change a prop: edit its component in `Chaos.tsx` (each is `w`, `h`, tilt and
 content) and pass it as `chaos=` to the piece in `FounderHome.tsx`. Handwriting is Caveat
 600 (`src/assets/fonts/caveat-600.woff2`, 18 KB ASCII subset), `font-hand`.
-- **Scroll (pinned for 2.2 viewport heights, scrubbed 0.7s):** text drifts up and out,
+- **Scroll (pinned for 1.9 viewport heights, scrubbed 0.7s):** text drifts up and out,
   phone rises under the navbar, pieces fly in and dock one after another, then the
   status bar, nav pill, chart bars and the revenue count-up finish the screen.
 - **The screen is real UI at true device size:** an iPhone Pro Max screen is
