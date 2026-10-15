@@ -21,3 +21,12 @@ export const spaceMono = localFont({
   display: "swap",
   preload: false, // labels sit below the fold's first line; Urbanist is the critical file
 });
+
+/** Handwriting for the hero's "manual process" props (sticky notes, ledger). 600 weight, ASCII subset (18 KB). */
+export const caveat = localFont({
+  src: "../assets/fonts/caveat-600.woff2",
+  weight: "600",
+  variable: "--font-caveat",
+  display: "swap",
+  preload: false,
+});

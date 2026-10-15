@@ -92,9 +92,30 @@ pieces, `phone.ts` geometry + piece table, `hero-motion.ts` GSAP).
 - **Layout:** only the title (two lines), subtitle and the two CTAs above an empty
   phone that bleeds off the bottom, faded into the page. No eyebrow, fine print or
   proof strip (removed by direction: the hero stays quiet).
-- **Start (scroll 0):** empty phone, eleven founder-home pieces tilted around it
-  (greeting, avatar, range selector, revenue card, four KPI tiles, chart; nav pill
-  and FAB rise in from below at the end).
+- **Start (scroll 0):** empty phone with nine pieces tilted around it, each one the
+  *manual* version of a Bizqwik component (see "Manual to Bizqwik" below). The nav pill
+  and FAB have no manual face; they rise in from below at the end.
+- **Manual to Bizqwik morph:** every piece has two faces. `Chaos.tsx` holds the manual
+  ones (HTML/CSS, off-brand on purpose: warm paper, Excel green, kraft, handwriting);
+  `FounderHome.tsx` holds the Bizqwik ones. Mid-flight the manual face reshapes to the
+  card's size and radius, straightens, blurs out, while the Bizqwik face blurs in
+  (`hero-motion.ts`, offsets `t0 + 0.16` and `t0 + 0.24`).
+
+| Piece | Manual face | Becomes |
+|---|---|---|
+| greeting | sticky note | "Hi, Karim" |
+| avatar | taped photo | round avatar |
+| range | torn month strip, pen-circled | range selector |
+| revenue | thermal receipt | revenue card (count-up) |
+| profit | calculator | profit tile |
+| payouts | handwritten ledger | coach payouts tile |
+| subscribers | clipboard sign-in | subscribers tile |
+| wallet | paper punch card | wallet credit tile |
+| chart | messy spreadsheet | revenue vs payouts chart |
+
+To add or change a prop: edit its component in `Chaos.tsx` (each is `w`, `h`, tilt and
+content) and pass it as `chaos=` to the piece in `FounderHome.tsx`. Handwriting is Caveat
+600 (`src/assets/fonts/caveat-600.woff2`, 18 KB ASCII subset), `font-hand`.
 - **Scroll (pinned for 1.9 viewport heights, scrubbed 0.7s):** text drifts up and out,
   phone rises under the navbar, pieces fly in and dock one after another, then the
   status bar, nav pill, chart bars and the revenue count-up finish the screen.
@@ -113,7 +134,7 @@ pieces, `phone.ts` geometry + piece table, `hero-motion.ts` GSAP).
   real layout (`offsetLeft/Top`); `SCATTER` in `phone.ts` only holds side, reach,
   height, tilt, scale and order. Positions are re-derived at every refresh, and shrink
   on narrow screens so the phone still reads as empty.
-- **Reduced motion:** no pin, no scrub; the finished screen is shown.
+- **Reduced motion:** no pin, no scrub; the finished screen is shown (manual faces stay hidden).
 - To change the vision: edit `SCATTER` (where things start and the settling order),
   `PIN_VH` / `END_TOP` and the timeline offsets in `hero-motion.ts`.
 

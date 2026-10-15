@@ -54,7 +54,7 @@ export interface PieceScatter {
 }
 
 export const SCATTER: Record<Exclude<PieceId, "nav" | "fab">, PieceScatter> = {
-  greeting: { side: -1, reach: 1, fy: 0.04, rot: -8, scale: 1.1, order: 0 },
+  greeting: { side: -1, reach: 0.5, fy: 0.02, rot: -8, scale: 1.1, order: 0 },
   avatar: { side: 1, reach: 0.85, fy: 0.02, rot: 12, scale: 1.1, order: 1 },
   range: { side: 1, reach: 1, fy: 0.08, rot: 7, scale: 1.05, order: 2 },
   revenue: { side: -1, reach: 0.15, fy: 0.22, rot: -11, scale: 1.1, order: 3 },

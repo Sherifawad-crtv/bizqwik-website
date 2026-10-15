@@ -13,8 +13,10 @@ const fmt = (n: number) => n.toLocaleString("en-US");
 /**
  * Pinned hero, scrubbed to scroll:
  *   0 → 1  hero text drifts up and out; the phone rises to centre stage;
- *          the founder-home pieces fly in from tilted scatter positions around
- *          the phone and dock where the real layout puts them; status bar,
+ *          the pieces start as the manual stuff a gym runs on (sticky note,
+ *          receipt, ledger, spreadsheet...), fly in from tilted scatter positions
+ *          and morph mid-flight into the founder-home components, docking where
+ *          the real layout puts them; status bar,
  *          nav pill, FAB, chart bars and the revenue count-up finish the screen.
  * Reduced motion: no pin, no scrub. The finished screen is shown as-is.
  */
@@ -67,6 +69,10 @@ export function initHeroMotion(root: HTMLElement): () => void {
 
     const ordered = (Object.keys(SCATTER) as (keyof typeof SCATTER)[]).sort((a, b) => SCATTER[a].order - SCATTER[b].order);
 
+    // Manual faces are centred on their piece; the timeline morphs them into the Bizqwik face.
+    const chaosFaces = all<HTMLElement>("[data-chaos]");
+    gsap.set(chaosFaces, { xPercent: -50, yPercent: -50 });
+
     count.textContent = fmt(0);
 
     const tl = gsap.timeline({ defaults: { ease: "none" } });
@@ -77,9 +83,27 @@ export function initHeroMotion(root: HTMLElement): () => void {
       .fromTo(screen, { backgroundColor: css.getPropertyValue("--color-surface") }, { backgroundColor: css.getPropertyValue("--color-paper"), duration: 0.3 }, 0.2);
 
     ordered.forEach((id, i) => {
-      // Function values: re-measured on every ScrollTrigger refresh (resize, font load).
+      const t0 = 0.02 + i * 0.045;
+      // Flight. Function values: re-measured on every ScrollTrigger refresh (resize, font load).
       const from = { x: () => scatter(id).x, y: () => scatter(id).y, rotation: SCATTER[id].rot, scale: () => scatter(id).scale };
-      tl.fromTo(piece(id), from, { x: 0, y: 0, rotation: 0, scale: 1, ease: "power3.inOut", duration: 0.5 }, 0.02 + i * 0.045);
+      tl.fromTo(piece(id), from, { x: 0, y: 0, rotation: 0, scale: 1, ease: "power3.inOut", duration: 0.5 }, t0);
+
+      // Morph, mid-flight: the manual thing reshapes into the card, and dissolves into its Bizqwik face.
+      const order = piece(id).querySelector<HTMLElement>("[data-order]")!;
+      const chaos = piece(id).querySelector<HTMLElement>("[data-chaos]");
+      if (!chaos) return;
+      const radius = `${Math.min(parseFloat(getComputedStyle(order).borderTopLeftRadius) || 0, 9999)}px`;
+      tl.fromTo(
+        chaos,
+        { autoAlpha: 1, rotation: Number(chaos.dataset.rot), filter: "blur(0px)" },
+        { autoAlpha: 0, rotation: 0, width: () => order.offsetWidth, height: () => order.offsetHeight, borderRadius: radius, filter: "blur(7px)", ease: "power2.inOut", duration: 0.3 },
+        t0 + 0.16,
+      ).fromTo(
+        order,
+        { autoAlpha: 0, filter: "blur(8px)", scale: 0.94 },
+        { autoAlpha: 1, filter: "blur(0px)", scale: 1, ease: "power2.out", duration: 0.28 },
+        t0 + 0.24,
+      );
     });
     // Bottom bar rises in from below the screen: nav pill, then its sibling FAB.
     tl.fromTo(piece("nav"), { y: 160, autoAlpha: 0 }, { y: 0, autoAlpha: 1, ease: "power3.out", duration: 0.3 }, 0.6)

@@ -80,6 +80,7 @@
 @theme inline {
   --font-sans: var(--font-urbanist), system-ui, sans-serif;
   --font-mono: var(--font-space-mono), ui-monospace, monospace;
+  --font-hand: var(--font-caveat), "Bradley Hand", cursive;
 }
 
 /* Non-utility tokens (gradients can't be @theme colours). */

@@ -1,7 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Navbar } from "@/components/nav/Navbar";
 import { SmoothScroll } from "@/motion/SmoothScroll";
-import { spaceMono, urbanist } from "./fonts";
+import { caveat, spaceMono, urbanist } from "./fonts";
 import { seo } from "@/content";
 import "../styles/globals.css";
 
@@ -27,7 +27,7 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${urbanist.variable} ${spaceMono.variable}`}>
+    <html lang="en" className={`${urbanist.variable} ${spaceMono.variable} ${caveat.variable}`}>
       <body>
         <SmoothScroll />
         <Navbar />

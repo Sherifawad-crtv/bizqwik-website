@@ -58,3 +58,7 @@ Append-only. One line of context, the decision, and the date.
 - **D-018 (2026-10-13) Hero subtitle is "Coach attendance, scheduling, bookings and wallets,
   organized in one place."** (by direction; replaces the brief's "Founder, accountant, front
   desk, coaches and clients, all in sync."). That sentence is no longer used on the page.
+- **D-019 (2026-10-15) The hero pieces morph from manual-process props into the Bizqwik
+  components** (sticky note, receipt, calculator, ledger, clipboard, punch card,
+  spreadsheet...). The story is "Declutter your community ops": the mess becomes the app.
+  Manual faces are HTML/CSS, not images; the hero `alt` text was rewritten to describe this.

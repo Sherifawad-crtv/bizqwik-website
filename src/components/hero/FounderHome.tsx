@@ -2,6 +2,7 @@ import Image from "next/image";
 import type { ReactNode } from "react";
 import { Icon, type IconName } from "@/components/ui/Icon";
 import { founderDemo as d } from "@/content/demoApp";
+import { Calculator, CalendarStrip, Clipboard, Ledger, Polaroid, PunchCard, Receipt, Spreadsheet, StickyNote } from "./Chaos";
 import { DESIGN, SAFE, type PieceId } from "./phone";
 
 /*
@@ -20,10 +21,18 @@ const fmt = (n: number) => n.toLocaleString("en-US");
 const mono11 = "font-mono text-[11px] font-bold tracking-[.08em] text-ink-faint";
 const card = "border border-line bg-surface";
 
-function Piece({ id, className = "", children }: { id: PieceId; className?: string; children: ReactNode }) {
+/**
+ * A piece has an outer layout box (what the app's flow lays out and the timeline moves),
+ * the Bizqwik face (`data-order`) and, optionally, the manual "before" face (`data-chaos`)
+ * that morphs into it.
+ */
+function Piece({ id, outer = "", className = "", chaos, children }: { id: PieceId; outer?: string; className?: string; chaos?: ReactNode; children: ReactNode }) {
   return (
-    <div data-piece={id} className={className}>
-      {children}
+    <div data-piece={id} className={`relative ${outer}`}>
+      <div data-order className={className}>
+        {children}
+      </div>
+      {chaos}
     </div>
   );
 }
@@ -33,11 +42,11 @@ function Delta({ text, tone = "good" }: { text: string; tone?: "good" | "neutral
   return <span className={`tabular shrink-0 whitespace-nowrap rounded-full px-[9px] py-[3px] font-mono text-[11px] font-bold tracking-[.02em] ${cls}`}>{text}</span>;
 }
 
-function Kpi({ id, k }: { id: PieceId; k: (typeof d.kpis)[number] }) {
+function Kpi({ id, k, chaos }: { id: PieceId; k: (typeof d.kpis)[number]; chaos: ReactNode }) {
   const delta = "delta" in k ? k.delta : null;
   const tone = "tone" in k ? k.tone : "good";
   return (
-    <Piece id={id} className={`${card} min-w-0 rounded-[28px] px-4 py-[14px]`}>
+    <Piece id={id} outer="min-w-0" chaos={chaos} className={`${card} h-full rounded-[28px] px-4 py-[14px]`}>
       <div className="flex items-center gap-2">
         <span className="grid size-7 shrink-0 place-items-center rounded-lg bg-primary-tint text-primary-pressed">
           <Icon name={k.icon as IconName} size={16} />
@@ -69,7 +78,7 @@ function Chart() {
   const slot = W / months.length;
   const barW = Math.max(6, Math.min(18, slot / 3));
   return (
-    <Piece id="chart" className={`${card} min-h-0 flex-1 overflow-hidden rounded-2xl px-[18px] py-4`}>
+    <Piece id="chart" outer="min-h-0 flex-1" chaos={<Spreadsheet />} className={`${card} h-full overflow-hidden rounded-2xl px-[18px] py-4`}>
       <div className={`${mono11} uppercase`}>{d.chart.title}</div>
       <div className="mt-0.5 font-mono text-[12px] uppercase text-ink-faint">{d.chart.sub}</div>
       <div className="mt-3.5">
@@ -115,16 +124,16 @@ export function FounderPieces() {
     <div className="absolute inset-0 flex flex-col px-4 pb-[21px]" style={{ paddingTop: 20 + SAFE.top }}>
       {/* HomeAvatar: greeting opposite a 64px avatar, 28px below */}
       <div className="mb-7 flex items-center justify-between gap-3">
-        <Piece id="greeting" className="text-[28px] font-extrabold leading-[1.15] tracking-[-.02em]">
+        <Piece id="greeting" chaos={<StickyNote />} className="text-[28px] font-extrabold leading-[1.15] tracking-[-.02em]">
           {d.greeting}
         </Piece>
-        <Piece id="avatar" className="relative size-16 shrink-0 overflow-hidden rounded-full">
+        <Piece id="avatar" outer="size-16 shrink-0" chaos={<Polaroid />} className="size-full overflow-hidden rounded-full">
           <Image src={d.avatar} alt="" width={64} height={64} unoptimized priority className="size-full object-cover" />
         </Piece>
       </div>
 
       {/* Range selector + caption */}
-      <Piece id="range" className="mb-3 flex items-center gap-2.5">
+      <Piece id="range" outer="mb-3" chaos={<CalendarStrip />} className="flex items-center gap-2.5">
         <div className="flex w-fit gap-1.5 rounded-full bg-sunken p-1">
           {d.ranges.map((r) => (
             <span key={r} className={`whitespace-nowrap rounded-full px-3.5 py-[9px] font-mono text-[12px] font-bold uppercase tracking-[.06em] ${r === d.activeRange ? "bg-surface text-ink" : "text-ink-muted"}`}>
@@ -136,7 +145,7 @@ export function FounderPieces() {
       </Piece>
 
       {/* Revenue hero */}
-      <Piece id="revenue" className={`${card} mb-2.5 rounded-[28px] px-5 pb-[18px] pt-5`}>
+      <Piece id="revenue" outer="mb-2.5" chaos={<Receipt />} className={`${card} rounded-[28px] px-5 pb-[18px] pt-5`}>
         <div className="flex items-center gap-2">
           <span className={`${mono11} uppercase`}>{d.revenue.label}</span>
           <span className="ml-auto">
@@ -151,17 +160,17 @@ export function FounderPieces() {
 
       {/* KPI tiles: auto-fit minmax(150px, 1fr), gap 10 */}
       <div className="mb-3.5 grid grid-cols-2 gap-2.5">
-        <Kpi id="profit" k={d.kpis[0]} />
-        <Kpi id="payouts" k={d.kpis[1]} />
-        <Kpi id="subscribers" k={d.kpis[2]} />
-        <Kpi id="wallet" k={d.kpis[3]} />
+        <Kpi id="profit" k={d.kpis[0]} chaos={<Calculator />} />
+        <Kpi id="payouts" k={d.kpis[1]} chaos={<Ledger />} />
+        <Kpi id="subscribers" k={d.kpis[2]} chaos={<Clipboard />} />
+        <Kpi id="wallet" k={d.kpis[3]} chaos={<PunchCard />} />
       </div>
 
       <Chart />
 
       {/* Fixed bottom bar: 16px sides, 12px + home indicator below, nav pill + 64px FAB, 12px apart */}
       <div className="absolute inset-x-0 flex items-center justify-center gap-3 px-4" style={{ bottom: 12 + SAFE.bottom }}>
-        <Piece id="nav" className="relative flex h-16 items-center gap-1.5 overflow-hidden rounded-full border border-white/55 bg-surface/55 px-1.5 shadow-[0_14px_34px_rgba(26,23,38,.18),inset_0_1px_0_rgba(255,255,255,.7)] backdrop-blur-[28px] backdrop-saturate-[1.8]">
+        <Piece id="nav" outer="shrink-0" className="relative flex h-16 items-center gap-1.5 overflow-hidden rounded-full border border-white/55 bg-surface/55 px-1.5 shadow-[0_14px_34px_rgba(26,23,38,.18),inset_0_1px_0_rgba(255,255,255,.7)] backdrop-blur-[28px] backdrop-saturate-[1.8]">
           <span aria-hidden className="absolute left-1.5 top-[6px] size-[52px] rounded-full bg-primary-tint-strong" />
           {d.nav.map((n, i) => (
             <span key={n.label} className={`relative grid size-[52px] shrink-0 place-items-center rounded-full ${i === 0 ? "text-primary-pressed" : "text-ink-muted"}`}>
@@ -169,7 +178,7 @@ export function FounderPieces() {
             </span>
           ))}
         </Piece>
-        <Piece id="fab" className="grid size-16 shrink-0 place-items-center rounded-full bg-primary text-surface shadow-[0_12px_30px_rgba(90,65,255,.4)]">
+        <Piece id="fab" outer="shrink-0" className="grid size-16 shrink-0 place-items-center rounded-full bg-primary text-surface shadow-[0_12px_30px_rgba(90,65,255,.4)]">
           <Icon name="add" size={28} strokeWidth={2.4} />
         </Piece>
       </div>
