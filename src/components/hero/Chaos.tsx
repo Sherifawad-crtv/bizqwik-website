@@ -19,14 +19,16 @@ interface ChaosProps {
   h: number;
   /** Starting tilt; the morph straightens it. */
   rot: number;
+  /** Has a torn (zigzag) edge made with a CSS mask that the morph straightens. */
+  torn?: boolean;
   className?: string;
   children: ReactNode;
 }
 
 /** The morphing shell: the timeline tweens its size, radius and fade. Content stays at natural size, centred and clipped. */
-function Chaos({ w, h, rot, className = "", children }: ChaosProps) {
+function Chaos({ w, h, rot, torn, className = "", children }: ChaosProps) {
   return (
-    <div data-chaos data-rot={rot} style={{ width: w, height: h }} className={`pointer-events-none invisible absolute left-1/2 top-1/2 overflow-hidden ${className}`}>
+    <div data-chaos data-rot={rot} data-torn={torn ? "" : undefined} style={{ width: w, height: h }} className={`pointer-events-none invisible absolute left-1/2 top-1/2 overflow-hidden ${className}`}>
       <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2" style={{ width: w, height: h }}>
         {children}
       </div>
@@ -75,7 +77,7 @@ export function Receipt() {
     ["CASH ???", "13,800"],
   ];
   return (
-    <Chaos w={152} h={300} rot={5} className={`bg-[#f4f3ee] ${SHADOW} [-webkit-mask:conic-gradient(from_-45deg_at_bottom,#0000,#000_1deg_89deg,#0000_90deg)_50%/14px_100%] [mask:conic-gradient(from_-45deg_at_bottom,#0000,#000_1deg_89deg,#0000_90deg)_50%/14px_100%]`}>
+    <Chaos w={152} h={300} rot={5} torn className={`bg-[#f4f3ee] ${SHADOW} [-webkit-mask:conic-gradient(from_-45deg_at_bottom,#0000,#000_1deg_89deg,#0000_90deg)_50%/14px_100%] [mask:conic-gradient(from_-45deg_at_bottom,#0000,#000_1deg_89deg,#0000_90deg)_50%/14px_100%]`}>
       <div className="px-3.5 pb-6 pt-4 font-mono text-[10px] leading-[1.55] text-[#3b3b3b]">
         <p className="text-center font-bold">BIZ GYM · SALES</p>
         <p className="text-center text-[#8d8d88]">oct — printed 23:41</p>
