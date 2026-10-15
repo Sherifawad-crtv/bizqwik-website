@@ -27,3 +27,4 @@ Convention (same as the app repo, `Sherifawad-crtv/bizqwik`):
 | 0007 | 2026-10-13 | [New hero headline](0007-2026-10-13-headline.md) |
 | 0008 | 2026-10-13 | [New hero subtitle](0008-2026-10-13-subtitle.md) |
 | 0009 | 2026-10-15 | [Hero: manual-to-Bizqwik morph](0009-2026-10-15-hero-morph.md) |
+| 0010 | 2026-10-15 | [Smoother-morph attempt, reverted](0010-2026-10-15-smoother-morph-reverted.md) |
