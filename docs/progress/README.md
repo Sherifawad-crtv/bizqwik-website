@@ -30,3 +30,4 @@ Convention (same as the app repo, `Sherifawad-crtv/bizqwik`):
 | 0010 | 2026-10-15 | [Smoother-morph attempt, reverted](0010-2026-10-15-smoother-morph-reverted.md) |
 | 0011 | 2026-10-16 | [Receipt shadow and polaroid photo morph](0011-2026-10-16-receipt-polaroid.md) |
 | 0012 | 2026-10-16 | [Calculator keys](0012-2026-10-16-calculator-keys.md) |
+| 0013 | 2026-10-16 | [Phone nav pill: glass ready before it shows](0013-2026-10-16-phone-nav-glass.md) |

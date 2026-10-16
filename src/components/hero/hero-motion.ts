@@ -123,8 +123,14 @@ export function initHeroMotion(root: HTMLElement): () => void {
       }
     });
     // Bottom bar rises in from below the screen: nav pill, then its sibling FAB.
-    tl.fromTo(piece("nav"), { y: 160, autoAlpha: 0 }, { y: 0, autoAlpha: 1, ease: "power3.out", duration: 0.3 }, 0.6)
-      .fromTo(piece("fab"), { y: 160, autoAlpha: 0 }, { y: 0, autoAlpha: 1, ease: "power3.out", duration: 0.3 }, 0.66)
+    // The pill's glass is a backdrop-filter, and an ancestor with opacity < 1 is a "backdrop root" that blinds it to
+    // what is behind. So the wrapper only moves; the pill and FAB fade THEMSELVES, and the glass blurs the chart
+    // behind it for the whole fade-in instead of popping in at full opacity.
+    const barFace = (id: PieceId) => piece(id).querySelector<HTMLElement>("[data-order]")!;
+    tl.fromTo(piece("nav"), { y: 160 }, { y: 0, ease: "power3.out", duration: 0.3 }, 0.6)
+      .fromTo(barFace("nav"), { opacity: 0 }, { opacity: 1, ease: "power2.out", duration: 0.3 }, 0.6)
+      .fromTo(piece("fab"), { y: 160 }, { y: 0, ease: "power3.out", duration: 0.3 }, 0.66)
+      .fromTo(barFace("fab"), { opacity: 0 }, { opacity: 1, ease: "power2.out", duration: 0.3 }, 0.66)
       .fromTo(chrome, { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.2 }, 0.6)
       .fromTo(bars, { scaleY: 0, transformOrigin: "50% 100%" }, { scaleY: 1, ease: "power2.out", duration: 0.28, stagger: 0.02 }, 0.62);
 

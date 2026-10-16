@@ -170,7 +170,7 @@ export function FounderPieces() {
 
       {/* Fixed bottom bar: 16px sides, 12px + home indicator below, nav pill + 64px FAB, 12px apart */}
       <div className="absolute inset-x-0 flex items-center justify-center gap-3 px-4" style={{ bottom: 12 + SAFE.bottom }}>
-        <Piece id="nav" outer="shrink-0" className="relative flex h-16 items-center gap-1.5 overflow-hidden rounded-full border border-white/55 bg-surface/55 px-1.5 shadow-[0_14px_34px_rgba(26,23,38,.18),inset_0_1px_0_rgba(255,255,255,.7)] backdrop-blur-[28px] backdrop-saturate-[1.8]">
+        <Piece id="nav" outer="shrink-0 will-change-transform" className="relative flex h-16 will-change-[opacity,transform] items-center gap-1.5 overflow-hidden rounded-full border border-white/55 bg-surface/55 px-1.5 shadow-[0_14px_34px_rgba(26,23,38,.18),inset_0_1px_0_rgba(255,255,255,.7)] backdrop-blur-[28px] backdrop-saturate-[1.8]">
           <span aria-hidden className="absolute left-1.5 top-[6px] size-[52px] rounded-full bg-primary-tint-strong" />
           {d.nav.map((n, i) => (
             <span key={n.label} className={`relative grid size-[52px] shrink-0 place-items-center rounded-full ${i === 0 ? "text-primary-pressed" : "text-ink-muted"}`}>
@@ -178,7 +178,7 @@ export function FounderPieces() {
             </span>
           ))}
         </Piece>
-        <Piece id="fab" outer="shrink-0" className="grid size-16 shrink-0 place-items-center rounded-full bg-primary text-surface shadow-[0_12px_30px_rgba(90,65,255,.4)]">
+        <Piece id="fab" outer="shrink-0 will-change-transform" className="grid size-16 will-change-[opacity,transform] shrink-0 place-items-center rounded-full bg-primary text-surface shadow-[0_12px_30px_rgba(90,65,255,.4)]">
           <Icon name="add" size={28} strokeWidth={2.4} />
         </Piece>
       </div>

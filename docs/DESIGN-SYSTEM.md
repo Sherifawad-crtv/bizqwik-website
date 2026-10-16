@@ -150,3 +150,11 @@ backgrounds only, never recolour or stretch. Fonts: `src/assets/fonts/`.
   and tape fade (`data-polaroid-fade`) while the square photo (`data-polaroid-photo`) scales and
   moves to the avatar's place and its sepia tint clears; the shell's radius rounds it into the circle.
   The photo is one asset for both faces: `public/demo/founder-photo.webp` (square, 256px, 5 KB).
+
+### Glass inside the phone (nav pill)
+The app's bottom nav pill is a `backdrop-filter` element. An ancestor with `opacity < 1` (or a filter,
+mask or clip-path) is a *backdrop root* and blinds it to what is behind, so the glass looks flat while
+fading and snaps to blurred at full opacity. Rule: never fade an ancestor of a glass element; fade the
+glass element itself. In `hero-motion.ts` the nav/FAB wrappers only move (`y`), and their faces
+(`[data-order]`) fade. Both faces are on their own layer from load (`will-change`), painted at opacity 0,
+so the blur is ready the moment they start showing.
