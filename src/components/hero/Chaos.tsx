@@ -130,13 +130,20 @@ export function Receipt() {
   );
 }
 
+const CALC_KEYS = ["7", "8", "9", "÷", "4", "5", "6", "×", "1", "2", "3", "-", "0", ".", "=", "+"];
+
 export function Calculator() {
   return (
     <Chaos w={134} h={196} rot={-8} className={`rounded-[14px] bg-[#d9d5cb] ${SHADOW}`}>
       <div className="m-3 rounded-md bg-[#c4d1a5] px-2 py-1.5 text-right font-mono text-[22px] font-bold leading-none text-[#2c3a1c] shadow-[inset_0_2px_4px_rgba(0,0,0,.25)]">365,700</div>
       <div className="grid grid-cols-4 gap-1.5 px-3">
-        {Array.from({ length: 16 }).map((_, i) => (
-          <span key={i} className={`h-[22px] rounded-[5px] shadow-[0_2px_0_rgba(0,0,0,.22)] ${i % 4 === 3 ? "bg-[#e8a24a]" : "bg-[#f1eee7]"}`} />
+        {CALC_KEYS.map((k, i) => (
+          <span
+            key={k}
+            className={`grid h-[22px] place-items-center rounded-[5px] font-mono text-[12px] font-bold leading-none shadow-[0_2px_0_rgba(0,0,0,.22)] ${i % 4 === 3 ? "bg-[#e8a24a] text-white" : "bg-[#f1eee7] text-[#3d3a33]"}`}
+          >
+            {k}
+          </span>
         ))}
       </div>
     </Chaos>
