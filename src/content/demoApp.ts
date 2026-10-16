@@ -6,7 +6,7 @@
  */
 export const founderDemo = {
   greeting: "Hi, Karim",
-  avatar: "/demo/founder-avatar.webp", // 256px WebP, shown at 64pt
+  avatar: "/demo/founder-photo.webp", // square 256px WebP: avatar (64pt) and the polaroid
   ranges: ["Month", "3M", "6M", "12M"],
   activeRange: "Month",
   caption: "Oct 2026",

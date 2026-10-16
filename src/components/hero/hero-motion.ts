@@ -1,5 +1,5 @@
 import { gsap, ScrollTrigger } from "@/motion/gsap";
-import { DESIGN, FRAME_MARGIN, SCATTER, SCREEN, type PieceId } from "./phone";
+import { DESIGN, FRAME_MARGIN, POLAROID, SCATTER, SCREEN, type PieceId } from "./phone";
 
 /** Scroll distance of the pinned hero, in viewport heights. */
 const PIN_VH = 1.9;
@@ -93,17 +93,34 @@ export function initHeroMotion(root: HTMLElement): () => void {
       const chaos = piece(id).querySelector<HTMLElement>("[data-chaos]");
       if (!chaos) return;
       const radius = `${Math.min(parseFloat(getComputedStyle(order).borderTopLeftRadius) || 0, 9999)}px`;
+      // Blur lives on the masked body when there is one, so the shell's drop-shadow filter is untouched.
+      const blurTarget = chaos.querySelector<HTMLElement>("[data-chaos-body]") ?? chaos;
       tl.fromTo(
         chaos,
-        { autoAlpha: 1, rotation: Number(chaos.dataset.rot), filter: "blur(0px)" },
-        { autoAlpha: 0, rotation: 0, width: () => order.offsetWidth, height: () => order.offsetHeight, borderRadius: radius, filter: "blur(7px)", ease: "power2.inOut", duration: 0.3 },
+        { autoAlpha: 1, rotation: Number(chaos.dataset.rot) },
+        { autoAlpha: 0, rotation: 0, width: () => order.offsetWidth, height: () => order.offsetHeight, borderRadius: radius, ease: "power2.inOut", duration: 0.3 },
         t0 + 0.16,
-      ).fromTo(
-        order,
-        { autoAlpha: 0, filter: "blur(8px)", scale: 0.94 },
-        { autoAlpha: 1, filter: "blur(0px)", scale: 1, ease: "power2.out", duration: 0.28 },
-        t0 + 0.24,
-      );
+      )
+        .fromTo(blurTarget, { filter: "blur(0px)" }, { filter: "blur(7px)", ease: "power2.inOut", duration: 0.3 }, t0 + 0.16)
+        .fromTo(
+          order,
+          { autoAlpha: 0, filter: "blur(8px)", scale: 0.94 },
+          { autoAlpha: 1, filter: "blur(0px)", scale: 1, ease: "power2.out", duration: 0.28 },
+          t0 + 0.24,
+        );
+
+      // The polaroid's photo is the avatar: frame, caption and tape fall away while the square photo
+      // shrinks and settles into the round avatar's place (the shell's radius rounds it off).
+      const photo = chaos.querySelector<HTMLElement>("[data-polaroid-photo]");
+      if (photo) {
+        const shift = POLAROID.h / 2 - (POLAROID.pad + POLAROID.photo / 2); // photo centre -> frame centre
+        tl.to(chaos.querySelectorAll("[data-polaroid-fade]"), { autoAlpha: 0, ease: "power1.in", duration: 0.14 }, t0 + 0.16).fromTo(
+          photo,
+          { scale: 1, y: 0, filter: "sepia(0.18) saturate(0.9)" },
+          { scale: () => order.offsetWidth / POLAROID.photo, y: shift, filter: "sepia(0) saturate(1)", ease: "power2.inOut", duration: 0.3 },
+          t0 + 0.16,
+        );
+      }
     });
     // Bottom bar rises in from below the screen: nav pill, then its sibling FAB.
     tl.fromTo(piece("nav"), { y: 160, autoAlpha: 0 }, { y: 0, autoAlpha: 1, ease: "power3.out", duration: 0.3 }, 0.6)

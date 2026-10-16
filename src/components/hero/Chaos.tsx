@@ -1,6 +1,7 @@
 import Image from "next/image";
 import type { ReactNode } from "react";
 import { founderDemo } from "@/content/demoApp";
+import { POLAROID } from "./phone";
 
 /*
  * The "before" faces of the hero pieces: the manual stuff a gym really runs on
@@ -19,17 +20,36 @@ interface ChaosProps {
   h: number;
   /** Starting tilt; the morph straightens it. */
   rot: number;
+  /** Torn (zigzag) edge made with a CSS mask: needs its shadow on an outer shell. */
+  torn?: boolean;
   className?: string;
   children: ReactNode;
 }
 
-/** The morphing shell: the timeline tweens its size, radius and fade. Content stays at natural size, centred and clipped. */
-function Chaos({ w, h, rot, className = "", children }: ChaosProps) {
-  return (
-    <div data-chaos data-rot={rot} style={{ width: w, height: h }} className={`pointer-events-none invisible absolute left-1/2 top-1/2 overflow-hidden ${className}`}>
-      <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2" style={{ width: w, height: h }}>
-        {children}
+/**
+ * The morphing shell: the timeline tweens its size, radius and fade. Content stays at natural size,
+ * centred and clipped. A torn (masked) face keeps its shadow on the OUTER shell as a drop-shadow:
+ * a mask clips box-shadow away, so the masked paper lives one level in.
+ */
+function Chaos({ w, h, rot, torn, className = "", children }: ChaosProps) {
+  const content = (
+    <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2" style={{ width: w, height: h }}>
+      {children}
+    </div>
+  );
+  const base = "pointer-events-none invisible absolute left-1/2 top-1/2";
+  if (torn) {
+    return (
+      <div data-chaos data-rot={rot} data-torn="" style={{ width: w, height: h }} className={`${base} [filter:drop-shadow(0_7px_7px_rgba(26,23,38,.2))_drop-shadow(0_1px_1.5px_rgba(26,23,38,.16))]`}>
+        <div data-chaos-body className={`absolute inset-0 overflow-hidden rounded-[inherit] ${className}`}>
+          {content}
+        </div>
       </div>
+    );
+  }
+  return (
+    <div data-chaos data-rot={rot} style={{ width: w, height: h }} className={`${base} overflow-hidden ${className}`}>
+      {content}
     </div>
   );
 }
@@ -43,12 +63,24 @@ export function StickyNote() {
   );
 }
 
+/** A real polaroid: square photo, thick bottom border for the caption, tape. The photo morphs into the round avatar. */
 export function Polaroid() {
+  const { w, h, photo, pad } = POLAROID;
   return (
-    <Chaos w={126} h={150} rot={7} className={`rounded-[3px] bg-[#fdfcf8] ${SHADOW}`}>
-      <Image src={founderDemo.avatar} alt="" width={106} height={106} unoptimized className="absolute left-[10px] top-[10px] size-[106px] object-cover grayscale-[.35] sepia-[.25]" />
-      <p className="absolute inset-x-0 bottom-[7px] text-center font-hand text-[22px] leading-none text-[#3b3b3b]">karim (new!!)</p>
-      <span className="absolute -top-1 left-1/2 h-[18px] w-[54px] -translate-x-1/2 rotate-[3deg] bg-[#f3e3a0]/80" />
+    <Chaos w={w} h={h} rot={7} className={`rounded-[3px] bg-[#fdfcf8] ${SHADOW}`}>
+      <Image
+        data-polaroid-photo
+        src={founderDemo.avatar}
+        alt=""
+        width={photo}
+        height={photo}
+        unoptimized
+        className="absolute object-cover shadow-[0_0_0_1px_rgba(26,23,38,.08)] [filter:sepia(.18)_saturate(.9)]"
+        style={{ left: pad, top: pad, width: photo, height: photo }}
+      />
+      <span className="absolute bg-[linear-gradient(135deg,rgba(255,255,255,.22),transparent_45%)]" style={{ left: pad, top: pad, width: photo, height: photo }} />
+      <p data-polaroid-fade className="absolute inset-x-0 bottom-[8px] text-center font-hand text-[22px] leading-none text-[#3b3b3b]">karim (new!!)</p>
+      <span data-polaroid-fade className="absolute -top-1 left-1/2 h-[18px] w-[54px] -translate-x-1/2 rotate-[3deg] bg-[#f3e3a0]/80" />
     </Chaos>
   );
 }
@@ -75,7 +107,7 @@ export function Receipt() {
     ["CASH ???", "13,800"],
   ];
   return (
-    <Chaos w={152} h={300} rot={5} className={`bg-[#f4f3ee] ${SHADOW} [-webkit-mask:conic-gradient(from_-45deg_at_bottom,#0000,#000_1deg_89deg,#0000_90deg)_50%/14px_100%] [mask:conic-gradient(from_-45deg_at_bottom,#0000,#000_1deg_89deg,#0000_90deg)_50%/14px_100%]`}>
+    <Chaos w={152} h={300} rot={5} torn className={`bg-[#f4f3ee] [-webkit-mask:conic-gradient(from_-45deg_at_bottom,#0000,#000_1deg_89deg,#0000_90deg)_50%/14px_100%] [mask:conic-gradient(from_-45deg_at_bottom,#0000,#000_1deg_89deg,#0000_90deg)_50%/14px_100%]`}>
       <div className="px-3.5 pb-6 pt-4 font-mono text-[10px] leading-[1.55] text-[#3b3b3b]">
         <p className="text-center font-bold">BIZ GYM · SALES</p>
         <p className="text-center text-[#8d8d88]">oct — printed 23:41</p>

@@ -104,9 +104,9 @@ pieces, `phone.ts` geometry + piece table, `hero-motion.ts` GSAP).
 | Piece | Manual face | Becomes |
 |---|---|---|
 | greeting | sticky note | "Hi, Karim" |
-| avatar | taped photo | round avatar |
+| avatar | polaroid (square photo, white frame, caption, tape) | round avatar; the photo itself shrinks into the circle |
 | range | torn month strip, pen-circled | range selector |
-| revenue | thermal receipt | revenue card (count-up) |
+| revenue | thermal receipt (torn edge, soft drop-shadow) | revenue card (count-up) |
 | profit | calculator | profit tile |
 | payouts | handwritten ledger | coach payouts tile |
 | subscribers | clipboard sign-in | subscribers tile |
@@ -141,3 +141,12 @@ content) and pass it as `chaos=` to the piece in `FounderHome.tsx`. Handwriting 
 ## Assets
 `public/brand/wordmark.png`, `public/brand/mark.png`: use as supplied, light
 backgrounds only, never recolour or stretch. Fonts: `src/assets/fonts/`.
+
+### Chaos faces: implementation notes
+- A masked (torn) face cannot use `box-shadow` (the mask clips it). `Chaos` has a `torn` mode:
+  the outer shell carries a `drop-shadow` filter and the masked paper is its child
+  (`data-chaos-body`); the timeline puts the blur on the body so the shadow filter is never overwritten.
+- Polaroid: `POLAROID` (phone.ts) holds frame and photo sizes. During the morph the frame, caption
+  and tape fade (`data-polaroid-fade`) while the square photo (`data-polaroid-photo`) scales and
+  moves to the avatar's place and its sepia tint clears; the shell's radius rounds it into the circle.
+  The photo is one asset for both faces: `public/demo/founder-photo.webp` (square, 256px, 5 KB).

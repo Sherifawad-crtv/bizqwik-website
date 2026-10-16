@@ -28,3 +28,4 @@ Convention (same as the app repo, `Sherifawad-crtv/bizqwik`):
 | 0008 | 2026-10-13 | [New hero subtitle](0008-2026-10-13-subtitle.md) |
 | 0009 | 2026-10-15 | [Hero: manual-to-Bizqwik morph](0009-2026-10-15-hero-morph.md) |
 | 0010 | 2026-10-15 | [Smoother-morph attempt, reverted](0010-2026-10-15-smoother-morph-reverted.md) |
+| 0011 | 2026-10-16 | [Receipt shadow and polaroid photo morph](0011-2026-10-16-receipt-polaroid.md) |
