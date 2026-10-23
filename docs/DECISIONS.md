@@ -80,3 +80,8 @@ Append-only. One line of context, the decision, and the date.
   text inside the card beyond what the component itself shows. Titles: Founder, Accountant, Reception, Coaches,
   Client (`AppSummary.short`). The four generated role portraits were deleted with their field (supersedes
   D-021; they remain in git history, commit 62a6b06). `founder-photo.webp` stays: the hero's avatar uses it.
+- **D-025 (2026-10-23) Ecosystem cards adopt the owner's reference "status card" style** (light Surface cards, hairline,
+  lavender icon tile, mono status pill, big numbers, sunken well). Text that is part of such a card (title, pill,
+  sub-line, a well) is back, because it is the component's own content; avatars, captions and deck devices stay out
+  (D-023, D-024). The short role titles stay above the cards. Layout became 3 + 2 to give the cards their width.
+  Not used yet: the owner's hand-held-phone mockup (Mockuuups) from the same upload.

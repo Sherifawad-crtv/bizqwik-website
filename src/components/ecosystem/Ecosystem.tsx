@@ -52,13 +52,13 @@ export function Ecosystem() {
             </p>
           </div>
 
-          <ol data-eco-grid className="mt-14 grid gap-x-4 gap-y-10 sm:grid-cols-2 lg:mt-20 lg:grid-cols-5">
-            {appSummaries.map((app) => {
+          <ol data-eco-grid className="mt-14 grid gap-x-5 gap-y-12 sm:grid-cols-2 lg:mt-20 lg:grid-cols-6">
+            {appSummaries.map((app, i) => {
               const Demo = DEMOS[app.id];
               return (
-                <li key={app.id} data-eco-card>
+                <li key={app.id} data-eco-card className={`flex flex-col ${i < 3 ? "lg:col-span-2" : "lg:col-span-3"} ${i === 4 ? "sm:max-lg:col-span-2" : ""}`}>
                   <h3 className="mb-4 text-[26px] font-extrabold leading-none tracking-[-.02em]">{app.short}</h3>
-                  <div data-demo={app.id} className="relative flex min-h-[300px] items-center rounded-[32px] bg-paper p-6">
+                  <div data-demo={app.id} className="flex-1">
                     <Demo />
                   </div>
                 </li>

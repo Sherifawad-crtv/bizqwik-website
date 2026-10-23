@@ -139,38 +139,42 @@ content) and pass it as `chaos=` to the piece in `FounderHome.tsx`. Handwriting 
   `PIN_VH` / `END_TOP` and the timeline offsets in `hero-motion.ts`.
 
 ## Ecosystem section (chapter 2)
-Code: `src/components/ecosystem/` (`Ecosystem.tsx` layout, `Demos.tsx` the five product moments,
-`ecosystem-motion.ts` the loops). Titles come from `content/apps.ts` (`short`), heading/lede from
-`content/hero.ts` (`ecosystem`).
-- **Principle (owner's direction): each role gets ONE small live UI component that does that role's job, in the
-  product's own look, on loop, and nothing else.** No avatars, captions, labels, names, numbered tiles,
-  "used by" chips or arrows (D-023, D-024). Only what the component needs: amounts, buttons and their labels,
-  the numbers that tick.
-- **Layout:** a short title ABOVE each card (**Founder, Accountant, Reception, Coaches, Client**, 26px/800),
-  the card holds only the component. 5 across on desktop, 2 on tablet, 1 on mobile.
+Code: `src/components/ecosystem/` (`Ecosystem.tsx` layout, `Demos.tsx` the five cards, `ecosystem-motion.ts`
+the loops). Short titles from `content/apps.ts` (`short`), heading/lede from `content/hero.ts` (`ecosystem`).
+- **Principle (owner's direction): each role gets ONE live UI component that does that role's job, drawn in the
+  product's own light "status card" style** (owner's reference cards: Upcoming booking, Revenue in, Membership
+  renewal). Never the deck's devices: no numbered tiles, "used by" chips, connectors or avatars (D-023, D-025).
+- **The card anatomy** (shared, `Header`/`Card` in `Demos.tsx`): Surface card, 1px `line` border, 32px radius,
+  very soft layered shadow; header row = 52px lavender icon tile (`primary-tint-strong`, violet icon) + bold
+  title (21px/800) + a mono status pill on the right that flips amber to green when the job is done; then big
+  tabular numbers or a headline, muted sub-line, a sunken (`sunken`, 24px radius) well for secondary facts,
+  and the control. It stays light: border and shadow, no tinted container behind it.
+- **Layout:** the short role title (**Founder, Accountant, Reception, Coaches, Client**, 26px/800) sits ABOVE its
+  card. Desktop: 3 cards over 2 wider ones (6-col grid, spans 2/2/2 then 3/3); tablet 2 across (Client spans
+  both); mobile 1.
 - **Hand-off from the hero:** the hero stays pinned for `PIN_VH` (1.9) + `COVER_VH` (1) viewport heights; its
   timeline ends at 1.9 and idles while this section's sheet slides up over it (`-mt-[100svh]`, must equal
   `COVER_VH`). The navbar's wide-to-narrow change starts when the pin ends.
-- **Sheet:** Surface, 72px top radius (48 mobile), soft upward shadow, two tinted pages peeking above; tilted
-  ink tag; heading and lede.
 
-| Role | The moment (loops while on screen) |
-|---|---|
-| Founder | a "+1,500" payment toast drops in, revenue ticks 586,000 to 587,500, the last chart bar grows |
-| Accountant | cursor taps **Pay**; the pill shrinks to a circle, spins, blooms into a solid green **Paid** with a drawn check; the 4,200 EGP turns green |
-| Reception | a violet scan line sweeps the QR twice; the code collapses into a green check |
-| Coaches | the thumb slides to the end of **Slide to log**; the track turns green **Logged**; earnings tick 4,200 to 4,350 with a +150 chip |
-| Client | cursor taps **Book**; it blooms to green **Booked**; one of three spot dots fills green with a check |
+| Role | Card | The moment (loops while on screen) |
+|---|---|---|
+| Founder | Revenue in | PENDING; the amount counts up to +1,250.00 EGP; pill flips to RECEIVED; sub-line becomes "Received today, Oct 3 · 9:41 AM" |
+| Accountant | Coach payout | cursor taps **Pay**; pill shrinks to a circle, spins, blooms into a green **Paid** with a drawn check; TO PAY flips to PAID; the 4,200.00 EGP turns green |
+| Reception | Check-in | SCANNING; a violet scan line sweeps the QR twice; the code collapses into a green check; "Mona K." appears; pill flips to CHECKED IN |
+| Coaches | Log session | READY; thumb slides along **Slide to log**; track turns green **Logged**; LOGGED; earnings tick 4,200.00 to 4,350.00 with a +150 chip |
+| Client | Upcoming booking | OPEN; cursor taps **Book**; blooms to green **Booked**; pill flips to CONFIRMED (Morning Class, date well) |
 
+- **Swap** (`<Swap name>` + `swap()`): two stacked layers in one grid cell, so the box is as wide as the longer
+  text and nothing jumps when text changes.
 - **The Apple-Pay move** is one reusable function (`morphButton`): press (scale 0.95, springy release), idle
   label out, pill to a 56px circle, spinner 2 turns, circle blooms to full width in `--color-green-fg` with the
   check stroke drawing. `loader=false` (client) skips the spinner. `tap()` is the cursor press.
-- **Loops:** each card is a paused GSAP timeline (repeat -1) that plays only while its card is on screen
-  (ScrollTrigger `onToggle`), staggered 0.25s apart, with a soft fade between loops. Every tween states its own
-  start value so loops reset cleanly. Widths are px, so loops are invalidated on ScrollTrigger refresh.
-- **Reduced motion:** no entrance, no loops; every demo shows its finished state (`showFinal`).
-- Figures are illustrative stand-ins. To add or change a moment: edit its markup in `Demos.tsx` and its entry
-  in `BUILD` (`ecosystem-motion.ts`).
+- **Loops:** each card is a paused GSAP timeline (repeat -1) that plays only while on screen (ScrollTrigger
+  `onToggle`), staggered 0.25s, with a soft fade between loops. Every tween states its own start value so loops
+  reset; counters reset their text at the start of each loop. Widths are px, so loops are invalidated on refresh.
+- **Reduced motion:** no entrance, no loops; every card shows its finished state (`showFinal`).
+- Figures and names (Coach Nour, Mona K., amounts) are illustrative stand-ins. To change a moment: edit its
+  markup in `Demos.tsx` and its entry in `BUILD`.
 
 ## Assets
 `public/brand/wordmark.png`, `public/brand/mark.png`: use as supplied, light
