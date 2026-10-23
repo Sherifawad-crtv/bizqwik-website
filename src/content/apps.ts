@@ -1,11 +1,11 @@
 import type { AppBlock, AppSummary } from "./types";
 
 export const appSummaries: AppSummary[] = [
-  { id: "founder", number: "01", title: "Founder / C-suite app", role: "Sets prices, schedules and the team", usedBy: "Gym owner, department head", icon: "chart-square", portrait: "/demo/founder-photo.webp" },
-  { id: "accountant", number: "02", title: "Accountant dashboard", role: "Runs the monthly payout", usedBy: "Accountant", icon: "calculator", portrait: "/demo/role-accountant.webp" },
-  { id: "frontDesk", number: "03", title: "Front-desk / reception app", role: "Checks clients in and takes payments", usedBy: "Front desk", icon: "qr-code", portrait: "/demo/role-front-desk.webp" },
-  { id: "coaches", number: "04", title: "Coaches app", role: "Logs sessions and tracks earnings", usedBy: "Coaches", icon: "users-group-two-rounded", portrait: "/demo/role-coach.webp" },
-  { id: "client", number: "05", title: "Branded client app", role: "Books, buys and checks in", usedBy: "The gym's clients", icon: "smartphone", portrait: "/demo/role-client.webp" },
+  { id: "founder", number: "01", title: "Founder / C-suite app", role: "Sets prices, schedules and the team", usedBy: "Gym owner, department head", icon: "chart-square", short: "Founder" },
+  { id: "accountant", number: "02", title: "Accountant dashboard", role: "Runs the monthly payout", usedBy: "Accountant", icon: "calculator", short: "Accountant" },
+  { id: "frontDesk", number: "03", title: "Front-desk / reception app", role: "Checks clients in and takes payments", usedBy: "Front desk", icon: "qr-code", short: "Reception" },
+  { id: "coaches", number: "04", title: "Coaches app", role: "Logs sessions and tracks earnings", usedBy: "Coaches", icon: "users-group-two-rounded", short: "Coaches" },
+  { id: "client", number: "05", title: "Branded client app", role: "Books, buys and checks in", usedBy: "The gym's clients", icon: "smartphone", short: "Client" },
 ];
 
 export const appBlocks: AppBlock[] = [

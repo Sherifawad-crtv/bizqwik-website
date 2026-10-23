@@ -140,36 +140,37 @@ content) and pass it as `chaos=` to the piece in `FounderHome.tsx`. Handwriting 
 
 ## Ecosystem section (chapter 2)
 Code: `src/components/ecosystem/` (`Ecosystem.tsx` layout, `Demos.tsx` the five product moments,
-`ecosystem-motion.ts` the loops). Copy from `content/hero.ts` (`ecosystem`) and `content/apps.ts`
-(`appSummaries`: app title, one-line role as caption, role portrait).
-- **Principle (owner's direction): each role gets ONE small live UI component that does that role's job,
-  in the product's own look, on loop.** No numbered tiles, "used by" chips or connector arrows: those were
-  the deck's presentation devices and are not this site's style (see DECISIONS D-023).
+`ecosystem-motion.ts` the loops). Titles come from `content/apps.ts` (`short`), heading/lede from
+`content/hero.ts` (`ecosystem`).
+- **Principle (owner's direction): each role gets ONE small live UI component that does that role's job, in the
+  product's own look, on loop, and nothing else.** No avatars, captions, labels, names, numbered tiles,
+  "used by" chips or arrows (D-023, D-024). Only what the component needs: amounts, buttons and their labels,
+  the numbers that tick.
+- **Layout:** a short title ABOVE each card (**Founder, Accountant, Reception, Coaches, Client**, 26px/800),
+  the card holds only the component. 5 across on desktop, 2 on tablet, 1 on mobile.
 - **Hand-off from the hero:** the hero stays pinned for `PIN_VH` (1.9) + `COVER_VH` (1) viewport heights; its
   timeline ends at 1.9 and idles while this section's sheet slides up over it (`-mt-[100svh]`, must equal
   `COVER_VH`). The navbar's wide-to-narrow change starts when the pin ends.
 - **Sheet:** Surface, 72px top radius (48 mobile), soft upward shadow, two tinted pages peeking above; tilted
-  ink tag; heading and lede; five cards (5 across on desktop, 2 across on tablet, 1 on mobile).
-- **Card:** portrait + app title, a white "stage" holding the live component, the brief's role line as caption.
+  ink tag; heading and lede.
 
 | Role | The moment (loops while on screen) |
 |---|---|
-| Founder | an InstaPay payment lands (toast), revenue ticks 586,000 to 587,500, the chart's last bar grows |
-| Accountant | cursor taps **Pay**; the pill shrinks to a circle, spins, blooms into a solid green **Paid** with a drawn check; "To pay" flips to "Paid" |
-| Front desk | a violet scan line sweeps the QR twice; the code collapses into a green check; the client ("Mona K. · Checked in") rises in |
-| Coach | thumb slides to the end of **Slide to log**; the track turns green "Logged"; earnings tick 4,200 to 4,350 with a +150 chip |
-| Client | cursor taps **Book**; it blooms to green **Booked**; "3 spots left" becomes "You're in · 2 left" and a +20 pts chip pops |
+| Founder | a "+1,500" payment toast drops in, revenue ticks 586,000 to 587,500, the last chart bar grows |
+| Accountant | cursor taps **Pay**; the pill shrinks to a circle, spins, blooms into a solid green **Paid** with a drawn check; the 4,200 EGP turns green |
+| Reception | a violet scan line sweeps the QR twice; the code collapses into a green check |
+| Coaches | the thumb slides to the end of **Slide to log**; the track turns green **Logged**; earnings tick 4,200 to 4,350 with a +150 chip |
+| Client | cursor taps **Book**; it blooms to green **Booked**; one of three spot dots fills green with a check |
 
 - **The Apple-Pay move** is one reusable function (`morphButton`): press (scale 0.95, springy release), idle
-  label out, pill to 48px circle, spinner 2 turns, circle blooms to full width in `--color-green-fg` with the
+  label out, pill to a 56px circle, spinner 2 turns, circle blooms to full width in `--color-green-fg` with the
   check stroke drawing. `loader=false` (client) skips the spinner. `tap()` is the cursor press.
 - **Loops:** each card is a paused GSAP timeline (repeat -1) that plays only while its card is on screen
   (ScrollTrigger `onToggle`), staggered 0.25s apart, with a soft fade between loops. Every tween states its own
   start value so loops reset cleanly. Widths are px, so loops are invalidated on ScrollTrigger refresh.
 - **Reduced motion:** no entrance, no loops; every demo shows its finished state (`showFinal`).
-- **Portraits:** `public/demo/founder-photo.webp` (real photo) and four generated role portraits
-  `role-accountant|front-desk|coach|client.webp` (200px, illustrative). Names and figures are stand-ins.
-- To add or change a moment: edit its markup in `Demos.tsx` and its entry in `BUILD` (`ecosystem-motion.ts`).
+- Figures are illustrative stand-ins. To add or change a moment: edit its markup in `Demos.tsx` and its entry
+  in `BUILD` (`ecosystem-motion.ts`).
 
 ## Assets
 `public/brand/wordmark.png`, `public/brand/mark.png`: use as supplied, light

@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import { useEffect, useRef } from "react";
 import { appSummaries, ecosystem, type AppId } from "@/content";
 import { AccountantDemo, ClientDemo, CoachDemo, FounderDemo, FrontDeskDemo } from "./Demos";
@@ -16,8 +15,8 @@ const DEMOS: Record<AppId, () => React.JSX.Element> = {
 
 /**
  * Chapter 2. A white sheet rises over the (still pinned) hero, carrying a tilted tag, the
- * heading and five cards, one per person who touches the gym. Each card plays one small live
- * product moment for that role on loop (see Demos.tsx and ecosystem-motion.ts).
+ * heading and five columns, one per person who touches the gym: a short title above a card that
+ * holds one small live product moment for that role on loop (see Demos.tsx and ecosystem-motion.ts).
  * `-mt-[100svh]` pulls the sheet up over the last viewport of the hero's pin (see hero-motion.ts COVER_VH).
  */
 export function Ecosystem() {
@@ -53,21 +52,15 @@ export function Ecosystem() {
             </p>
           </div>
 
-          <ol data-eco-grid className="mt-14 grid gap-4 sm:grid-cols-2 lg:mt-20 lg:grid-cols-5">
+          <ol data-eco-grid className="mt-14 grid gap-x-4 gap-y-10 sm:grid-cols-2 lg:mt-20 lg:grid-cols-5">
             {appSummaries.map((app) => {
               const Demo = DEMOS[app.id];
               return (
                 <li key={app.id} data-eco-card>
-                  <article className="flex h-full flex-col rounded-[32px] bg-paper p-5">
-                    <header className="flex items-center gap-3">
-                      <Image src={app.portrait} alt="" width={40} height={40} unoptimized className="size-10 shrink-0 rounded-full object-cover ring-2 ring-surface" />
-                      <h3 className="text-[17px] font-extrabold leading-tight tracking-[-.01em]">{app.title}</h3>
-                    </header>
-                    <div data-demo={app.id} className="relative mt-5 flex min-h-[262px] flex-1 items-center rounded-[24px] bg-surface p-4 shadow-[0_1px_2px_rgba(26,23,38,.04),0_10px_26px_-14px_rgba(26,23,38,.12)]">
-                      <Demo />
-                    </div>
-                    <p className="mt-5 text-[19px] font-bold leading-snug tracking-[-.01em]">{app.role}</p>
-                  </article>
+                  <h3 className="mb-4 text-[26px] font-extrabold leading-none tracking-[-.02em]">{app.short}</h3>
+                  <div data-demo={app.id} className="relative flex min-h-[300px] items-center rounded-[32px] bg-paper p-6">
+                    <Demo />
+                  </div>
                 </li>
               );
             })}

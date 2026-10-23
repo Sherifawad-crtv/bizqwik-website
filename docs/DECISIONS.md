@@ -76,3 +76,7 @@ Append-only. One line of context, the decision, and the date.
   Replaced by one live product component per role (see DESIGN-SYSTEM, Ecosystem). Rule for every later section:
   show real product UI doing real work; take wording and features from the brief, not its layout vocabulary.
   (Supersedes the sync effect of D-020; the sheet and tag stay: they come from the owner's own reference.)
+- **D-024 (2026-10-23) The Ecosystem cards are only the component, with short titles above.** No avatars, no
+  text inside the card beyond what the component itself shows. Titles: Founder, Accountant, Reception, Coaches,
+  Client (`AppSummary.short`). The four generated role portraits were deleted with their field (supersedes
+  D-021; they remain in git history, commit 62a6b06). `founder-photo.webp` stays: the hero's avatar uses it.
