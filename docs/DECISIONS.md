@@ -70,3 +70,9 @@ Append-only. One line of context, the decision, and the date.
 - **D-022 (2026-10-23) Next.js pinned to 16.4.3.** `npm audit` flagged 16.0.0-16.4.0 (critical RCE in image
   optimization with SVGs and in `use cache`; DoS in server actions). We use none of those paths, but we do not
   ship on a flagged version. Check `npm audit` before each release.
+- **D-023 (2026-10-23) Do not adopt the deck's / brief's presentation style. The brief and deck are a source of
+  CONTENT, FEATURES and what Bizqwik is; the product repo is the source of how it looks.** The first Ecosystem pass
+  copied deck devices (numbered tiles, "Used by" chips, arrows joining tiles, sync-lighting) and was rejected.
+  Replaced by one live product component per role (see DESIGN-SYSTEM, Ecosystem). Rule for every later section:
+  show real product UI doing real work; take wording and features from the brief, not its layout vocabulary.
+  (Supersedes the sync effect of D-020; the sheet and tag stay: they come from the owner's own reference.)

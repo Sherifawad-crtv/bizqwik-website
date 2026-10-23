@@ -138,22 +138,38 @@ content) and pass it as `chaos=` to the piece in `FounderHome.tsx`. Handwriting 
 - To change the vision: edit `SCATTER` (where things start and the settling order),
   `PIN_VH` / `END_TOP` and the timeline offsets in `hero-motion.ts`.
 
-## Ecosystem section (chapter 2) — first pass
-Code: `src/components/ecosystem/` (`Ecosystem.tsx`, `ecosystem-motion.ts`). Copy from `content/hero.ts`
-(`ecosystem`) and `content/apps.ts` (`appSummaries`), unchanged from the brief.
-- **Hand-off from the hero:** the hero stays pinned for `PIN_VH` (1.9) + `COVER_VH` (1) viewport heights;
-  its timeline ends at 1.9 and idles while this section's sheet slides up over it. The sheet pulls itself up
-  with `-mt-[100svh]` (must equal `COVER_VH`). The navbar's wide-to-narrow change starts when the pin ends.
-- **Sheet:** Surface, 72px top radius (48 on mobile), soft upward shadow, two tinted "pages" peeking above it.
-- **Tag:** tilted ink pill "01 · The ecosystem" (decorative eyebrow, the heading is the H2).
-- **Cards (desktop, 5 across; mobile, stacked):** 104px illustrated role portrait with the app's violet icon
-  tile on it, number, title, one-line role, "Used by". Each links to `#apps` (those blocks are not built yet).
-- **Sync:** scrubbing through the row lights each icon tile violet in turn, then the arrow after it
-  (stateless `onUpdate`, so it is right in both directions). Mobile arrows point down.
-- **Entrance:** tag drops in, heading rises word by word (SplitText), lede fades up, cards stagger in.
-- **Reduced motion:** no entrance, everything shown, all lit.
-- **Portraits:** `public/demo/founder-photo.webp` (real photo) and four generated, illustrated role portraits
-  `role-accountant|front-desk|coach|client.webp` (200px previews, ~4.5 KB). Illustrative, not real people.
+## Ecosystem section (chapter 2)
+Code: `src/components/ecosystem/` (`Ecosystem.tsx` layout, `Demos.tsx` the five product moments,
+`ecosystem-motion.ts` the loops). Copy from `content/hero.ts` (`ecosystem`) and `content/apps.ts`
+(`appSummaries`: app title, one-line role as caption, role portrait).
+- **Principle (owner's direction): each role gets ONE small live UI component that does that role's job,
+  in the product's own look, on loop.** No numbered tiles, "used by" chips or connector arrows: those were
+  the deck's presentation devices and are not this site's style (see DECISIONS D-023).
+- **Hand-off from the hero:** the hero stays pinned for `PIN_VH` (1.9) + `COVER_VH` (1) viewport heights; its
+  timeline ends at 1.9 and idles while this section's sheet slides up over it (`-mt-[100svh]`, must equal
+  `COVER_VH`). The navbar's wide-to-narrow change starts when the pin ends.
+- **Sheet:** Surface, 72px top radius (48 mobile), soft upward shadow, two tinted pages peeking above; tilted
+  ink tag; heading and lede; five cards (5 across on desktop, 2 across on tablet, 1 on mobile).
+- **Card:** portrait + app title, a white "stage" holding the live component, the brief's role line as caption.
+
+| Role | The moment (loops while on screen) |
+|---|---|
+| Founder | an InstaPay payment lands (toast), revenue ticks 586,000 to 587,500, the chart's last bar grows |
+| Accountant | cursor taps **Pay**; the pill shrinks to a circle, spins, blooms into a solid green **Paid** with a drawn check; "To pay" flips to "Paid" |
+| Front desk | a violet scan line sweeps the QR twice; the code collapses into a green check; the client ("Mona K. · Checked in") rises in |
+| Coach | thumb slides to the end of **Slide to log**; the track turns green "Logged"; earnings tick 4,200 to 4,350 with a +150 chip |
+| Client | cursor taps **Book**; it blooms to green **Booked**; "3 spots left" becomes "You're in · 2 left" and a +20 pts chip pops |
+
+- **The Apple-Pay move** is one reusable function (`morphButton`): press (scale 0.95, springy release), idle
+  label out, pill to 48px circle, spinner 2 turns, circle blooms to full width in `--color-green-fg` with the
+  check stroke drawing. `loader=false` (client) skips the spinner. `tap()` is the cursor press.
+- **Loops:** each card is a paused GSAP timeline (repeat -1) that plays only while its card is on screen
+  (ScrollTrigger `onToggle`), staggered 0.25s apart, with a soft fade between loops. Every tween states its own
+  start value so loops reset cleanly. Widths are px, so loops are invalidated on ScrollTrigger refresh.
+- **Reduced motion:** no entrance, no loops; every demo shows its finished state (`showFinal`).
+- **Portraits:** `public/demo/founder-photo.webp` (real photo) and four generated role portraits
+  `role-accountant|front-desk|coach|client.webp` (200px, illustrative). Names and figures are stand-ins.
+- To add or change a moment: edit its markup in `Demos.tsx` and its entry in `BUILD` (`ecosystem-motion.ts`).
 
 ## Assets
 `public/brand/wordmark.png`, `public/brand/mark.png`: use as supplied, light

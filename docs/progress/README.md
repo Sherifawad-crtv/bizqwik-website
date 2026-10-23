@@ -32,3 +32,4 @@ Convention (same as the app repo, `Sherifawad-crtv/bizqwik`):
 | 0012 | 2026-10-16 | [Calculator keys](0012-2026-10-16-calculator-keys.md) |
 | 0013 | 2026-10-16 | [Phone nav pill: glass ready before it shows](0013-2026-10-16-phone-nav-glass.md) |
 | 0014 | 2026-10-23 | [Ecosystem section, first pass](0014-2026-10-23-ecosystem.md) |
+| 0015 | 2026-10-23 | [Ecosystem: one live product moment per role](0015-2026-10-23-ecosystem-live-moments.md) |
