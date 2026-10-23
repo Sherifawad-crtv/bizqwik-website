@@ -138,6 +138,23 @@ content) and pass it as `chaos=` to the piece in `FounderHome.tsx`. Handwriting 
 - To change the vision: edit `SCATTER` (where things start and the settling order),
   `PIN_VH` / `END_TOP` and the timeline offsets in `hero-motion.ts`.
 
+## Ecosystem section (chapter 2) — first pass
+Code: `src/components/ecosystem/` (`Ecosystem.tsx`, `ecosystem-motion.ts`). Copy from `content/hero.ts`
+(`ecosystem`) and `content/apps.ts` (`appSummaries`), unchanged from the brief.
+- **Hand-off from the hero:** the hero stays pinned for `PIN_VH` (1.9) + `COVER_VH` (1) viewport heights;
+  its timeline ends at 1.9 and idles while this section's sheet slides up over it. The sheet pulls itself up
+  with `-mt-[100svh]` (must equal `COVER_VH`). The navbar's wide-to-narrow change starts when the pin ends.
+- **Sheet:** Surface, 72px top radius (48 on mobile), soft upward shadow, two tinted "pages" peeking above it.
+- **Tag:** tilted ink pill "01 · The ecosystem" (decorative eyebrow, the heading is the H2).
+- **Cards (desktop, 5 across; mobile, stacked):** 104px illustrated role portrait with the app's violet icon
+  tile on it, number, title, one-line role, "Used by". Each links to `#apps` (those blocks are not built yet).
+- **Sync:** scrubbing through the row lights each icon tile violet in turn, then the arrow after it
+  (stateless `onUpdate`, so it is right in both directions). Mobile arrows point down.
+- **Entrance:** tag drops in, heading rises word by word (SplitText), lede fades up, cards stagger in.
+- **Reduced motion:** no entrance, everything shown, all lit.
+- **Portraits:** `public/demo/founder-photo.webp` (real photo) and four generated, illustrated role portraits
+  `role-accountant|front-desk|coach|client.webp` (200px previews, ~4.5 KB). Illustrative, not real people.
+
 ## Assets
 `public/brand/wordmark.png`, `public/brand/mark.png`: use as supplied, light
 backgrounds only, never recolour or stretch. Fonts: `src/assets/fonts/`.

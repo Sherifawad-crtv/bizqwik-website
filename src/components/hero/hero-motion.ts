@@ -1,8 +1,13 @@
 import { gsap, ScrollTrigger } from "@/motion/gsap";
 import { DESIGN, FRAME_MARGIN, POLAROID, SCATTER, SCREEN, type PieceId } from "./phone";
 
-/** Scroll distance of the pinned hero, in viewport heights. */
+/** Scroll distance the hero animates over, in viewport heights. */
 const PIN_VH = 1.9;
+/**
+ * Extra viewport heights the hero stays pinned AFTER its animation is done, while the next section's sheet
+ * slides up over it. The sheet pulls itself up by exactly this much (`-mt-[100svh]` in Ecosystem.tsx).
+ */
+const COVER_VH = 1;
 /** Where the phone's top edge ends up (px from viewport top): just below the navbar. */
 const END_TOP = 96;
 /** Other code (the navbar) reads when the hero ends through this id. */
@@ -137,11 +142,14 @@ export function initHeroMotion(root: HTMLElement): () => void {
     const counter = { v: 0 };
     tl.to(counter, { v: target, ease: "power2.out", duration: 0.45, onUpdate: () => (count.textContent = fmt(Math.round(counter.v))) }, 0.5);
 
+    // Idle tail: the scrub range is PIN_VH + COVER_VH, so pad the timeline so the animation ends at PIN_VH.
+    tl.to({}, { duration: tl.duration() * (COVER_VH / PIN_VH) });
+
     ScrollTrigger.create({
       id: HERO_PIN_ID,
       trigger: root,
       start: "top top",
-      end: () => `+=${window.innerHeight * PIN_VH}`,
+      end: () => `+=${window.innerHeight * (PIN_VH + COVER_VH)}`,
       pin: true,
       anticipatePin: 1,
       scrub: 0.7,

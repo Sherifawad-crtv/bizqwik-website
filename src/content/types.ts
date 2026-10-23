@@ -20,6 +20,8 @@ export interface AppSummary {
   usedBy: string;
   /** Solar icon name (linear weight). */
   icon: string;
+  /** Illustrated role portrait (decorative; illustrative, not a real customer). */
+  portrait: string;
 }
 
 export interface Bullet {

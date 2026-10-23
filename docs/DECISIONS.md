@@ -62,3 +62,11 @@ Append-only. One line of context, the decision, and the date.
   components** (sticky note, receipt, calculator, ledger, clipboard, punch card,
   spreadsheet...). The story is "Declutter your community ops": the mess becomes the app.
   Manual faces are HTML/CSS, not images; the hero `alt` text was rewritten to describe this.
+- **D-020 (2026-10-23) Ecosystem = a white sheet that rises over the still-pinned hero.** The hero's pin is
+  extended by `COVER_VH` so the sheet covers it before it unpins; the navbar change waits for that.
+- **D-021 (2026-10-23) Role portraits are generated illustrations** (Canva image generation) in the style of
+  the founder photo; accountant, front desk, coach and client. Placeholders for review: swap for approved
+  artwork before launch (brief GAP 7). The generator returned 200px previews, so avatars are shown at 104px.
+- **D-022 (2026-10-23) Next.js pinned to 16.4.3.** `npm audit` flagged 16.0.0-16.4.0 (critical RCE in image
+  optimization with SVGs and in `use cache`; DoS in server actions). We use none of those paths, but we do not
+  ship on a flagged version. Check `npm audit` before each release.

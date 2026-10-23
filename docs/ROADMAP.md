@@ -3,7 +3,7 @@
 Context for future work. Nothing here is built; no placeholder screens.
 
 1. ~~Foundation~~ done (0001). ~~Content layer + motion foundation~~ done (0002).
-2. ~~Navbar~~ done (0003). ~~Hero~~ first pass done (0004). Next: **Ecosystem** section (also what lets the navbar's post-hero change be seen).
+2. ~~Navbar~~ done (0003). ~~Hero~~ first pass done (0004). ~~Ecosystem~~ first pass done (0014), under review. Next: **The apps** (five blocks, anchor `#apps`).
 3. **Remaining sections** in brief order: ecosystem, apps, client app, plans,
    compare, add-ons, FAQ, contact, footer. v1 is contact-only (no sign-up or
    checkout). Copy in `src/content/` is final: not reworded.
