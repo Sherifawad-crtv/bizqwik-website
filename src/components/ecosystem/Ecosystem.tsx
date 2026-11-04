@@ -3,19 +3,20 @@
 import { useEffect, useRef, useState } from "react";
 import { ecosystem, features, type FeatureId } from "@/content";
 import { Icon, type IconName } from "@/components/ui/Icon";
-import { AccountantDemo, ClientDemo, CoachDemo, FounderDemo, FrontDeskDemo } from "./Demos";
+import { BookingsDemo, CheckInDemo, ClientDemo, MembershipsDemo, PaymentsDemo, PayoutsDemo, RevenueDemo, SchedulingDemo, SessionsDemo } from "./Demos";
 import { initEcosystemMotion } from "./ecosystem-motion";
 
 const DEMOS: Record<FeatureId, () => React.JSX.Element> = {
-  revenue: FounderDemo,
-  payouts: AccountantDemo,
-  checkin: FrontDeskDemo,
-  sessions: CoachDemo,
-  booking: ClientDemo,
+  revenue: RevenueDemo,
+  scheduling: SchedulingDemo,
+  bookings: BookingsDemo,
+  checkin: CheckInDemo,
+  payments: PaymentsDemo,
+  memberships: MembershipsDemo,
+  payouts: PayoutsDemo,
+  sessions: SessionsDemo,
+  client: ClientDemo,
 };
-
-/** Which loop in ecosystem-motion.ts plays for each feature. */
-const LOOP: Record<FeatureId, string> = { revenue: "founder", payouts: "accountant", checkin: "frontDesk", sessions: "coaches", booking: "client" };
 
 /**
  * Chapter 2. A white sheet rises over the (still pinned) hero. Below the heading, five role chips
@@ -114,7 +115,7 @@ export function Ecosystem() {
                 {features.map((a, i) => {
                   const Demo = DEMOS[a.id];
                   return (
-                    <div key={a.id} data-demo={LOOP[a.id]} data-active={i === active} hidden={i !== active} className="w-full max-w-[440px]">
+                    <div key={a.id} data-demo={a.id} data-active={i === active} hidden={i !== active} className="w-full max-w-[520px]">
                       <Demo />
                     </div>
                   );

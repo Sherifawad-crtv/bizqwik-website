@@ -2,16 +2,16 @@ import { gsap, ScrollTrigger, SplitText } from "@/motion/gsap";
 import { duration, ease, stagger } from "@/motion/tokens";
 
 type TL = gsap.core.Timeline;
-type Role = "founder" | "accountant" | "frontDesk" | "coaches" | "client";
-type Colors = { green: string; violet: string; ink: string };
+type Role = "revenue" | "scheduling" | "bookings" | "checkin" | "payments" | "memberships" | "payouts" | "sessions" | "client";
+type Colors = { green: string; violet: string; ink: string; muted: string };
 
-const money = (n: number, sign = "") => sign + n.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+const money = (n: number, sign = "", dec = 2) => sign + n.toLocaleString("en-US", { minimumFractionDigits: dec, maximumFractionDigits: dec });
 
-const count = (el: HTMLElement, from: number, to: number, tl: TL, at: number, d: number, sign = "") => {
+const count = (el: HTMLElement, from: number, to: number, tl: TL, at: number, d: number, sign = "", dec = 2) => {
   const o = { v: from };
   // Reset the shown value as each loop begins (otherwise the previous loop's final number lingers).
-  tl.add(() => (el.textContent = money(from, sign)), 0.02);
-  tl.fromTo(o, { v: from }, { v: to, duration: d, ease: "power2.out", onUpdate: () => (el.textContent = money(o.v, sign)) }, at);
+  tl.add(() => (el.textContent = money(from, sign, dec)), 0.02);
+  tl.fromTo(o, { v: from }, { v: to, duration: d, ease: "power2.out", onUpdate: () => (el.textContent = money(o.v, sign, dec)) }, at);
 };
 
 /** Cross-fade a `Swap` pair (starting text a, replacement b). */
@@ -40,6 +40,16 @@ function tap(tl: TL, stage: HTMLElement, target: HTMLElement, at: number): numbe
   return at + 0.8;
 }
 
+/** Segmented control: the white thumb moves from option `from` to option `to`. */
+function seg(tl: TL, stage: HTMLElement, name: string, from: number, to: number, at: number, c: Colors) {
+  const root = stage.querySelector(`[data-seg="${name}"]`)!;
+  const q = (k: string, i: number) => root.querySelector(`[data-seg-${k}="${i}"]`)!;
+  tl.fromTo(q("bg", from), { opacity: 1 }, { opacity: 0, duration: 0.3 }, at)
+    .fromTo(q("bg", to), { opacity: 0 }, { opacity: 1, duration: 0.3 }, at)
+    .fromTo(q("t", from), { color: c.ink }, { color: c.muted, duration: 0.3 }, at)
+    .fromTo(q("t", to), { color: c.muted }, { color: c.ink, duration: 0.3 }, at);
+}
+
 /**
  * The Apple-Pay move: the pill presses, shrinks to a circle, spins, then blooms into a green
  * success pill while a check draws itself. Returns the time success has landed.
@@ -55,44 +65,53 @@ function morphButton(tl: TL, stage: HTMLElement, at: number, green: string, viol
   const full = () => btn.offsetWidth;
   let t = at;
 
-  tl.fromTo(body, { width: full, xPercent: -50, scale: 1, backgroundColor: violet }, { scale: 0.95, duration: 0.12, ease: "power2.out" }, t)
+  tl.fromTo(body, { width: full, scale: 1, borderRadius: 24, backgroundColor: violet }, { width: full, scale: 0.95, borderRadius: 24, backgroundColor: violet, duration: 0.12, ease: "power2.out", immediateRender: false }, t)
     .to(body, { scale: 1, duration: 0.3, ease: "back.out(3)" }, t + 0.12)
-    .to(idle, { opacity: 0, y: -6, duration: 0.2, ease: "power2.in" }, t + 0.1);
+    .fromTo(idle, { opacity: 1, y: 0 }, { opacity: 0, y: -6, duration: 0.2, ease: "power2.in" }, t + 0.1);
   t += 0.2;
   if (loader) {
-    tl.to(body, { width: 56, duration: 0.42, ease: "power3.inOut" }, t)
+    tl.to(body, { width: 56, borderRadius: 28, duration: 0.42, ease: "power3.inOut" }, t)
       .fromTo(spin, { opacity: 0, rotation: 0 }, { opacity: 1, duration: 0.18 }, t + 0.3)
       .to(spin, { rotation: 720, duration: 0.95, ease: "none" }, t + 0.3)
       .to(spin, { opacity: 0, duration: 0.16 }, t + 1.2);
     t += 1.25;
   }
-  tl.to(body, { width: full, backgroundColor: green, duration: 0.6, ease: "expo.out" }, t)
+  tl.to(body, { width: full, borderRadius: 24, backgroundColor: green, duration: 0.6, ease: "expo.out" }, t)
     .fromTo(done, { opacity: 0, scale: 0.8 }, { opacity: 1, scale: 1, duration: 0.3, ease: "back.out(2.4)" }, t + 0.18)
     .fromTo(check, { strokeDashoffset: 1 }, { strokeDashoffset: 0, duration: 0.4, ease: "power2.out" }, t + 0.25);
   return t + 0.6;
 }
 
-/** Each role's loop. Every tween states its own start value, so the loop resets itself cleanly. */
+/** Each feature's loop. Every tween states its own start value, so the loop resets itself cleanly. */
 const BUILD: Record<Role, (tl: TL, stage: HTMLElement, c: Colors) => void> = {
-  founder(tl, stage) {
-    const amount = stage.querySelector<HTMLElement>("[data-money]")!;
-    const tile = stage.querySelector("[data-tile]")!;
-    tl.fromTo(tile, { scale: 1 }, { scale: 1.12, duration: 0.3, ease: "power2.out", yoyo: true, repeat: 1 }, 0.5);
-    count(amount, 0, 1250, tl, 0.8, 1.3, "+");
-    swap(tl, stage, "pill", 2.0);
-    swap(tl, stage, "sub", 2.05);
-    tl.set({}, {}, 4.6);
+  revenue(tl, stage, c) {
+    const q = <T extends HTMLElement>(sel: string) => stage.querySelector<T>(sel)!;
+    seg(tl, stage, "month", 1, 2, 0.6, c);
+    count(q("[data-rev]"), 96400, 118400, tl, 0.8, 1.4, "", 0);
+    [[41200, 52800], [38000, 41500], [212, 236]].forEach(([a, b], i) => count(q(`[data-st="${i}"]`), a, b, tl, 0.9, 1.3, "", 0));
+    tl.set({}, {}, 4.4);
   },
-  accountant(tl, stage, c) {
-    const amount = stage.querySelector("[data-amount]")!;
-    tap(tl, stage, stage.querySelector<HTMLElement>("[data-btn]")!, 0.5);
-    const landed = morphButton(tl, stage, 1.3, c.green, c.violet);
-    swap(tl, stage, "pill", landed - 0.1);
-    swap(tl, stage, "sub", landed);
-    tl.fromTo(amount, { color: c.ink }, { color: c.green, duration: 0.5, ease: "power2.out" }, landed - 0.2);
-    tl.set({}, {}, landed + 1.8);
+  scheduling(tl, stage) {
+    const blocks = Array.from(stage.querySelectorAll<HTMLElement>("[data-blk]"));
+    const fresh = blocks.find((b) => b.dataset.blk === "new")!;
+    const rest = blocks.filter((b) => b !== fresh);
+    tl.fromTo(rest, { opacity: 0, scale: 0.9, y: 6 }, { opacity: 1, scale: 1, y: 0, duration: 0.45, ease: "back.out(1.6)", stagger: 0.12 }, 0.3);
+    const landed = tap(tl, stage, stage.querySelector<HTMLElement>("[data-tap]")!, 1.9);
+    tl.fromTo(fresh, { opacity: 0, scale: 0.6, y: -10 }, { opacity: 1, scale: 1, y: 0, duration: 0.55, ease: "back.out(2)" }, landed + 0.1);
+    tl.set({}, {}, landed + 2.2);
   },
-  frontDesk(tl, stage) {
+  bookings(tl, stage) {
+    const roster = stage.querySelector("[data-roster]")!;
+    const arrived = stage.querySelector("[data-arr-on]")!;
+    const bk = stage.querySelector<HTMLElement>("[data-bk]")!;
+    tl.fromTo(roster, { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" }, 0.5);
+    count(bk, 7, 8, tl, 0.6, 0.35, "", 0);
+    const landed = tap(tl, stage, stage.querySelector<HTMLElement>("[data-tap]")!, 1.7);
+    tl.fromTo(arrived, { opacity: 0 }, { opacity: 1, duration: 0.3 }, landed);
+    swap(tl, stage, "att", landed);
+    tl.set({}, {}, landed + 2);
+  },
+  checkin(tl, stage) {
     const scan = stage.querySelector<HTMLElement>("[data-scan]")!;
     const qr = stage.querySelector("[data-qr]")!;
     const ok = stage.querySelector("[data-qr-ok]")!;
@@ -111,27 +130,45 @@ const BUILD: Record<Role, (tl: TL, stage: HTMLElement, c: Colors) => void> = {
     swap(tl, stage, "sub2", 3.25);
     tl.set({}, {}, 5.4);
   },
-  coaches(tl, stage) {
-    const track = stage.querySelector<HTMLElement>("[data-track]")!;
-    const thumb = stage.querySelector("[data-thumb]")!;
-    const fill = stage.querySelector("[data-fill]")!;
-    const hint = stage.querySelector("[data-hint]")!;
-    const logged = stage.querySelector("[data-logged]")!;
-    const check = stage.querySelector("[data-logged] [data-check]")!;
+  payments(tl, stage, c) {
+    const cards = stage.querySelector<HTMLElement>("[data-pc]")!;
+    const amount = stage.querySelector("[data-amount]")!;
+    const pickAt = tap(tl, stage, stage.querySelector<HTMLElement>('[data-pc] [data-tap]')!, 0.4);
+    tl.fromTo(cards.querySelector('[data-pc-sel="0"]'), { opacity: 1 }, { opacity: 0, duration: 0.3 }, pickAt)
+      .fromTo(cards.querySelector('[data-pc-sel="2"]'), { opacity: 0 }, { opacity: 1, duration: 0.3 }, pickAt)
+      .fromTo(cards.querySelector('[data-pc-t="0"]'), { color: c.violet }, { color: c.ink, duration: 0.3 }, pickAt)
+      .fromTo(cards.querySelector('[data-pc-t="2"]'), { color: c.ink }, { color: c.violet, duration: 0.3 }, pickAt);
+    const btn = stage.querySelector<HTMLElement>("[data-btn]")!;
+    tap(tl, stage, btn, 1.9);
+    const landed = morphButton(tl, stage, 2.7, c.green, c.violet);
+    swap(tl, stage, "pill", landed - 0.1);
+    tl.fromTo(amount, { color: c.ink }, { color: c.green, duration: 0.5, ease: "power2.out" }, landed - 0.2);
+    tl.set({}, {}, landed + 1.8);
+  },
+  memberships(tl, stage) {
+    const flash = stage.querySelector("[data-flash]")!;
+    const landed = tap(tl, stage, stage.querySelector<HTMLElement>("[data-tap]")!, 0.6);
+    tl.fromTo(stage.querySelector("[data-tap]"), { scale: 1 }, { scale: 0.94, duration: 0.1, yoyo: true, repeat: 1 }, landed - 0.05);
+    swap(tl, stage, "btn", landed + 0.1);
+    swap(tl, stage, "pill", landed + 0.2);
+    swap(tl, stage, "sub", landed + 0.2);
+    tl.fromTo(flash, { opacity: 0 }, { opacity: 1, duration: 0.3, yoyo: true, repeat: 1 }, landed + 0.2);
+    tl.set({}, {}, landed + 2.6);
+  },
+  payouts(tl, stage, c) {
+    const amount = stage.querySelector("[data-amount]")!;
+    tap(tl, stage, stage.querySelector<HTMLElement>("[data-btn]")!, 0.5);
+    const landed = morphButton(tl, stage, 1.3, c.green, c.violet);
+    swap(tl, stage, "pill", landed - 0.1);
+    swap(tl, stage, "sub", landed);
+    tl.fromTo(amount, { color: c.ink }, { color: c.green, duration: 0.5, ease: "power2.out" }, landed - 0.2);
+    tl.set({}, {}, landed + 1.8);
+  },
+  sessions(tl, stage) {
     const earn = stage.querySelector<HTMLElement>("[data-earn]")!;
-    const plus = stage.querySelector("[data-plus]")!;
-    const end = () => track.offsetWidth - 56;
-    tl.fromTo(thumb, { x: 0 }, { x: () => end() * 0.18, duration: 0.35, ease: "power2.out" }, 0.5)
-      .to(thumb, { x: end, duration: 0.95, ease: "power3.inOut" }, 0.95)
-      .fromTo(fill, { width: 56 }, { width: () => track.offsetWidth, duration: 1.3, ease: "power2.inOut" }, 0.5)
-      .to(hint, { opacity: 0, duration: 0.5 }, 0.8)
-      .fromTo(logged, { opacity: 0 }, { opacity: 1, duration: 0.45, ease: "power2.out" }, 1.85)
-      .fromTo(check, { strokeDashoffset: 1 }, { strokeDashoffset: 0, duration: 0.4, ease: "power2.out" }, 2.0)
-      .fromTo(plus, { opacity: 0, y: 8, scale: 0.8 }, { opacity: 1, y: 0, scale: 1, duration: 0.45, ease: "back.out(2.4)" }, 2.1)
-      .to(plus, { opacity: 0, y: -8, duration: 0.35, ease: "power2.in" }, 3.7);
-    swap(tl, stage, "pill", 1.9);
-    count(earn, 4200, 4350, tl, 2.15, 0.9);
-    tl.set({}, {}, 5);
+    swap(tl, stage, "slot", 1.0);
+    count(earn, 4200, 4500, tl, 1.15, 1.0);
+    tl.set({}, {}, 4.6);
   },
   client(tl, stage, c) {
     tap(tl, stage, stage.querySelector<HTMLElement>("[data-btn]")!, 0.5);
@@ -145,24 +182,31 @@ const BUILD: Record<Role, (tl: TL, stage: HTMLElement, c: Colors) => void> = {
 function showFinal(root: HTMLElement) {
   const css = getComputedStyle(root);
   const green = css.getPropertyValue("--color-green-fg").trim();
+  const violet = css.getPropertyValue("--color-primary").trim();
+  const ink = css.getPropertyValue("--color-ink").trim();
+  const muted = css.getPropertyValue("--color-ink-muted").trim();
   const set = (sel: string, props: gsap.TweenVars) => gsap.set(root.querySelectorAll(sel), props);
   set("[data-swap-a]", { opacity: 0 });
   set("[data-swap-b]", { opacity: 1 });
   set("[data-btn-idle]", { opacity: 0 });
   set("[data-btn-done]", { opacity: 1 });
   set("[data-check]", { strokeDashoffset: 0 });
-  set("[data-btn-body]", { backgroundColor: green, xPercent: -50 });
+  set("[data-btn-body]", { backgroundColor: green });
   set("[data-amount]", { color: green });
-  set("[data-qr-ok], [data-logged]", { opacity: 1 });
-  set("[data-qr-ok]", { scale: 1 });
+  set("[data-qr-ok]", { opacity: 1, scale: 1 });
   set("[data-qr]", { opacity: 0.12, scale: 0.9 });
-  set("[data-hint]", { opacity: 0 });
-  set("[data-fill]", { width: "100%" });
-  root.querySelectorAll<HTMLElement>("[data-track]").forEach((track) => gsap.set(track.querySelector("[data-thumb]"), { x: track.offsetWidth - 56 }));
-  const m = root.querySelector<HTMLElement>("[data-money]");
-  if (m) m.textContent = money(1250, "+");
-  const earn = root.querySelector<HTMLElement>("[data-earn]");
-  if (earn) earn.textContent = money(4350);
+  set("[data-arr-on]", { opacity: 1 });
+  root.querySelectorAll<HTMLElement>("[data-final]").forEach((el) => (el.textContent = el.dataset.final!));
+  root.querySelectorAll<HTMLElement>("[data-seg]").forEach((el) => {
+    const f = el.dataset.segFinal;
+    el.querySelectorAll<HTMLElement>("[data-seg-bg]").forEach((bg) => gsap.set(bg, { opacity: bg.dataset.segBg === f ? 1 : 0 }));
+    el.querySelectorAll<HTMLElement>("[data-seg-t]").forEach((t) => gsap.set(t, { color: t.dataset.segT === f ? ink : muted }));
+  });
+  root.querySelectorAll<HTMLElement>("[data-pc]").forEach((el) => {
+    const f = el.dataset.pcFinal;
+    el.querySelectorAll<HTMLElement>("[data-pc-sel]").forEach((x) => gsap.set(x, { opacity: x.dataset.pcSel === f ? 1 : 0 }));
+    el.querySelectorAll<HTMLElement>("[data-pc-t]").forEach((x) => gsap.set(x, { color: x.dataset.pcT === f ? violet : ink }));
+  });
 }
 
 /**
@@ -180,7 +224,7 @@ export function initEcosystemMotion(root: HTMLElement): () => void {
   mm.add("(prefers-reduced-motion: no-preference)", () => {
     const css = getComputedStyle(root);
     const token = (n: string) => css.getPropertyValue(n).trim();
-    const colors: Colors = { green: token("--color-green-fg"), violet: token("--color-primary"), ink: token("--color-ink") };
+    const colors: Colors = { green: token("--color-green-fg"), violet: token("--color-primary"), ink: token("--color-ink"), muted: token("--color-ink-muted") };
 
     const tag = one("[data-eco-tag]");
     const title = one("[data-eco-title]");

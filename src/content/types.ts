@@ -91,7 +91,7 @@ export interface FaqItem {
   cta?: Link;
 }
 
-export type FeatureId = "revenue" | "payouts" | "checkin" | "sessions" | "booking";
+export type FeatureId = "revenue" | "scheduling" | "bookings" | "checkin" | "payments" | "memberships" | "payouts" | "sessions" | "client";
 
 /** One tab of the Ecosystem section: real copy plus the key of its live demo card. */
 export interface Feature {

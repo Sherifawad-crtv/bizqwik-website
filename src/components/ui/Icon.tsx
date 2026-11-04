@@ -14,6 +14,9 @@ import { WalletIcon } from "@solar-icons/react/linear/wallet";
 import { AddIcon } from "@solar-icons/react/linear/add";
 import { AltArrowDownIcon } from "@solar-icons/react/linear/alt-arrow-down";
 import { CheckCircleIcon } from "@solar-icons/react/linear/check-circle";
+import { CalendarMarkIcon } from "@solar-icons/react/linear/calendar-mark";
+import { CardIcon } from "@solar-icons/react/linear/card";
+import { TicketIcon } from "@solar-icons/react/linear/ticket";
 import { CalendarIcon } from "@solar-icons/react/linear/calendar";
 import { HomeSmileIcon as HomeSmileSolidIcon } from "@solar-icons/react/bold-duotone/home-smile";
 
@@ -39,6 +42,9 @@ const ICONS = {
   calendar: CalendarIcon,
   "alt-arrow-down": AltArrowDownIcon,
   "check-circle": CheckCircleIcon,
+  "calendar-mark": CalendarMarkIcon,
+  card: CardIcon,
+  ticket: TicketIcon,
 } as const;
 
 export type IconName = keyof typeof ICONS;
