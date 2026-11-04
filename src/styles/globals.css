@@ -38,11 +38,6 @@
   ::selection {
     background: var(--color-primary-tint-strong);
   }
-
-  /* Squircle corners where supported (matches the apps); plain radius elsewhere. */
-  [data-sq] {
-    corner-shape: squircle;
-  }
 }
 
 /* Hero pieces stay hidden until the hero timeline has placed them (avoids a flash of the docked screen). */

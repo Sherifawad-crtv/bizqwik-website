@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Navbar } from "@/components/nav/Navbar";
+import { Squircle } from "@/components/ui/Squircle";
 import { SmoothScroll } from "@/motion/SmoothScroll";
 import { caveat, spaceMono, urbanist } from "./fonts";
 import { seo } from "@/content";
@@ -30,6 +31,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en" className={`${urbanist.variable} ${spaceMono.variable} ${caveat.variable}`}>
       <body>
         <SmoothScroll />
+        <Squircle />
         <Navbar />
         {children}
       </body>

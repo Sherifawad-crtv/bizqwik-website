@@ -76,6 +76,7 @@ export function Ecosystem() {
                   aria-label="Choose a feature"
                   value={active}
                   onChange={(e) => setActive(Number(e.target.value))}
+                  data-sq
                   className="h-14 w-full appearance-none rounded-xl border border-line bg-surface px-4 pr-11 text-[17px] font-semibold text-ink"
                 >
                   {features.map((a, i) => (
@@ -105,6 +106,7 @@ export function Ecosystem() {
                   tabIndex={i === active ? 0 : -1}
                   onClick={() => setActive(i)}
                   onKeyDown={(e) => onKey(e, i)}
+                  data-sq
                   className={`inline-flex h-12 items-center gap-2.5 rounded-xl border px-5 text-[17px] font-semibold transition-colors duration-300 ${
                     i === active ? "border-primary bg-primary-tint text-primary-pressed" : "border-line bg-surface text-ink hover:border-ink/30"
                   }`}

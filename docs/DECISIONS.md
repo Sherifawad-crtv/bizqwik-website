@@ -89,3 +89,4 @@ Append-only. One line of context, the decision, and the date.
   content left, live role card right), after the owner's Glofox reference. Layout only; styling and cards stay
   ours (D-023, D-025). The short titles now live on the chips instead of above each card.
 - **D-027 (2026-11-04) Ecosystem tabs are features, not apps** (supersedes the role chips in D-026). Feature copy lives in `content/features.ts`; app-level copy stays for the apps section.
+- **D-028 (2026-11-04) Squircles are drawn in JS (clip-path), not with `corner-shape`,** because only Chromium supports the CSS property. Opt in with `data-sq`.
