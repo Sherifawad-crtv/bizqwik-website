@@ -90,3 +90,16 @@ export interface FaqItem {
   answer: string;
   cta?: Link;
 }
+
+export type FeatureId = "revenue" | "payouts" | "checkin" | "sessions" | "booking";
+
+/** One tab of the Ecosystem section: real copy plus the key of its live demo card. */
+export interface Feature {
+  id: FeatureId;
+  label: string;
+  /** Solar icon name (linear weight). */
+  icon: string;
+  title: string;
+  headline: string;
+  bullets: string[];
+}

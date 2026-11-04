@@ -36,3 +36,4 @@ Convention (same as the app repo, `Sherifawad-crtv/bizqwik`):
 | 0016 | 2026-10-23 | [Ecosystem: strip to the component, short titles above](0016-2026-10-23-ecosystem-minimal.md) |
 | 0017 | 2026-10-23 | [Ecosystem: light status-card style](0017-2026-10-23-ecosystem-light-cards.md) |
 | 0018 | 2026-11-04 | [Ecosystem: tabbed two-panel stage](0018-2026-11-04-ecosystem-tabbed-stage.md) |
+| 0019 | 2026-11-04 | [Ecosystem: features instead of apps](0019-2026-11-04-ecosystem-features.md) |

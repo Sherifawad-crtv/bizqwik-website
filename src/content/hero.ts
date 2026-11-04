@@ -6,6 +6,6 @@ export const hero = {
 } as const;
 
 export const ecosystem = {
-  heading: "Five apps. One system.",
-  lede: "Everyone who touches your gym gets their own app, and every app stays in sync.",
+  heading: "Everything your gym runs on.",
+  lede: "Pick a feature and watch it work.",
 } as const;
