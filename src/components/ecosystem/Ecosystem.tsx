@@ -69,32 +69,8 @@ export function Ecosystem() {
           </div>
 
           <div data-eco-card className="mt-12 lg:mt-16">
-            {/* Mobile: a select + progress, like the reference. */}
-            <div className="lg:hidden">
-              <div className="relative">
-                <select
-                  aria-label="Choose a feature"
-                  value={active}
-                  onChange={(e) => setActive(Number(e.target.value))}
-                  data-sq
-                  className="h-14 w-full appearance-none rounded-xl border border-line bg-surface px-4 pr-11 text-[17px] font-semibold text-ink"
-                >
-                  {features.map((a, i) => (
-                    <option key={a.id} value={i}>{a.label}</option>
-                  ))}
-                </select>
-                <Icon name="alt-arrow-down" className="pointer-events-none absolute right-4 top-1/2 size-5 -translate-y-1/2 text-ink-muted" />
-              </div>
-              <div className="mt-5 flex items-center gap-4">
-                <div className="h-0.5 flex-1 rounded-full bg-line">
-                  <div className="h-full rounded-full bg-primary transition-[width] duration-500 ease-out" style={{ width: `${((active + 1) / features.length) * 100}%` }} />
-                </div>
-                <span className="font-mono text-[13px] font-bold tabular-nums text-ink-muted">{active + 1}/{features.length}</span>
-              </div>
-            </div>
-
-            {/* Desktop: chips. */}
-            <div role="tablist" aria-label="Features" className="hidden flex-wrap justify-center gap-3 lg:flex">
+            {/* Chips: one swipeable row on phones, centred and wrapping on desktop. */}
+            <div role="tablist" aria-label="Features" className="-mx-5 flex snap-x gap-2.5 overflow-x-auto px-5 pb-1 [scrollbar-width:none] lg:mx-0 lg:flex-wrap lg:justify-center lg:gap-3 lg:overflow-visible lg:px-0 [&::-webkit-scrollbar]:hidden">
               {features.map((a, i) => (
                 <button
                   key={a.id}
@@ -104,10 +80,13 @@ export function Ecosystem() {
                   aria-selected={i === active}
                   aria-controls="eco-stage"
                   tabIndex={i === active ? 0 : -1}
-                  onClick={() => setActive(i)}
+                  onClick={(e) => {
+                    setActive(i);
+                    e.currentTarget.scrollIntoView({ inline: "center", block: "nearest", behavior: "smooth" });
+                  }}
                   onKeyDown={(e) => onKey(e, i)}
                   data-sq
-                  className={`inline-flex h-12 items-center gap-2.5 rounded-xl border px-5 text-[17px] font-semibold transition-colors duration-300 ${
+                  className={`inline-flex h-12 shrink-0 snap-center items-center gap-2.5 rounded-xl border px-5 text-[17px] font-semibold transition-colors duration-300 ${
                     i === active ? "border-primary bg-primary-tint text-primary-pressed" : "border-line bg-surface text-ink hover:border-ink/30"
                   }`}
                 >
