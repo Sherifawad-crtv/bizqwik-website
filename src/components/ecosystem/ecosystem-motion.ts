@@ -55,7 +55,7 @@ function morphButton(tl: TL, stage: HTMLElement, at: number, green: string, viol
   const full = () => btn.offsetWidth;
   let t = at;
 
-  tl.fromTo(body, { width: full, scale: 1, backgroundColor: violet }, { scale: 0.95, duration: 0.12, ease: "power2.out" }, t)
+  tl.fromTo(body, { width: full, xPercent: -50, scale: 1, backgroundColor: violet }, { scale: 0.95, duration: 0.12, ease: "power2.out" }, t)
     .to(body, { scale: 1, duration: 0.3, ease: "back.out(3)" }, t + 0.12)
     .to(idle, { opacity: 0, y: -6, duration: 0.2, ease: "power2.in" }, t + 0.1);
   t += 0.2;
@@ -151,7 +151,7 @@ function showFinal(root: HTMLElement) {
   set("[data-btn-idle]", { opacity: 0 });
   set("[data-btn-done]", { opacity: 1 });
   set("[data-check]", { strokeDashoffset: 0 });
-  set("[data-btn-body]", { backgroundColor: green });
+  set("[data-btn-body]", { backgroundColor: green, xPercent: -50 });
   set("[data-amount]", { color: green });
   set("[data-qr-ok], [data-logged]", { opacity: 1 });
   set("[data-qr-ok]", { scale: 1 });
@@ -186,6 +186,7 @@ export function initEcosystemMotion(root: HTMLElement): () => void {
     const title = one("[data-eco-title]");
     const lede = one("[data-eco-lede]");
     const cards = all("[data-eco-card]");
+    const copyIn = () => gsap.fromTo(all("[data-eco-copy]"), { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: duration.base, ease: ease.out });
     const split = SplitText.create(title, { type: "words", mask: "words" });
 
     gsap.set([tag, lede, ...cards], { opacity: 0 });
@@ -199,25 +200,51 @@ export function initEcosystemMotion(root: HTMLElement): () => void {
       .to(lede, { opacity: 1, y: 0, duration: duration.base, ease: ease.out }, 0.45)
       .to(cards, { opacity: 1, y: 0, duration: duration.slow, ease: ease.out, stagger: stagger.loose }, 0.55);
 
-    const loops: TL[] = [];
-    all<HTMLElement>("[data-demo]").forEach((demo, i) => {
+    // Only the role shown on the stage plays, and only while the stage is on screen.
+    const loops: { demo: HTMLElement; tl: TL; shown: boolean }[] = [];
+    const sync = () =>
+      loops.forEach((l) => {
+        const active = l.demo.dataset.active === "true";
+        if (active && inView) {
+          if (!l.shown) l.tl.invalidate().restart();
+          else l.tl.play();
+        } else l.tl.pause();
+        l.shown = active;
+      });
+    let inView = false;
+    all<HTMLElement>("[data-demo]").forEach((demo) => {
       const role = demo.dataset.demo as Role;
       const stage = demo.querySelector<HTMLElement>("[data-stage]")!;
       const inner = stage.querySelector<HTMLElement>("[data-inner]")!;
-      const tl = gsap.timeline({ paused: true, repeat: -1, repeatDelay: 0.5, delay: i * 0.25 });
-      loops.push(tl);
+      const tl = gsap.timeline({ paused: true, repeat: -1, repeatDelay: 0.5 });
+      loops.push({ demo, tl, shown: false });
       tl.fromTo(inner, { opacity: 0, y: 8 }, { opacity: 1, y: 0, duration: 0.45, ease: "power2.out" }, 0);
       BUILD[role](tl, stage, colors);
       tl.to(inner, { opacity: 0, y: -6, duration: 0.4, ease: "power2.in" }, tl.duration());
-      ScrollTrigger.create({ trigger: demo, start: "top 92%", end: "bottom 8%", onToggle: (self) => (self.isActive ? tl.play() : tl.pause()) });
     });
+    ScrollTrigger.create({
+      trigger: one("[data-eco-card]"),
+      start: "top 92%",
+      end: "bottom 8%",
+      onToggle: (self) => {
+        inView = self.isActive;
+        sync();
+      },
+    });
+    // Switching role: React flips data-active; restart that role's loop and fade the copy in.
+    const watch = new MutationObserver(() => {
+      sync();
+      copyIn();
+    });
+    watch.observe(one("#eco-stage"), { attributes: true, subtree: true, attributeFilter: ["data-active"] });
 
     // Widths are measured in px: re-measure after a resize.
-    const remeasure = () => loops.forEach((l) => l.invalidate());
+    const remeasure = () => loops.forEach((l) => l.tl.invalidate());
     ScrollTrigger.addEventListener("refresh", remeasure);
 
     return () => {
       ScrollTrigger.removeEventListener("refresh", remeasure);
+      watch.disconnect();
       split.revert();
     };
   });

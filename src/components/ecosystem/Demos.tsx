@@ -27,7 +27,7 @@ const Cursor = () => <span data-cursor aria-hidden className="pointer-events-non
 function MorphButton({ idle, done, loader = true }: { idle: string; done: string; loader?: boolean }) {
   return (
     <div data-btn data-loader={loader ? "" : undefined} className="relative h-14">
-      <div data-btn-body className="absolute left-1/2 top-0 flex h-14 w-full -translate-x-1/2 items-center justify-center overflow-hidden rounded-full bg-primary text-[17px] font-bold text-white">
+      <div data-btn-body className="absolute left-1/2 top-0 flex h-14 w-full items-center justify-center overflow-hidden rounded-full bg-primary text-[17px] font-bold text-white">
         <span data-btn-idle className="absolute">{idle}</span>
         <svg data-btn-spin className="absolute size-7 opacity-0" viewBox="0 0 24 24" fill="none" aria-hidden>
           <circle cx="12" cy="12" r="9" stroke="currentColor" strokeOpacity=".3" strokeWidth="3" />
@@ -58,7 +58,7 @@ function Header({ icon, title, a, b }: { icon: ReactNode; title: string; a: stri
   return (
     <header className="flex items-center gap-3.5">
       <span data-tile className="grid size-[52px] shrink-0 place-items-center rounded-[18px] bg-primary-tint-strong text-primary">{icon}</span>
-      <h4 className="min-w-0 text-[21px] font-extrabold leading-tight tracking-[-.015em]">{title}</h4>
+      <h4 className="min-w-0 whitespace-nowrap text-[21px] font-extrabold leading-tight tracking-[-.015em]">{title}</h4>
       <Swap
         name="pill"
         className="ml-auto shrink-0"

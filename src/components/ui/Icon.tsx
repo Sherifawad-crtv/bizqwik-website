@@ -12,6 +12,8 @@ import { UsersGroupRoundedIcon } from "@solar-icons/react/linear/users-group-rou
 import { UsersGroupTwoRoundedIcon } from "@solar-icons/react/linear/users-group-two-rounded";
 import { WalletIcon } from "@solar-icons/react/linear/wallet";
 import { AddIcon } from "@solar-icons/react/linear/add";
+import { AltArrowDownIcon } from "@solar-icons/react/linear/alt-arrow-down";
+import { CheckCircleIcon } from "@solar-icons/react/linear/check-circle";
 import { CalendarIcon } from "@solar-icons/react/linear/calendar";
 import { HomeSmileIcon as HomeSmileSolidIcon } from "@solar-icons/react/bold-duotone/home-smile";
 
@@ -35,6 +37,8 @@ const ICONS = {
   "clock-circle": ClockCircleIcon,
   add: AddIcon,
   calendar: CalendarIcon,
+  "alt-arrow-down": AltArrowDownIcon,
+  "check-circle": CheckCircleIcon,
 } as const;
 
 export type IconName = keyof typeof ICONS;

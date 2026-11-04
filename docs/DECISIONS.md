@@ -85,3 +85,6 @@ Append-only. One line of context, the decision, and the date.
   sub-line, a well) is back, because it is the component's own content; avatars, captions and deck devices stay out
   (D-023, D-024). The short role titles stay above the cards. Layout became 3 + 2 to give the cards their width.
   Not used yet: the owner's hand-held-phone mockup (Mockuuups) from the same upload.
+- **D-026 (2026-11-04) Ecosystem is a tabbed stage, not five columns.** Role chips switch a two-panel stage (real
+  content left, live role card right), after the owner's Glofox reference. Layout only; styling and cards stay
+  ours (D-023, D-025). The short titles now live on the chips instead of above each card.
