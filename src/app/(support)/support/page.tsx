@@ -37,13 +37,13 @@ export default function SupportHome() {
           </ul>
         </div>
         <Image
-          src="/illustrations/checkin.webp"
+          src="/illustrations/checkin-clear.webp"
           alt=""
           width={1400}
           height={1050}
           unoptimized
           priority
-          className="mx-auto h-auto w-full max-w-[440px] mix-blend-multiply"
+          className="mx-auto h-auto w-full max-w-[440px]"
         />
       </div>
 

@@ -64,3 +64,4 @@ Convention (same as the app repo, `Sherifawad-crtv/bizqwik`):
 | 0044 | Phase 3 closed: keep pinned hero and pill nav |
 | 0045 | Support centre and policy pages |
 | 0046 | Feature demos start when you arrive at them |
+| 0047 | Support hub illustration without blend mode |
