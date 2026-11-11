@@ -58,3 +58,4 @@ Convention (same as the app repo, `Sherifawad-crtv/bizqwik`):
 | 0038 | Fixed-height feature panels on phones |
 | 0039 | Phase 7: Plans, Compare, Add-ons, FAQ |
 | 0040 | Statement section smoothing on touch |
+| 0041 | Desktop navbar glass |

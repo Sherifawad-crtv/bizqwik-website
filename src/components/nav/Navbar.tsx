@@ -12,6 +12,8 @@ import { initNavbarMotion } from "./motion";
 
 const SECTION_IDS = nav.map((n) => n.href.slice(1));
 const glass = "bg-surface/70 backdrop-blur-xl backdrop-saturate-150 shadow-[0_10px_28px_-10px_rgb(26_23_38/0.2),0_1px_2px_rgb(26_23_38/0.06)]";
+/** Desktop pill and logo tile: a touch more see-through, stronger blur, and a faint light edge so it reads as frosted glass. */
+const glassDesktop = "lg:bg-surface/65 lg:backdrop-blur-2xl lg:backdrop-saturate-[1.8] lg:shadow-[0_10px_28px_-10px_rgb(26_23_38/0.18),inset_0_0_0_1px_rgb(255_255_255/0.55)]";
 
 export function Navbar() {
   const header = useRef<HTMLElement>(null);
@@ -140,7 +142,7 @@ export function Navbar() {
               <span
                 ref={tile}
                 aria-hidden
-                className="absolute left-0 top-0 hidden size-14 items-center justify-center rounded-[20px] bg-surface opacity-0 shadow-float lg:flex"
+                className="absolute left-0 top-0 hidden size-14 items-center justify-center rounded-[20px] bg-surface opacity-0 shadow-float lg:flex lg:bg-surface/60 lg:backdrop-blur-2xl lg:backdrop-saturate-[1.8]"
               >
                 <Image src="/brand/mark.png" alt="" width={386} height={403} className="h-7 w-auto" />
               </span>
@@ -148,7 +150,7 @@ export function Navbar() {
 
             {/* Desktop links */}
             <nav aria-label="Primary" className="hidden lg:block">
-              <div ref={pill} className={`relative flex items-center gap-1 rounded-[22px] p-1.5 ${glass}`}>
+              <div ref={pill} className={`relative flex items-center gap-1 rounded-[22px] p-1.5 ${glass} ${glassDesktop}`}>
                 <span
                   ref={indicator}
                   aria-hidden
@@ -164,7 +166,7 @@ export function Navbar() {
                       data-nav={id}
                       aria-current={on ? "true" : undefined}
                       className={`relative flex h-11 items-center rounded-[16px] px-5 text-[17px] font-semibold transition-colors duration-(--dur-fast) ease-standard ${
-                        on ? "text-ink" : "text-ink-muted hover:text-ink"
+                        on ? "text-ink" : "text-ink/70 hover:text-ink"
                       }`}
                     >
                       <span
