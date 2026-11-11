@@ -26,7 +26,7 @@
 | **5. Cards + illustrations** (done) | Four 3D renders (Figma AI), hover lift | Section 4 |
 | **6. Sticky feature list** (done, reworked into four bundles) | One row per bundle (business, front desk and CRM, coaches, clients): sticky text, gray panel with a Link-style demo, Replay; plays on scroll | Section 5 (replaced the chip tabs) |
 | **7. Brief sections** (done) | Plans, Compare, Add-ons, FAQ in the hairline-box language (the reference has no pricing) | Plans, Add-ons, FAQ shells filled |
-| 8. Closing + footer | Scrub-text statement, CTA cards, footer, SEO | Section 6 |
+| **8. Closing + footer** (done) | Scrub-text statement, CTA cards, footer, SEO | Section 6 |
 | 9. Polish + QA | Reduced motion pass, iOS Safari pass, performance, copy review | Release candidate |
 
 ## Open decisions (asked when their phase starts, not before)

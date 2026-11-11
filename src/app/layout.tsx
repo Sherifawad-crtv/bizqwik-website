@@ -3,7 +3,7 @@ import { Navbar } from "@/components/nav/Navbar";
 import { Motion } from "@/motion/Motion";
 import { SmoothScroll } from "@/motion/SmoothScroll";
 import { caveat, spaceMono, urbanist } from "./fonts";
-import { seo } from "@/content";
+import { brand, contact, seo } from "@/content";
 import "../styles/globals.css";
 
 export const metadata: Metadata = {
@@ -16,6 +16,8 @@ export const metadata: Metadata = {
     ],
     apple: "/apple-touch-icon.png",
   },
+  openGraph: { title: seo.title, description: seo.description, siteName: brand.name, type: "website", locale: "en_EG" },
+  twitter: { card: "summary_large_image", title: seo.title, description: seo.description },
   // Foundation stage only — remove when the real page ships.
   robots: { index: false, follow: false },
 };
@@ -30,6 +32,21 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" className={`${urbanist.variable} ${spaceMono.variable} ${caveat.variable}`}>
       <body>
+        <script
+          type="application/ld+json"
+          // Organization facts only (no address yet: add `address` when the business location is confirmed).
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Organization",
+              name: brand.name,
+              description: seo.description,
+              email: contact.email,
+              telephone: "+201000401407",
+              areaServed: "EG",
+            }),
+          }}
+        />
         <SmoothScroll />
         <Motion />
         <Navbar />

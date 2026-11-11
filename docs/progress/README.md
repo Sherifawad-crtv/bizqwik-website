@@ -59,3 +59,4 @@ Convention (same as the app repo, `Sherifawad-crtv/bizqwik`):
 | 0039 | Phase 7: Plans, Compare, Add-ons, FAQ |
 | 0040 | Statement section smoothing on touch |
 | 0041 | Desktop navbar glass |
+| 0042 | Phase 8: closing, footer, SEO |
