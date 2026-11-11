@@ -4,3 +4,6 @@
 
 ## Root cause of "no glass" (fixed)
 The desktop bar wrapper reset its blur with `lg:backdrop-blur-none`, but its `backdrop-saturate-150` stayed, so the wrapper still had a `backdrop-filter`. A parent with a backdrop-filter becomes a "backdrop root": the glass pill inside could only blur the wrapper's own (empty) content, never the page. The wrapper now uses `lg:[backdrop-filter:none]`. Verified with a striped test layer under the pill: the stripes now blur through it.
+
+## Calmer glass
+Owner asked for a cleaner, lighter effect: no stroke, no drop shadow. Desktop pill and logo tile are now `bg-surface/72`, `backdrop-blur-lg`, saturate 1.5, no ring, no inner edge, no shadow. Mobile unchanged.
