@@ -60,6 +60,7 @@ CSS twins live in `styles/tokens.css` (`--ease-*`, `--dur-*`); use them from Tai
 | `swapIn(targets)` | Content changing inside a stable frame: fade and rise, no scale | tab copy, a list changing |
 | `pressFeedback(el)` | 1 to 0.95 to 1 | a control that was pressed in JS |
 | `scrubWords(el)` | Statement brightens word by word with scroll | closing statements |
+| `toggleOnView(el, onChange, margin)` | Runs a callback every time an element enters or leaves the screen (both directions; reads the real position, so it works on sticky elements). `margin` shrinks the viewport like a CSS margin | the feature list text: fade in plus a divider that draws left to right, reversed on leaving |
 | `sticky` (CSS) | `position: sticky; top: 96px`, no JS | stacking section titles |
 
 ## 4. Rules
@@ -72,6 +73,10 @@ CSS twins live in `styles/tokens.css` (`--ease-*`, `--dur-*`); use them from Tai
 6. **Positions in a timeline are choreography, not tokens.** Place steps with `gap.beat` after the previous one, or at explicit seconds. Their lengths are tokens.
 7. **Reduced motion:** nothing plays; every demo shows its final state, reveals show at once. `check:motion` does not test this; test it when you add a demo (`showFinal` in `ecosystem-motion.ts`).
 8. **Measure layout inside the timeline, not outside.** Use function values (`x: () => ...`). Never rely on a width read while a panel is hidden. State both ends of a tween that animates a measured property.
+
+### Divider that draws in (feature list)
+Measured from the reference: a 1px line above each title, `scaleX` 0 to 1 from the left, 0.6s with a 0.2s delay when the row is on screen, back to 0 in 0.3s when it leaves.
+The text block fades with it (0.3s). "On screen" means 192px inside the top and bottom edges (twice the 96px header offset). On phones the block starts visible and only reacts when it leaves.
 
 ## 5. Exceptions (documented, deliberate)
 

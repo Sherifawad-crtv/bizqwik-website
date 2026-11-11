@@ -1,5 +1,5 @@
 import { gsap, ScrollTrigger } from "@/motion/gsap";
-import { playOnView, replay } from "@/motion/primitives";
+import { playOnView, replay, toggleOnView } from "@/motion/primitives";
 import { duration, enterFrom, ease, gap, press, stagger } from "@/motion/tokens";
 
 type TL = gsap.core.Timeline;
@@ -235,6 +235,30 @@ export function initFeatureMotion(root: HTMLElement): () => void {
       return playOnView(panel, () => replay(tl));
     });
 
+    // The text block of each row: it fades in and its divider draws left to right when the row is on screen
+    // (192px inside the top and bottom edges, as in the reference), and both reverse when it leaves.
+    // On phones the block starts visible and only reacts on leaving, as in the reference.
+    const phone = window.matchMedia("(max-width: 640px)").matches;
+    const offset = parseInt(token("--header-offset"), 10) || 96;
+    const stopToggles = all<HTMLElement>("[data-accordion]").map((el) => {
+      const rule = el.querySelector<HTMLElement>("[data-rule]")!;
+      if (!phone) gsap.set(el, { opacity: 0 });
+      gsap.set(rule, { scaleX: phone ? 1 : 0, transformOrigin: "left center" });
+      return toggleOnView(
+        el,
+        (inView) => {
+          if (inView) {
+            gsap.to(el, { opacity: 1, duration: duration.fast, ease: ease.standard, overwrite: "auto" });
+            gsap.to(rule, { scaleX: 1, duration: duration.slow, delay: gap.beat * 2, ease: ease.standard, overwrite: "auto" });
+          } else {
+            gsap.to(el, { opacity: 0, duration: duration.fast, ease: ease.standard, overwrite: "auto" });
+            gsap.to(rule, { scaleX: 0, duration: duration.fast, ease: ease.standard, overwrite: "auto" });
+          }
+        },
+        `-${offset * 2}px 0px -${offset * 2}px 0px`,
+      );
+    });
+
     const onClick = (e: Event) => {
       const panel = (e.target as Element).closest("[data-replay]")?.closest("[data-panel]");
       const tl = panel && timelines.get(panel);
@@ -250,6 +274,7 @@ export function initFeatureMotion(root: HTMLElement): () => void {
       ScrollTrigger.removeEventListener("refresh", remeasure);
       root.removeEventListener("click", onClick);
       triggers.forEach((t) => t.kill());
+      stopToggles.forEach((stop) => stop());
     };
   });
 

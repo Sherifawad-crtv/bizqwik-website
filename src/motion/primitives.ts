@@ -13,6 +13,7 @@ import { duration, ease, enterFrom, press, stagger, view } from "./tokens";
  *   pressFeedback()  the 1 -> .95 -> 1 dip on a control
  *   scrubWords()     a statement that brightens word by word as you scroll
  *   scrubRange()     drive anything from how far an element has scrolled through the viewport
+ *   toggleOnView()   run a callback each time an element enters or leaves the screen (both directions)
  */
 
 export const prefersReducedMotion = () => typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -124,4 +125,16 @@ export function scrubRange(el: Element, apply: (progress: number) => void) {
     onRefresh: (self) => apply(self.progress),
   });
   return () => st.kill();
+}
+
+/**
+ * Calls `onChange(true)` when the element enters the viewport and `onChange(false)` when it leaves, every time
+ * (the reference's `whileInView` without `once`). `margin` shrinks the viewport like a CSS margin, for example
+ * "-192px 0px -192px 0px" counts the element as in view only when it is 192px inside the top and bottom edges.
+ * It reads the element's real position, so it works for sticky elements. Fires once on start with the current state.
+ */
+export function toggleOnView(el: Element, onChange: (inView: boolean) => void, margin = "0px") {
+  const io = new IntersectionObserver(([entry]) => onChange(entry.isIntersecting), { rootMargin: margin });
+  io.observe(el);
+  return () => io.disconnect();
 }
