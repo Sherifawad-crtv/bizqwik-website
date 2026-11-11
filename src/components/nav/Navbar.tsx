@@ -132,7 +132,7 @@ export function Navbar() {
         <div className="mx-auto max-w-page">
           <div
             ref={bar}
-            className={`pointer-events-auto relative mx-auto flex h-16 w-full items-center justify-between rounded-[28px] pl-5 pr-2 lg:h-14 lg:justify-center lg:rounded-none lg:bg-transparent lg:p-0 lg:shadow-none lg:backdrop-blur-none ${glass}`}
+            className={`pointer-events-auto relative mx-auto flex h-16 w-full items-center justify-between rounded-[28px] pl-5 pr-2 lg:h-14 lg:justify-center lg:rounded-none lg:bg-transparent lg:p-0 lg:shadow-none lg:[backdrop-filter:none] ${glass}`}
           >
             {/* Logo: wordmark (wide) → emblem tile (narrow, desktop). */}
             <a ref={logo} href="#top" aria-label="Bizqwik, back to top" className="relative block h-14 w-[132px] shrink-0 lg:absolute lg:left-0 lg:top-0 lg:w-[148px]">
