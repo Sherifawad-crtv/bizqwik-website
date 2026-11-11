@@ -47,16 +47,12 @@ export function Ecosystem() {
   };
 
   return (
-    <section ref={root} id="ecosystem" aria-labelledby="ecosystem-title" className="relative z-20 -mt-[100svh]">
-      {/* Two tinted sheets peek out above the main one, like stacked pages. */}
-      <span aria-hidden className="absolute inset-x-[7%] -top-[22px] h-24 rounded-t-[72px] bg-primary-tint-strong" />
-      <span aria-hidden className="absolute inset-x-[3%] -top-[11px] h-24 rounded-t-[72px] bg-[#e9e5ff]" />
-
-      <div className="relative min-h-svh rounded-t-[48px] bg-surface px-5 pb-44 pt-16 shadow-[0_-30px_70px_-30px_rgba(26,23,38,.22)] lg:rounded-t-[72px] lg:px-8 lg:pt-24">
+    <section ref={root} id="apps" aria-labelledby="ecosystem-title" className="px-4 py-16 lg:px-8 lg:py-24">
+      <div className="relative">
         <div className="mx-auto max-w-page">
           <div className="flex flex-col items-center text-center">
             <span
-             
+
               className="inline-flex -rotate-3 items-center gap-2 rounded-full bg-ink py-1.5 pl-1.5 pr-4 font-mono text-[13px] font-bold uppercase tracking-[.08em] text-white shadow-[0_8px_18px_-8px_rgba(26,23,38,.5)]"
             >
               <span className="rounded-full bg-white/15 px-2.5 py-1">01</span>

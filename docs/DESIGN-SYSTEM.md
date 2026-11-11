@@ -196,3 +196,13 @@ fading and snaps to blurred at full opacity. Rule: never fade an ancestor of a g
 glass element itself. In `hero-motion.ts` the nav/FAB wrappers only move (`y`), and their faces
 (`[data-order]`) fade. Both faces are on their own layer from load (`will-change`), painted at opacity 0,
 so the blur is ready the moment they start showing.
+
+## Page outline and layout primitives (phase 2)
+The landing page is six sections in this order (plan: `docs/PLAN-landing-outline.md`), with Plans, Add-ons and FAQ between 5 and 6:
+hero, dark statement (`#ecosystem`, the sheet that rises over the pinned hero), four cards (`#benefits`), feature stage (`#apps`),
+Plans (`#plans`), Add-ons (`#add-ons`), FAQ (`#faq`), closing (`#contact`).
+- `components/layout/layout.tsx`: `Container` (max-w-page, 16/32px gutters), `Box` (hairline box; tones `surface | paper | dark | raised`;
+  28px squircle), `Panel` (quiet sunken panel for products and illustrations), `Skeleton` (dashed slot a later phase fills).
+- Sections live in `components/sections/` (`StatementSection`, `BenefitsSection`, `Shells`, `ClosingSection`); the feature stage is `components/ecosystem/Ecosystem.tsx`.
+- Draft copy for the new sections: `content/sections.ts` (from the brief's own lines; reworded in phase 9).
+- Dark sections use `bg-ink`; the highlight word uses `primary-light`.

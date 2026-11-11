@@ -7,3 +7,4 @@ export * from "./addons";
 export * from "./faq";
 export * from "./contact";
 export * from "./features";
+export * from "./sections";

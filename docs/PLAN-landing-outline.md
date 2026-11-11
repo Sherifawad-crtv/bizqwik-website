@@ -19,14 +19,15 @@
 
 | Phase | Scope | Output |
 |-------|-------|--------|
-| **1. Motion system** (this push) | Tokens (eases, durations, distances), reveal / play-once-with-replay / press / scrub-text primitives, `data-reveal` convention, migrate every existing animation onto it, a guard script | `docs/MOTION.md`, `src/motion/*`, `npm run check:motion` |
-| 2. Layout skeleton | Container, hairline-box grid, section shells in the 6-section order, empty panels, responsive rules | Page outline in place, no content polish |
+| 1. Motion system (done) | Tokens, kit, migration, guard | `docs/MOTION.md`, `src/motion/*`, `npm run check:motion` |
+| **2. Layout skeleton** (done) | Layout primitives, the section shells in outline order, nav anchors resolving | `components/layout`, `components/sections`, `/` shows the whole outline |
 | 3. Nav + hero | Decide: keep the pinned phone-morph hero or switch to the 50/50 panel hero. Nav as bordered bar or keep the pill | Hero + nav per decision |
-| 4. Dark statement + orbit | Dark box, orbiting pills (loop motion token), stat headline | Section 3 |
-| 5. Cards + illustrations | 2x2 grid, four illustrations (SVG/CSS), hover states | Section 4 |
+| 4. Dark statement + orbit | The pills orbit the emblem (loop motion token), stat headline | Section 3 |
+| 5. Cards + illustrations | Four illustrations (SVG/CSS), hover states | Section 4 |
 | 6. Sticky feature stage | Sticky stacking titles, swapping panel, Replay, mobile behaviour | Section 5 (replaces the chip tabs) |
-| 7. Closing + footer | Scrub-text statement, CTA cards, footer, anchors, SEO | Section 6 |
-| 8. Polish + QA | Reduced motion pass, iOS Safari pass, performance, copy review | Release candidate |
+| 7. Brief sections | Plans, Compare, Add-ons, FAQ in the hairline-box language (the reference has no pricing) | Plans, Add-ons, FAQ shells filled |
+| 8. Closing + footer | Scrub-text statement, CTA cards, footer, SEO | Section 6 |
+| 9. Polish + QA | Reduced motion pass, iOS Safari pass, performance, copy review | Release candidate |
 
 ## Open decisions (asked when their phase starts, not before)
 - Phase 3: hero (pinned phone morph vs 50/50 scripted panel) and nav (floating pill vs bordered bar).

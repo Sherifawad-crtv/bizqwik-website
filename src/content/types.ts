@@ -2,7 +2,7 @@
 
 export type AppId = "founder" | "accountant" | "frontDesk" | "coaches" | "client";
 export type PlanId = "solopreneur" | "grow" | "scale" | "enterprise";
-export type SectionId = "top" | "ecosystem" | "apps" | "client-app" | "plans" | "compare" | "add-ons" | "faq" | "contact";
+export type SectionId = "top" | "ecosystem" | "benefits" | "apps" | "client-app" | "plans" | "compare" | "add-ons" | "faq" | "contact";
 
 export interface Link {
   label: string;
