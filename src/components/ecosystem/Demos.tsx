@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { Kick, Pill, QrGrid, type Tone } from "@/components/product/parts";
 import { Icon } from "@/components/ui/Icon";
 
 /*
@@ -55,25 +56,6 @@ function Swap({ a, b, name, className = "" }: { a: ReactNode; b: ReactNode; name
 
 /* ---------- Ported product components ---------- */
 
-type Tone = "amber" | "violet" | "green" | "danger" | "sunken";
-const TONES: Record<Tone, string> = {
-  amber: "bg-amber-bg text-amber-fg",
-  violet: "bg-primary-tint-strong text-primary-pressed",
-  green: "bg-green-bg text-green-fg",
-  danger: "bg-danger-bg text-danger-fg",
-  sunken: "bg-sunken text-ink-muted",
-};
-
-/** StatePill / PackageStatusPill: dot + mono caps. `chip` is the squarer attendance chip. */
-function Pill({ tone, children, chip = false }: { tone: Tone; children: ReactNode; chip?: boolean }) {
-  return (
-    <span className={`${mono} inline-flex items-center gap-1.5 whitespace-nowrap px-2.5 py-1 text-[11px] leading-none ${chip ? "rounded-[8px]" : "rounded-full"} ${TONES[tone]}`}>
-      {!chip && <i className="size-1.5 shrink-0 rounded-full bg-current" />}
-      {children}
-    </span>
-  );
-}
-
 const SwapPill = ({ name, a, b, className = "" }: { name: string; a: [Tone, string]; b: [Tone, string]; className?: string }) => (
   <Swap name={name} className={className} a={<Pill tone={a[0]}>{a[1]}</Pill>} b={<Pill tone={b[0]}>{b[1]}</Pill>} />
 );
@@ -115,7 +97,6 @@ const Card = ({ children, className = "" }: { children: ReactNode; className?: s
   <div className={`rounded-[24px] border border-line bg-surface ${className}`}>{children}</div>
 );
 
-const Kick = ({ children }: { children: ReactNode }) => <p className="font-mono text-[11px] font-bold uppercase tracking-[.08em] text-ink-faint">{children}</p>;
 
 /** Product button, secondary variant: primary tint, small. */
 const SoftButton = ({ children, ...rest }: { children: ReactNode } & React.HTMLAttributes<HTMLSpanElement>) => (
@@ -268,24 +249,14 @@ export function BookingsDemo() {
 }
 
 /* ---------- Front desk: QR check-in ---------- */
-const QR = (() => {
-  let s = 7;
-  const rnd = () => ((s = (s * 48271) % 2147483647) / 2147483647) > 0.5;
-  const N = 9;
-  const finder = (x: number, y: number) => (x < 3 && y < 3) || (x > N - 4 && y < 3) || (x < 3 && y > N - 4);
-  return Array.from({ length: N * N }, (_, i) => ({ finder: finder(i % N, Math.floor(i / N)), on: rnd() }));
-})();
-
 export function CheckInDemo() {
   return (
     <Screen kicker="Front desk" title="Check-in" right={<SwapPill name="pill" a={["amber", "SCANNING"]} b={["green", "CHECKED IN"]} className="mt-1.5 shrink-0" />}>
       <Card className="mt-4 p-4">
         <div className="flex items-center gap-5">
           <div className="relative size-[132px] shrink-0 rounded-[20px] bg-sunken p-3.5">
-            <div data-qr className="grid size-full grid-cols-9 grid-rows-9 gap-px">
-              {QR.map((c, i) => (
-                <span key={i} className={`rounded-[1.5px] ${c.finder ? "bg-ink" : c.on ? "bg-ink/85" : "bg-transparent"}`} />
-              ))}
+            <div data-qr className="size-full">
+              <QrGrid className="size-full" />
             </div>
             <span data-scan className="absolute inset-x-3 top-3.5 h-[3px] rounded-full bg-primary opacity-0 shadow-[0_0_14px_3px_rgba(90,65,255,.55)]" />
             <span data-qr-ok className="absolute inset-0 grid scale-50 place-items-center opacity-0">

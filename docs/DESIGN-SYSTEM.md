@@ -204,6 +204,7 @@ Plans (`#plans`), Add-ons (`#add-ons`), FAQ (`#faq`), closing (`#contact`).
 - `components/layout/layout.tsx`: `Container` (`page-width`, see "Page grid"), `Box` (hairline box; tones `surface | paper | dark | raised`;
   28px radius), `Panel` (quiet sunken panel for products and illustrations), `Skeleton` (dashed slot a later phase fills).
 - Sections live in `components/sections/` (`StatementSection`, `BenefitsSection`, `Shells`, `ClosingSection`); the feature stage is `components/ecosystem/Ecosystem.tsx`.
+- Card illustrations: `components/sections/BenefitArt.tsx`, collages of the shared product pieces in `components/product/parts.tsx` (`Pill`, `Kick`, `QrGrid`). No image files.
 - Draft copy for the new sections: `content/sections.ts` (from the brief's own lines; reworded in phase 9).
 - Dark sections use `bg-ink`; the highlight word uses `primary-light`.
 
