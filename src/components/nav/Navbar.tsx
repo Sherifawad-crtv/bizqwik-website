@@ -13,7 +13,7 @@ import { initNavbarMotion } from "./motion";
 const SECTION_IDS = nav.map((n) => n.href.slice(1));
 const glass = "bg-surface/70 backdrop-blur-xl backdrop-saturate-150 shadow-[0_10px_28px_-10px_rgb(26_23_38/0.2),0_1px_2px_rgb(26_23_38/0.06)]";
 /** Desktop pill and logo tile: a touch more see-through, stronger blur, and a faint light edge so it reads as frosted glass. */
-const glassDesktop = "lg:bg-surface/65 lg:backdrop-blur-2xl lg:backdrop-saturate-[1.8] lg:shadow-[0_10px_28px_-10px_rgb(26_23_38/0.18),inset_0_0_0_1px_rgb(255_255_255/0.55)]";
+const glassDesktop = "lg:bg-[linear-gradient(135deg,rgb(255_255_255/0.62),rgb(255_255_255/0.28))] lg:backdrop-blur-2xl lg:backdrop-saturate-[2] lg:shadow-[0_12px_32px_-12px_rgb(26_23_38/0.28),inset_0_1px_0_rgb(255_255_255/0.9),inset_0_0_0_1px_rgb(255_255_255/0.5)] lg:ring-1 lg:ring-ink/[.06]";
 
 export function Navbar() {
   const header = useRef<HTMLElement>(null);
@@ -142,7 +142,7 @@ export function Navbar() {
               <span
                 ref={tile}
                 aria-hidden
-                className="absolute left-0 top-0 hidden size-14 items-center justify-center rounded-[20px] bg-surface opacity-0 shadow-float lg:flex lg:bg-surface/60 lg:backdrop-blur-2xl lg:backdrop-saturate-[1.8]"
+                className="absolute left-0 top-0 hidden size-14 items-center justify-center rounded-[20px] bg-surface opacity-0 shadow-float lg:flex lg:bg-[linear-gradient(135deg,rgb(255_255_255/0.62),rgb(255_255_255/0.28))] lg:backdrop-blur-2xl lg:backdrop-saturate-[2] lg:shadow-[inset_0_1px_0_rgb(255_255_255/0.9),inset_0_0_0_1px_rgb(255_255_255/0.5)]"
               >
                 <Image src="/brand/mark.png" alt="" width={386} height={403} className="h-7 w-auto" />
               </span>
