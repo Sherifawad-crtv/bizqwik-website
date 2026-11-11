@@ -22,7 +22,7 @@ export function BenefitsSection() {
         <ul className="grid gap-4 sm:grid-cols-2">
           {benefits.map((b, i) => (
             <li key={b.title} data-reveal>
-              <Box className="group flex h-full flex-col p-6 lg:p-8">
+              <Box className="flex h-full flex-col p-6 lg:p-8">
                 <h3 className="text-[28px] font-extrabold leading-tight tracking-[-.02em]">{b.title}</h3>
                 <p className="mt-3 max-w-md text-[17px] leading-snug text-ink-muted">{b.line}</p>
                 <div className="mt-6 flex flex-1 items-center justify-center lg:min-h-[360px]">
@@ -30,7 +30,7 @@ export function BenefitsSection() {
                     {...ART[i]}
                     alt=""
                     unoptimized
-                    className="h-auto w-full max-w-[460px] mix-blend-multiply transition-transform duration-(--dur-slow) ease-standard group-hover:-translate-y-1.5 group-hover:scale-[1.03]"
+                    className="h-auto w-full max-w-[460px] mix-blend-multiply"
                   />
                 </div>
               </Box>

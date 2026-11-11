@@ -10,7 +10,7 @@
   - The first attempt (default Figma image tool, lower quality) was discarded.
 - Processing (Pillow/NumPy): the renders have a soft grey-lavender backdrop, so each is **flat-fielded** (a smooth background model is fitted to the frame border and divided out) so the backdrop becomes pure white while shadows stay,
   near-white is snapped to `#FFFFFF`, then cropped to the subject with a 7% margin on a 4:3 canvas and saved as 1400x1050 WebP (about 30-40 KB each) in `public/illustrations/`.
-- `BenefitsSection` shows them with `mix-blend-multiply`, so the white drops out into the card colour; hover lifts and grows the image slightly (`duration.slow`, `ease.standard`). `unoptimized` on purpose so the pure white is not re-encoded.
+- `BenefitsSection` shows them with `mix-blend-multiply`, so the white drops out into the card colour; no hover effect (removed at the owner's request). `unoptimized` on purpose so the pure white is not re-encoded.
 - Removed `components/sections/BenefitArt.tsx` (HTML collages). `components/product/parts.tsx` stays (the demos use it).
 
 ## Verification (Chromium, production build)
