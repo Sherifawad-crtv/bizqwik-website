@@ -12,8 +12,8 @@ const link = "transition-colors duration-(--dur-instant) ease-standard hover:tex
  */
 export function SupportShell({ children }: { children: ReactNode }) {
   return (
-    <div className="flex h-dvh flex-col overflow-hidden text-ink [&_a]:text-inherit">
-      <header className="flex h-[60px] shrink-0 items-center justify-between px-(--gutter)">
+    <div className="flex h-dvh flex-col overflow-hidden px-4 pb-2.5 text-ink [&_a]:text-inherit">
+      <header className="flex h-[60px] shrink-0 items-center justify-between px-1">
         <Link href="/support" className="flex items-center gap-3" aria-label="Bizqwik support">
           <Image src="/brand/mark.png" alt="" width={386} height={403} className="h-7 w-auto" />
           <span className="text-[20px] font-bold tracking-[-.01em]">Support</span>
@@ -27,7 +27,7 @@ export function SupportShell({ children }: { children: ReactNode }) {
       </header>
 
       {/* The page scrolls inside this rounded card, as in the reference. `data-lenis-prevent` keeps the page-level smooth scroll out of it. */}
-      <main id="main" data-lenis-prevent tabIndex={-1} className="min-h-0 flex-1 overflow-y-auto overscroll-contain rounded-t-[28px] border-t border-line bg-surface">
+      <main id="main" data-lenis-prevent tabIndex={-1} className="min-h-0 flex-1 overflow-y-auto overscroll-contain rounded-[28px] border border-line bg-surface">
         {children}
         <footer className="flex flex-col gap-4 border-t border-line px-5 py-6 text-[14px] text-ink-muted sm:px-8 md:flex-row md:items-center md:justify-between">
           <nav aria-label="Support" className="flex flex-wrap gap-x-5 gap-y-2">

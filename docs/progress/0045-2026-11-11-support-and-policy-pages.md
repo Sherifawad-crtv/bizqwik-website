@@ -15,3 +15,6 @@ As in the reference, the support shell is exactly one screen tall (`h-dvh`); the
 
 ## Update: card runs to the screen edges
 The card now touches the left, right and bottom edges of the screen (no side gutters, no bottom margin, no side or bottom border); only its top corners are rounded. The top bar keeps the page gutter.
+
+## Update: card margins copied from the reference
+Measured from support.link.com at 1440x900: card 16px from the left and right edges, about 10px from the bottom, 60px top bar, fully rounded and bordered. The shell now uses `px-4 pb-2.5` with `rounded-[28px]` (replaces the edge-to-edge sheet).
