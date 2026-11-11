@@ -55,7 +55,7 @@ export function FaqSection() {
                     <div className="overflow-hidden">
                       <p className="max-w-2xl pb-5 text-[17px] leading-relaxed text-ink-muted">{f.answer}</p>
                       {f.cta && (
-                        <a href={f.cta.href} className="mb-5 inline-block text-[16px] font-bold text-primary-pressed underline-offset-4 hover:underline">
+                        <a href={f.cta.href} className="mb-3 inline-flex min-h-11 items-center text-[16px] font-bold text-primary-pressed underline-offset-4 hover:underline">
                           {f.cta.label}
                         </a>
                       )}

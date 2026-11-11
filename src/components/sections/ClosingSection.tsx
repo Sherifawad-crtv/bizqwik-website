@@ -38,20 +38,20 @@ export function ClosingSection() {
                 <Image src="/brand/wordmark.png" alt="Bizqwik" width={1712} height={396} className="h-8 w-auto brightness-0 invert" />
                 <p className="mt-4 max-w-xs leading-snug">{brand.tagline}</p>
               </div>
-              <nav aria-label="Footer" className="flex flex-col gap-3">
+              <nav aria-label="Footer" className="flex flex-col gap-1">
                 <span className="font-mono text-[12px] font-bold uppercase tracking-[.08em] text-white/50">Explore</span>
                 {nav.map((n) => (
-                  <a key={n.href} href={n.href} className="w-fit text-white/80 transition-colors duration-(--dur-instant) ease-standard hover:text-white">
+                  <a key={n.href} href={n.href} className="inline-flex min-h-11 w-fit items-center text-white/80 transition-colors duration-(--dur-instant) ease-standard hover:text-white">
                     {n.label}
                   </a>
                 ))}
               </nav>
-              <div className="flex flex-col gap-3">
+              <div className="flex flex-col gap-1">
                 <span className="font-mono text-[12px] font-bold uppercase tracking-[.08em] text-white/50">Contact</span>
-                <a href={contact.phoneHref} className="w-fit text-white/80 transition-colors duration-(--dur-instant) ease-standard hover:text-white">
+                <a href={contact.phoneHref} className="inline-flex min-h-11 w-fit items-center text-white/80 transition-colors duration-(--dur-instant) ease-standard hover:text-white">
                   {contact.phoneDisplay}
                 </a>
-                <a href={contact.emailHref} className="w-fit text-white/80 transition-colors duration-(--dur-instant) ease-standard hover:text-white">
+                <a href={contact.emailHref} className="inline-flex min-h-11 w-fit items-center text-white/80 transition-colors duration-(--dur-instant) ease-standard hover:text-white">
                   {contact.email}
                 </a>
               </div>
