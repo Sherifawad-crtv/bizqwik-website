@@ -6,11 +6,11 @@ type Size = "md" | "lg";
 /* The corners get their own, longer transition so the rounding is visible as a motion (see docs/MOTION.md). */
 const TRANSITION =
   "[transition:border-radius_var(--dur-enter)_var(--ease-standard),transform_var(--dur-fast)_var(--ease-standard),filter_var(--dur-fast)_var(--ease-standard),background-color_var(--dur-fast)_var(--ease-standard),color_var(--dur-fast)_var(--ease-standard)]";
-const base = `inline-flex items-center justify-center rounded-[20px] font-bold whitespace-nowrap select-none ${TRANSITION} hover:rounded-[28px] hover:brightness-105 active:scale-95`;
+const base = `inline-flex items-center justify-center rounded-[20px] font-bold whitespace-nowrap select-none ${TRANSITION} hover:rounded-[28px] active:scale-95`;
 const variants: Record<Variant, string> = {
-  primary: "bg-primary text-white hover:bg-primary-pressed",
-  /** The white CTA: on hover it reverses to dark with light text. */
-  secondary: "bg-surface text-ink shadow-card hover:bg-ink hover:text-surface",
+  primary: "bg-primary text-white hover:bg-primary-pressed hover:brightness-105",
+  /** The white CTA: on hover it takes a darker shade of itself (`sunken`). No brightness boost here, it would undo the darkening. */
+  secondary: "bg-surface text-ink shadow-card hover:bg-sunken",
 };
 const sizes: Record<Size, string> = {
   md: "h-14 px-7 text-[17px]",
