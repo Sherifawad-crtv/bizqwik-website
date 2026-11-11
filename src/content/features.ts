@@ -1,113 +1,51 @@
 import type { Feature } from "./types";
 
-/** The rows of the feature list. Copy is taken from the brief's app blocks; each feature has one live demo built from the product's real components. */
+/**
+ * The rows of the feature list: four bundles, one per kind of user, each with one live demo.
+ * Wording comes from the brief's app blocks (headlines are its own lines); the CRM lines describe what the
+ * product's client records do (register a client, sell a plan, invite to the app, refunds to the wallet).
+ */
 export const features: Feature[] = [
   {
-    id: "revenue",
-    label: "Revenue & Reports",
-    icon: "chart-square",
-    title: "Revenue & Reports",
+    id: "business",
+    title: "Run the business",
     headline: "See the whole business. Run it from one place.",
     bullets: [
-      "See revenue, profit, coach payouts and active subscribers in one dashboard.",
-      "Compare any month at a glance.",
-      "Review and approve sessions and InstaPay receipts.",
-    ],
-  },
-  {
-    id: "scheduling",
-    label: "Scheduling",
-    icon: "calendar-mark",
-    title: "Scheduling",
-    headline: "Plan the whole month in one calendar.",
-    bullets: [
-      "Set the whole month up front, with dates and start times.",
-      "Assign each class to a coach.",
-      "Coaches can hand over a session, at least 2 hours before, if the other coach accepts.",
-    ],
-  },
-  {
-    id: "bookings",
-    label: "Bookings",
-    icon: "clipboard-list",
-    title: "Bookings",
-    headline: "Know who is coming before they arrive.",
-    bullets: [
-      "Clients book classes and say \"I'm coming\".",
-      "See who is coming to each class at the desk.",
-      "Mark arrivals and collect payment from the class roster.",
-    ],
-  },
-  {
-    id: "checkin",
-    label: "Check-in",
-    icon: "qr-code",
-    title: "Check-in",
-    headline: "Check-in, sales and bookings, all at the desk.",
-    bullets: [
-      "Check clients in by QR code.",
-      "See their plan and visits left the moment they scan.",
-      "Book clients into classes and see who is coming.",
-    ],
-  },
-  {
-    id: "payments",
-    label: "Payments & Sales",
-    icon: "wallet",
-    title: "Payments & Sales",
-    headline: "Take payment however they pay.",
-    bullets: [
-      "Take payments: cash, card, wallet or InstaPay.",
-      "Sell memberships, bundles and drop-in passes.",
-      "Every sale is recorded with how it was paid.",
-    ],
-  },
-  {
-    id: "memberships",
-    label: "Memberships",
-    icon: "ticket",
-    title: "Memberships",
-    headline: "Plans your clients can see, renew and freeze.",
-    bullets: [
-      "Set prices, memberships and bundles.",
-      "Renew a plan in one tap.",
-      "Freeze a client's membership.",
-    ],
-  },
-  {
-    id: "payouts",
-    label: "Coach Payouts",
-    icon: "calculator",
-    title: "Coach Payouts",
-    headline: "From coach earnings to paid, with a clear record.",
-    bullets: [
-      "See revenue and each coach's earnings for the month.",
+      "Track revenue, profit, coach payouts and active subscribers in one dashboard.",
+      "See who showed up and when, with timestamps, on time or late.",
+      "Plan the whole month: dates, start times and a coach for every class.",
       "Run the monthly payout: settle, pay, mark paid.",
-      "Keep a clear record of what was paid and when.",
     ],
   },
   {
-    id: "sessions",
-    label: "Sessions & Earnings",
-    icon: "users-group-two-rounded",
-    title: "Sessions & Earnings",
+    id: "frontdesk",
+    title: "Front desk and CRM",
+    headline: "Every client, plan and payment at the desk, on one record.",
+    bullets: [
+      "Register a client, sell them a plan and send their app invite in one step.",
+      "Find anyone by name or phone, and see their plan, packages and wallet on one record.",
+      "Check clients in by QR code and book them into classes.",
+      "Take cash, card, wallet or InstaPay. Renew or freeze a plan, and refund to the wallet.",
+    ],
+  },
+  {
+    id: "coaches",
+    title: "Coaches",
     headline: "Sessions, schedules and earnings, in one app.",
     bullets: [
-      "Log sessions by scanning a QR in the coaches' room.",
+      "Log a session by scanning the QR in the coaches' room.",
       "See what you've earned this month at your tier's rate.",
-      "A coach can't log a session outside their assigned slot.",
+      "Swap a session with another coach, at least 2 hours ahead, if they accept.",
     ],
   },
   {
-    id: "client",
-    label: "Client App",
-    icon: "smartphone",
-    title: "Client App",
+    id: "clients",
+    title: "Your gym, your brand",
     headline: "Your gym in your clients' pockets, under your brand.",
     bullets: [
       "Your gym's own name, logo, colours and web address.",
-      "Book classes, buy memberships and top up a wallet.",
-      "Check in with a QR code.",
+      "Clients book classes and buy memberships and bundles.",
+      "Top up a wallet, earn loyalty points and check in with a QR code.",
     ],
   },
 ];

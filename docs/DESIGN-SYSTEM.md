@@ -139,43 +139,21 @@ content) and pass it as `chaos=` to the piece in `FounderHome.tsx`. Handwriting 
 - To change the vision: edit `SCATTER` (where things start and the settling order),
   `PIN_VH` / `END_TOP` and the timeline offsets in `hero-motion.ts`.
 
-## Ecosystem section (chapter 2)
-Code: `src/components/ecosystem/` (`Ecosystem.tsx` layout, `Demos.tsx` the five cards, `ecosystem-motion.ts`
-the loops). Short titles from `content/apps.ts` (`short`), heading/lede from `content/hero.ts` (`ecosystem`).
-- **Principle (owner's direction): each role gets ONE live UI component that does that role's job, drawn in the
-  product's own light "status card" style** (owner's reference cards: Upcoming booking, Revenue in, Membership
-  renewal). Never the deck's devices: no numbered tiles, "used by" chips, connectors or avatars (D-023, D-025).
-- **The card anatomy** (shared, `Header`/`Card` in `Demos.tsx`): Surface card, 1px `line` border, 32px radius,
-  very soft layered shadow; header row = 52px lavender icon tile (`primary-tint-strong`, violet icon) + bold
-  title (21px/800) + a mono status pill on the right that flips amber to green when the job is done; then big
-  tabular numbers or a headline, muted sub-line, a sunken (`sunken`, 24px radius) well for secondary facts,
-  and the control. It stays light: border and shadow, no tinted container behind it.
-- **Layout:** the short role title (**Founder, Accountant, Reception, Coaches, Client**, 26px/800) sits ABOVE its
-  card. Desktop: 3 cards over 2 wider ones (6-col grid, spans 2/2/2 then 3/3); tablet 2 across (Client spans
-  both); mobile 1.
-- **Hand-off from the hero:** the hero stays pinned for `PIN_VH` (1.9) + `COVER_VH` (1) viewport heights; its
-  timeline ends at 1.9 and idles while this section's sheet slides up over it (`-mt-[100svh]`, must equal
-  `COVER_VH`). The navbar's wide-to-narrow change starts when the pin ends.
+## Feature demos (the four bundles)
+Code: `src/components/features/` (`FeatureList.tsx` layout, `demos.tsx` the four demos, `ui.tsx` the small UI kit, `features-motion.ts` the timelines).
+Copy: `src/content/features.ts`. Style reference: the panels in the reference page's sticky feature list (measured), in our tokens.
 
-| Role | Card | The moment (loops while on screen) |
-|---|---|---|
-| Founder | Revenue in | PENDING; the amount counts up to +1,250.00 EGP; pill flips to RECEIVED; sub-line becomes "Received today, Oct 3 · 9:41 AM" |
-| Accountant | Coach payout | cursor taps **Pay**; pill shrinks to a circle, spins, blooms into a green **Paid** with a drawn check; TO PAY flips to PAID; the 4,200.00 EGP turns green |
-| Reception | Check-in | SCANNING; a violet scan line sweeps the QR twice; the code collapses into a green check; "Mona K." appears; pill flips to CHECKED IN |
-| Coaches | Log session | READY; thumb slides along **Slide to log**; track turns green **Logged**; LOGGED; earnings tick 4,200.00 to 4,350.00 with a +150 chip |
-| Client | Upcoming booking | OPEN; cursor taps **Book**; blooms to green **Booked**; pill flips to CONFIRMED (Morning Class, date well) |
-
-- **Swap** (`<Swap name>` + `swap()`): two stacked layers in one grid cell, so the box is as wide as the longer
-  text and nothing jumps when text changes.
-- **The Apple-Pay move** is one reusable function (`morphButton`): press (scale 0.95, springy release), idle
-  label out, pill to a 56px circle, spinner 2 turns, circle blooms to full width in `--color-green-fg` with the
-  check stroke drawing. `loader=false` (client) skips the spinner. `tap()` is the cursor press.
-- **Loops:** each card is a paused GSAP timeline (repeat -1) that plays only while on screen (ScrollTrigger
-  `onToggle`), staggered 0.25s, with a soft fade between loops. Every tween states its own start value so loops
-  reset; counters reset their text at the start of each loop. Widths are px, so loops are invalidated on refresh.
-- **Reduced motion:** no entrance, no loops; every card shows its finished state (`showFinal`).
-- Figures and names (Coach Nour, Mona K., amounts) are illustrative stand-ins. To change a moment: edit its
-  markup in `Demos.tsx` and its entry in `BUILD`.
+- **The kit (`ui.tsx`):** `Card` (surface fill, 28px radius, shadow `0 28px 56px rgba(26,23,38,.09)`, 20px padding), `Row` (paper fill, 12px radius, 10px padding, a 40px `Tile` with an inset ring, a 15px semibold title,
+  a 13px muted second line, something on the right), `Table` (paper fill, 12px radius, 1px `ink` at 5% border, plain label and muted value), `Status` (a dot and a word, green, amber, red or muted), `MiniButton`
+  (36px, 10px radius, 1px border), `Swap` (a two-state label the timeline flips), `Grow` (a section that opens and makes the card taller), the violet pointer `Cursor`.
+  Sentence case, regular to semibold weights, tabular numbers. No mono caps labels, no pills with dots.
+- **The four bundles:** *Run the business* (revenue and a 7-month bar chart, team attendance with on-time or late, a class added to the schedule, the coach payout Pay then Paid; the card opens section by section),
+  *Front desk and CRM* (search "Mona", open the client record with plan, renewal, wallet, last check-in, then Check in and Renew actions),
+  *Coaches* (a violet wallet card: earnings count up as a session lands, then "Payout Nov 2" turns into "Paid Nov 2"),
+  *Your gym, your brand* (a "Brand your app" editor on the left and the client app on the right; name, logo, colour and web address are typed and the app re-colours for Forge Athletics, Grove Pilates and Pulse Studio;
+  on phones the editor is hidden and a row of three colour dots replaces it).
+- Every demo's default markup is its finished state. The timeline plays it from the start; reduced motion shows the default (with swaps resolved by `showFinal`). All names and figures are illustrative (brief GAP 7).
+- Adding a demo: a component in `demos.tsx` built from `ui.tsx`, an entry in `BUILD` in `features-motion.ts`, a row in `features.ts` (and `FeatureId` in `content/types.ts`).
 
 ## Assets
 `public/brand/wordmark.png`, `public/brand/mark.png`: use as supplied, light
@@ -204,8 +182,8 @@ hero, dark statement (`#ecosystem`, the sheet that rises over the pinned hero), 
 Plans (`#plans`), Add-ons (`#add-ons`), FAQ (`#faq`), closing (`#contact`).
 - `components/layout/layout.tsx`: `Container` (`page-width`, see "Page grid"), `Box` (hairline box; tones `surface | paper | dark | raised`;
   28px radius), `Panel` (quiet sunken panel for products and illustrations), `Skeleton` (dashed slot a later phase fills).
-- Sections live in `components/sections/` (`StatementSection`, `BenefitsSection`, `Shells`, `ClosingSection`); the feature list is `components/ecosystem/FeatureList.tsx`.
-- Card illustrations: four 3D renders in `public/illustrations/` (WebP, white background, shown with `mix-blend-multiply`). Shared product pieces for the demos: `components/product/parts.tsx`.
+- Sections live in `components/sections/` (`StatementSection`, `BenefitsSection`, `Shells`, `ClosingSection`); the feature list is `components/features/FeatureList.tsx`.
+- Card illustrations: four 3D renders in `public/illustrations/` (WebP, white background, shown with `mix-blend-multiply`).
 - Draft copy for the new sections: `content/sections.ts` (from the brief's own lines; reworded in phase 9).
 - Dark sections use `bg-ink`; the highlight word uses `primary-light`.
 
@@ -223,5 +201,6 @@ Cards sit 16px apart.
 - Exceptions: the hero is full-bleed (its props scatter across the viewport).
 
 ## Feature list (section 5)
-One row per feature, 16px apart: text left (sticky at `--header-offset`, 96px, from 901px up), gray panel right (aspect 849/640, min height 640px from 901px, `overflow: hidden`) holding the live demo and a Replay pill.
-Column split about 1 : 2.03 up to 1440px, 1 : 1.4 above; stacked below 901px. No heading above the list. Demos play once when their panel scrolls into view (see `docs/MOTION.md`).
+One row per bundle (four), 16px apart on desktop: text left (sticky at `--header-offset`, 96px, from 901px up) with a divider that draws in above the title, gray panel right (aspect 849/640, min height 670px from 901px,
+`overflow: hidden`) holding the live demo and a Replay pill. Column split about 1 : 2.03 up to 1440px, 1 : 1.4 above; stacked below 901px with 64px between rows and 32px from the text to its panel.
+No heading above the list. Demos play once when their panel scrolls into view (see `docs/MOTION.md`). The client demo's panel content is 640px wide (the others 520px).

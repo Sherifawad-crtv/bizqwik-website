@@ -18,6 +18,13 @@ import { RestartIcon } from "@solar-icons/react/linear/restart";
 import { CalendarMarkIcon } from "@solar-icons/react/linear/calendar-mark";
 import { CardIcon } from "@solar-icons/react/linear/card";
 import { TicketIcon } from "@solar-icons/react/linear/ticket";
+import { UserRoundedIcon } from "@solar-icons/react/linear/user-rounded";
+import { UploadMinimalisticIcon } from "@solar-icons/react/linear/upload-minimalistic";
+import { ArrowUpIcon } from "@solar-icons/react/linear/arrow-up";
+import { CalendarAddIcon } from "@solar-icons/react/linear/calendar-add";
+import { SnowflakeIcon } from "@solar-icons/react/linear/snowflake";
+import { PaletteIcon } from "@solar-icons/react/linear/palette";
+import { LinkRoundIcon } from "@solar-icons/react/linear/link-round";
 import { CalendarIcon } from "@solar-icons/react/linear/calendar";
 import { HomeSmileIcon as HomeSmileSolidIcon } from "@solar-icons/react/bold-duotone/home-smile";
 
@@ -45,6 +52,13 @@ const ICONS = {
   "check-circle": CheckCircleIcon,
   "calendar-mark": CalendarMarkIcon,
   restart: RestartIcon,
+  "user-rounded": UserRoundedIcon,
+  "upload-minimalistic": UploadMinimalisticIcon,
+  "arrow-up": ArrowUpIcon,
+  "calendar-add": CalendarAddIcon,
+  snowflake: SnowflakeIcon,
+  palette: PaletteIcon,
+  "link-round": LinkRoundIcon,
   card: CardIcon,
   ticket: TicketIcon,
 } as const;

@@ -71,7 +71,7 @@ CSS twins live in `styles/tokens.css` (`--ease-*`, `--dur-*`); use them from Tai
 4. **Hover is colour at `duration.instant`/`fast`.** Press is `press.scale`.
 5. **One entrance.** Use `data-reveal` or `enter()`. Do not invent a new entrance curve.
 6. **Positions in a timeline are choreography, not tokens.** Place steps with `gap.beat` after the previous one, or at explicit seconds. Their lengths are tokens.
-7. **Reduced motion:** nothing plays; every demo shows its final state, reveals show at once. `check:motion` does not test this; test it when you add a demo (`showFinal` in `ecosystem-motion.ts`).
+7. **Reduced motion:** nothing plays; every demo shows its final state, reveals show at once. `check:motion` does not test this; test it when you add a demo (`showFinal` in `features/features-motion.ts`).
 8. **Measure layout inside the timeline, not outside.** Use function values (`x: () => ...`). Never rely on a width read while a panel is hidden. State both ends of a tween that animates a measured property.
 
 ### Divider that draws in (feature list)
@@ -117,7 +117,7 @@ Reuse: `scrubRange(el, apply)` and `mapRange(v, [a,b], [c,d])` in `motion/primit
 ## 6. Recipe: adding a new animated thing
 
 - A card or block that should enter on scroll: add `data-reveal`. Done.
-- A scripted product demo: build a paused timeline with `tl.fromTo(...)` steps (state both ends), wrap it with `playOnView` and `replay`, add `<ReplayButton />`, write its reduced-motion final state. See `ecosystem-motion.ts`.
+- A scripted product demo: build a paused timeline with `tl.fromTo(...)` steps (state both ends), wrap it with `playOnView` and `replay`, add `<ReplayButton />`, write its reduced-motion final state. See `features/features-motion.ts`.
 - A section that transforms as you scroll through it: `scrubRange()` + `mapRange()` (see section 7). No easing: it is linear on purpose.
 - A hover or press state: Tailwind with `duration-(--dur-fast) ease-standard`, `active:scale-95`.
 - A new duration or ease: do not. Pick the nearest rung. If the ladder truly lacks one, add it to `tokens.ts` and `tokens.css`, update this file, log it in `docs/progress/`.

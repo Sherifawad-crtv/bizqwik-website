@@ -24,7 +24,7 @@
 | 3. Nav + hero | Decide: keep the pinned phone-morph hero or switch to the 50/50 panel hero. Nav as bordered bar or keep the pill | Hero + nav per decision |
 | **4. Dark statement + moving pills** (done) | Scroll-scrubbed pill-to-box, moving pill arc, per the reference source | Section 3, `docs/MOTION.md` section 7 |
 | **5. Cards + illustrations** (done) | Four 3D renders (Figma AI), hover lift | Section 4 |
-| **6. Sticky feature list** (done) | One row per feature: sticky text, gray panel with the demo, Replay; plays on scroll | Section 5 (replaced the chip tabs) |
+| **6. Sticky feature list** (done, reworked into four bundles) | One row per bundle (business, front desk and CRM, coaches, clients): sticky text, gray panel with a Link-style demo, Replay; plays on scroll | Section 5 (replaced the chip tabs) |
 | 7. Brief sections | Plans, Compare, Add-ons, FAQ in the hairline-box language (the reference has no pricing) | Plans, Add-ons, FAQ shells filled |
 | 8. Closing + footer | Scrub-text statement, CTA cards, footer, SEO | Section 6 |
 | 9. Polish + QA | Reduced motion pass, iOS Safari pass, performance, copy review | Release candidate |

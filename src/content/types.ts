@@ -91,14 +91,11 @@ export interface FaqItem {
   cta?: Link;
 }
 
-export type FeatureId = "revenue" | "scheduling" | "bookings" | "checkin" | "payments" | "memberships" | "payouts" | "sessions" | "client";
+export type FeatureId = "business" | "frontdesk" | "coaches" | "clients";
 
-/** One row of the feature list: real copy plus the key of its live demo card. */
+/** One row of the feature list: a bundle of features for one kind of user, with the key of its live demo. */
 export interface Feature {
   id: FeatureId;
-  label: string;
-  /** Solar icon name (linear weight). */
-  icon: string;
   title: string;
   headline: string;
   bullets: string[];

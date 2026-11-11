@@ -5,20 +5,18 @@ import { Container } from "@/components/layout/layout";
 import { Icon } from "@/components/ui/Icon";
 import { ReplayButton } from "@/components/ui/ReplayButton";
 import { features, type FeatureId } from "@/content";
-import { BookingsDemo, CheckInDemo, ClientDemo, MembershipsDemo, PaymentsDemo, PayoutsDemo, RevenueDemo, SchedulingDemo, SessionsDemo } from "./Demos";
-import { initFeatureMotion } from "./ecosystem-motion";
+import { BusinessDemo, ClientDemo, CoachDemo, FrontDeskDemo } from "./demos";
+import { initFeatureMotion } from "./features-motion";
 
 const DEMOS: Record<FeatureId, () => React.JSX.Element> = {
-  revenue: RevenueDemo,
-  scheduling: SchedulingDemo,
-  bookings: BookingsDemo,
-  checkin: CheckInDemo,
-  payments: PaymentsDemo,
-  memberships: MembershipsDemo,
-  payouts: PayoutsDemo,
-  sessions: SessionsDemo,
-  client: ClientDemo,
+  business: BusinessDemo,
+  frontdesk: FrontDeskDemo,
+  coaches: CoachDemo,
+  clients: ClientDemo,
 };
+
+/** The client demo shows two cards side by side, so its stage is wider. */
+const WIDE: Partial<Record<FeatureId, true>> = { clients: true };
 
 /**
  * Section 5 of the outline, laid out like the reference's feature list: one row per feature. The text sits on the
@@ -60,9 +58,9 @@ export function FeatureList() {
 
                 <div
                   data-panel
-                  className="relative grid w-full min-w-0 place-items-center overflow-hidden rounded-[28px] border border-line bg-sunken px-4 pb-20 pt-10 min-[901px]:aspect-[849/640] min-[901px]:min-h-[640px] min-[901px]:px-10 min-[901px]:py-10"
+                  className="relative grid w-full min-w-0 place-items-center overflow-hidden rounded-[28px] border border-line bg-sunken px-4 pb-20 pt-10 min-[901px]:aspect-[849/640] min-[901px]:min-h-[670px] min-[901px]:px-10 min-[901px]:py-10"
                 >
-                  <div data-demo={f.id} className="w-full max-w-[520px]">
+                  <div data-demo={f.id} className={`w-full ${WIDE[f.id] ? "max-w-[640px]" : "max-w-[520px]"}`}>
                     <Demo />
                   </div>
                   <ReplayButton className="absolute bottom-4 right-4 z-10" />

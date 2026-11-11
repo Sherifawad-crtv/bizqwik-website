@@ -1,4 +1,4 @@
-import { FeatureList } from "@/components/ecosystem/FeatureList";
+import { FeatureList } from "@/components/features/FeatureList";
 import { Hero } from "@/components/hero/Hero";
 import { BenefitsSection } from "@/components/sections/BenefitsSection";
 import { ClosingSection } from "@/components/sections/ClosingSection";
