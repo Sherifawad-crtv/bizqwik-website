@@ -21,7 +21,7 @@
 |-------|-------|--------|
 | 1. Motion system (done) | Tokens, kit, migration, guard | `docs/MOTION.md`, `src/motion/*`, `npm run check:motion` |
 | **2. Layout skeleton** (done) | Layout primitives, the section shells in outline order, nav anchors resolving | `components/layout`, `components/sections`, `/` shows the whole outline |
-| 3. Nav + hero | Decide: keep the pinned phone-morph hero or switch to the 50/50 panel hero. Nav as bordered bar or keep the pill | Hero + nav per decision |
+| **3. Nav + hero** (decided: keep both, D-039) | Decide: keep the pinned phone-morph hero or switch to the 50/50 panel hero. Nav as bordered bar or keep the pill | Hero + nav per decision |
 | **4. Dark statement + moving pills** (done) | Scroll-scrubbed pill-to-box, moving pill arc, per the reference source | Section 3, `docs/MOTION.md` section 7 |
 | **5. Cards + illustrations** (done) | Four 3D renders (Figma AI), hover lift | Section 4 |
 | **6. Sticky feature list** (done, reworked into four bundles) | One row per bundle (business, front desk and CRM, coaches, clients): sticky text, gray panel with a Link-style demo, Replay; plays on scroll | Section 5 (replaced the chip tabs) |
@@ -30,5 +30,5 @@
 | 9. Polish + QA | Reduced motion pass, iOS Safari pass, performance, copy review | Release candidate |
 
 ## Open decisions (asked when their phase starts, not before)
-- Phase 3: hero (pinned phone morph vs 50/50 scripted panel) and nav (floating pill vs bordered bar).
+- Phase 3: decided, keep the pinned phone hero and the floating pill nav (D-039).
 - Phase 1 note: link.com uses native scroll. We keep Lenis for now; its lerp is a token (`smoothScroll.lerp`).

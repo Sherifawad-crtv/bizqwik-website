@@ -84,7 +84,7 @@ The text block fades with it (0.3s). "On screen" means 192px inside the top and 
 |---|---|
 | `hero-motion.ts`, `nav/motion.ts` | Scroll-scrubbed timelines. Their durations are positions on the scroll timeline, not seconds, so `check:motion` skips the duration rule there. Their eases come from `ease.scrub.*`. |
 | Lenis smooth scroll | The reference uses native scroll. We keep Lenis (original brief). `smoothScroll.lerp` is a token. Open question for phase 3. |
-| Pinned hero | Our signature moment; the reference has none. Kept until the phase 3 decision. |
+| Pinned hero | Our signature moment; the reference has none. Kept (D-039). |
 
 ## 7. The scroll-scrubbed statement (read from the reference's source, 2026-11-11)
 
