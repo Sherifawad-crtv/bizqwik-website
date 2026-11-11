@@ -23,8 +23,8 @@ export function StatementSection() {
   return (
     <section ref={root} id="ecosystem" aria-labelledby="statement-title" className="relative mt-20">
       <Container>
-        <div data-st-content className="relative h-[620px] overflow-hidden rounded-[40px] bg-ink text-white min-[901px]:h-[720px]">
-          <div data-st-anim className="grid h-full grid-rows-[auto_1fr] gap-y-20 min-[901px]:grid-cols-2 min-[901px]:grid-rows-1 min-[901px]:items-center min-[901px]:gap-y-0">
+        <div data-st-content className="relative h-[620px] will-change-[clip-path] overflow-hidden rounded-[40px] bg-ink text-white min-[901px]:h-[720px]">
+          <div data-st-anim className="grid will-change-[transform,opacity] h-full grid-rows-[auto_1fr] gap-y-20 min-[901px]:grid-cols-2 min-[901px]:grid-rows-1 min-[901px]:items-center min-[901px]:gap-y-0">
             <h2
               id="statement-title"
               className="mx-auto max-w-[560px] px-6 pt-12 text-center text-[clamp(2.5rem,1.4rem+3.4vw,4rem)] font-extrabold leading-[.96] tracking-[-.035em] min-[901px]:mx-0 min-[901px]:pl-[8%] min-[901px]:pt-0 min-[901px]:text-left"

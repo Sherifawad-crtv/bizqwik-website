@@ -77,6 +77,9 @@ export const view = {
 } as const;
 
 /** Lenis smooth-scroll feel. */
+/** Scroll-linked scenes on touch screens (Lenis does not smooth touch): seconds the shown progress takes to catch up with the finger. */
+export const scrubSmooth = { touch: 0.2 } as const;
+
 export const smoothScroll = {
   /** 0-1: lower = heavier glide. */
   lerp: 0.085,

@@ -116,15 +116,37 @@ export const mapRange = (v: number, [a, b]: readonly [number, number], [c, d]: r
  * reaches the bottom of the viewport and 1 when its bottom reaches the bottom of the viewport (the
  * reference's offset ["start end", "end end"]). Also runs on every layout refresh. Returns a cleanup.
  */
-export function scrubRange(el: Element, apply: (progress: number) => void) {
+export function scrubRange(el: Element, apply: (progress: number) => void, { smooth = 0 } = {}) {
+  // `smooth` (seconds): the applied progress eases toward the real one each frame, so a thumb-driven scroll,
+  // which arrives in steps, does not make the scene step with it. 0 = exact.
+  let target = 0;
+  let shown = 0;
+  const follow = (_t: number, delta: number) => {
+    shown += (target - shown) * (1 - Math.exp(-delta / 1000 / smooth));
+    if (Math.abs(target - shown) < 0.0005) {
+      shown = target;
+      gsap.ticker.remove(follow);
+    }
+    apply(shown);
+  };
   const st = ScrollTrigger.create({
     trigger: el,
     start: "top bottom",
     end: "bottom bottom",
-    onUpdate: (self) => apply(self.progress),
-    onRefresh: (self) => apply(self.progress),
+    onUpdate: (self) => {
+      target = self.progress;
+      if (!smooth) return apply(target);
+      gsap.ticker.add(follow);
+    },
+    onRefresh: (self) => {
+      target = shown = self.progress;
+      apply(shown);
+    },
   });
-  return () => st.kill();
+  return () => {
+    gsap.ticker.remove(follow);
+    st.kill();
+  };
 }
 
 /**

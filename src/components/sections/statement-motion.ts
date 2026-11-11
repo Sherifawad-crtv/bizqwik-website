@@ -1,6 +1,6 @@
 import { gsap, ScrollTrigger } from "@/motion/gsap";
 import { mapRange, scrubRange } from "@/motion/primitives";
-import { duration, ease } from "@/motion/tokens";
+import { duration, ease, scrubSmooth } from "@/motion/tokens";
 
 /*
  * The dark statement section, recreated from the reference page's source (docs/MOTION.md section 7).
@@ -82,7 +82,7 @@ export function initStatementMotion(root: HTMLElement): () => void {
   const setup = (L: Layout, compact: boolean) => {
     gsap.set(pills, { transformOrigin: compact ? "center center" : "left center" });
     place(L, 0, compact, true);
-    const stopScrub = scrubRange(content, (p) => applyScroll(L, p));
+    const stopScrub = scrubRange(content, (p) => applyScroll(L, p), { smooth: compact ? scrubSmooth.touch : 0 });
 
     // The list: starts fast, settles to a slow drift, advances a slot every SLOT_PX of travel.
     let listY = 0;
