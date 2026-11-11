@@ -93,7 +93,7 @@ export function MotionGallery() {
             pressFeedback(e.currentTarget);
             setPressed((n) => n + 1);
           }}
-          className="h-14 rounded-button bg-primary px-8 text-[17px] font-bold text-white"
+          className="h-14 [--sq-r:24px] [--sq-fill:var(--color-primary)] px-8 text-[17px] font-bold text-white"
         >
           pressFeedback()
         </button>

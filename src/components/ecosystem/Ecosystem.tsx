@@ -84,8 +84,8 @@ export function Ecosystem() {
                   }}
                   onKeyDown={(e) => onKey(e, i)}
                   data-sq
-                  className={`inline-flex h-12 shrink-0 snap-center items-center gap-2.5 rounded-xl border px-5 text-[17px] font-semibold transition-colors duration-(--dur-fast) ease-standard ${
-                    i === active ? "border-primary bg-primary-tint text-primary-pressed" : "border-line bg-surface text-ink hover:border-ink/30"
+                  className={`inline-flex h-12 shrink-0 snap-center items-center gap-2.5 [--sq-r:14px] [--sq-sw:1px] px-5 text-[17px] font-semibold ${
+                    i === active ? "[--sq-fill:var(--color-primary-tint)] [--sq-stroke:var(--color-primary)] text-primary-pressed" : "[--sq-fill:var(--color-surface)] [--sq-stroke:var(--color-line)] text-ink hover:[--sq-stroke:rgb(26_23_38/0.3)]"
                   }`}
                 >
                   <Icon name={a.icon as IconName} className="size-5" />

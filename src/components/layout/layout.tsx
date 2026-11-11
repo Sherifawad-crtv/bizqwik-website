@@ -16,13 +16,13 @@ export function Container({ className = "", ...rest }: HTMLAttributes<HTMLDivEle
 
 const TONES = {
   /** Light card on the paper page. */
-  surface: "border border-line bg-surface",
+  surface: "[--sq-fill:var(--color-surface)] [--sq-stroke:var(--color-line)] [--sq-sw:1px]",
   /** Outline only. */
-  paper: "border border-line",
+  paper: "[--sq-stroke:var(--color-line)] [--sq-sw:1px]",
   /** The inverted section. */
-  dark: "bg-ink text-white",
+  dark: "[--sq-fill:var(--color-ink)] text-white",
   /** A card sitting on the dark section. */
-  raised: "bg-white/[.07] text-white",
+  raised: "[--sq-fill:rgb(255_255_255/0.07)] text-white",
 } as const;
 
 export function Box<T extends ElementType = "div">({
@@ -32,11 +32,11 @@ export function Box<T extends ElementType = "div">({
   ...rest
 }: { as?: T; tone?: keyof typeof TONES } & Omit<HTMLAttributes<HTMLElement>, "as">) {
   const Tag = (as ?? "div") as ElementType;
-  return <Tag data-sq className={`rounded-card ${TONES[tone]} ${className}`} {...rest} />;
+  return <Tag data-sq className={`[--sq-r:28px] ${TONES[tone]} ${className}`} {...rest} />;
 }
 
 export function Panel({ className = "", ...rest }: HTMLAttributes<HTMLDivElement>) {
-  return <div data-sq className={`rounded-card border border-line bg-sunken ${className}`} {...rest} />;
+  return <div data-sq className={`[--sq-r:28px] [--sq-fill:var(--color-sunken)] [--sq-stroke:var(--color-line)] [--sq-sw:1px] ${className}`} {...rest} />;
 }
 
 export function Skeleton({ children, className = "" }: { children: ReactNode; className?: string }) {

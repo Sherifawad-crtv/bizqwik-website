@@ -4,10 +4,10 @@ type Variant = "primary" | "secondary";
 type Size = "md" | "lg";
 
 const base =
-  "inline-flex items-center justify-center rounded-button font-bold whitespace-nowrap select-none transition-[filter,transform,background-color] duration-(--dur-fast) ease-standard hover:brightness-105 active:scale-95";
+  "inline-flex items-center justify-center [--sq-r:24px] font-bold whitespace-nowrap select-none transition-[transform,filter] duration-(--dur-fast) ease-standard active:scale-95";
 const variants: Record<Variant, string> = {
-  primary: "bg-primary text-white hover:bg-primary-pressed",
-  secondary: "bg-surface text-ink shadow-card",
+  primary: "[--sq-fill:var(--color-primary)] hover:[--sq-fill:var(--color-primary-pressed)] text-white",
+  secondary: "[--sq-fill:var(--color-surface)] [--sq-drop:var(--drop-card)] text-ink",
 };
 const sizes: Record<Size, string> = {
   md: "h-14 px-7 text-[17px]",

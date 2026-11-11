@@ -11,7 +11,7 @@ import { duration, ease, enterFrom, gap, stagger } from "@/motion/tokens";
 import { initNavbarMotion } from "./motion";
 
 const SECTION_IDS = nav.map((n) => n.href.slice(1));
-const glass = "bg-surface/70 backdrop-blur-xl backdrop-saturate-150 shadow-float";
+const glass = "bg-surface/70 backdrop-blur-xl backdrop-saturate-150 shadow-[0_10px_28px_-10px_rgb(26_23_38/0.2),0_1px_2px_rgb(26_23_38/0.06)]";
 
 export function Navbar() {
   const header = useRef<HTMLElement>(null);
@@ -141,7 +141,7 @@ export function Navbar() {
                 ref={tile}
                 data-sq
                 aria-hidden
-                className="absolute left-0 top-0 hidden size-14 items-center justify-center rounded-[20px] bg-surface opacity-0 shadow-float lg:flex"
+                className="absolute left-0 top-0 hidden size-14 items-center justify-center [--sq-r:20px] [--sq-fill:var(--color-surface)] [--sq-drop:var(--drop-float)] opacity-0 lg:flex"
               >
                 <Image src="/brand/mark.png" alt="" width={386} height={403} className="h-7 w-auto" />
               </span>
@@ -149,12 +149,12 @@ export function Navbar() {
 
             {/* Desktop links */}
             <nav aria-label="Primary" className="hidden lg:block">
-              <div ref={pill} data-sq className={`relative flex items-center gap-1 rounded-[22px] p-1.5 ${glass}`}>
+              <div ref={pill} className={`relative flex items-center gap-1 rounded-[22px] p-1.5 ${glass}`}>
                 <span
                   ref={indicator}
                   aria-hidden
                   data-sq
-                  className="invisible absolute left-0 top-1.5 h-11 rounded-[16px] bg-surface opacity-0 shadow-card"
+                  className="invisible absolute left-0 top-1.5 h-11 [--sq-r:16px] [--sq-fill:var(--color-surface)] [--sq-drop:var(--drop-card)] opacity-0"
                 />
                 {nav.map((item) => {
                   const id = item.href.slice(1);
@@ -193,7 +193,7 @@ export function Navbar() {
               aria-expanded={open}
               aria-controls="mobile-menu"
               onClick={open ? closeMenu : openMenu}
-              className="grid size-12 place-items-center rounded-[18px] bg-surface shadow-card transition-transform duration-(--dur-fast) ease-standard active:scale-95 lg:hidden"
+              className="grid size-12 place-items-center [--sq-r:18px] [--sq-fill:var(--color-surface)] [--sq-drop:var(--drop-card)] transition-transform duration-(--dur-fast) ease-standard active:scale-95 lg:hidden"
             >
               <span className="relative block h-3 w-6" aria-hidden>
                 <span
@@ -212,7 +212,6 @@ export function Navbar() {
             id="mobile-menu"
             hidden={!shown}
             inert={!open}
-            data-sq
             className="pointer-events-auto mt-2 rounded-card bg-surface/92 p-3 shadow-float backdrop-blur-2xl backdrop-saturate-150 lg:hidden"
           >
             <nav aria-label="Mobile">

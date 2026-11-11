@@ -206,3 +206,8 @@ Plans (`#plans`), Add-ons (`#add-ons`), FAQ (`#faq`), closing (`#contact`).
 - Sections live in `components/sections/` (`StatementSection`, `BenefitsSection`, `Shells`, `ClosingSection`); the feature stage is `components/ecosystem/Ecosystem.tsx`.
 - Draft copy for the new sections: `content/sections.ts` (from the brief's own lines; reworded in phase 9).
 - Dark sections use `bg-ink`; the highlight word uses `primary-light`.
+
+## Squircle surfaces
+Opt in with `data-sq` and describe the look with variables (never `bg-*`, `border-*`, `shadow-*`): `--sq-r`, `--sq-fill`, `--sq-stroke`,
+`--sq-sw`, `--sq-drop` (`var(--drop-card)` / `var(--drop-float)`). `components/ui/Squircle.tsx` paints the shape as an SVG background so it is
+crisp at any density and the drop-shadow follows it. Glass (backdrop-blur) surfaces use a plain radius and box-shadow instead.

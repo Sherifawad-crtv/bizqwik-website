@@ -6,7 +6,7 @@ import { closing, contact, contactSection, cta, nav } from "@/content";
 export function ClosingSection() {
   return (
     <section id="contact" aria-labelledby="contact-title" className="px-3 pb-3 pt-12 lg:px-4 lg:pb-4 lg:pt-20">
-      <div data-sq className="rounded-[40px] bg-ink px-6 pb-8 pt-20 text-white lg:px-16 lg:pt-28">
+      <div data-sq className="[--sq-r:40px] [--sq-fill:var(--color-ink)] px-6 pb-8 pt-20 text-white lg:px-16 lg:pt-28">
         <Container className="px-0 lg:px-0">
           <h2 id="contact-title" className="sr-only">
             {contactSection.heading}

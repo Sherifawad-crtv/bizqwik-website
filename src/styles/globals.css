@@ -40,6 +40,32 @@
   }
 }
 
+/*
+ * Squircle surfaces. Mark an element `data-sq` and set its look with variables, never with bg-*, border-* or
+ * shadow-* classes (components/ui/Squircle.tsx paints the shape from these):
+ *   --sq-r: 28px            corner radius        --sq-fill: var(--color-surface)   fill
+ *   --sq-stroke: var(--color-line)  --sq-sw: 1px  hairline                          --sq-drop: var(--drop-card)  shadow
+ * Without JS these paint a plain rounded rectangle.
+ */
+:root {
+  --drop-card: drop-shadow(0 1px 2px rgb(26 23 38 / 0.05)) drop-shadow(0 8px 14px rgb(26 23 38 / 0.06));
+  --drop-float: drop-shadow(0 14px 34px rgb(26 23 38 / 0.18));
+}
+[data-sq] {
+  border-radius: var(--sq-r, 0px);
+  background-color: var(--sq-fill, transparent);
+  border: var(--sq-sw, 0px) solid var(--sq-stroke, transparent);
+  filter: var(--sq-drop, none);
+  background-origin: border-box;
+  background-clip: border-box;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+}
+[data-sq][data-sq-ready] {
+  background-color: transparent;
+  border-color: transparent;
+}
+
 /* `data-reveal` elements wait invisible until motion/primitives.ts revealOnView() takes over (no flash). */
 [data-reveal]:not([data-revealed]) {
   opacity: 0;
