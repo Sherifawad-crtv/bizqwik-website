@@ -8,10 +8,10 @@ import { benefits } from "@/content";
  * `unoptimized`: the files are already small WebP, and re-encoding would shift the pure white the blend relies on.
  */
 const ART = [
-  { src: "/illustrations/checkin.webp", width: 986, height: 740 },
-  { src: "/illustrations/payment.webp", width: 905, height: 679 },
-  { src: "/illustrations/roster.webp", width: 924, height: 693 },
-  { src: "/illustrations/control.webp", width: 982, height: 737 },
+  { src: "/illustrations/checkin.webp", width: 1400, height: 1050 },
+  { src: "/illustrations/payment.webp", width: 1400, height: 1050 },
+  { src: "/illustrations/roster.webp", width: 1400, height: 1050 },
+  { src: "/illustrations/control.webp", width: 1400, height: 1050 },
 ];
 
 /** Section 4 of the outline: four outlined cards, each a title, a line and a 3D illustration. */
