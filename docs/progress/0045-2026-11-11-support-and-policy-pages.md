@@ -12,3 +12,6 @@ Needed for the payment-gateway review, written as Bizqwik's own pages (no gatewa
 
 ## Update: scrolls inside the card
 As in the reference, the support shell is exactly one screen tall (`h-dvh`); the top bar stays put and the rounded card scrolls inside itself, footer links at the end of the card. The page itself never scrolls. `data-lenis-prevent` keeps the landing page's smooth scroll out of the card. Checked at 1440 and 390: window scroll stays 0, the card scrolls on wheel.
+
+## Update: card runs to the screen edges
+The card now touches the left, right and bottom edges of the screen (no side gutters, no bottom margin, no side or bottom border); only its top corners are rounded. The top bar keeps the page gutter.
