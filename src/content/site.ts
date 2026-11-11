@@ -18,6 +18,18 @@ export const contact = {
   emailHref: "mailto:info@bizqwik.com?subject=Set%20up%20my%20gym",
 } as const;
 
+/** Business location (shown on Contact, About and the footer). */
+export const business = {
+  name: "Bizqwik",
+  street: "16 Hassna Mazhar",
+  area: "Heliopolis",
+  city: "Cairo",
+  country: "Egypt",
+  /** One line for footers and policies. */
+  oneLine: "16 Hassna Mazhar, Heliopolis, Cairo, Egypt",
+  mapHref: "https://www.google.com/maps/search/?api=1&query=16+Hassna+Mazhar+Heliopolis+Cairo+Egypt",
+} as const;
+
 export const nav: { label: string; href: `#${SectionId}` }[] = [
   { label: "The apps", href: "#apps" },
   { label: "Plans", href: "#plans" },

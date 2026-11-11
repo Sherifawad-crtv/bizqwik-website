@@ -33,6 +33,14 @@ import { BuildingsIcon } from "@solar-icons/react/linear/buildings";
 import { MapPointAddIcon } from "@solar-icons/react/linear/map-point-add";
 import { UserPlusIcon } from "@solar-icons/react/linear/user-plus";
 import { ChatRoundDotsIcon } from "@solar-icons/react/linear/chat-round-dots";
+import { DatabaseIcon } from "@solar-icons/react/linear/database";
+import { ShieldCheckIcon } from "@solar-icons/react/linear/shield-check";
+import { LetterIcon } from "@solar-icons/react/linear/letter";
+import { PhoneCallingRoundedIcon } from "@solar-icons/react/linear/phone-calling-rounded";
+import { MapPointIcon } from "@solar-icons/react/linear/map-point";
+import { DocumentTextIcon } from "@solar-icons/react/linear/document-text";
+import { CloudCheckIcon } from "@solar-icons/react/linear/cloud-check";
+import { RefreshCircleIcon } from "@solar-icons/react/linear/refresh-circle";
 import { HomeSmileIcon as HomeSmileSolidIcon } from "@solar-icons/react/bold-duotone/home-smile";
 
 /**
@@ -68,6 +76,14 @@ const ICONS = {
   "link-round": LinkRoundIcon,
   card: CardIcon,
   ticket: TicketIcon,
+  "database": DatabaseIcon,
+  "shield-check": ShieldCheckIcon,
+  "letter": LetterIcon,
+  "phone-calling-rounded": PhoneCallingRoundedIcon,
+  "map-point": MapPointIcon,
+  "document-text": DocumentTextIcon,
+  "cloud-check": CloudCheckIcon,
+  "refresh-circle": RefreshCircleIcon,
   "smartphone-update": SmartphoneUpdateIcon,
   "stars": StarsIcon,
   "cpu-bolt": CpuBoltIcon,

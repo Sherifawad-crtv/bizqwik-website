@@ -1,9 +1,8 @@
 import type { Metadata, Viewport } from "next";
-import { Navbar } from "@/components/nav/Navbar";
 import { Motion } from "@/motion/Motion";
 import { SmoothScroll } from "@/motion/SmoothScroll";
 import { caveat, spaceMono, urbanist } from "./fonts";
-import { brand, contact, seo } from "@/content";
+import { brand, business, contact, seo } from "@/content";
 import "../styles/globals.css";
 
 export const metadata: Metadata = {
@@ -36,7 +35,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body>
         <script
           type="application/ld+json"
-          // Organization facts only (no address yet: add `address` when the business location is confirmed).
           dangerouslySetInnerHTML={{
             __html: JSON.stringify({
               "@context": "https://schema.org",
@@ -46,12 +44,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               email: contact.email,
               telephone: "+201000401407",
               areaServed: "EG",
+              address: { "@type": "PostalAddress", streetAddress: business.street, addressLocality: `${business.area}, ${business.city}`, addressCountry: "EG" },
             }),
           }}
         />
         <SmoothScroll />
         <Motion />
-        <Navbar />
         {children}
       </body>
     </html>

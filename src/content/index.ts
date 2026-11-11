@@ -8,3 +8,4 @@ export * from "./faq";
 export * from "./contact";
 export * from "./features";
 export * from "./sections";
+export * from "./support";

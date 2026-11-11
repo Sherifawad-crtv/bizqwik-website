@@ -62,3 +62,4 @@ Convention (same as the app repo, `Sherifawad-crtv/bizqwik`):
 | 0042 | Phase 8: closing, footer, SEO |
 | 0043 | Phase 9: QA pass (first round) |
 | 0044 | Phase 3 closed: keep pinned hero and pill nav |
+| 0045 | Support centre and policy pages |
