@@ -1,5 +1,5 @@
 import { gsap, ScrollTrigger } from "@/motion/gsap";
-import { playOnView, replay, swapIn } from "@/motion/primitives";
+import { playOnView, replay } from "@/motion/primitives";
 import { duration, enterFrom, ease, gap, press, stagger } from "@/motion/tokens";
 
 type TL = gsap.core.Timeline;
@@ -208,15 +208,13 @@ function showFinal(root: HTMLElement) {
 }
 
 /**
- * The stage plays the shared way (docs/MOTION.md): the panel enters through `data-reveal`; the
- * demo of the chosen feature plays once when the stage scrolls into view, holds its finished
- * frame, and plays again on tab change or on Replay. Reduced motion: no playback, every demo
- * shows its finished state.
+ * Every feature row plays the shared way (docs/MOTION.md): its demo plays once when its panel scrolls into
+ * view, holds the finished frame, and plays again on Replay. Reduced motion: no playback, every demo shows
+ * its finished state.
  */
-export function initEcosystemMotion(root: HTMLElement): () => void {
+export function initFeatureMotion(root: HTMLElement): () => void {
   const mm = gsap.matchMedia();
   const all = <T extends Element>(sel: string) => Array.from(root.querySelectorAll<T>(sel));
-  const one = <T extends HTMLElement>(sel: string) => root.querySelector<T>(sel)!;
 
   mm.add("(prefers-reduced-motion: reduce)", () => showFinal(root));
 
@@ -225,52 +223,33 @@ export function initEcosystemMotion(root: HTMLElement): () => void {
     const token = (n: string) => css.getPropertyValue(n).trim();
     const colors: Colors = { green: token("--color-green-fg"), violet: token("--color-primary"), ink: token("--color-ink"), muted: token("--color-ink-muted") };
 
-    const demos = all<HTMLElement>("[data-demo]").map((demo) => {
-      const role = demo.dataset.demo as Role;
+    const timelines = new Map<Element, TL>();
+    const triggers = all<HTMLElement>("[data-panel]").map((panel) => {
+      const demo = panel.querySelector<HTMLElement>("[data-demo]")!;
       const stage = demo.querySelector<HTMLElement>("[data-stage]")!;
       const inner = stage.querySelector<HTMLElement>("[data-inner]")!;
       const tl = gsap.timeline({ paused: true });
       tl.fromTo(inner, { opacity: 0, y: enterFrom.y, scale: enterFrom.scale }, { opacity: 1, y: 0, scale: 1, duration: duration.enter, ease: ease.enter }, 0);
-      BUILD[role](tl, stage, colors);
-      return { demo, tl };
+      BUILD[demo.dataset.demo as Role](tl, stage, colors);
+      timelines.set(panel, tl);
+      return playOnView(panel, () => replay(tl));
     });
-    const active = () => demos.find((d) => d.demo.dataset.active === "true");
-    const play = () => {
-      demos.forEach((d) => d.tl.pause());
-      const a = active();
-      if (a) replay(a.tl);
-    };
-
-    let started = false;
-    const trigger = playOnView(one("#eco-stage"), () => {
-      started = true;
-      play();
-    });
-
-    // Switching feature: React flips data-active; the new demo plays and its copy comes in.
-    const watch = new MutationObserver(() => {
-      if (!started) return;
-      play();
-      swapIn(all("[data-eco-copy]"));
-    });
-    watch.observe(one("#eco-stage"), { attributes: true, subtree: true, attributeFilter: ["data-active"] });
 
     const onClick = (e: Event) => {
-      if (!(e.target as Element).closest("[data-replay]")) return;
-      const a = active();
-      if (a) replay(a.tl);
+      const panel = (e.target as Element).closest("[data-replay]")?.closest("[data-panel]");
+      const tl = panel && timelines.get(panel);
+      if (tl) replay(tl);
     };
     root.addEventListener("click", onClick);
 
     // Widths are measured in px: re-measure after a resize.
-    const remeasure = () => demos.forEach((d) => d.tl.invalidate());
+    const remeasure = () => timelines.forEach((tl) => tl.invalidate());
     ScrollTrigger.addEventListener("refresh", remeasure);
 
     return () => {
       ScrollTrigger.removeEventListener("refresh", remeasure);
       root.removeEventListener("click", onClick);
-      watch.disconnect();
-      trigger.kill();
+      triggers.forEach((t) => t.kill());
     };
   });
 

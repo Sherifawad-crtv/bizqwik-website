@@ -1,6 +1,6 @@
 import type { Feature } from "./types";
 
-/** The feature tabs in the Ecosystem section. Copy is taken from the brief's app blocks; each feature has one live demo built from the product's real components. */
+/** The rows of the feature list. Copy is taken from the brief's app blocks; each feature has one live demo built from the product's real components. */
 export const features: Feature[] = [
   {
     id: "revenue",

@@ -199,11 +199,11 @@ so the blur is ready the moment they start showing.
 
 ## Page outline and layout primitives (phase 2)
 The landing page is six sections in this order (plan: `docs/PLAN-landing-outline.md`), with Plans, Add-ons and FAQ between 5 and 6:
-hero, dark statement (`#ecosystem`, the sheet that rises over the pinned hero), four cards (`#benefits`), feature stage (`#apps`),
+hero, dark statement (`#ecosystem`, the sheet that rises over the pinned hero), four cards (`#benefits`), feature list (`#apps`),
 Plans (`#plans`), Add-ons (`#add-ons`), FAQ (`#faq`), closing (`#contact`).
 - `components/layout/layout.tsx`: `Container` (`page-width`, see "Page grid"), `Box` (hairline box; tones `surface | paper | dark | raised`;
   28px radius), `Panel` (quiet sunken panel for products and illustrations), `Skeleton` (dashed slot a later phase fills).
-- Sections live in `components/sections/` (`StatementSection`, `BenefitsSection`, `Shells`, `ClosingSection`); the feature stage is `components/ecosystem/Ecosystem.tsx`.
+- Sections live in `components/sections/` (`StatementSection`, `BenefitsSection`, `Shells`, `ClosingSection`); the feature list is `components/ecosystem/FeatureList.tsx`.
 - Card illustrations: four 3D renders in `public/illustrations/` (WebP, white background, shown with `mix-blend-multiply`). Shared product pieces for the demos: `components/product/parts.tsx`.
 - Draft copy for the new sections: `content/sections.ts` (from the brief's own lines; reworded in phase 9).
 - Dark sections use `bg-ink`; the highlight word uses `primary-light`.
@@ -220,3 +220,7 @@ Cards sit 16px apart.
 - Use `page-width` (a Tailwind utility in `globals.css`) on a section's outer wrapper, or the `Container` component, which is the same thing. Never set your own `max-w-*` or `px-*` on a section wrapper.
 - The navbar header uses `px-(--gutter)` and `max-w-page`, so its logo and CTA sit on the same edge as the sections.
 - Exceptions: the hero is full-bleed (its props scatter across the viewport).
+
+## Feature list (section 5)
+One row per feature, 16px apart: text left (sticky at `--header-offset`, 96px, from 901px up), gray panel right (aspect 849/640, min height 640px from 901px, `overflow: hidden`) holding the live demo and a Replay pill.
+Column split about 1 : 2.03 up to 1440px, 1 : 1.4 above; stacked below 901px. No heading above the list. Demos play once when their panel scrolls into view (see `docs/MOTION.md`).

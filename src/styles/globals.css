@@ -47,6 +47,8 @@
  */
 :root {
   --gutter: 12px;
+  /* Where sticky section text sits below the viewport top (the reference's header offset). */
+  --header-offset: 96px;
 }
 @media (min-width: 641px) {
   :root {

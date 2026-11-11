@@ -48,3 +48,4 @@ Convention (same as the app repo, `Sherifawad-crtv/bizqwik`):
 | 0028 | 2026-11-11 | [Page grid from the reference](0028-2026-11-11-page-grid.md) |
 | 0029 | 2026-11-11 | [Card illustrations (phase 5)](0029-2026-11-11-benefit-illustrations.md) |
 | 0030 | 2026-11-11 | [3D illustrations for the four cards](0030-2026-11-11-3d-illustrations.md) |
+| 0031 | 2026-11-11 | [Sticky feature list (phase 6)](0031-2026-11-11-sticky-feature-list.md) |

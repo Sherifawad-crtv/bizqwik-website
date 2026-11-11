@@ -1,4 +1,4 @@
-import { Ecosystem } from "@/components/ecosystem/Ecosystem";
+import { FeatureList } from "@/components/ecosystem/FeatureList";
 import { Hero } from "@/components/hero/Hero";
 import { BenefitsSection } from "@/components/sections/BenefitsSection";
 import { ClosingSection } from "@/components/sections/ClosingSection";
@@ -12,7 +12,7 @@ export default function Home() {
       <Hero />
       <StatementSection />
       <BenefitsSection />
-      <Ecosystem />
+      <FeatureList />
       <PlansShell />
       <AddonsShell />
       <FaqShell />

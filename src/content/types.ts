@@ -93,7 +93,7 @@ export interface FaqItem {
 
 export type FeatureId = "revenue" | "scheduling" | "bookings" | "checkin" | "payments" | "memberships" | "payouts" | "sessions" | "client";
 
-/** One tab of the Ecosystem section: real copy plus the key of its live demo card. */
+/** One row of the feature list: real copy plus the key of its live demo card. */
 export interface Feature {
   id: FeatureId;
   label: string;
