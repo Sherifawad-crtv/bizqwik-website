@@ -7,6 +7,8 @@ import { brand, contact, seo } from "@/content";
 import "../styles/globals.css";
 
 export const metadata: Metadata = {
+  // Absolute base for the share image URLs. Swap for the real domain when it is set (brief GAP: domain).
+  metadataBase: new URL(process.env.VERCEL_PROJECT_PRODUCTION_URL ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}` : "http://localhost:3000"),
   title: seo.title,
   description: seo.description,
   icons: {
