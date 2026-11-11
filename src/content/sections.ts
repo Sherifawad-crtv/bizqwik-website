@@ -9,6 +9,22 @@ export const statement = {
   highlight: "whole community.",
 } as const;
 
+/** The moving pills in the statement section (reference: the merchant list). Every line is a task from the brief. */
+export const orbit: { label: string; icon: string }[] = [
+  { label: "Check clients in by QR", icon: "qr-code" },
+  { label: "Book classes in seconds", icon: "calendar-mark" },
+  { label: "Take payment your way", icon: "wallet" },
+  { label: "Run the monthly payout", icon: "calculator" },
+  { label: "See revenue at a glance", icon: "chart-square" },
+  { label: "Log sessions by scanning", icon: "users-group-two-rounded" },
+  { label: "Renew a plan in one tap", icon: "ticket" },
+  { label: "Plan the whole month", icon: "calendar" },
+  { label: "See who is coming", icon: "clipboard-list" },
+  { label: "Brand your own app", icon: "smartphone" },
+  { label: "Top up a wallet", icon: "banknote" },
+  { label: "Track staff attendance", icon: "clock-circle" },
+];
+
 export const benefits: { title: string; line: string }[] = [
   { title: "Check clients in fast", line: "Check clients in by QR code, sell memberships and take payment at the desk." },
   { title: "Take payment your way", line: "Cash, card, wallet or InstaPay. Every sale is recorded with how it was paid." },

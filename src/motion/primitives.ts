@@ -12,6 +12,7 @@ import { duration, ease, enterFrom, press, stagger, view } from "./tokens";
  *   swapIn()         content changing inside a stable frame
  *   pressFeedback()  the 1 -> .95 -> 1 dip on a control
  *   scrubWords()     a statement that brightens word by word as you scroll
+ *   scrubRange()     drive anything from how far an element has scrolled through the viewport
  */
 
 export const prefersReducedMotion = () => typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -101,4 +102,26 @@ export function scrubWords(el: HTMLElement, { from = 0.22 } = {}): () => void {
     tween.kill();
     split.revert();
   };
+}
+
+/** Linear map of `v` from [a, b] to [c, d], clamped (the reference's `useTransform`). */
+export const mapRange = (v: number, [a, b]: readonly [number, number], [c, d]: readonly [number, number]) => {
+  const t = Math.min(1, Math.max(0, (v - a) / (b - a)));
+  return c + (d - c) * t;
+};
+
+/**
+ * Scroll-linked, no easing: `apply(progress)` runs on every scroll frame with 0 when the element's top
+ * reaches the bottom of the viewport and 1 when its bottom reaches the bottom of the viewport (the
+ * reference's offset ["start end", "end end"]). Also runs on every layout refresh. Returns a cleanup.
+ */
+export function scrubRange(el: Element, apply: (progress: number) => void) {
+  const st = ScrollTrigger.create({
+    trigger: el,
+    start: "top bottom",
+    end: "bottom bottom",
+    onUpdate: (self) => apply(self.progress),
+    onRefresh: (self) => apply(self.progress),
+  });
+  return () => st.kill();
 }

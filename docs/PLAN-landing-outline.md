@@ -22,7 +22,7 @@
 | 1. Motion system (done) | Tokens, kit, migration, guard | `docs/MOTION.md`, `src/motion/*`, `npm run check:motion` |
 | **2. Layout skeleton** (done) | Layout primitives, the section shells in outline order, nav anchors resolving | `components/layout`, `components/sections`, `/` shows the whole outline |
 | 3. Nav + hero | Decide: keep the pinned phone-morph hero or switch to the 50/50 panel hero. Nav as bordered bar or keep the pill | Hero + nav per decision |
-| 4. Dark statement + orbit | The pills orbit the emblem (loop motion token), stat headline | Section 3 |
+| **4. Dark statement + moving pills** (done) | Scroll-scrubbed pill-to-box, moving pill arc, per the reference source | Section 3, `docs/MOTION.md` section 7 |
 | 5. Cards + illustrations | Four illustrations (SVG/CSS), hover states | Section 4 |
 | 6. Sticky feature stage | Sticky stacking titles, swapping panel, Replay, mobile behaviour | Section 5 (replaces the chip tabs) |
 | 7. Brief sections | Plans, Compare, Add-ons, FAQ in the hairline-box language (the reference has no pricing) | Plans, Add-ons, FAQ shells filled |

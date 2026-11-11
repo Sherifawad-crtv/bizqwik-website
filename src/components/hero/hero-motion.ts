@@ -5,10 +5,10 @@ import { DESIGN, FRAME_MARGIN, POLAROID, SCATTER, SCREEN, type PieceId } from ".
 /** Scroll distance the hero animates over, in viewport heights. */
 const PIN_VH = 1.9;
 /**
- * Extra viewport heights the hero stays pinned AFTER its animation is done, while the next section's sheet
- * slides up over it. The sheet pulls itself up by exactly this much (`-mt-[100svh]` in Ecosystem.tsx).
+ * Extra viewport heights the hero stays pinned after its animation is done. 0 now: the next section scrolls in
+ * normally. (It was 1 while a sheet slid up over the hero.)
  */
-const COVER_VH = 1;
+const COVER_VH = 0;
 /** Where the phone's top edge ends up (px from viewport top): just below the navbar. */
 const END_TOP = 96;
 /** Other code (the navbar) reads when the hero ends through this id. */

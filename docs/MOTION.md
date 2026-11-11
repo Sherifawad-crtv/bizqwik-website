@@ -81,9 +81,38 @@ CSS twins live in `styles/tokens.css` (`--ease-*`, `--dur-*`); use them from Tai
 | Lenis smooth scroll | The reference uses native scroll. We keep Lenis (original brief). `smoothScroll.lerp` is a token. Open question for phase 3. |
 | Pinned hero | Our signature moment; the reference has none. Kept until the phase 3 decision. |
 
+## 7. The scroll-scrubbed statement (read from the reference's source, 2026-11-11)
+
+The dark section below the hero is the reference's signature scroll moment, and ours now works the same way
+(`components/sections/StatementSection.tsx`, `statement-motion.ts`).
+
+**Scroll (scrubbed, linear, no easing).** Progress is 0 when the box's top reaches the bottom of the viewport and 1 when its bottom does
+(`scrubRange()` in the kit). `c` = progress mapped from [0.4, 1] to [0, 1] (phones: [0.35, 0.8]). Then:
+
+| Thing | Value at c = 0 | Value at c = 1 |
+|---|---|---|
+| Box shape | `clip-path: inset(0 calc(50% - 223px) calc(100% - 224px) round 112px)`: a 446 x 224 pill at the top | `inset(0 round 40px)`: the full box |
+| Box corner radius | 112px, holds until c = 0.8 | 40px (the reference ends at 8px) |
+| Headline + list container | `translateY(-250px) scale(.6) opacity 0` | identity |
+| Logo tile (100px) | `translateY(-250px)`, inside the pill | `translateY(0)`, centre of the box (tablet -160, phone -100) |
+
+Phones: pill half-width 140 and height 140, box 620px tall, centred stack (headline, logo, list). Box is 720px tall on desktop.
+
+**Time (the pills keep moving).** Twelve pills on an arc through eleven slots (`slot = (index + current) % count`, slots 10 and above wrap to 0 and hide).
+- Per slot: scale `.5 .6 .7 .8 .9 1 .9 .8 .7 .6 .5`; opacity `0 0 .3 .4 .6 1 .6 .4 .3 0 0`; y `-460 ... 460` (phones `-300 ... 300`);
+  x = `|slot/11 - 5/11| ^ 1.6 x 1500 + 60` (the arc; phones: centred).
+- The centre slot (5) is highlighted (white at 12%). A pill wrapping to the far end jumps; the others glide (the reference uses a
+  spring, stiffness 150 and damping 35, overdamped; we use `duration.scene` with `ease.enter`).
+- The list drifts: velocity starts at 3, eases to an idle 0.4 (px per frame at 60fps, friction .3), and the slot advances every 90px of travel,
+  so it spins fast for about a second, then advances one slot every few seconds. Runs only while the section is on screen.
+- Reduced motion: the finished box, the list at rest, no ticker.
+
+Reuse: `scrubRange(el, apply)` and `mapRange(v, [a,b], [c,d])` in `motion/primitives.ts` give any section this behaviour.
+
 ## 6. Recipe: adding a new animated thing
 
 - A card or block that should enter on scroll: add `data-reveal`. Done.
 - A scripted product demo: build a paused timeline with `tl.fromTo(...)` steps (state both ends), wrap it with `playOnView` and `replay`, add `<ReplayButton />`, write its reduced-motion final state. See `ecosystem-motion.ts`.
+- A section that transforms as you scroll through it: `scrubRange()` + `mapRange()` (see section 7). No easing: it is linear on purpose.
 - A hover or press state: Tailwind with `duration-(--dur-fast) ease-standard`, `active:scale-95`.
 - A new duration or ease: do not. Pick the nearest rung. If the ladder truly lacks one, add it to `tokens.ts` and `tokens.css`, update this file, log it in `docs/progress/`.
