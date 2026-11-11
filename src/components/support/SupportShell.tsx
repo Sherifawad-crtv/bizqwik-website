@@ -27,7 +27,7 @@ export function SupportShell({ children }: { children: ReactNode }) {
       </header>
 
       {/* The page scrolls inside this rounded card, as in the reference. `data-lenis-prevent` keeps the page-level smooth scroll out of it. */}
-      <main id="main" data-lenis-prevent tabIndex={-1} className="min-h-0 flex-1 overflow-y-auto overscroll-contain rounded-[28px] border border-line bg-surface">
+      <main id="main" data-lenis-prevent tabIndex={-1} className="min-h-0 flex-1 overflow-y-auto overscroll-contain [scrollbar-width:none] [&::-webkit-scrollbar]:hidden rounded-[28px] border border-line bg-surface">
         {children}
         <footer className="flex flex-col gap-4 border-t border-line px-5 py-6 text-[14px] text-ink-muted sm:px-8 md:flex-row md:items-center md:justify-between">
           <nav aria-label="Support" className="flex flex-wrap gap-x-5 gap-y-2">

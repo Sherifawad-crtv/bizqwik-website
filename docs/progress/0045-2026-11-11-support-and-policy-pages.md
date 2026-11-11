@@ -18,3 +18,6 @@ The card now touches the left, right and bottom edges of the screen (no side gut
 
 ## Update: card margins copied from the reference
 Measured from support.link.com at 1440x900: card 16px from the left and right edges, about 10px from the bottom, 60px top bar, fully rounded and bordered. The shell now uses `px-4 pb-2.5` with `rounded-[28px]` (replaces the edge-to-edge sheet).
+
+## Update: scrollbar hidden
+The card's native scrollbar is hidden (`scrollbar-width: none` and the WebKit pseudo-element); wheel, touch and keyboard scrolling still work.
