@@ -11,7 +11,7 @@ import type { ElementType, HTMLAttributes, ReactNode } from "react";
  */
 
 export function Container({ className = "", ...rest }: HTMLAttributes<HTMLDivElement>) {
-  return <div className={`mx-auto w-full max-w-page px-4 lg:px-8 ${className}`} {...rest} />;
+  return <div className={`page-width ${className}`} {...rest} />;
 }
 
 const TONES = {

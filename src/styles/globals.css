@@ -40,6 +40,31 @@
   }
 }
 
+/*
+ * Page grid, measured from the reference at 390 to 2560px wide: content is at most 1672px, centred; the side gutter is
+ * 12px on phones, 24px on tablets and 64px above 1024px. Every section uses `page-width` (or `max-w-page` inside
+ * a `px-(--gutter)` parent) so edges line up on every screen.
+ */
+:root {
+  --gutter: 12px;
+}
+@media (min-width: 641px) {
+  :root {
+    --gutter: 24px;
+  }
+}
+@media (min-width: 1025px) {
+  :root {
+    --gutter: 64px;
+  }
+}
+@utility page-width {
+  margin-inline: auto;
+  width: 100%;
+  max-width: calc(var(--container-page) + 2 * var(--gutter));
+  padding-inline: var(--gutter);
+}
+
 /* `data-reveal` elements wait invisible until motion/primitives.ts revealOnView() takes over (no flash). */
 [data-reveal]:not([data-revealed]) {
   opacity: 0;

@@ -6,7 +6,7 @@ export function BenefitsSection() {
   return (
     <section id="benefits" aria-label="Why Bizqwik" className="py-4 lg:py-6">
       <Container>
-        <ul className="grid gap-3 sm:grid-cols-2">
+        <ul className="grid gap-4 sm:grid-cols-2">
           {benefits.map((b) => (
             <li key={b.title} data-reveal>
               <Box className="flex h-full flex-col p-6 lg:p-8">

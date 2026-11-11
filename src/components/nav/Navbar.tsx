@@ -126,7 +126,7 @@ export function Navbar() {
         {microcopy.skipLink}
       </a>
 
-      <header ref={header} className="pointer-events-none fixed inset-x-0 top-0 z-50 px-4 pt-3.5 lg:px-8 lg:pt-5">
+      <header ref={header} className="pointer-events-none fixed inset-x-0 top-0 z-50 px-(--gutter) pt-3.5 lg:pt-5">
         <div className="mx-auto max-w-page">
           <div
             ref={bar}

@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { ecosystem, features, type FeatureId } from "@/content";
+import { Container } from "@/components/layout/layout";
 import { Icon, type IconName } from "@/components/ui/Icon";
 import { ReplayButton } from "@/components/ui/ReplayButton";
 import { BookingsDemo, CheckInDemo, ClientDemo, MembershipsDemo, PaymentsDemo, PayoutsDemo, RevenueDemo, SchedulingDemo, SessionsDemo } from "./Demos";
@@ -47,9 +48,9 @@ export function Ecosystem() {
   };
 
   return (
-    <section ref={root} id="apps" aria-labelledby="ecosystem-title" className="px-4 py-16 lg:px-8 lg:py-24">
-      <div className="relative">
-        <div className="mx-auto max-w-page">
+    <section ref={root} id="apps" aria-labelledby="ecosystem-title" className="py-16 lg:py-24">
+      <Container>
+        <div>
           <div className="flex flex-col items-center text-center">
             <span
 
@@ -68,7 +69,7 @@ export function Ecosystem() {
 
           <div data-reveal className="mt-12 lg:mt-16">
             {/* Chips: one swipeable row on phones, centred and wrapping on desktop. */}
-            <div role="tablist" aria-label="Features" className="-mx-5 flex snap-x gap-2.5 overflow-x-auto px-5 pb-1 [scrollbar-width:none] lg:mx-0 lg:flex-wrap lg:justify-center lg:gap-3 lg:overflow-visible lg:px-0 [&::-webkit-scrollbar]:hidden">
+            <div role="tablist" aria-label="Features" className="-mx-(--gutter) flex snap-x gap-2.5 overflow-x-auto px-(--gutter) pb-1 [scrollbar-width:none] lg:mx-0 lg:flex-wrap lg:justify-center lg:gap-3 lg:overflow-visible lg:px-0 [&::-webkit-scrollbar]:hidden">
               {features.map((a, i) => (
                 <button
                   key={a.id}
@@ -93,7 +94,7 @@ export function Ecosystem() {
               ))}
             </div>
 
-            <div id="eco-stage" role="tabpanel" aria-labelledby={`eco-tab-${app.id}`} className="mt-6 grid gap-4 lg:mt-8 lg:grid-cols-[5fr_7fr] lg:gap-5">
+            <div id="eco-stage" role="tabpanel" aria-labelledby={`eco-tab-${app.id}`} className="mt-6 grid gap-4 lg:mt-8 lg:grid-cols-[5fr_7fr]">
               <div key={app.id} data-eco-copy className="order-2 flex flex-col justify-center rounded-[28px] bg-primary-tint px-7 py-10 lg:order-1 lg:px-12 lg:py-14">
                 <h3 className="text-[34px] font-extrabold leading-[1.05] tracking-[-.025em] text-balance lg:text-[40px]">{app.title}</h3>
                 <p className="mt-5 text-[19px] leading-snug text-ink">{app.headline}</p>
@@ -121,7 +122,7 @@ export function Ecosystem() {
             </div>
           </div>
         </div>
-      </div>
+      </Container>
     </section>
   );
 }

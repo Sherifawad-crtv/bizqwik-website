@@ -73,7 +73,7 @@
   --text-label--letter-spacing: 0.08em;
 
   /* ---- Layout ---- */
-  --container-page: 80rem; /* 1280 content max-width */
+  --container-page: 104.5rem; /* 1672px content max-width, measured from the reference (docs/DESIGN-SYSTEM.md "Page grid") */
   --breakpoint-sm: 48rem; /* 768 */
   --breakpoint-lg: 64rem; /* 1024 — real layout swap */
   --breakpoint-xl: 80rem; /* 1280 */

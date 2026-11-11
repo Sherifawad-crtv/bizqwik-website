@@ -82,7 +82,7 @@ function Swatch({ name, hex, use }: { name: string; hex: string; use: string }) 
 
 export default function Foundation() {
   return (
-    <main id="main" className="mx-auto max-w-page px-5 lg:px-8">
+    <main id="main" className="page-width">
       <header id="top" className="pt-28 lg:pt-36">
         <Label>Bizqwik · Design foundation · v0.1</Label>
         <h1 className="mt-4 text-h1 font-extrabold">Tokens, type and shape.</h1>

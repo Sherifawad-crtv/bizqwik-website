@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { Container } from "@/components/layout/layout";
 import { useEffect, useRef } from "react";
 import { Icon, type IconName } from "@/components/ui/Icon";
 import { orbit, statement } from "@/content";
@@ -20,8 +21,8 @@ export function StatementSection() {
   }, []);
 
   return (
-    <section ref={root} id="ecosystem" aria-labelledby="statement-title" className="relative mt-20 px-4 lg:px-8">
-      <div className="mx-auto max-w-page">
+    <section ref={root} id="ecosystem" aria-labelledby="statement-title" className="relative mt-20">
+      <Container>
         <div data-st-content className="relative h-[620px] overflow-hidden rounded-[40px] bg-ink text-white min-[901px]:h-[720px]">
           <div data-st-anim className="grid h-full grid-rows-[auto_1fr] gap-y-20 min-[901px]:grid-cols-2 min-[901px]:grid-rows-1 min-[901px]:items-center min-[901px]:gap-y-0">
             <h2
@@ -61,7 +62,7 @@ export function StatementSection() {
             <Image src="/brand/mark.png" alt="" width={386} height={403} className="h-11 w-auto max-[900px]:h-9" />
           </span>
         </div>
-      </div>
+      </Container>
     </section>
   );
 }

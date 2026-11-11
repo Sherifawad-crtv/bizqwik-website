@@ -201,8 +201,21 @@ so the blur is ready the moment they start showing.
 The landing page is six sections in this order (plan: `docs/PLAN-landing-outline.md`), with Plans, Add-ons and FAQ between 5 and 6:
 hero, dark statement (`#ecosystem`, the sheet that rises over the pinned hero), four cards (`#benefits`), feature stage (`#apps`),
 Plans (`#plans`), Add-ons (`#add-ons`), FAQ (`#faq`), closing (`#contact`).
-- `components/layout/layout.tsx`: `Container` (max-w-page, 16/32px gutters), `Box` (hairline box; tones `surface | paper | dark | raised`;
+- `components/layout/layout.tsx`: `Container` (`page-width`, see "Page grid"), `Box` (hairline box; tones `surface | paper | dark | raised`;
   28px radius), `Panel` (quiet sunken panel for products and illustrations), `Skeleton` (dashed slot a later phase fills).
 - Sections live in `components/sections/` (`StatementSection`, `BenefitsSection`, `Shells`, `ClosingSection`); the feature stage is `components/ecosystem/Ecosystem.tsx`.
 - Draft copy for the new sections: `content/sections.ts` (from the brief's own lines; reworded in phase 9).
 - Dark sections use `bg-ink`; the highlight word uses `primary-light`.
+
+## Page grid (measured from the reference, 2026-11-11)
+Measured at 390, 600, 768, 900, 1024, 1100, 1200, 1280, 1440, 1728, 1920 and 2560px wide. Their dark box, header and cards share one edge at every width.
+| Screen | Side gutter | Content width |
+|---|---|---|
+| up to 640 | 12px | screen - 24 |
+| 641 to 1024 | 24px | screen - 48 |
+| above 1024 | 64px | screen - 128, up to a **maximum of 1672px**, then centred |
+Cards sit 16px apart.
+- Tokens: `--container-page` (1672px) in `tokens.css`; `--gutter` (12 / 24 / 64) in `globals.css`.
+- Use `page-width` (a Tailwind utility in `globals.css`) on a section's outer wrapper, or the `Container` component, which is the same thing. Never set your own `max-w-*` or `px-*` on a section wrapper.
+- The navbar header uses `px-(--gutter)` and `max-w-page`, so its logo and CTA sit on the same edge as the sections.
+- Exceptions: the hero is full-bleed (its props scatter across the viewport).

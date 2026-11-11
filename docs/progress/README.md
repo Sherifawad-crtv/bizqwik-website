@@ -45,3 +45,4 @@ Convention (same as the app repo, `Sherifawad-crtv/bizqwik`):
 | 0025 | 2026-11-11 | [Squircles as vectors](0025-2026-11-11-squircle-vectors.md) |
 | 0026 | 2026-11-11 | [Squircles removed](0026-2026-11-11-squircles-removed.md) |
 | 0027 | 2026-11-11 | [Scroll-scrubbed statement (phase 4)](0027-2026-11-11-scrubbed-statement.md) |
+| 0028 | 2026-11-11 | [Page grid from the reference](0028-2026-11-11-page-grid.md) |

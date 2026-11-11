@@ -5,15 +5,15 @@ import { closing, contact, contactSection, cta, nav } from "@/content";
 /** Section 6 of the outline: the closing statement, three action cards and the footer. Skeleton: the statement is static (phase 8 scrubs it in). */
 export function ClosingSection() {
   return (
-    <section id="contact" aria-labelledby="contact-title" className="px-3 pb-3 pt-12 lg:px-4 lg:pb-4 lg:pt-20">
-      <div className="rounded-[40px] bg-ink px-6 pb-8 pt-20 text-white lg:px-16 lg:pt-28">
-        <Container className="px-0 lg:px-0">
+    <section id="contact" aria-labelledby="contact-title" className="pb-(--gutter) pt-12 lg:pt-20">
+      <Container>
+        <div className="rounded-[40px] bg-ink px-6 pb-8 pt-20 text-white lg:px-16 lg:pt-28">
           <h2 id="contact-title" className="sr-only">
             {contactSection.heading}
           </h2>
           <p className="max-w-3xl text-[clamp(1.75rem,1rem+2.4vw,3rem)] font-bold leading-[1.1] tracking-[-.025em] text-balance">{closing.statement}</p>
 
-          <ul className="mt-16 grid gap-3 md:grid-cols-3">
+          <ul className="mt-16 grid gap-4 md:grid-cols-3">
             {[
               { title: "Talk to us", action: <Button href={contact.phoneHref}>{contact.phoneDisplay}</Button> },
               { title: "Write to us", action: <Button href={contact.emailHref}>{contact.email}</Button> },
@@ -38,8 +38,8 @@ export function ClosingSection() {
               ))}
             </nav>
           </footer>
-        </Container>
-      </div>
+        </div>
+      </Container>
     </section>
   );
 }
