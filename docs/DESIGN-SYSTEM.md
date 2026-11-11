@@ -204,3 +204,6 @@ Cards sit 16px apart.
 One row per bundle (four), 16px apart on desktop: text left (sticky at `--header-offset`, 96px, from 901px up) with a divider that draws in above the title, gray panel right (aspect 849/640, min height 670px from 901px,
 `overflow: hidden`) holding the live demo and a Replay pill. Column split about 1 : 2.03 up to 1440px, 1 : 1.4 above; stacked below 901px with 64px between rows and 32px from the text to its panel.
 No heading above the list. Demos play once when their panel scrolls into view (see `docs/MOTION.md`). The client demo's panel content is 640px wide (the others 520px).
+
+### Feature panels on phones
+Under 901px every feature panel has the same shape (aspect 480/650). The demo is laid out at 480px wide and scaled to the panel width (`--s`, set by a ResizeObserver in `FeatureList.tsx`), so the frame never changes height with its content. The demo pointer divides by that scale (`tap` in `features-motion.ts`).

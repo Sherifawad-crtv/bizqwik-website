@@ -15,6 +15,9 @@ const DEMOS: Record<FeatureId, () => React.JSX.Element> = {
   clients: ClientDemo,
 };
 
+/** Phone panels hold a demo laid out at this size (px) and scaled to fit, so every panel has the same height. */
+const DESIGN_W = 480;
+
 /** The client demo shows two cards side by side, so its stage is wider. */
 const WIDE: Partial<Record<FeatureId, true>> = { clients: true };
 
@@ -29,7 +32,17 @@ export function FeatureList() {
 
   useEffect(() => {
     const el = root.current;
-    return el ? initFeatureMotion(el) : undefined;
+    if (!el) return;
+    // Phones: every panel is the same shape. The demo is laid out at DESIGN_W and scaled to the panel's width.
+    const fit = new ResizeObserver((entries) => {
+      for (const e of entries) (e.target as HTMLElement).style.setProperty("--s", String(Math.min(1, e.contentRect.width / DESIGN_W)));
+    });
+    el.querySelectorAll("[data-panel]").forEach((p) => fit.observe(p));
+    const stop = initFeatureMotion(el);
+    return () => {
+      fit.disconnect();
+      stop?.();
+    };
   }, []);
 
   return (
@@ -58,10 +71,12 @@ export function FeatureList() {
 
                 <div
                   data-panel
-                  className="relative grid w-full min-w-0 place-items-center overflow-hidden rounded-[28px] border border-line bg-sunken px-4 pb-20 pt-10 min-[901px]:aspect-[849/640] min-[901px]:min-h-[670px] min-[901px]:px-10 min-[901px]:py-10"
+                  className="relative grid w-full min-w-0 place-items-center overflow-hidden rounded-[28px] border border-line bg-sunken max-[900px]:aspect-[480/650] min-[901px]:aspect-[849/640] min-[901px]:min-h-[670px] min-[901px]:px-10 min-[901px]:py-10"
                 >
-                  <div data-demo={f.id} className={`w-full ${WIDE[f.id] ? "max-w-[640px]" : "max-w-[520px]"}`}>
-                    <Demo />
+                  <div className="contents max-[900px]:absolute max-[900px]:left-0 max-[900px]:top-0 max-[900px]:flex max-[900px]:origin-top-left max-[900px]:items-center max-[900px]:justify-center max-[900px]:pb-20 max-[900px]:pt-5 max-[900px]:[scale:var(--s,.75)] max-[900px]:w-[480px] max-[900px]:h-[650px]">
+                    <div data-demo={f.id} className={`w-full max-[900px]:w-[440px] max-[900px]:max-w-none ${WIDE[f.id] ? "max-w-[640px]" : "max-w-[520px]"}`}>
+                      <Demo />
+                    </div>
                   </div>
                   <ReplayButton className="absolute bottom-4 right-4 z-10" />
                 </div>

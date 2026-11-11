@@ -42,7 +42,8 @@ function tap(tl: TL, stage: HTMLElement, target: HTMLElement, at: number): numbe
   const where = () => {
     const s = stage.getBoundingClientRect();
     const t = target.getBoundingClientRect();
-    return { x: t.left - s.left + t.width * 0.6, y: t.top - s.top + t.height * 0.5 };
+    const k = s.width / stage.offsetWidth || 1; // the panel scales the demo down on phones
+    return { x: (t.left - s.left + t.width * 0.6) / k, y: (t.top - s.top + t.height * 0.5) / k };
   };
   const land = at + duration.slow + gap.beat;
   tl.fromTo(cursor, { opacity: 0, x: () => where().x + 56, y: () => where().y + 48, scale: 1 }, { opacity: 1, x: () => where().x, y: () => where().y, duration: duration.slow, ease: ease.standard }, at)

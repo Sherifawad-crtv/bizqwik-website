@@ -55,3 +55,4 @@ Convention (same as the app repo, `Sherifawad-crtv/bizqwik`):
 | 0035 | 2026-11-11 | [CTA hover: smoother rounding, white CTAs reverse](0035-2026-11-11-cta-hover.md) |
 | 0036 | 2026-11-11 | [White CTA hover: darker shade](0036-2026-11-11-cta-hover-shade.md) |
 | 0037 | 2026-11-11 | [Feature list rebuilt as four bundles](0037-2026-11-11-feature-bundles.md) |
+| 0038 | Fixed-height feature panels on phones |
