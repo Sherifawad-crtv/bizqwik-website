@@ -39,7 +39,8 @@ Text on violet is white (5.8:1). Small violet text uses `primary-pressed`.
   `text-h3` 34→22, `text-body` 26→17, `text-label` 16→12.
 
 ## Shape and elevation
-Radius: `tile` 16, `input` 20, `button` 24, `card` 28, `card-lg` 32; pills round.
+Radius: `tile` 16, `input` 20, `button` 24 (token; CTAs use their own rule, below), `card` 28, `card-lg` 32; pills round.
+**CTA buttons** (`components/ui/Button.tsx`): 20px at rest, easing to 100px (a full pill) on hover over `duration.fast` with `ease.standard`. No other control follows this.
 Shadows: `shadow-card` (default), `shadow-float` (sticky nav, call button),
 `shadow-glow` (Grow card only).
 

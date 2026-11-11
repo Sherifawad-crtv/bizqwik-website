@@ -4,7 +4,7 @@ type Variant = "primary" | "secondary";
 type Size = "md" | "lg";
 
 const base =
-  "inline-flex items-center justify-center rounded-button font-bold whitespace-nowrap select-none transition-[filter,transform,background-color] duration-(--dur-fast) ease-standard hover:brightness-105 active:scale-95";
+  "inline-flex items-center justify-center rounded-[20px] font-bold whitespace-nowrap select-none transition-[filter,transform,background-color,border-radius] duration-(--dur-fast) ease-standard hover:rounded-[100px] hover:brightness-105 active:scale-95";
 const variants: Record<Variant, string> = {
   primary: "bg-primary text-white hover:bg-primary-pressed",
   secondary: "bg-surface text-ink shadow-card",
@@ -20,7 +20,7 @@ interface ButtonProps extends AnchorHTMLAttributes<HTMLAnchorElement> {
   size?: Size;
 }
 
-/** Link-styled-as-button. Every CTA on the page is a real anchor (tel:, mailto:, #section). */
+/** Link-styled-as-button. Corners are 20px at rest and ease to 100px (a full pill) on hover.  Every CTA on the page is a real anchor (tel:, mailto:, #section). */
 export function Button({ variant = "primary", size = "md", className = "", ...props }: ButtonProps) {
   return <a className={`${base} ${variants[variant]} ${sizes[size]} ${className}`} {...props} />;
 }

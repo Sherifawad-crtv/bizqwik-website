@@ -51,3 +51,4 @@ Convention (same as the app repo, `Sherifawad-crtv/bizqwik`):
 | 0031 | 2026-11-11 | [Sticky feature list (phase 6)](0031-2026-11-11-sticky-feature-list.md) |
 | 0032 | 2026-11-11 | [Divider above each feature title](0032-2026-11-11-feature-divider.md) |
 | 0033 | 2026-11-11 | [Feature rows: proximity spacing](0033-2026-11-11-feature-proximity.md) |
+| 0034 | 2026-11-11 | [CTA corner radius](0034-2026-11-11-cta-radius.md) |
