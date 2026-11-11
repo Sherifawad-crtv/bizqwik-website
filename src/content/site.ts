@@ -21,7 +21,6 @@ export const contact = {
 export const nav: { label: string; href: `#${SectionId}` }[] = [
   { label: "The apps", href: "#apps" },
   { label: "Plans", href: "#plans" },
-  { label: "Add-ons", href: "#add-ons" },
   { label: "FAQ", href: "#faq" },
 ];
 

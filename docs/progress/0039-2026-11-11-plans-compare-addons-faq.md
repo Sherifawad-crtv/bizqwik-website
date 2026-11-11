@@ -4,3 +4,6 @@
 - Seven Solar icons added to `ui/Icon.tsx`.
 - Checked at 1440, 1024 and 390: no sideways scroll, no console errors.
 - Open: plan CTAs all go to "Talk to us" (#contact); there is no checkout yet.
+
+## Update: Compare and Add-ons hidden
+Owner asked to keep only Plans and FAQ on the page. `CompareSection` and `AddonsSection` (and their content) stay in the repo but are not rendered. The "Add-ons" nav link and the FAQ's "See add-ons" link are removed so no anchor dead-ends. To bring them back: render them in `app/page.tsx` and restore those two links.

@@ -43,7 +43,6 @@ export const faq: FaqItem[] = [
     question: "Can I add things later?",
     answer:
       "Yes. Add-ons include a native app on the app stores, a branded client app (PWA), an AI assistant, an AI agent, extra departments, extra locations, extra staff and WhatsApp / SMS messages.",
-    cta: { label: "See add-ons", href: "#add-ons" },
   },
   {
     question: "Who uses each app?",

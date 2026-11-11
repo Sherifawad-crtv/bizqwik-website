@@ -2,8 +2,6 @@ import { FeatureList } from "@/components/features/FeatureList";
 import { Hero } from "@/components/hero/Hero";
 import { BenefitsSection } from "@/components/sections/BenefitsSection";
 import { ClosingSection } from "@/components/sections/ClosingSection";
-import { AddonsSection } from "@/components/plans/AddonsSection";
-import { CompareSection } from "@/components/plans/CompareSection";
 import { FaqSection } from "@/components/plans/FaqSection";
 import { PlansSection } from "@/components/plans/PlansSection";
 import { StatementSection } from "@/components/sections/StatementSection";
@@ -17,8 +15,6 @@ export default function Home() {
       <BenefitsSection />
       <FeatureList />
       <PlansSection />
-      <CompareSection />
-      <AddonsSection />
       <FaqSection />
       <ClosingSection />
     </main>
