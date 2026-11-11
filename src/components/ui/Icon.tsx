@@ -26,6 +26,13 @@ import { SnowflakeIcon } from "@solar-icons/react/linear/snowflake";
 import { PaletteIcon } from "@solar-icons/react/linear/palette";
 import { LinkRoundIcon } from "@solar-icons/react/linear/link-round";
 import { CalendarIcon } from "@solar-icons/react/linear/calendar";
+import { SmartphoneUpdateIcon } from "@solar-icons/react/linear/smartphone-update";
+import { StarsIcon } from "@solar-icons/react/linear/stars";
+import { CpuBoltIcon } from "@solar-icons/react/linear/cpu-bolt";
+import { BuildingsIcon } from "@solar-icons/react/linear/buildings";
+import { MapPointAddIcon } from "@solar-icons/react/linear/map-point-add";
+import { UserPlusIcon } from "@solar-icons/react/linear/user-plus";
+import { ChatRoundDotsIcon } from "@solar-icons/react/linear/chat-round-dots";
 import { HomeSmileIcon as HomeSmileSolidIcon } from "@solar-icons/react/bold-duotone/home-smile";
 
 /**
@@ -61,6 +68,13 @@ const ICONS = {
   "link-round": LinkRoundIcon,
   card: CardIcon,
   ticket: TicketIcon,
+  "smartphone-update": SmartphoneUpdateIcon,
+  "stars": StarsIcon,
+  "cpu-bolt": CpuBoltIcon,
+  "buildings": BuildingsIcon,
+  "map-point-add": MapPointAddIcon,
+  "user-plus": UserPlusIcon,
+  "chat-round-dots": ChatRoundDotsIcon,
 } as const;
 
 export type IconName = keyof typeof ICONS;

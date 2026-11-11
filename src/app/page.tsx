@@ -2,7 +2,10 @@ import { FeatureList } from "@/components/features/FeatureList";
 import { Hero } from "@/components/hero/Hero";
 import { BenefitsSection } from "@/components/sections/BenefitsSection";
 import { ClosingSection } from "@/components/sections/ClosingSection";
-import { AddonsShell, FaqShell, PlansShell } from "@/components/sections/Shells";
+import { AddonsSection } from "@/components/plans/AddonsSection";
+import { CompareSection } from "@/components/plans/CompareSection";
+import { FaqSection } from "@/components/plans/FaqSection";
+import { PlansSection } from "@/components/plans/PlansSection";
 import { StatementSection } from "@/components/sections/StatementSection";
 
 /** The landing outline (docs/PLAN-landing-outline.md): hero, dark statement, cards, feature stage, brief sections, closing. */
@@ -13,9 +16,10 @@ export default function Home() {
       <StatementSection />
       <BenefitsSection />
       <FeatureList />
-      <PlansShell />
-      <AddonsShell />
-      <FaqShell />
+      <PlansSection />
+      <CompareSection />
+      <AddonsSection />
+      <FaqSection />
       <ClosingSection />
     </main>
   );
