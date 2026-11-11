@@ -40,7 +40,7 @@ Text on violet is white (5.8:1). Small violet text uses `primary-pressed`.
 
 ## Shape and elevation
 Radius: `tile` 16, `input` 20, `button` 24 (token; CTAs use their own rule, below), `card` 28, `card-lg` 32; pills round.
-**CTA buttons** (`components/ui/Button.tsx`): 20px at rest, easing to 100px (a full pill) on hover over `duration.fast` with `ease.standard`. No other control follows this.
+**CTA buttons** (`components/ui/Button.tsx`): 20px at rest, easing to a full pill on hover (28px, half the 56px height; it reads the same as 100px but the whole move is visible) over `duration.enter` (0.5s) with `ease.standard`. The white (secondary) CTA reverses on hover: dark `ink` fill with `surface` text; the violet CTA darkens to `primary-pressed`. No other control follows this.
 Shadows: `shadow-card` (default), `shadow-float` (sticky nav, call button),
 `shadow-glow` (Grow card only).
 
