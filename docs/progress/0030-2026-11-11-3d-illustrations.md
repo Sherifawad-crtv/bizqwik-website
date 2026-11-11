@@ -18,9 +18,9 @@
   `tsc`, `oxlint`, `check:content`, `check:motion`, `next build` pass. Not tested on real iOS Safari.
 
 ## Notes
-- Figma AI credits were used (4 images, no retries). The Figma asset links expire after 7 days; the processed files are in the repo, and the originals are in the Figma file.
-- To change a render: edit the prompt, regenerate in the Figma file, re-run the crop and white-level step, replace the WebP.
-- `www.figma.com` was added to the allowed hosts of the personal "Open" environment so the full-size images could be downloaded.
+- Credits: 4 Figma AI credits were spent on the discarded first attempt; 22 Weave credits on the two renders made from this session (128 left in the workspace, which is on the Weave Free plan). The Weave links expire after 7 days; the processed files are in the repo.
+- To change a render: edit its prompt in `docs/ILLUSTRATION-BRIEF.md`, regenerate in the Weave app with the other renders as references, and re-run the flat-field, crop and WebP step on the new PNG.
+- `www.figma.com` and `s3-alpha-sig.figma.com` were added to the allowed hosts of the personal "Open" environment so Figma and Weave images could be downloaded.
 - The renders carry no text. Names or figures never appear in them.
 
 ## Open / next
