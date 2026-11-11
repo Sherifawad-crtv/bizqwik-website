@@ -9,3 +9,6 @@ Needed for the payment-gateway review, written as Bizqwik's own pages (no gatewa
 - Footer links added; Organization data now includes the address (16 Hassan Mazhar, Heliopolis, Cairo, Egypt).
 - Not legal advice: the owner should have a lawyer read Privacy and Refund before launch. A Terms page is not built (not requested).
 - Environment: hosts `support.link.com` and `a300.stripecdn.com` added to the "Open" environment to read the reference.
+
+## Update: scrolls inside the card
+As in the reference, the support shell is exactly one screen tall (`h-dvh`); the top bar stays put and the rounded card scrolls inside itself, footer links at the end of the card. The page itself never scrolls. `data-lenis-prevent` keeps the landing page's smooth scroll out of the card. Checked at 1440 and 390: window scroll stays 0, the card scrolls on wheel.

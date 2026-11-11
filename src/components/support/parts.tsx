@@ -100,7 +100,7 @@ export function Reach() {
 /** One policy or info page. */
 export function ArticlePage({ a }: { a: Article }) {
   return (
-    <div className="mx-auto w-full max-w-[680px] px-5 pb-24 pt-[72px] sm:px-0">
+    <div className="mx-auto w-full max-w-[680px] px-5 pb-20 pt-[72px] sm:px-0">
       <Crumbs here={a.title} />
       <h1 className="mt-3 text-[clamp(2rem,1.4rem+1.8vw,2.5rem)] font-bold leading-[1.2] tracking-[-.02em]">{a.title}</h1>
       {a.dated && <p className="mt-3 text-[15px] font-semibold text-ink-muted">Last updated: {policiesUpdated}</p>}
