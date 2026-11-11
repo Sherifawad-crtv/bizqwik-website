@@ -21,13 +21,13 @@ export const contact = {
 /** Business location (shown on Contact, About and the footer). */
 export const business = {
   name: "Bizqwik",
-  street: "16 Hassna Mazhar",
+  street: "16 Hassan Mazhar",
   area: "Heliopolis",
   city: "Cairo",
   country: "Egypt",
   /** One line for footers and policies. */
-  oneLine: "16 Hassna Mazhar, Heliopolis, Cairo, Egypt",
-  mapHref: "https://www.google.com/maps/search/?api=1&query=16+Hassna+Mazhar+Heliopolis+Cairo+Egypt",
+  oneLine: "16 Hassan Mazhar, Heliopolis, Cairo, Egypt",
+  mapHref: "https://www.google.com/maps/search/?api=1&query=16+Hassan+Mazhar+Heliopolis+Cairo+Egypt",
 } as const;
 
 export const nav: { label: string; href: `#${SectionId}` }[] = [

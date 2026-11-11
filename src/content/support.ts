@@ -100,7 +100,7 @@ export const articles: Article[] = [
       },
       {
         heading: "Our office",
-        blocks: [{ p: "Bizqwik, 16 Hassna Mazhar, Heliopolis, Cairo, Egypt." }],
+        blocks: [{ p: "Bizqwik, 16 Hassan Mazhar, Heliopolis, Cairo, Egypt." }],
       },
       {
         heading: "What to contact us about",
@@ -224,7 +224,7 @@ export const articles: Article[] = [
       },
       {
         heading: "Contact",
-        blocks: [{ p: "Bizqwik, 16 Hassna Mazhar, Heliopolis, Cairo, Egypt. Phone 01000401407. Email info@bizqwik.com." }],
+        blocks: [{ p: "Bizqwik, 16 Hassan Mazhar, Heliopolis, Cairo, Egypt. Phone 01000401407. Email info@bizqwik.com." }],
       },
     ],
   },

@@ -6,6 +6,6 @@ Needed for the payment-gateway review, written as Bizqwik's own pages (no gatewa
 - Privacy content was checked against the product repo: staff (name, email, role, photo), clients (name, optional age, phone, email, optional conditions note visible to coach and heads), memberships, bookings, QR check-ins, wallet and points, payment records by method (no card numbers), InstaPay receipt images (private, short-lived links), push addresses, branding; analytics and error reporting off until configured, no names, emails or phones sent, no autocapture, replay masks text; per-business isolation.
 - Refund & Cancellation: B2B, handled by contacting support and settled case by case in writing; no automatic refunds; gym-to-client payments are the gym's own. No time limits are stated because none were given.
 - Delivery: digital, set up with our team, native app per store review times, on-site work agreed in advance, nothing shipped.
-- Footer links added; Organization data now includes the address (16 Hassna Mazhar, Heliopolis, Cairo, Egypt).
+- Footer links added; Organization data now includes the address (16 Hassan Mazhar, Heliopolis, Cairo, Egypt).
 - Not legal advice: the owner should have a lawyer read Privacy and Refund before launch. A Terms page is not built (not requested).
 - Environment: hosts `support.link.com` and `a300.stripecdn.com` added to the "Open" environment to read the reference.
