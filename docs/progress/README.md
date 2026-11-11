@@ -47,3 +47,4 @@ Convention (same as the app repo, `Sherifawad-crtv/bizqwik`):
 | 0027 | 2026-11-11 | [Scroll-scrubbed statement (phase 4)](0027-2026-11-11-scrubbed-statement.md) |
 | 0028 | 2026-11-11 | [Page grid from the reference](0028-2026-11-11-page-grid.md) |
 | 0029 | 2026-11-11 | [Card illustrations (phase 5)](0029-2026-11-11-benefit-illustrations.md) |
+| 0030 | 2026-11-11 | [3D illustrations for the four cards](0030-2026-11-11-3d-illustrations.md) |
