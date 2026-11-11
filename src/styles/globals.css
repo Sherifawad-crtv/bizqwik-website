@@ -40,6 +40,16 @@
   }
 }
 
+/* `data-reveal` elements wait invisible until motion/primitives.ts revealOnView() takes over (no flash). */
+[data-reveal]:not([data-revealed]) {
+  opacity: 0;
+}
+@media (scripting: none) {
+  [data-reveal]:not([data-revealed]) {
+    opacity: 1;
+  }
+}
+
 /* Hero pieces stay hidden until the hero timeline has placed them (avoids a flash of the docked screen). */
 [data-hero]:not([data-ready]) [data-piece] {
   opacity: 0;

@@ -14,6 +14,7 @@ import { WalletIcon } from "@solar-icons/react/linear/wallet";
 import { AddIcon } from "@solar-icons/react/linear/add";
 import { AltArrowDownIcon } from "@solar-icons/react/linear/alt-arrow-down";
 import { CheckCircleIcon } from "@solar-icons/react/linear/check-circle";
+import { RestartIcon } from "@solar-icons/react/linear/restart";
 import { CalendarMarkIcon } from "@solar-icons/react/linear/calendar-mark";
 import { CardIcon } from "@solar-icons/react/linear/card";
 import { TicketIcon } from "@solar-icons/react/linear/ticket";
@@ -43,6 +44,7 @@ const ICONS = {
   "alt-arrow-down": AltArrowDownIcon,
   "check-circle": CheckCircleIcon,
   "calendar-mark": CalendarMarkIcon,
+  restart: RestartIcon,
   card: CardIcon,
   ticket: TicketIcon,
 } as const;

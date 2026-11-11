@@ -40,3 +40,4 @@ Convention (same as the app repo, `Sherifawad-crtv/bizqwik`):
 | 0020 | 2026-11-04 | [Squircle corners in every browser](0020-2026-11-04-squircle-everywhere.md) |
 | 0021 | 2026-11-04 | [Ecosystem: swipeable pills on mobile](0021-2026-11-04-mobile-chips.md) |
 | 0022 | 2026-11-04 | [Ecosystem: real product components, nine features](0022-2026-11-04-ecosystem-real-components.md) |
+| 0023 | 2026-11-11 | [Motion system (phase 1 of the landing rebuild)](0023-2026-11-11-motion-system.md) |

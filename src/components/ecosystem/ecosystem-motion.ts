@@ -1,5 +1,6 @@
-import { gsap, ScrollTrigger, SplitText } from "@/motion/gsap";
-import { duration, ease, stagger } from "@/motion/tokens";
+import { gsap, ScrollTrigger } from "@/motion/gsap";
+import { playOnView, replay, swapIn } from "@/motion/primitives";
+import { duration, enterFrom, ease, gap, press, stagger } from "@/motion/tokens";
 
 type TL = gsap.core.Timeline;
 type Role = "revenue" | "scheduling" | "bookings" | "checkin" | "payments" | "memberships" | "payouts" | "sessions" | "client";
@@ -7,22 +8,22 @@ type Colors = { green: string; violet: string; ink: string; muted: string };
 
 const money = (n: number, sign = "", dec = 2) => sign + n.toLocaleString("en-US", { minimumFractionDigits: dec, maximumFractionDigits: dec });
 
-const count = (el: HTMLElement, from: number, to: number, tl: TL, at: number, d: number, sign = "", dec = 2) => {
+const count = (el: HTMLElement, from: number, to: number, tl: TL, at: number, d: number = duration.count, sign = "", dec = 2) => {
   const o = { v: from };
-  // Reset the shown value as each loop begins (otherwise the previous loop's final number lingers).
+  // Reset the shown value as the demo begins (otherwise the previous run's final number lingers).
   tl.add(() => (el.textContent = money(from, sign, dec)), 0.02);
-  tl.fromTo(o, { v: from }, { v: to, duration: d, ease: "power2.out", onUpdate: () => (el.textContent = money(o.v, sign, dec)) }, at);
+  tl.fromTo(o, { v: from }, { v: to, duration: d, ease: ease.standard, onUpdate: () => (el.textContent = money(o.v, sign, dec)) }, at);
 };
 
 /** Cross-fade a `Swap` pair (starting text a, replacement b). */
 function swap(tl: TL, stage: HTMLElement, name: string, at: number) {
   const a = stage.querySelector(`[data-swap-a="${name}"]`)!;
   const b = stage.querySelector(`[data-swap-b="${name}"]`)!;
-  tl.fromTo(a, { opacity: 1, y: 0 }, { opacity: 0, y: -6, duration: 0.25, ease: "power2.in" }, at).fromTo(
+  tl.fromTo(a, { opacity: 1, y: 0 }, { opacity: 0, y: -enterFrom.y / 2, duration: duration.fast, ease: ease.standard }, at).fromTo(
     b,
-    { opacity: 0, y: 6, scale: 0.94 },
-    { opacity: 1, y: 0, scale: 1, duration: 0.45, ease: "back.out(2.2)" },
-    at + 0.1,
+    { opacity: 0, y: enterFrom.y / 2, scale: enterFrom.scale },
+    { opacity: 1, y: 0, scale: 1, duration: duration.base, ease: ease.spring },
+    at + gap.beat,
   );
 }
 
@@ -34,20 +35,21 @@ function tap(tl: TL, stage: HTMLElement, target: HTMLElement, at: number): numbe
     const t = target.getBoundingClientRect();
     return { x: t.left - s.left + t.width * 0.62 - 16, y: t.top - s.top + t.height * 0.55 - 16 };
   };
-  tl.fromTo(cursor, { opacity: 0, x: () => where().x + 54, y: () => where().y + 46, scale: 1 }, { opacity: 1, x: () => where().x, y: () => where().y, duration: 0.7, ease: "power3.out" }, at)
-    .to(cursor, { scale: 0.78, duration: 0.1, ease: "power2.out" }, at + 0.75)
-    .to(cursor, { scale: 1, opacity: 0, duration: 0.35, ease: "power2.out" }, at + 0.88);
-  return at + 0.8;
+  const land = at + duration.slow + gap.beat;
+  tl.fromTo(cursor, { opacity: 0, x: () => where().x + 54, y: () => where().y + 46, scale: 1 }, { opacity: 1, x: () => where().x, y: () => where().y, duration: duration.slow, ease: ease.standard }, at)
+    .to(cursor, { scale: press.scale - 0.17, duration: duration.instant, ease: ease.standard }, land)
+    .to(cursor, { scale: 1, opacity: 0, duration: duration.base, ease: ease.standard }, land + duration.instant);
+  return land;
 }
 
 /** Segmented control: the white thumb moves from option `from` to option `to`. */
 function seg(tl: TL, stage: HTMLElement, name: string, from: number, to: number, at: number, c: Colors) {
   const root = stage.querySelector(`[data-seg="${name}"]`)!;
   const q = (k: string, i: number) => root.querySelector(`[data-seg-${k}="${i}"]`)!;
-  tl.fromTo(q("bg", from), { opacity: 1 }, { opacity: 0, duration: 0.3 }, at)
-    .fromTo(q("bg", to), { opacity: 0 }, { opacity: 1, duration: 0.3 }, at)
-    .fromTo(q("t", from), { color: c.ink }, { color: c.muted, duration: 0.3 }, at)
-    .fromTo(q("t", to), { color: c.muted }, { color: c.ink, duration: 0.3 }, at);
+  tl.fromTo(q("bg", from), { opacity: 1 }, { opacity: 0, duration: duration.fast, ease: ease.standard }, at)
+    .fromTo(q("bg", to), { opacity: 0 }, { opacity: 1, duration: duration.fast, ease: ease.standard }, at)
+    .fromTo(q("t", from), { color: c.ink }, { color: c.muted, duration: duration.fast, ease: ease.standard }, at)
+    .fromTo(q("t", to), { color: c.muted }, { color: c.ink, duration: duration.fast, ease: ease.standard }, at);
 }
 
 /**
@@ -63,23 +65,26 @@ function morphButton(tl: TL, stage: HTMLElement, at: number, green: string, viol
   const check = stage.querySelector("[data-btn] [data-check]")!;
   const loader = btn.dataset.loader !== undefined;
   const full = () => btn.offsetWidth;
+  const turns = 2;
   let t = at;
 
-  tl.fromTo(body, { width: full, scale: 1, borderRadius: 24, backgroundColor: violet }, { width: full, scale: 0.95, borderRadius: 24, backgroundColor: violet, duration: 0.12, ease: "power2.out", immediateRender: false }, t)
-    .to(body, { scale: 1, duration: 0.3, ease: "back.out(3)" }, t + 0.12)
-    .fromTo(idle, { opacity: 1, y: 0 }, { opacity: 0, y: -6, duration: 0.2, ease: "power2.in" }, t + 0.1);
-  t += 0.2;
+  // Width is stated on both ends: a width measured while the panel was hidden would be 0.
+  tl.fromTo(body, { width: full, scale: 1, borderRadius: 24, backgroundColor: violet }, { width: full, scale: press.scale, borderRadius: 24, backgroundColor: violet, duration: duration.instant, ease: ease.standard, immediateRender: false }, t)
+    .to(body, { scale: 1, duration: duration.fast, ease: ease.spring }, t + duration.instant)
+    .fromTo(idle, { opacity: 1, y: 0 }, { opacity: 0, y: -enterFrom.y / 2, duration: duration.fast, ease: ease.standard }, t + gap.beat);
+  t += duration.fast;
   if (loader) {
-    tl.to(body, { width: 56, borderRadius: 28, duration: 0.42, ease: "power3.inOut" }, t)
-      .fromTo(spin, { opacity: 0, rotation: 0 }, { opacity: 1, duration: 0.18 }, t + 0.3)
-      .to(spin, { rotation: 720, duration: 0.95, ease: "none" }, t + 0.3)
-      .to(spin, { opacity: 0, duration: 0.16 }, t + 1.2);
-    t += 1.25;
+    const spinAt = t + duration.base * 0.75;
+    tl.to(body, { width: 56, borderRadius: 28, duration: duration.base, ease: ease.standard }, t)
+      .fromTo(spin, { opacity: 0, rotation: 0 }, { opacity: 1, duration: duration.fast }, spinAt)
+      .to(spin, { rotation: 360 * turns, duration: duration.spin * turns, ease: ease.linear }, spinAt)
+      .to(spin, { opacity: 0, duration: duration.fast }, spinAt + duration.spin * turns - duration.fast);
+    t = spinAt + duration.spin * turns;
   }
-  tl.to(body, { width: full, borderRadius: 24, backgroundColor: green, duration: 0.6, ease: "expo.out" }, t)
-    .fromTo(done, { opacity: 0, scale: 0.8 }, { opacity: 1, scale: 1, duration: 0.3, ease: "back.out(2.4)" }, t + 0.18)
-    .fromTo(check, { strokeDashoffset: 1 }, { strokeDashoffset: 0, duration: 0.4, ease: "power2.out" }, t + 0.25);
-  return t + 0.6;
+  tl.to(body, { width: full, borderRadius: 24, backgroundColor: green, duration: duration.slow, ease: ease.standard }, t)
+    .fromTo(done, { opacity: 0, scale: 0.8 }, { opacity: 1, scale: 1, duration: duration.fast, ease: ease.spring }, t + duration.slow * 0.3)
+    .fromTo(check, { strokeDashoffset: 1 }, { strokeDashoffset: 0, duration: duration.base, ease: ease.standard }, t + duration.slow * 0.4);
+  return t + duration.slow;
 }
 
 /** Each feature's loop. Every tween states its own start value, so the loop resets itself cleanly. */
@@ -87,29 +92,26 @@ const BUILD: Record<Role, (tl: TL, stage: HTMLElement, c: Colors) => void> = {
   revenue(tl, stage, c) {
     const q = <T extends HTMLElement>(sel: string) => stage.querySelector<T>(sel)!;
     seg(tl, stage, "month", 1, 2, 0.6, c);
-    count(q("[data-rev]"), 96400, 118400, tl, 0.8, 1.4, "", 0);
-    [[41200, 52800], [38000, 41500], [212, 236]].forEach(([a, b], i) => count(q(`[data-st="${i}"]`), a, b, tl, 0.9, 1.3, "", 0));
-    tl.set({}, {}, 4.4);
+    count(q("[data-rev]"), 96400, 118400, tl, 0.8, duration.count, "", 0);
+    [[41200, 52800], [38000, 41500], [212, 236]].forEach(([a, b], i) => count(q(`[data-st="${i}"]`), a, b, tl, 0.9, duration.count, "", 0));
   },
   scheduling(tl, stage) {
     const blocks = Array.from(stage.querySelectorAll<HTMLElement>("[data-blk]"));
     const fresh = blocks.find((b) => b.dataset.blk === "new")!;
     const rest = blocks.filter((b) => b !== fresh);
-    tl.fromTo(rest, { opacity: 0, scale: 0.9, y: 6 }, { opacity: 1, scale: 1, y: 0, duration: 0.45, ease: "back.out(1.6)", stagger: 0.12 }, 0.3);
+    tl.fromTo(rest, { opacity: 0, scale: 0.9, y: 6 }, { opacity: 1, scale: 1, y: 0, duration: duration.base, ease: ease.spring, stagger: stagger.base }, 0.3);
     const landed = tap(tl, stage, stage.querySelector<HTMLElement>("[data-tap]")!, 1.9);
-    tl.fromTo(fresh, { opacity: 0, scale: 0.6, y: -10 }, { opacity: 1, scale: 1, y: 0, duration: 0.55, ease: "back.out(2)" }, landed + 0.1);
-    tl.set({}, {}, landed + 2.2);
+    tl.fromTo(fresh, { opacity: 0, scale: 0.6, y: -10 }, { opacity: 1, scale: 1, y: 0, duration: duration.enter, ease: ease.spring }, landed + 0.1);
   },
   bookings(tl, stage) {
     const roster = stage.querySelector("[data-roster]")!;
     const arrived = stage.querySelector("[data-arr-on]")!;
     const bk = stage.querySelector<HTMLElement>("[data-bk]")!;
-    tl.fromTo(roster, { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" }, 0.5);
-    count(bk, 7, 8, tl, 0.6, 0.35, "", 0);
+    tl.fromTo(roster, { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: duration.enter, ease: ease.standard }, 0.5);
+    count(bk, 7, 8, tl, 0.6, duration.fast, "", 0);
     const landed = tap(tl, stage, stage.querySelector<HTMLElement>("[data-tap]")!, 1.7);
-    tl.fromTo(arrived, { opacity: 0 }, { opacity: 1, duration: 0.3 }, landed);
+    tl.fromTo(arrived, { opacity: 0 }, { opacity: 1, duration: duration.fast }, landed);
     swap(tl, stage, "att", landed);
-    tl.set({}, {}, landed + 2);
   },
   checkin(tl, stage) {
     const scan = stage.querySelector<HTMLElement>("[data-scan]")!;
@@ -117,43 +119,42 @@ const BUILD: Record<Role, (tl: TL, stage: HTMLElement, c: Colors) => void> = {
     const ok = stage.querySelector("[data-qr-ok]")!;
     const okCheck = stage.querySelector("[data-qr-ok] [data-check]")!;
     const travel = () => scan.parentElement!.offsetHeight - 31;
-    tl.fromTo(scan, { opacity: 0, y: 0 }, { opacity: 1, duration: 0.2 }, 0.4)
-      .fromTo(scan, { y: 0 }, { y: travel, duration: 0.9, ease: "sine.inOut" }, 0.4)
-      .to(scan, { y: 0, duration: 0.9, ease: "sine.inOut" }, 1.3)
-      .to(scan, { y: travel, duration: 0.6, ease: "sine.inOut" }, 2.2)
-      .to(scan, { opacity: 0, duration: 0.2 }, 2.75)
-      .fromTo(qr, { opacity: 1, scale: 1 }, { opacity: 0.12, scale: 0.9, duration: 0.5, ease: "power2.inOut" }, 2.8)
-      .fromTo(ok, { opacity: 0, scale: 0.5 }, { opacity: 1, scale: 1, duration: 0.55, ease: "back.out(2.2)" }, 2.9)
-      .fromTo(okCheck, { strokeDashoffset: 1 }, { strokeDashoffset: 0, duration: 0.4, ease: "power2.out" }, 3.15);
-    swap(tl, stage, "pill", 2.95);
-    swap(tl, stage, "sub", 3.1);
-    swap(tl, stage, "sub2", 3.25);
-    tl.set({}, {}, 5.4);
+    const sweep = duration.count;
+    const found = 0.4 + sweep * 2 + duration.slow; // two sweeps and a closing pass, then the code is read
+    tl.fromTo(scan, { opacity: 0, y: 0 }, { opacity: 1, duration: duration.fast }, 0.4)
+      .fromTo(scan, { y: 0 }, { y: travel, duration: sweep, ease: ease.standard }, 0.4)
+      .to(scan, { y: 0, duration: sweep, ease: ease.standard }, 0.4 + sweep)
+      .to(scan, { y: travel, duration: duration.slow, ease: ease.standard }, 0.4 + sweep * 2)
+      .to(scan, { opacity: 0, duration: duration.fast }, found - duration.fast)
+      .fromTo(qr, { opacity: 1, scale: 1 }, { opacity: 0.12, scale: 0.9, duration: duration.enter, ease: ease.standard }, found)
+      .fromTo(ok, { opacity: 0, scale: 0.5 }, { opacity: 1, scale: 1, duration: duration.enter, ease: ease.spring }, found + gap.beat)
+      .fromTo(okCheck, { strokeDashoffset: 1 }, { strokeDashoffset: 0, duration: duration.base, ease: ease.standard }, found + duration.fast);
+    swap(tl, stage, "pill", found + gap.beat);
+    swap(tl, stage, "sub", found + duration.fast);
+    swap(tl, stage, "sub2", found + duration.base);
   },
   payments(tl, stage, c) {
     const cards = stage.querySelector<HTMLElement>("[data-pc]")!;
     const amount = stage.querySelector("[data-amount]")!;
     const pickAt = tap(tl, stage, stage.querySelector<HTMLElement>('[data-pc] [data-tap]')!, 0.4);
-    tl.fromTo(cards.querySelector('[data-pc-sel="0"]'), { opacity: 1 }, { opacity: 0, duration: 0.3 }, pickAt)
-      .fromTo(cards.querySelector('[data-pc-sel="2"]'), { opacity: 0 }, { opacity: 1, duration: 0.3 }, pickAt)
-      .fromTo(cards.querySelector('[data-pc-t="0"]'), { color: c.violet }, { color: c.ink, duration: 0.3 }, pickAt)
-      .fromTo(cards.querySelector('[data-pc-t="2"]'), { color: c.ink }, { color: c.violet, duration: 0.3 }, pickAt);
+    tl.fromTo(cards.querySelector('[data-pc-sel="0"]'), { opacity: 1 }, { opacity: 0, duration: duration.fast }, pickAt)
+      .fromTo(cards.querySelector('[data-pc-sel="2"]'), { opacity: 0 }, { opacity: 1, duration: duration.fast }, pickAt)
+      .fromTo(cards.querySelector('[data-pc-t="0"]'), { color: c.violet }, { color: c.ink, duration: duration.fast }, pickAt)
+      .fromTo(cards.querySelector('[data-pc-t="2"]'), { color: c.ink }, { color: c.violet, duration: duration.fast }, pickAt);
     const btn = stage.querySelector<HTMLElement>("[data-btn]")!;
     tap(tl, stage, btn, 1.9);
     const landed = morphButton(tl, stage, 2.7, c.green, c.violet);
     swap(tl, stage, "pill", landed - 0.1);
-    tl.fromTo(amount, { color: c.ink }, { color: c.green, duration: 0.5, ease: "power2.out" }, landed - 0.2);
-    tl.set({}, {}, landed + 1.8);
+    tl.fromTo(amount, { color: c.ink }, { color: c.green, duration: duration.enter, ease: ease.standard }, landed - 0.2);
   },
   memberships(tl, stage) {
     const flash = stage.querySelector("[data-flash]")!;
     const landed = tap(tl, stage, stage.querySelector<HTMLElement>("[data-tap]")!, 0.6);
-    tl.fromTo(stage.querySelector("[data-tap]"), { scale: 1 }, { scale: 0.94, duration: 0.1, yoyo: true, repeat: 1 }, landed - 0.05);
+    tl.fromTo(stage.querySelector("[data-tap]"), { scale: 1 }, { scale: 0.94, duration: duration.instant, yoyo: true, repeat: 1 }, landed - 0.05);
     swap(tl, stage, "btn", landed + 0.1);
     swap(tl, stage, "pill", landed + 0.2);
     swap(tl, stage, "sub", landed + 0.2);
-    tl.fromTo(flash, { opacity: 0 }, { opacity: 1, duration: 0.3, yoyo: true, repeat: 1 }, landed + 0.2);
-    tl.set({}, {}, landed + 2.6);
+    tl.fromTo(flash, { opacity: 0 }, { opacity: 1, duration: duration.fast, yoyo: true, repeat: 1 }, landed + 0.2);
   },
   payouts(tl, stage, c) {
     const amount = stage.querySelector("[data-amount]")!;
@@ -161,20 +162,17 @@ const BUILD: Record<Role, (tl: TL, stage: HTMLElement, c: Colors) => void> = {
     const landed = morphButton(tl, stage, 1.3, c.green, c.violet);
     swap(tl, stage, "pill", landed - 0.1);
     swap(tl, stage, "sub", landed);
-    tl.fromTo(amount, { color: c.ink }, { color: c.green, duration: 0.5, ease: "power2.out" }, landed - 0.2);
-    tl.set({}, {}, landed + 1.8);
+    tl.fromTo(amount, { color: c.ink }, { color: c.green, duration: duration.enter, ease: ease.standard }, landed - 0.2);
   },
   sessions(tl, stage) {
     const earn = stage.querySelector<HTMLElement>("[data-earn]")!;
     swap(tl, stage, "slot", 1.0);
-    count(earn, 4200, 4500, tl, 1.15, 1.0);
-    tl.set({}, {}, 4.6);
+    count(earn, 4200, 4500, tl, 1.15, duration.count);
   },
   client(tl, stage, c) {
     tap(tl, stage, stage.querySelector<HTMLElement>("[data-btn]")!, 0.5);
     const landed = morphButton(tl, stage, 1.3, c.green, c.violet);
     swap(tl, stage, "pill", landed - 0.1);
-    tl.set({}, {}, landed + 1.8);
   },
 };
 
@@ -210,9 +208,10 @@ function showFinal(root: HTMLElement) {
 }
 
 /**
- * Entrance (once the sheet is on screen): tag drops in, heading rises word by word, lede fades up,
- * cards rise in a stagger. Then each card's loop plays while the card is on screen and pauses off screen.
- * Reduced motion: no entrance, no loops; every demo shows its finished state.
+ * The stage plays the shared way (docs/MOTION.md): the panel enters through `data-reveal`; the
+ * demo of the chosen feature plays once when the stage scrolls into view, holds its finished
+ * frame, and plays again on tab change or on Replay. Reduced motion: no playback, every demo
+ * shows its finished state.
  */
 export function initEcosystemMotion(root: HTMLElement): () => void {
   const mm = gsap.matchMedia();
@@ -226,70 +225,52 @@ export function initEcosystemMotion(root: HTMLElement): () => void {
     const token = (n: string) => css.getPropertyValue(n).trim();
     const colors: Colors = { green: token("--color-green-fg"), violet: token("--color-primary"), ink: token("--color-ink"), muted: token("--color-ink-muted") };
 
-    const tag = one("[data-eco-tag]");
-    const title = one("[data-eco-title]");
-    const lede = one("[data-eco-lede]");
-    const cards = all("[data-eco-card]");
-    const copyIn = () => gsap.fromTo(all("[data-eco-copy]"), { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: duration.base, ease: ease.out });
-    const split = SplitText.create(title, { type: "words", mask: "words" });
-
-    gsap.set([tag, lede, ...cards], { opacity: 0 });
-    gsap.set(split.words, { yPercent: 110 });
-    gsap.set(cards, { y: 70 });
-
-    gsap
-      .timeline({ scrollTrigger: { trigger: title, start: "top 88%", once: true } })
-      .fromTo(tag, { y: -24, rotation: 6 }, { y: 0, rotation: -3, opacity: 1, duration: duration.base, ease: ease.out })
-      .to(split.words, { yPercent: 0, duration: duration.slow, ease: ease.out, stagger: stagger.base }, 0.1)
-      .to(lede, { opacity: 1, y: 0, duration: duration.base, ease: ease.out }, 0.45)
-      .to(cards, { opacity: 1, y: 0, duration: duration.slow, ease: ease.out, stagger: stagger.loose }, 0.55);
-
-    // Only the role shown on the stage plays, and only while the stage is on screen.
-    const loops: { demo: HTMLElement; tl: TL; shown: boolean }[] = [];
-    const sync = () =>
-      loops.forEach((l) => {
-        const active = l.demo.dataset.active === "true";
-        if (active && inView) {
-          if (!l.shown) l.tl.invalidate().restart();
-          else l.tl.play();
-        } else l.tl.pause();
-        l.shown = active;
-      });
-    let inView = false;
-    all<HTMLElement>("[data-demo]").forEach((demo) => {
+    const demos = all<HTMLElement>("[data-demo]").map((demo) => {
       const role = demo.dataset.demo as Role;
       const stage = demo.querySelector<HTMLElement>("[data-stage]")!;
       const inner = stage.querySelector<HTMLElement>("[data-inner]")!;
-      const tl = gsap.timeline({ paused: true, repeat: -1, repeatDelay: 0.5 });
-      loops.push({ demo, tl, shown: false });
-      tl.fromTo(inner, { opacity: 0, y: 8 }, { opacity: 1, y: 0, duration: 0.45, ease: "power2.out" }, 0);
+      const tl = gsap.timeline({ paused: true });
+      tl.fromTo(inner, { opacity: 0, y: enterFrom.y, scale: enterFrom.scale }, { opacity: 1, y: 0, scale: 1, duration: duration.enter, ease: ease.enter }, 0);
       BUILD[role](tl, stage, colors);
-      tl.to(inner, { opacity: 0, y: -6, duration: 0.4, ease: "power2.in" }, tl.duration());
+      return { demo, tl };
     });
-    ScrollTrigger.create({
-      trigger: one("[data-eco-card]"),
-      start: "top 92%",
-      end: "bottom 8%",
-      onToggle: (self) => {
-        inView = self.isActive;
-        sync();
-      },
+    const active = () => demos.find((d) => d.demo.dataset.active === "true");
+    const play = () => {
+      demos.forEach((d) => d.tl.pause());
+      const a = active();
+      if (a) replay(a.tl);
+    };
+
+    let started = false;
+    const trigger = playOnView(one("#eco-stage"), () => {
+      started = true;
+      play();
     });
-    // Switching role: React flips data-active; restart that role's loop and fade the copy in.
+
+    // Switching feature: React flips data-active; the new demo plays and its copy comes in.
     const watch = new MutationObserver(() => {
-      sync();
-      copyIn();
+      if (!started) return;
+      play();
+      swapIn(all("[data-eco-copy]"));
     });
     watch.observe(one("#eco-stage"), { attributes: true, subtree: true, attributeFilter: ["data-active"] });
 
+    const onClick = (e: Event) => {
+      if (!(e.target as Element).closest("[data-replay]")) return;
+      const a = active();
+      if (a) replay(a.tl);
+    };
+    root.addEventListener("click", onClick);
+
     // Widths are measured in px: re-measure after a resize.
-    const remeasure = () => loops.forEach((l) => l.tl.invalidate());
+    const remeasure = () => demos.forEach((d) => d.tl.invalidate());
     ScrollTrigger.addEventListener("refresh", remeasure);
 
     return () => {
       ScrollTrigger.removeEventListener("refresh", remeasure);
+      root.removeEventListener("click", onClick);
       watch.disconnect();
-      split.revert();
+      trigger.kill();
     };
   });
 

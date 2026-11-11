@@ -7,7 +7,7 @@ import { contact, cta, microcopy, nav } from "@/content";
 import { useActiveSection } from "@/lib/useActiveSection";
 import { gsap } from "@/motion/gsap";
 import { getLenis } from "@/motion/lenis";
-import { duration, ease, stagger } from "@/motion/tokens";
+import { duration, ease, enterFrom, gap, stagger } from "@/motion/tokens";
 import { initNavbarMotion } from "./motion";
 
 const SECTION_IDS = nav.map((n) => n.href.slice(1));
@@ -57,7 +57,7 @@ export function Navbar() {
         width: link.offsetWidth,
         autoAlpha: 1,
         duration: animate ? duration.base : 0,
-        ease: ease.out,
+        ease: ease.standard,
         overwrite: true,
       });
     };
@@ -79,9 +79,9 @@ export function Navbar() {
     if (!el || open || !shown) return;
     gsap.to(el, {
       autoAlpha: 0,
-      y: -10,
+      y: -enterFrom.y,
       duration: duration.fast,
-      ease: ease.soft,
+      ease: ease.standard,
       onComplete: () => setShown(false),
     });
   }, [open, shown]);
@@ -92,13 +92,13 @@ export function Navbar() {
     getLenis()?.stop();
     gsap.fromTo(
       el,
-      { autoAlpha: 0, y: -14, scale: 0.98, transformOrigin: "top center" },
-      { autoAlpha: 1, y: 0, scale: 1, duration: duration.base, ease: ease.out },
+      { autoAlpha: 0, y: -enterFrom.y, scale: enterFrom.scale, transformOrigin: "top center" },
+      { autoAlpha: 1, y: 0, scale: 1, duration: duration.enter, ease: ease.enter },
     );
     gsap.fromTo(
       el.querySelectorAll("[data-menu-item]"),
-      { autoAlpha: 0, y: 16 },
-      { autoAlpha: 1, y: 0, duration: duration.base, ease: ease.out, stagger: stagger.base, delay: 0.1 },
+      { autoAlpha: 0, y: enterFrom.y },
+      { autoAlpha: 1, y: 0, duration: duration.enter, ease: ease.enter, stagger: stagger.base, delay: gap.beat },
     );
     return () => getLenis()?.start();
   }, [open, shown]);
@@ -165,13 +165,13 @@ export function Navbar() {
                       href={item.href}
                       data-nav={id}
                       aria-current={on ? "true" : undefined}
-                      className={`relative flex h-11 items-center rounded-[16px] px-5 text-[17px] font-semibold transition-colors duration-300 ${
+                      className={`relative flex h-11 items-center rounded-[16px] px-5 text-[17px] font-semibold transition-colors duration-(--dur-fast) ease-standard ${
                         on ? "text-ink" : "text-ink-muted hover:text-ink"
                       }`}
                     >
                       <span
                         aria-hidden
-                        className={`absolute left-2.5 size-1.5 rounded-full bg-primary transition-opacity duration-300 ${on ? "opacity-100" : "opacity-0"}`}
+                        className={`absolute left-2.5 size-1.5 rounded-full bg-primary transition-opacity duration-(--dur-fast) ease-standard ${on ? "opacity-100" : "opacity-0"}`}
                       />
                       {item.label}
                     </a>
@@ -193,14 +193,14 @@ export function Navbar() {
               aria-expanded={open}
               aria-controls="mobile-menu"
               onClick={open ? closeMenu : openMenu}
-              className="grid size-12 place-items-center rounded-[18px] bg-surface shadow-card transition-transform duration-200 active:scale-95 lg:hidden"
+              className="grid size-12 place-items-center rounded-[18px] bg-surface shadow-card transition-transform duration-(--dur-fast) ease-standard active:scale-95 lg:hidden"
             >
               <span className="relative block h-3 w-6" aria-hidden>
                 <span
-                  className={`absolute left-0 h-[2.5px] w-6 rounded-full bg-ink transition-all duration-300 ${open ? "top-[5px] rotate-45" : "top-0"}`}
+                  className={`absolute left-0 h-[2.5px] w-6 rounded-full bg-ink transition-all duration-(--dur-base) ease-standard ${open ? "top-[5px] rotate-45" : "top-0"}`}
                 />
                 <span
-                  className={`absolute left-0 h-[2.5px] w-6 rounded-full bg-ink transition-all duration-300 ${open ? "top-[5px] -rotate-45" : "top-[10px]"}`}
+                  className={`absolute left-0 h-[2.5px] w-6 rounded-full bg-ink transition-all duration-(--dur-base) ease-standard ${open ? "top-[5px] -rotate-45" : "top-[10px]"}`}
                 />
               </span>
             </button>

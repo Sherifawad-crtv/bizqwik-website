@@ -1,7 +1,8 @@
 import { HERO_PIN_ID } from "@/components/hero/hero-motion";
 import { gsap, ScrollTrigger } from "@/motion/gsap";
+import { ease } from "@/motion/tokens";
 
-/** Scroll distance (px) over which the navbar travels from wide to narrow. */
+/** Scroll distance (px) over which the navbar travels from wide to narrow. Durations below are positions on this scrubbed timeline, not seconds. */
 const TRAVEL = 160;
 const GAP = 12; // gap between logo tile / pill / CTA in the narrow cluster
 const TILE = 56; // emblem tile size
@@ -35,7 +36,7 @@ export function initNavbarMotion(r: NavRefs): () => void {
     { desktop: "(min-width: 1024px)", reduce: "(prefers-reduced-motion: reduce)" },
     (ctx) => {
       const { desktop, reduce } = ctx.conditions as { desktop: boolean; reduce: boolean };
-      const tl = gsap.timeline({ paused: true, defaults: { ease: "power2.out" } });
+      const tl = gsap.timeline({ paused: true, defaults: { ease: ease.scrub.out } });
 
       if (desktop) {
         // How far each side item travels so it lands GAP away from the (stationary) pill.

@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { MotionGallery } from "./MotionGallery";
 
 /*
  * Living style guide for the design foundation. Not part of the product page:
@@ -200,6 +201,13 @@ export default function Foundation() {
         </div>
         <p className="mt-3 font-mono text-label uppercase text-ink-muted">
           Primary · Secondary · Float shadow (sticky nav, call button)
+        </p>
+      </Section>
+
+      <Section title="Motion">
+        <MotionGallery />
+        <p className="mt-3 font-mono text-label uppercase text-ink-muted">
+          Tokens in src/motion/tokens.ts · kit in src/motion/primitives.ts · spec in docs/MOTION.md
         </p>
       </Section>
 

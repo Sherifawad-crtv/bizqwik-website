@@ -43,6 +43,11 @@
   --radius-card: 28px; /* cards 28–32 */
   --radius-card-lg: 32px;
 
+  /* ---- Motion eases (twins of motion/tokens.ts, checked by `npm run check:motion`) ---- */
+  --ease-standard: cubic-bezier(0.4, 0, 0.1, 1);
+  --ease-enter: cubic-bezier(0.19, 0.1, 0.22, 1);
+  --ease-spring: cubic-bezier(0.33, 1.53, 0.69, 0.99);
+
   /* ---- Elevation ---- */
   --shadow-card: 0 1px 2px rgb(26 23 38 / 0.04), 0 8px 24px -12px rgb(26 23 38 / 0.1);
   --shadow-float: 0 14px 34px rgb(26 23 38 / 0.18);
@@ -74,6 +79,16 @@
   --breakpoint-xl: 80rem; /* 1280 */
 
   /* Motion tokens live in src/motion/tokens.ts (GSAP needs numbers, not CSS vars). */
+}
+
+/* Motion durations (twins of motion/tokens.ts duration.*). Use as `duration-(--dur-base)`. */
+:root {
+  --dur-instant: 100ms;
+  --dur-fast: 250ms;
+  --dur-base: 400ms;
+  --dur-enter: 500ms;
+  --dur-slow: 600ms;
+  --dur-scene: 750ms;
 }
 
 /* Font families are set by next/font in src/app/fonts.ts (self-hosted). */

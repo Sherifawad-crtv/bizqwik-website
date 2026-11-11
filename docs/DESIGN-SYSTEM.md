@@ -49,16 +49,16 @@ Breakpoints: 768 (`sm`), 1024 (`lg`, real layout swap), 1280 (`xl`).
 Gutters 16–20px mobile, 28–32px desktop. Touch targets >= 44px.
 
 ## Motion
-GSAP + ScrollTrigger + SplitText (SplitText is free in GSAP 3.13+) with Lenis
-smooth scroll. Ambition: Awwwards-level, scroll-driven, cinematic.
-- All durations, eases, staggers and the Lenis feel live in `src/motion/tokens.ts`.
-- Plugins are registered once in `src/motion/gsap.ts`; import `gsap`,
-  `ScrollTrigger`, `SplitText` from there only.
-- `src/motion/SmoothScroll.tsx` (mounted in the root layout) runs Lenis off
-  GSAP's ticker so scroll and ScrollTrigger share one clock. Anchor links are
-  offset for the sticky nav.
-- Reduced motion: Lenis is not started (native scroll). Every animation must
-  also provide an instant, no-movement state.
+One system, taken from the reference landing page and documented in full in **`docs/MOTION.md`** (measured numbers,
+tokens, the kit, rules, recipes). Summary:
+- Values: `src/motion/tokens.ts` (eases `standard` / `enter` / `spring`, the duration ladder 0.1 to 0.75, staggers).
+  CSS twins in `styles/tokens.css`. Behaviour: `src/motion/primitives.ts` (`data-reveal`, `playOnView` + `replay`,
+  `swapIn`, `pressFeedback`, `scrubWords`) and `components/ui/ReplayButton`.
+- Static content does not animate on load. Cards and panels enter with `data-reveal`. Demos play once, hold, offer Replay.
+- `npm run check:motion` fails on raw eases/durations in components.
+- GSAP + ScrollTrigger + SplitText + CustomEase, registered once in `src/motion/gsap.ts` (import from there only).
+- `src/motion/SmoothScroll.tsx` runs Lenis off GSAP's ticker so scroll and ScrollTrigger share one clock.
+- Reduced motion: Lenis is not started; nothing plays; every demo shows its finished state.
 
 ## Navbar (reference: Nefin nav screenshots, restyled in our tokens)
 Code: `src/components/nav/` (`Navbar.tsx` markup + state, `motion.ts` GSAP).

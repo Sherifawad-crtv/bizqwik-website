@@ -1,4 +1,5 @@
 import { gsap, ScrollTrigger } from "@/motion/gsap";
+import { duration, ease, gap, stagger } from "@/motion/tokens";
 import { DESIGN, FRAME_MARGIN, POLAROID, SCATTER, SCREEN, type PieceId } from "./phone";
 
 /** Scroll distance the hero animates over, in viewport heights. */
@@ -80,10 +81,10 @@ export function initHeroMotion(root: HTMLElement): () => void {
 
     count.textContent = fmt(0);
 
-    const tl = gsap.timeline({ defaults: { ease: "none" } });
+    const tl = gsap.timeline({ defaults: { ease: ease.linear } });
 
-    tl.to(text, { y: -90, autoAlpha: 0, ease: "power2.in", duration: 0.35 }, 0)
-      .fromTo(phoneWrap, { y: 0 }, { y: () => END_TOP - phoneWrap.offsetTop, ease: "power2.inOut", duration: 0.82 }, 0)
+    tl.to(text, { y: -90, autoAlpha: 0, ease: ease.scrub.in, duration: 0.35 }, 0)
+      .fromTo(phoneWrap, { y: 0 }, { y: () => END_TOP - phoneWrap.offsetTop, ease: ease.scrub.inOut, duration: 0.82 }, 0)
       .to(fade, { autoAlpha: 0, duration: 0.4 }, 0.3)
       .fromTo(screen, { backgroundColor: css.getPropertyValue("--color-surface") }, { backgroundColor: css.getPropertyValue("--color-paper"), duration: 0.3 }, 0.2);
 
@@ -91,7 +92,7 @@ export function initHeroMotion(root: HTMLElement): () => void {
       const t0 = 0.02 + i * 0.045;
       // Flight. Function values: re-measured on every ScrollTrigger refresh (resize, font load).
       const from = { x: () => scatter(id).x, y: () => scatter(id).y, rotation: SCATTER[id].rot, scale: () => scatter(id).scale };
-      tl.fromTo(piece(id), from, { x: 0, y: 0, rotation: 0, scale: 1, ease: "power3.inOut", duration: 0.5 }, t0);
+      tl.fromTo(piece(id), from, { x: 0, y: 0, rotation: 0, scale: 1, ease: ease.scrub.inOutStrong, duration: 0.5 }, t0);
 
       // Morph, mid-flight: the manual thing reshapes into the card, and dissolves into its Bizqwik face.
       const order = piece(id).querySelector<HTMLElement>("[data-order]")!;
@@ -103,14 +104,14 @@ export function initHeroMotion(root: HTMLElement): () => void {
       tl.fromTo(
         chaos,
         { autoAlpha: 1, rotation: Number(chaos.dataset.rot) },
-        { autoAlpha: 0, rotation: 0, width: () => order.offsetWidth, height: () => order.offsetHeight, borderRadius: radius, ease: "power2.inOut", duration: 0.3 },
+        { autoAlpha: 0, rotation: 0, width: () => order.offsetWidth, height: () => order.offsetHeight, borderRadius: radius, ease: ease.scrub.inOut, duration: 0.3 },
         t0 + 0.16,
       )
-        .fromTo(blurTarget, { filter: "blur(0px)" }, { filter: "blur(7px)", ease: "power2.inOut", duration: 0.3 }, t0 + 0.16)
+        .fromTo(blurTarget, { filter: "blur(0px)" }, { filter: "blur(7px)", ease: ease.scrub.inOut, duration: 0.3 }, t0 + 0.16)
         .fromTo(
           order,
           { autoAlpha: 0, filter: "blur(8px)", scale: 0.94 },
-          { autoAlpha: 1, filter: "blur(0px)", scale: 1, ease: "power2.out", duration: 0.28 },
+          { autoAlpha: 1, filter: "blur(0px)", scale: 1, ease: ease.scrub.out, duration: 0.28 },
           t0 + 0.24,
         );
 
@@ -119,10 +120,10 @@ export function initHeroMotion(root: HTMLElement): () => void {
       const photo = chaos.querySelector<HTMLElement>("[data-polaroid-photo]");
       if (photo) {
         const shift = POLAROID.h / 2 - (POLAROID.pad + POLAROID.photo / 2); // photo centre -> frame centre
-        tl.to(chaos.querySelectorAll("[data-polaroid-fade]"), { autoAlpha: 0, ease: "power1.in", duration: 0.14 }, t0 + 0.16).fromTo(
+        tl.to(chaos.querySelectorAll("[data-polaroid-fade]"), { autoAlpha: 0, ease: ease.scrub.in, duration: 0.14 }, t0 + 0.16).fromTo(
           photo,
           { scale: 1, y: 0, filter: "sepia(0.18) saturate(0.9)" },
-          { scale: () => order.offsetWidth / POLAROID.photo, y: shift, filter: "sepia(0) saturate(1)", ease: "power2.inOut", duration: 0.3 },
+          { scale: () => order.offsetWidth / POLAROID.photo, y: shift, filter: "sepia(0) saturate(1)", ease: ease.scrub.inOut, duration: 0.3 },
           t0 + 0.16,
         );
       }
@@ -132,15 +133,15 @@ export function initHeroMotion(root: HTMLElement): () => void {
     // what is behind. So the wrapper only moves; the pill and FAB fade THEMSELVES, and the glass blurs the chart
     // behind it for the whole fade-in instead of popping in at full opacity.
     const barFace = (id: PieceId) => piece(id).querySelector<HTMLElement>("[data-order]")!;
-    tl.fromTo(piece("nav"), { y: 160 }, { y: 0, ease: "power3.out", duration: 0.3 }, 0.6)
-      .fromTo(barFace("nav"), { opacity: 0 }, { opacity: 1, ease: "power2.out", duration: 0.3 }, 0.6)
-      .fromTo(piece("fab"), { y: 160 }, { y: 0, ease: "power3.out", duration: 0.3 }, 0.66)
-      .fromTo(barFace("fab"), { opacity: 0 }, { opacity: 1, ease: "power2.out", duration: 0.3 }, 0.66)
+    tl.fromTo(piece("nav"), { y: 160 }, { y: 0, ease: ease.scrub.outStrong, duration: 0.3 }, 0.6)
+      .fromTo(barFace("nav"), { opacity: 0 }, { opacity: 1, ease: ease.scrub.out, duration: 0.3 }, 0.6)
+      .fromTo(piece("fab"), { y: 160 }, { y: 0, ease: ease.scrub.outStrong, duration: 0.3 }, 0.66)
+      .fromTo(barFace("fab"), { opacity: 0 }, { opacity: 1, ease: ease.scrub.out, duration: 0.3 }, 0.66)
       .fromTo(chrome, { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.2 }, 0.6)
-      .fromTo(bars, { scaleY: 0, transformOrigin: "50% 100%" }, { scaleY: 1, ease: "power2.out", duration: 0.28, stagger: 0.02 }, 0.62);
+      .fromTo(bars, { scaleY: 0, transformOrigin: "50% 100%" }, { scaleY: 1, ease: ease.scrub.out, duration: 0.28, stagger: 0.02 }, 0.62);
 
     const counter = { v: 0 };
-    tl.to(counter, { v: target, ease: "power2.out", duration: 0.45, onUpdate: () => (count.textContent = fmt(Math.round(counter.v))) }, 0.5);
+    tl.to(counter, { v: target, ease: ease.scrub.out, duration: 0.45, onUpdate: () => (count.textContent = fmt(Math.round(counter.v))) }, 0.5);
 
     // Idle tail: the scrub range is PIN_VH + COVER_VH, so pad the timeline so the animation ends at PIN_VH.
     tl.to({}, { duration: tl.duration() * (COVER_VH / PIN_VH) });
@@ -162,7 +163,7 @@ export function initHeroMotion(root: HTMLElement): () => void {
     gsap.fromTo(
       all('[data-piece]:not([data-piece="nav"]):not([data-piece="fab"])'),
       { autoAlpha: 0 },
-      { autoAlpha: 1, duration: 0.9, ease: "power2.out", stagger: 0.07, delay: 0.15 },
+      { autoAlpha: 1, duration: duration.scene, ease: ease.enter, stagger: stagger.base, delay: gap.beat },
     );
     root.dataset.ready = "true";
 

@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { ecosystem, features, type FeatureId } from "@/content";
 import { Icon, type IconName } from "@/components/ui/Icon";
+import { ReplayButton } from "@/components/ui/ReplayButton";
 import { BookingsDemo, CheckInDemo, ClientDemo, MembershipsDemo, PaymentsDemo, PayoutsDemo, RevenueDemo, SchedulingDemo, SessionsDemo } from "./Demos";
 import { initEcosystemMotion } from "./ecosystem-motion";
 
@@ -55,21 +56,21 @@ export function Ecosystem() {
         <div className="mx-auto max-w-page">
           <div className="flex flex-col items-center text-center">
             <span
-              data-eco-tag
+             
               className="inline-flex -rotate-3 items-center gap-2 rounded-full bg-ink py-1.5 pl-1.5 pr-4 font-mono text-[13px] font-bold uppercase tracking-[.08em] text-white shadow-[0_8px_18px_-8px_rgba(26,23,38,.5)]"
             >
               <span className="rounded-full bg-white/15 px-2.5 py-1">01</span>
               Features
             </span>
-            <h2 id="ecosystem-title" data-eco-title className="mt-8 text-h2 font-extrabold text-balance">
+            <h2 id="ecosystem-title" className="mt-8 text-h2 font-extrabold text-balance">
               {ecosystem.heading}
             </h2>
-            <p data-eco-lede className="mt-6 max-w-2xl text-body text-ink-muted text-balance">
+            <p className="mt-6 max-w-2xl text-body text-ink-muted text-balance">
               {ecosystem.lede}
             </p>
           </div>
 
-          <div data-eco-card className="mt-12 lg:mt-16">
+          <div data-reveal className="mt-12 lg:mt-16">
             {/* Chips: one swipeable row on phones, centred and wrapping on desktop. */}
             <div role="tablist" aria-label="Features" className="-mx-5 flex snap-x gap-2.5 overflow-x-auto px-5 pb-1 [scrollbar-width:none] lg:mx-0 lg:flex-wrap lg:justify-center lg:gap-3 lg:overflow-visible lg:px-0 [&::-webkit-scrollbar]:hidden">
               {features.map((a, i) => (
@@ -87,7 +88,7 @@ export function Ecosystem() {
                   }}
                   onKeyDown={(e) => onKey(e, i)}
                   data-sq
-                  className={`inline-flex h-12 shrink-0 snap-center items-center gap-2.5 rounded-xl border px-5 text-[17px] font-semibold transition-colors duration-300 ${
+                  className={`inline-flex h-12 shrink-0 snap-center items-center gap-2.5 rounded-xl border px-5 text-[17px] font-semibold transition-colors duration-(--dur-fast) ease-standard ${
                     i === active ? "border-primary bg-primary-tint text-primary-pressed" : "border-line bg-surface text-ink hover:border-ink/30"
                   }`}
                 >
@@ -112,6 +113,7 @@ export function Ecosystem() {
               </div>
 
               <div className="relative order-1 flex min-h-[460px] items-center justify-center rounded-[28px] bg-sunken px-5 py-10 lg:order-2 lg:min-h-[600px] lg:px-10">
+                <ReplayButton className="absolute bottom-4 right-4 z-10" />
                 {features.map((a, i) => {
                   const Demo = DEMOS[a.id];
                   return (
