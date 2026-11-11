@@ -72,8 +72,8 @@ export const press = { scale: 0.95 } as const;
 export const view = {
   /** An element enters when its top reaches this line of the viewport. */
   start: "top 88%",
-  /** A demo starts when this much of it is visible. */
-  demoStart: "top 75%",
+  /** A demo starts once the middle of its panel is 75% of the way down the viewport, so most of it is on screen first. */
+  demoStart: "center 75%",
 } as const;
 
 /** Lenis smooth-scroll feel. */
