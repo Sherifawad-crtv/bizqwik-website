@@ -139,9 +139,8 @@ export function Navbar() {
               </span>
               <span
                 ref={tile}
-                data-sq
                 aria-hidden
-                className="absolute left-0 top-0 hidden size-14 items-center justify-center [--sq-r:20px] [--sq-fill:var(--color-surface)] [--sq-drop:var(--drop-float)] opacity-0 lg:flex"
+                className="absolute left-0 top-0 hidden size-14 items-center justify-center rounded-[20px] bg-surface opacity-0 shadow-float lg:flex"
               >
                 <Image src="/brand/mark.png" alt="" width={386} height={403} className="h-7 w-auto" />
               </span>
@@ -153,8 +152,7 @@ export function Navbar() {
                 <span
                   ref={indicator}
                   aria-hidden
-                  data-sq
-                  className="invisible absolute left-0 top-1.5 h-11 [--sq-r:16px] [--sq-fill:var(--color-surface)] [--sq-drop:var(--drop-card)] opacity-0"
+                  className="invisible absolute left-0 top-1.5 h-11 rounded-[16px] bg-surface opacity-0 shadow-card"
                 />
                 {nav.map((item) => {
                   const id = item.href.slice(1);
@@ -188,12 +186,11 @@ export function Navbar() {
             {/* Mobile menu button */}
             <button
               type="button"
-              data-sq
               aria-label={microcopy.menuAria}
               aria-expanded={open}
               aria-controls="mobile-menu"
               onClick={open ? closeMenu : openMenu}
-              className="grid size-12 place-items-center [--sq-r:18px] [--sq-fill:var(--color-surface)] [--sq-drop:var(--drop-card)] transition-transform duration-(--dur-fast) ease-standard active:scale-95 lg:hidden"
+              className="grid size-12 place-items-center rounded-[18px] bg-surface shadow-card transition-transform duration-(--dur-fast) ease-standard active:scale-95 lg:hidden"
             >
               <span className="relative block h-3 w-6" aria-hidden>
                 <span

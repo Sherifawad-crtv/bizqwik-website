@@ -43,3 +43,4 @@ Convention (same as the app repo, `Sherifawad-crtv/bizqwik`):
 | 0023 | 2026-11-11 | [Motion system (phase 1 of the landing rebuild)](0023-2026-11-11-motion-system.md) |
 | 0024 | 2026-11-11 | [Layout skeleton (phase 2)](0024-2026-11-11-layout-skeleton.md) |
 | 0025 | 2026-11-11 | [Squircles as vectors](0025-2026-11-11-squircle-vectors.md) |
+| 0026 | 2026-11-11 | [Squircles removed](0026-2026-11-11-squircles-removed.md) |

@@ -4,10 +4,10 @@ type Variant = "primary" | "secondary";
 type Size = "md" | "lg";
 
 const base =
-  "inline-flex items-center justify-center [--sq-r:24px] font-bold whitespace-nowrap select-none transition-[transform,filter] duration-(--dur-fast) ease-standard active:scale-95";
+  "inline-flex items-center justify-center rounded-button font-bold whitespace-nowrap select-none transition-[filter,transform,background-color] duration-(--dur-fast) ease-standard hover:brightness-105 active:scale-95";
 const variants: Record<Variant, string> = {
-  primary: "[--sq-fill:var(--color-primary)] hover:[--sq-fill:var(--color-primary-pressed)] text-white",
-  secondary: "[--sq-fill:var(--color-surface)] [--sq-drop:var(--drop-card)] text-ink",
+  primary: "bg-primary text-white hover:bg-primary-pressed",
+  secondary: "bg-surface text-ink shadow-card",
 };
 const sizes: Record<Size, string> = {
   md: "h-14 px-7 text-[17px]",
@@ -22,5 +22,5 @@ interface ButtonProps extends AnchorHTMLAttributes<HTMLAnchorElement> {
 
 /** Link-styled-as-button. Every CTA on the page is a real anchor (tel:, mailto:, #section). */
 export function Button({ variant = "primary", size = "md", className = "", ...props }: ButtonProps) {
-  return <a data-sq className={`${base} ${variants[variant]} ${sizes[size]} ${className}`} {...props} />;
+  return <a className={`${base} ${variants[variant]} ${sizes[size]} ${className}`} {...props} />;
 }

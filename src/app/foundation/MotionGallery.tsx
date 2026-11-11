@@ -88,12 +88,11 @@ export function MotionGallery() {
       <div className="mt-5 flex flex-wrap items-center gap-4 rounded-card border border-line bg-surface p-5">
         <button
           type="button"
-          data-sq
           onClick={(e) => {
             pressFeedback(e.currentTarget);
             setPressed((n) => n + 1);
           }}
-          className="h-14 [--sq-r:24px] [--sq-fill:var(--color-primary)] px-8 text-[17px] font-bold text-white"
+          className="h-14 rounded-button bg-primary px-8 text-[17px] font-bold text-white"
         >
           pressFeedback()
         </button>

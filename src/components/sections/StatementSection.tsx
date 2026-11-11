@@ -13,7 +13,7 @@ export function StatementSection() {
   const pills = [0, 1, 2, 3, 4].map((i) => features[(i + 2) % features.length]);
   return (
     <section id="ecosystem" aria-labelledby="statement-title" className="relative z-20 -mt-[100svh] px-3 lg:px-4">
-      <div data-sq className="relative grid min-h-svh items-center gap-12 overflow-hidden [--sq-r:40px] [--sq-fill:var(--color-ink)] px-6 py-24 text-white lg:grid-cols-2 lg:px-16">
+      <div className="relative grid min-h-svh items-center gap-12 overflow-hidden rounded-[40px] bg-ink px-6 py-24 text-white lg:grid-cols-2 lg:px-16">
         <h2 id="statement-title" className="text-[clamp(2.5rem,1rem+4.6vw,5.25rem)] font-extrabold leading-[.98] tracking-[-.035em]">
           <span className="block lg:whitespace-nowrap">{statement.line1}</span>
           <span className="block">
@@ -23,7 +23,7 @@ export function StatementSection() {
         </h2>
 
         <div aria-hidden className="relative mx-auto flex w-full max-w-[520px] items-center gap-6">
-          <span data-sq className="grid size-24 shrink-0 place-items-center [--sq-r:28px] [--sq-fill:var(--color-surface)] [--sq-drop:drop-shadow(0_20px_36px_rgb(90_65_255/0.5))]">
+          <span className="grid size-24 shrink-0 place-items-center rounded-[28px] bg-surface shadow-[0_24px_60px_-16px_rgba(90,65,255,.6)]">
             <Image src="/brand/mark.png" alt="" width={386} height={403} className="h-11 w-auto" />
           </span>
           <ul className="flex flex-1 flex-col gap-3">
