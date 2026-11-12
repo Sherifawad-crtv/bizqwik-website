@@ -188,7 +188,7 @@ export function initFeatureMotion(root: HTMLElement): () => void {
     // The text block of each row: fades in and its divider draws left to right when the row is on screen
     // (192px inside the top and bottom edges, as in the reference), and both reverse when it leaves.
     // On phones the block starts visible and only reacts on leaving, as in the reference.
-    // Stacked layouts (under 901px): the title and headline are sticky and always shown while the row is on screen, so no fade.
+    // Stacked layouts (under 901px): a normal section, nothing sticks or fades.
     const stacked = window.matchMedia("(max-width: 900px)").matches;
     const phone = stacked;
     const offset = parseInt(token("--header-offset"), 10) || 96;

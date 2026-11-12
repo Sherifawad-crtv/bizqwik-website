@@ -7,3 +7,6 @@
 
 ## Update: only the title sticks, with a fade
 The owner found the sticky title and headline block heavy and glitchy on a phone (a hard edge cut the panel and text under it). Now only the divider and title stick (about 74px, top 80px) and the headline joins the bullets that scroll away. The sticky block fades out over its last 16px (`mask-image`), so content passes under it softly instead of being cut. Desktop unchanged.
+
+## Update: nothing sticks on phones (final)
+Owner wants a normal section on mobile: the title moves with the page. The sticky title and its fade are removed. Under 901px each row is title, headline, bullets, then the panel, all scrolling together, with no fade. Desktop keeps the sticky column. Verified at 390, 768 and 1440: the title scrolls away with the row on phones and tablets (position static), and stays sticky on desktop.
