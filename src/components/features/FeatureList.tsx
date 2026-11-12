@@ -24,7 +24,7 @@ const WIDE: Partial<Record<FeatureId, true>> = { clients: true };
 /**
  * Section 5 of the outline, laid out like the reference's feature list: one row per feature. The text sits on the
  * left and sticks `--header-offset` from the top while its row scrolls past; the panel on the right holds the live
- * demo and a Replay pill. A 1px divider above each title draws in as the row scrolls on screen. Rows are 16px apart on desktop; stacked (under 901px) they are 64px apart. Under 901px it is a normal stacked section: title, headline, bullets, then the panel, all scrolling together.
+ * demo and a Replay pill. A 1px divider above each title draws in as the row scrolls on screen. Rows are 16px apart on desktop; stacked (under 901px) they are 64px apart. Under 901px it is a normal stacked section: title, bullets, then the panel, all scrolling together.
  * The demo plays when its panel scrolls into view (ecosystem-motion.ts, docs/MOTION.md).
  */
 export function FeatureList() {
@@ -59,10 +59,9 @@ export function FeatureList() {
                     <span data-rule aria-hidden className="mb-4 block h-px bg-ink/15" />
                     <h3 className="text-[28px] font-extrabold leading-[1.05] tracking-[-.025em]">{f.title}</h3>
                   </div>
-                  <p className="mt-3 max-w-[26rem] text-[18px] leading-snug text-ink-muted">{f.headline}</p>
-                  <ul className="mt-6 max-w-[26rem] max-[900px]:mb-4">
+                  <ul className="mt-5 max-w-[26rem] max-[900px]:mb-4 max-[900px]:mt-1">
                     {f.bullets.map((b) => (
-                      <li key={b} className="flex items-center gap-3.5 border-t border-line py-3.5 text-[15px] leading-snug first:border-t-0 first:pt-1 last:pb-0">
+                      <li key={b} className="flex items-center gap-3.5 border-t border-line py-3.5 text-[15px] leading-snug first:border-t-0 first:pt-0 last:pb-0">
                         <span className="grid size-8 shrink-0 place-items-center rounded-[10px] border border-line bg-paper text-ink">
                           <Icon name="check-circle" size={18} />
                         </span>

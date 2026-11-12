@@ -67,3 +67,4 @@ Convention (same as the app repo, `Sherifawad-crtv/bizqwik`):
 | 0047 | Support hub illustration without blend mode |
 | 0048 | Lighthouse pass |
 | 0049 | Mobile: title and headline stay while the panel is on screen |
+| 0050 | Feature rows: no subtitle, tighter bullets |
