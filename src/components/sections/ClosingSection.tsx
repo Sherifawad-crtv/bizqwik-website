@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Box, Container } from "@/components/layout/layout";
 import { Button } from "@/components/ui/Button";
-import { articles, brand, business, closing, contact, contactSection, cta, nav, vatNoteShort } from "@/content";
+import { articles, brand, business, closing, contact, contactSection, cta, nav } from "@/content";
 import { ClosingStatement } from "./ClosingStatement";
 
 const YEAR = new Date().getFullYear();
@@ -71,7 +71,6 @@ export function ClosingSection() {
             </div>
             <div className="mt-10 flex flex-wrap items-center justify-between gap-x-8 gap-y-2 border-t border-white/15 pt-6 text-[14px] text-white/50">
               <span>© {YEAR} {brand.name}</span>
-              <span>{vatNoteShort}</span>
             </div>
           </footer>
         </div>

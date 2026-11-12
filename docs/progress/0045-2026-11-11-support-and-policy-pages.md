@@ -21,3 +21,6 @@ Measured from support.link.com at 1440x900: card 16px from the left and right ed
 
 ## Update: scrollbar hidden
 The card's native scrollbar is hidden (`scrollbar-width: none` and the WebKit pseudo-element); wheel, touch and keyboard scrolling still work.
+
+## Update: VAT line removed
+Per owner, the 'All prices are EGP per month, excluding 14% VAT' line is removed from under the plans and from the footer. Prices still show 'EGP / month'. VAT is still mentioned in the FAQ answer on pricing, in About and in the Refund & Cancellation Policy; the unused `vatNote` and `vatNoteShort` strings stay in `content/site.ts`.

@@ -1,7 +1,7 @@
 import { Box, Container } from "@/components/layout/layout";
 import { Button } from "@/components/ui/Button";
 import { Icon } from "@/components/ui/Icon";
-import { cta, microcopy, plans, plansIntro, vatNote } from "@/content";
+import { cta, microcopy, plans, plansIntro } from "@/content";
 import type { Plan } from "@/content";
 
 const fmt = (n: number) => n.toLocaleString("en-US");
@@ -86,12 +86,11 @@ export function PlansSection() {
           ))}
         </ul>
 
-        <div data-reveal className="mt-4 flex flex-col gap-2 rounded-card border border-line px-6 py-5 sm:flex-row sm:items-center sm:justify-between">
+        <div data-reveal className="mt-4 rounded-card border border-line px-6 py-5">
           <p className="text-[17px] leading-snug">
             <strong className="font-extrabold">{plansIntro.callout.lead}</strong>{" "}
             <span className="text-ink-muted">{plansIntro.callout.text}</span>
           </p>
-          <p className="text-[14px] text-ink-muted sm:text-right">{vatNote}</p>
         </div>
       </Container>
     </section>
