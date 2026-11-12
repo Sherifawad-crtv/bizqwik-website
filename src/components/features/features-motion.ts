@@ -188,9 +188,11 @@ export function initFeatureMotion(root: HTMLElement): () => void {
     // The text block of each row: fades in and its divider draws left to right when the row is on screen
     // (192px inside the top and bottom edges, as in the reference), and both reverse when it leaves.
     // On phones the block starts visible and only reacts on leaving, as in the reference.
-    const phone = window.matchMedia("(max-width: 640px)").matches;
+    // Stacked layouts (under 901px): the title and headline are sticky and always shown while the row is on screen, so no fade.
+    const stacked = window.matchMedia("(max-width: 900px)").matches;
+    const phone = stacked;
     const offset = parseInt(token("--header-offset"), 10) || 96;
-    const stopToggles = all<HTMLElement>("[data-accordion]").map((el) => {
+    const stopToggles = (stacked ? [] : all<HTMLElement>("[data-accordion]")).map((el) => {
       const rule = el.querySelector<HTMLElement>("[data-rule]")!;
       if (!phone) gsap.set(el, { opacity: 0 });
       gsap.set(rule, { scaleX: phone ? 1 : 0, transformOrigin: "left center" });
