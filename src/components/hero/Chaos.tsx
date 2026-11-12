@@ -93,7 +93,7 @@ export function CalendarStrip() {
           <span key={m}>{m}</span>
         ))}
       </div>
-      <svg className="absolute left-[66px] top-[8px]" width="70" height="50" viewBox="0 0 70 50" fill="none" stroke="#c63a2c" strokeWidth="2.6" strokeLinecap="round"><path d="M10 28C6 12 30 4 48 8c14 4 18 20 8 30C44 48 14 46 8 30" /></svg>
+      <svg className="absolute left-[66px] top-[8px]" width="70" height="50" viewBox="0 0 70 50" fill="none" stroke="#a6281c" strokeWidth="2.6" strokeLinecap="round"><path d="M10 28C6 12 30 4 48 8c14 4 18 20 8 30C44 48 14 46 8 30" /></svg>
       <span className="absolute -bottom-4 right-6 size-14 rounded-full border-[5px] border-[#8a5a2b]/15" />
     </Chaos>
   );
@@ -110,7 +110,7 @@ export function Receipt() {
     <Chaos w={152} h={300} rot={5} torn className={`bg-[#f4f3ee] [-webkit-mask:conic-gradient(from_-45deg_at_bottom,#0000,#000_1deg_89deg,#0000_90deg)_50%/14px_100%] [mask:conic-gradient(from_-45deg_at_bottom,#0000,#000_1deg_89deg,#0000_90deg)_50%/14px_100%]`}>
       <div className="px-3.5 pb-6 pt-4 font-mono text-[10px] leading-[1.55] text-[#3b3b3b]">
         <p className="text-center font-bold">BIZ GYM · SALES</p>
-        <p className="text-center text-[#8d8d88]">oct — printed 23:41</p>
+        <p className="text-center text-[#6b6b66]">oct — printed 23:41</p>
         <p className="my-1.5 border-t border-dashed border-[#9a9a94]" />
         {rows.map(([a, b]) => (
           <p key={a} className="flex justify-between gap-1 whitespace-pre">
@@ -123,7 +123,7 @@ export function Receipt() {
           <span>TOTAL</span>
           <span>587,400</span>
         </p>
-        <p className="mt-2 font-hand text-[20px] leading-none text-[#c63a2c]">check again!!</p>
+        <p className="mt-2 font-hand text-[20px] leading-none text-[#a6281c]">check again!!</p>
         <div className="mt-2.5 h-9 w-full bg-[repeating-linear-gradient(90deg,#222_0_2px,transparent_2px_4px,#222_4px_5px,transparent_5px_8px)]" />
       </div>
     </Chaos>
@@ -156,12 +156,12 @@ export function Ledger() {
       <div className="absolute inset-0 bg-[repeating-linear-gradient(transparent_0_27px,#a9bfd8_27px_28px)] [background-position:0_34px]" />
       <span className="absolute inset-y-0 left-[26px] w-px bg-[#e08a8a]" />
       <div className="relative pl-[34px] pr-3 pt-3 font-hand text-[23px] leading-[28px] text-[#2f3a55]">
-        <p className="font-bold underline decoration-[#c63a2c]">payouts</p>
+        <p className="font-bold underline decoration-[#a6281c]">payouts</p>
         <p className="flex justify-between"><span>Nour</span><span>4,200 ok</span></p>
         <p className="flex justify-between"><span>Omar</span><span>3,800 ??</span></p>
-        <p className="flex justify-between"><span>Salma</span><span><s className="text-[#c63a2c]">5,150</s> 4,900</span></p>
+        <p className="flex justify-between"><span>Salma</span><span><s className="text-[#a6281c]">5,150</s> 4,900</span></p>
         <p className="flex justify-between"><span>Adel</span><span>2,700 ok</span></p>
-        <p className="text-[#c63a2c]">total ~ 14k ?</p>
+        <p className="text-[#a6281c]">total ~ 14k ?</p>
       </div>
     </Chaos>
   );
@@ -175,7 +175,7 @@ export function Clipboard() {
         <p className="font-mono text-[9px] font-bold tracking-[.1em] text-[#6b6b66]">SIGN-IN</p>
         {Array.from({ length: 7 }).map((_, i) => (
           <div key={i} className="mt-[11px] flex items-center gap-2">
-            <span className="size-[11px] rounded-[2px] border border-[#8d8d88] text-center font-hand text-[13px] leading-[10px] text-[#2f3a55]">{i % 3 === 1 ? "" : "x"}</span>
+            <span className="size-[11px] rounded-[2px] border border-[#6b6b66] text-center font-hand text-[13px] leading-[10px] text-[#2f3a55]">{i % 3 === 1 ? "" : "x"}</span>
             <span className="h-px flex-1 bg-[#b9b9b3]" />
           </div>
         ))}
@@ -223,7 +223,7 @@ export function Spreadsheet() {
             {row.map((cell, c) => (
               <span
                 key={c}
-                className={`flex h-[24px] items-center border-b border-l border-[#e1e1e1] px-1.5 ${cell === "#REF!" ? "bg-[#fde0dc] font-bold text-[#c63a2c]" : r % 2 ? "bg-[#f7f7f7]" : ""} ${r === 3 && c === 1 ? "outline outline-2 -outline-offset-2 outline-[#1d6f42]" : ""}`}
+                className={`flex h-[24px] items-center border-b border-l border-[#e1e1e1] px-1.5 ${cell === "#REF!" ? "bg-[#fde0dc] font-bold text-[#a6281c]" : r % 2 ? "bg-[#f7f7f7]" : ""} ${r === 3 && c === 1 ? "outline outline-2 -outline-offset-2 outline-[#1d6f42]" : ""}`}
               >
                 {cell}
               </span>

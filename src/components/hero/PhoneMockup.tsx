@@ -55,7 +55,7 @@ export const PhoneMockup = forwardRef<HTMLDivElement, { alt: string }>(function 
         </div>
       </div>
 
-      <Image src="/devices/iphone-frame.webp" alt="" width={FRAME.w} height={FRAME.h} priority className="pointer-events-none absolute inset-0 size-full select-none" />
+      <Image src="/devices/iphone-frame.webp" alt="" width={FRAME.w} height={FRAME.h} priority sizes="(max-width: 1023px) 72vw, 26vw" className="pointer-events-none absolute inset-0 size-full select-none" />
 
       {/* Pieces: above the frame, never clipped */}
       <div className="absolute" style={screenBox} aria-hidden>

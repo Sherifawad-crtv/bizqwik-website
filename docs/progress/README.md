@@ -65,3 +65,4 @@ Convention (same as the app repo, `Sherifawad-crtv/bizqwik`):
 | 0045 | Support centre and policy pages |
 | 0046 | Feature demos start when you arrive at them |
 | 0047 | Support hub illustration without blend mode |
+| 0048 | Lighthouse pass |

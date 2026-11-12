@@ -90,7 +90,7 @@ export function pressFeedback(el: Element) {
  */
 export function scrubWords(el: HTMLElement, { from = 0.22 } = {}): () => void {
   if (prefersReducedMotion()) return () => {};
-  const split = SplitText.create(el, { type: "words" });
+  const split = SplitText.create(el, { type: "words", aria: "none" });
   gsap.set(split.words, { opacity: from });
   const tween = gsap.to(split.words, {
     opacity: 1,
