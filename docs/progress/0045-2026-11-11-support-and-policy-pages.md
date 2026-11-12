@@ -24,3 +24,6 @@ The card's native scrollbar is hidden (`scrollbar-width: none` and the WebKit ps
 
 ## Update: VAT line removed
 Per owner, the 'All prices are EGP per month, excluding 14% VAT' line is removed from under the plans and from the footer. Prices still show 'EGP / month'. VAT is still mentioned in the FAQ answer on pricing, in About and in the Refund & Cancellation Policy; the unused `vatNote` and `vatNoteShort` strings stay in `content/site.ts`.
+
+## Update: slim footer
+Following link.com's footer: one low row (copyright left, Support and Privacy centred, "Heliopolis, Cairo, Egypt" right) instead of four columns of links. Visitors find the other pages (About, Contact, Refund & Cancellation, Delivery) from the Support page. Phone and email stay in the "Talk to us" and "Write to us" cards above the footer.
