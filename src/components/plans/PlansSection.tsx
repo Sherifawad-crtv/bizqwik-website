@@ -54,10 +54,12 @@ function PlanCard({ plan }: { plan: Plan }) {
           ))}
         </dl>
 
-        <p className={`mt-5 flex items-start gap-2 text-[14px] leading-snug ${dark ? "text-white/70" : "text-ink-muted"}`}>
-          <Icon name="check-circle" size={17} className="mt-px shrink-0" />
-          {plan.clientExperience}
-        </p>
+        {plan.priceEgpMonthly !== null && (
+          <p className={`mt-5 flex items-start gap-2 text-[14px] leading-snug ${dark ? "text-white/70" : "text-ink-muted"}`}>
+            <Icon name="check-circle" size={17} className="mt-px shrink-0" />
+            {plan.clientExperience}
+          </p>
+        )}
 
         <Button href={cta.primary.href} variant={dark ? "secondary" : "primary"} className="mt-6 w-full">
           {plan.priceEgpMonthly === null ? microcopy.enterpriseLink : cta.primary.label}
@@ -67,7 +69,7 @@ function PlanCard({ plan }: { plan: Plan }) {
   );
 }
 
-/** Section 7: the four plans as equal cards (Grow inverted), then the one rule that matters about extra clients. */
+/** Section 7: the three plans as equal cards (Grow inverted), then the one rule that matters about extra clients. */
 export function PlansSection() {
   return (
     <section id="plans" aria-labelledby="plans-title" className="py-16 lg:py-28">
