@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import { useEffect, useRef } from "react";
 import { Button } from "@/components/ui/Button";
 import { cta, hero } from "@/content";
@@ -33,26 +32,23 @@ export function Hero() {
       aria-labelledby="hero-title"
       className="relative h-svh overflow-clip [--phone-w:min(72vw,calc((100svh-130px)/2.04))] lg:[--phone-w:min(26vw,calc((100svh-130px)/2.04))]"
     >
-      {/* The sky behind everything. A generated image (public/backgrounds/hero-sky.webp, 2560x1600): clear blue behind the headline, soft cloud at the sides, pale haze at the bottom that meets the page. */}
-      <Image src="/backgrounds/hero-sky.webp" alt="" fill priority sizes="100vw" quality={85} className="pointer-events-none select-none object-cover object-[50%_30%]" />
-
       <div
         data-hero-text
         className="relative z-10 mx-auto flex max-w-6xl flex-col items-center px-5 pt-[calc(76px+clamp(8px,2.6svh,36px))] text-center"
       >
         <h1
           id="hero-title"
-          className="text-[clamp(2.5rem,0.8rem+4vw,4.75rem)] font-extrabold leading-[0.98] tracking-[-0.035em] text-white text-balance [text-shadow:0_2px_30px_rgb(20_70_140/0.28)]"
+          className="text-[clamp(2.5rem,0.8rem+4vw,4.75rem)] font-extrabold leading-[0.98] tracking-[-0.035em] text-balance"
         >
           <span className="block">{hero.headline.line1}</span>
           <span className="block">
             {hero.headline.line2Before}
-            <span className="bg-[linear-gradient(transparent_62%,rgb(255_255_255/0.30)_62%,rgb(255_255_255/0.30)_90%,transparent_90%)]">
+            <span className="bg-[linear-gradient(transparent_62%,rgb(90_65_255/0.24)_62%,rgb(90_65_255/0.24)_90%,transparent_90%)]">
               {hero.headline.highlight}
             </span>
           </span>
         </h1>
-        <p className="mt-4 max-w-4xl text-[clamp(1.0625rem,0.95rem+0.55vw,1.5rem)] leading-snug font-medium text-white text-balance [text-shadow:0_1px_2px_rgb(20_70_140/0.35),0_2px_22px_rgb(20_70_140/0.45)]">
+        <p className="mt-4 max-w-4xl text-[clamp(1.0625rem,0.95rem+0.55vw,1.5rem)] leading-snug text-ink-muted text-balance">
           {hero.support}
         </p>
         <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
