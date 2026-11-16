@@ -6,20 +6,20 @@ import { Calculator, CalendarStrip, Clipboard, Ledger, Polaroid, PunchCard, Rece
 import { DESIGN, SAFE, type PieceId } from "./phone";
 
 /*
- * The founder / department-head home ("Overview"), laid out with the product's
- * real numbers on an iPhone Pro Max screen (440 x 957 pt): 16px side padding,
- * 20px + safe area on top, 64px avatar, 28px section gaps, 64px nav pill with
- * five 52px tabs beside a 64px FAB, 12px + home-indicator below.
- * Mirrors Sherifawad-crtv/bizqwik: routes/Oversight.tsx, Shell.tsx,
- * BottomNav.tsx, Fab.tsx, HomeAvatar.tsx, Segmented.tsx, RouteTransition.tsx.
+ * The founder / department-head home ("Overview"), laid out like the dev branch of the product on an iPhone Pro Max
+ * screen (440 x 957 pt): 16px side padding, 20px + safe area on top, 64px avatar, 28px section gaps, four equal
+ * tiles (Profit, Revenue, Active subscribers, Coach payouts), the Revenue vs coach payouts card, the next card
+ * peeking under a 64px nav pill with five 50px tabs beside a 64px FAB.
+ * Mirrors Sherifawad-crtv/bizqwik (dev): routes/Oversight.tsx, overview/Cards.tsx, overview/BarChart.tsx,
+ * overview/Charts.tsx, components/BottomNav.tsx, HomeAvatar.tsx, Segmented.tsx, fab/FabButton.tsx.
  *
  * Pieces are normal flow children, so the browser lays them out exactly like
  * the app; the hero timeline measures where each landed and flies it in.
  */
 
 const fmt = (n: number) => n.toLocaleString("en-US");
-const mono11 = "font-mono text-[11px] font-bold tracking-[.08em] text-ink-faint";
-const card = "border border-line bg-surface";
+const label = "font-mono text-[11px] font-bold tracking-[.08em] text-ink-faint";
+const card = "bg-surface";
 
 /**
  * A piece has an outer layout box (what the app's flow lays out and the timeline moves),
@@ -42,9 +42,11 @@ function Delta({ text, tone = "good" }: { text: string; tone?: "good" | "neutral
   return <span className={`tabular shrink-0 whitespace-nowrap rounded-full px-[9px] py-[3px] font-mono text-[11px] font-bold tracking-[.02em] ${cls}`}>{text}</span>;
 }
 
+/** The app's KpiTile: icon chip and change on the first row, label, big number. No caption line in the founder view. */
 function Kpi({ id, k, chaos }: { id: PieceId; k: (typeof d.kpis)[number]; chaos: ReactNode }) {
   const delta = "delta" in k ? k.delta : null;
   const tone = "tone" in k ? k.tone : "good";
+  const value = typeof k.value === "number" ? fmt(k.value) : k.value;
   return (
     <Piece id={id} outer="min-w-0" chaos={chaos} className={`${card} h-full rounded-[28px] px-4 py-[14px]`}>
       <div className="flex items-center gap-2">
@@ -53,66 +55,99 @@ function Kpi({ id, k, chaos }: { id: PieceId; k: (typeof d.kpis)[number]; chaos:
         </span>
         <span className="ml-auto">{delta && <Delta text={delta} tone={tone} />}</span>
       </div>
-      <div className={`${mono11} mt-2.5 uppercase`}>{k.label}</div>
-      <div className="tabular mt-0.5 text-[24px] font-extrabold leading-[1.15] tracking-[-.02em] [overflow-wrap:anywhere]">{k.value}</div>
-      <div className="mt-1 font-mono text-[12px] leading-[1.4] text-ink-faint">{k.sub}</div>
+      <div className={`${label} mt-2.5`}>{k.label}</div>
+      <div
+        {...(typeof k.value === "number" ? { "data-count": k.value } : {})}
+        className="tabular mt-0.5 text-[24px] font-extrabold leading-[1.15] tracking-[-.02em] [overflow-wrap:anywhere]"
+      >
+        {value}
+      </div>
     </Piece>
   );
 }
 
-/** Rounded-top bar, square at the baseline (the product's own chart path). */
+/** The app's pill selector (Segmented): sunken track, the chosen option on a surface pill. */
+function Segmented({ options, active }: { options: readonly string[]; active: string }) {
+  return (
+    <div className="flex w-fit gap-1.5 rounded-full bg-sunken p-1">
+      {options.map((o) => (
+        <span key={o} className={`whitespace-nowrap rounded-full px-3.5 py-[9px] font-mono text-[12px] font-bold tracking-[.06em] ${o === active ? "bg-surface text-ink" : "text-ink-muted"}`}>
+          {o}
+        </span>
+      ))}
+    </div>
+  );
+}
+
+/** Round-topped bar with a square foot on the baseline (BarChart's own path). */
 function barPath(x: number, yTop: number, w: number, yBottom: number, r: number) {
-  const rr = Math.max(0, Math.min(r, w / 2, yBottom - yTop));
+  const rr = Math.min(r, Math.max(0, yBottom - yTop));
   return `M${x},${yBottom} L${x},${yTop + rr} Q${x},${yTop} ${x + rr},${yTop} L${x + w - rr},${yTop} Q${x + w},${yTop} ${x + w},${yTop + rr} L${x + w},${yBottom} Z`;
 }
 
-/** Port of the product's RevenueChart: one EGP axis, two series, revenue direct-labelled. */
+const niceStep = (max: number) => {
+  const raw = max / 4;
+  const pow = Math.pow(10, Math.floor(Math.log10(raw || 1)));
+  const n = raw / pow;
+  return (n <= 1 ? 1 : n <= 2 ? 2 : n <= 2.5 ? 2.5 : n <= 5 ? 5 : 10) * pow;
+};
+const shortNum = (v: number) => (v >= 1000 ? `${Math.round(v / 100) / 10}k` : fmt(v));
+
+/** Port of the product's BarChart: soft bars (the taller series light, behind; the other deep, in front), faint
+ * gridlines with the scale on the left, plain labels underneath and a round-dot legend. */
 function Chart() {
   const { months, revenue, payouts } = d.chart;
   const W = DESIGN.w - 32 - 36; // screen - side padding - card padding
-  const H = 210;
-  const top = 26;
-  const bottom = 172;
-  const max = Math.max(...revenue, ...payouts) * 1.15;
+  const H = 220;
+  const padL = 34;
+  const top = 10;
+  const bottom = 190;
+  const rawMax = Math.max(...revenue, ...payouts, 1);
+  const step = niceStep(rawMax);
+  const max = Math.ceil(rawMax / step) * step;
+  const ticks = Array.from({ length: Math.round(max / step) + 1 }, (_, i) => i * step);
   const y = (v: number) => bottom - (v / max) * (bottom - top);
-  const slot = W / months.length;
-  const barW = Math.max(6, Math.min(18, slot / 3));
+  const slot = (W - padL) / months.length;
+  const barW = Math.max(10, Math.min(36, slot * 0.62));
+  const r = Math.min(barW / 2, 14);
   return (
-    <Piece id="chart" outer="min-h-0 flex-1" chaos={<Spreadsheet />} className={`${card} h-full overflow-hidden rounded-2xl px-[18px] py-4`}>
-      <div className={`${mono11} uppercase`}>{d.chart.title}</div>
-      <div className="mt-0.5 font-mono text-[12px] uppercase text-ink-faint">{d.chart.sub}</div>
+    <Piece id="chart" outer="mb-3.5" chaos={<Spreadsheet />} className={`${card} rounded-[28px] px-[18px] py-4`}>
+      <div className={label}>{d.chart.title}</div>
+      <div className="mt-0.5 font-mono text-[12px] text-ink-faint">{d.chart.sub}</div>
       <div className="mt-3.5">
-        <div className="mb-2 flex gap-4">
-          {[
-            ["Revenue", "bg-primary"],
-            ["Coach payouts", "bg-primary-light"],
-          ].map(([name, color]) => (
-            <span key={name} className="flex items-center gap-1.5 font-mono text-[11px] font-bold uppercase tracking-[.04em] text-ink-muted">
-              <i className={`block size-2.5 rounded-[3px] ${color}`} />
-              {name}
-            </span>
-          ))}
-        </div>
         <svg width={W} height={H} viewBox={`0 0 ${W} ${H}`} className="block overflow-visible">
-          {[top, (top + bottom) / 2, bottom].map((gy) => (
-            <line key={gy} x1={0} x2={W} y1={gy} y2={gy} className="stroke-line" strokeWidth={1} />
+          {ticks.map((t) => (
+            <g key={t}>
+              <line x1={padL} x2={W} y1={y(t)} y2={y(t)} className="stroke-line" strokeWidth={1} />
+              <text x={0} y={y(t) + 4} className="fill-ink-faint text-[11px] font-medium">
+                {shortNum(t)}
+              </text>
+            </g>
           ))}
           {months.map((m, i) => {
-            const cx = (i + 0.5) * slot;
+            const x = padL + i * slot + (slot - barW) / 2;
             return (
               <g key={m}>
-                <path data-bar d={barPath(cx - barW - 1, y(revenue[i]), barW, bottom, 4)} className="fill-primary" />
-                <path data-bar d={barPath(cx + 1, y(payouts[i]), barW, bottom, 4)} className="fill-primary-light" />
-                <text x={cx - barW / 2 - 1} y={y(revenue[i]) - 8} textAnchor="middle" className="fill-ink text-[11px] font-extrabold">
-                  {Math.round(revenue[i] / 100) / 10}k
-                </text>
-                <text x={cx} y={H - 4} textAnchor="middle" className="fill-ink-faint font-mono text-[10px] font-bold uppercase" letterSpacing=".06em">
+                <path data-bar d={barPath(x, y(revenue[i]), barW, bottom, r)} className="fill-primary-light" />
+                <path data-bar d={barPath(x, y(payouts[i]), barW, bottom, r)} className="fill-primary" />
+                <text x={padL + i * slot + slot / 2} y={H - 8} textAnchor="middle" className="fill-ink-muted text-[12px] font-medium">
                   {m}
                 </text>
               </g>
             );
           })}
         </svg>
+        <div className="mt-1 flex gap-[18px]">
+          {[
+            ["Revenue", "bg-primary-light"],
+            ["Coach payouts", "bg-primary"],
+          ].map(([name, color]) => (
+            <span key={name} className="flex items-center gap-[7px] text-[12px] font-medium text-ink-muted">
+              <i className={`block size-2.5 rounded-full ${color}`} />
+              {name}
+            </span>
+          ))}
+        </div>
       </div>
     </Piece>
   );
@@ -134,46 +169,35 @@ export function FounderPieces() {
 
       {/* Range selector + caption */}
       <Piece id="range" outer="mb-3" chaos={<CalendarStrip />} className="flex items-center gap-2.5">
-        <div className="flex w-fit gap-1.5 rounded-full bg-sunken p-1">
-          {d.ranges.map((r) => (
-            <span key={r} className={`whitespace-nowrap rounded-full px-3.5 py-[9px] font-mono text-[12px] font-bold uppercase tracking-[.06em] ${r === d.activeRange ? "bg-surface text-ink" : "text-ink-muted"}`}>
-              {r}
-            </span>
-          ))}
-        </div>
-        <span className="ml-auto text-right font-mono text-[11px] font-bold uppercase tracking-[.06em] text-ink-faint">{d.caption}</span>
+        <Segmented options={d.ranges} active={d.activeRange} />
+        <span className="ml-auto text-right font-mono text-[11px] font-bold tracking-[.06em] text-ink-faint">{d.caption}</span>
       </Piece>
 
-      {/* Revenue hero */}
-      <Piece id="revenue" outer="mb-2.5" chaos={<Receipt />} className={`${card} rounded-[28px] px-5 pb-[18px] pt-5`}>
-        <div className="flex items-center gap-2">
-          <span className={`${mono11} uppercase`}>{d.revenue.label}</span>
-          <span className="ml-auto">
-            <Delta text={d.revenue.delta} />
-          </span>
-        </div>
-        <div data-count={d.revenue.value} className="tabular mt-2 text-[56px] font-extrabold leading-none tracking-[-.03em] [overflow-wrap:anywhere]">
-          {fmt(d.revenue.value)}
-        </div>
-        <div className="mt-2 font-mono text-[12px] leading-[1.4] text-ink-faint">{d.revenue.sub}</div>
-      </Piece>
-
-      {/* KPI tiles: auto-fit minmax(150px, 1fr), gap 10 */}
+      {/* The four tiles: auto-fit minmax(150px, 1fr), gap 10 */}
       <div className="mb-3.5 grid grid-cols-2 gap-2.5">
         <Kpi id="profit" k={d.kpis[0]} chaos={<Calculator />} />
-        <Kpi id="payouts" k={d.kpis[1]} chaos={<Ledger />} />
+        <Kpi id="revenue" k={d.kpis[1]} chaos={<Receipt />} />
         <Kpi id="subscribers" k={d.kpis[2]} chaos={<Clipboard />} />
-        <Kpi id="wallet" k={d.kpis[3]} chaos={<PunchCard />} />
+        <Kpi id="payouts" k={d.kpis[3]} chaos={<Ledger />} />
       </div>
 
       <Chart />
 
+      {/* The next card in the app's scroll, peeking out under the nav */}
+      <Piece id="sources" outer="min-h-0 flex-1" chaos={<PunchCard />} className={`${card} h-full overflow-hidden rounded-[28px] px-[18px] py-4`}>
+        <div className={label}>{d.sources.title}</div>
+        <div className="mt-0.5 font-mono text-[12px] text-ink-faint">{d.sources.sub}</div>
+        <div className="mt-3.5">
+          <Segmented options={d.sources.options} active={d.sources.active} />
+        </div>
+      </Piece>
+
       {/* Fixed bottom bar: 16px sides, 12px + home indicator below, nav pill + 64px FAB, 12px apart */}
       <div className="absolute inset-x-0 flex items-center justify-center gap-3 px-4" style={{ bottom: 12 + SAFE.bottom }}>
         <Piece id="nav" outer="shrink-0 will-change-transform" className="relative flex h-16 will-change-[opacity,transform] items-center gap-1.5 overflow-hidden rounded-full border border-white/55 bg-surface/55 px-1.5 shadow-[0_14px_34px_rgba(26,23,38,.18),inset_0_1px_0_rgba(255,255,255,.7)] backdrop-blur-[28px] backdrop-saturate-[1.8]">
-          <span aria-hidden className="absolute left-1.5 top-[6px] size-[52px] rounded-full bg-primary-tint-strong" />
+          <span aria-hidden className="absolute left-1.5 top-[6px] size-[50px] rounded-full bg-primary-tint-strong" />
           {d.nav.map((n, i) => (
-            <span key={n.label} className={`relative grid size-[52px] shrink-0 place-items-center rounded-full ${i === 0 ? "text-primary-pressed" : "text-ink-muted"}`}>
+            <span key={n.label} className={`relative grid size-[50px] shrink-0 place-items-center rounded-full ${i === 0 ? "text-primary-pressed" : "text-ink-muted"}`}>
               <Icon name={n.icon as IconName} solid={i === 0} size={22} strokeWidth={1.9} />
             </span>
           ))}

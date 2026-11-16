@@ -33,7 +33,7 @@ export type PieceId =
   | "profit"
   | "payouts"
   | "subscribers"
-  | "wallet"
+  | "sources"
   | "chart"
   | "nav"
   | "fab";
@@ -57,11 +57,11 @@ export const SCATTER: Record<Exclude<PieceId, "nav" | "fab">, PieceScatter> = {
   greeting: { side: -1, reach: 0.5, fy: 0.02, rot: -8, scale: 1.1, order: 0 },
   avatar: { side: 1, reach: 0.85, fy: 0.22, rot: 9, scale: 1.1, order: 1 },
   range: { side: 1, reach: 0.1, fy: 0.02, rot: 5, scale: 1.05, order: 2 },
-  revenue: { side: -1, reach: 0.15, fy: 0.22, rot: -11, scale: 1.1, order: 3 },
-  profit: { side: -1, reach: 1, fy: 0.6, rot: 12, scale: 1.08, order: 4 },
-  payouts: { side: 1, reach: 1, fy: 0.62, rot: -8, scale: 1.08, order: 5 },
-  subscribers: { side: -1, reach: 0.3, fy: 0.88, rot: -6, scale: 1.1, order: 6 },
-  wallet: { side: 1, reach: 0.35, fy: 0.9, rot: 14, scale: 1.08, order: 7 },
+  profit: { side: -1, reach: 1, fy: 0.6, rot: 12, scale: 1.08, order: 3 },
+  revenue: { side: -1, reach: 0.15, fy: 0.24, rot: -11, scale: 1.1, order: 4 },
+  subscribers: { side: -1, reach: 0.3, fy: 0.88, rot: -6, scale: 1.1, order: 5 },
+  payouts: { side: 1, reach: 1, fy: 0.62, rot: -8, scale: 1.08, order: 6 },
+  sources: { side: 1, reach: 0.35, fy: 0.9, rot: 14, scale: 1.08, order: 7 },
   chart: { side: 1, reach: 0.15, fy: 0.42, rot: 11, scale: 1.1, order: 8 },
 };
 

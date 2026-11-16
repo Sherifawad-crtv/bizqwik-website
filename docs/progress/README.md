@@ -68,3 +68,4 @@ Convention (same as the app repo, `Sherifawad-crtv/bizqwik`):
 | 0048 | Lighthouse pass |
 | 0049 | Mobile: title and headline stay while the panel is on screen |
 | 0050 | Feature rows: no subtitle, tighter bullets |
+| 0052 | Hero phone screen rebuilt from the dev branch's founder app |
