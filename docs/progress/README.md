@@ -70,3 +70,4 @@ Convention (same as the app repo, `Sherifawad-crtv/bizqwik`):
 | 0050 | Feature rows: no subtitle, tighter bullets |
 | 0052 | Hero phone screen rebuilt from the dev branch's founder app |
 | 0053 | Three plans: Scale removed |
+| 0054 | Shorter FAQ |

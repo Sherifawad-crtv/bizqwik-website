@@ -25,31 +25,6 @@ export const faq: FaqItem[] = [
       "A client experience under your brand: your gym's own name, logo, colours and web address. On Solopreneur it is a branded booking page. On Grow it is a branded client app (PWA). On Enterprise it is custom. Clients check in with a QR code, book classes, buy memberships and bundles, top up a wallet, earn loyalty points and freeze their own plan.",
   },
   {
-    question: "How do clients pay?",
-    answer:
-      "Bizqwik tracks cash, card, wallet and InstaPay payments. InstaPay receipts are reviewed and approved by you. The front desk can take payments at the desk.",
-  },
-  {
-    question: "How are coaches paid?",
-    answer:
-      "You set coach tiers and rates. Coaches log their sessions by scanning a QR in the coaches' room. At month end your accountant settles the month, pays each coach and marks it paid, with a clear record of what was paid and when.",
-  },
-  {
-    question: "Can I run more than one department or location?",
-    answer:
-      "Yes. Each department has its own prices, coaches and sessions. You can add an extra department or location to a plan as an add-on, and Enterprise is custom, built around your community.",
-  },
-  {
-    question: "Can I add things later?",
-    answer:
-      "Yes. Add-ons include a native app on the app stores, a branded client app (PWA), an AI assistant, an AI agent, extra departments, extra locations, extra staff and WhatsApp / SMS messages.",
-  },
-  {
-    question: "Who uses each app?",
-    answer:
-      "The founder app is for the gym owner and department heads. The accountant dashboard is for your accountant. The front-desk app is for reception. The coaches app is for junior, senior and head coaches. The branded client app is for your clients.",
-  },
-  {
     question: "How do I get started?",
     answer: "Call us on 01000401407 or email info@bizqwik.com and we'll set up your gym.",
     cta: { label: "Talk to us", href: "#contact" },
