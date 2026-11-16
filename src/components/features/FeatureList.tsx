@@ -5,11 +5,12 @@ import { Container } from "@/components/layout/layout";
 import { Icon } from "@/components/ui/Icon";
 import { ReplayButton } from "@/components/ui/ReplayButton";
 import { features, type FeatureId } from "@/content";
-import { BusinessDemo, ClientDemo, CoachDemo, FrontDeskDemo } from "./demos";
+import { BusinessPhone } from "./business-app";
+import { ClientDemo, CoachDemo, FrontDeskDemo } from "./demos";
 import { initFeatureMotion } from "./features-motion";
 
 const DEMOS: Record<FeatureId, () => React.JSX.Element> = {
-  business: BusinessDemo,
+  business: BusinessPhone,
   frontdesk: FrontDeskDemo,
   coaches: CoachDemo,
   clients: ClientDemo,
@@ -20,6 +21,8 @@ const DESIGN_W = 480;
 
 /** The client demo shows two cards side by side, so its stage is wider. */
 const WIDE: Partial<Record<FeatureId, true>> = { clients: true };
+/** The business phone spans the whole panel: it flies in from its edges. */
+const FULL: Partial<Record<FeatureId, true>> = { business: true };
 
 /**
  * Section 5 of the outline, laid out like the reference's feature list: one row per feature. The text sits on the
@@ -59,6 +62,7 @@ export function FeatureList() {
                     <span data-rule aria-hidden className="mb-4 block h-px bg-ink/15" />
                     <h3 className="text-[28px] font-extrabold leading-[1.05] tracking-[-.025em]">{f.title}</h3>
                   </div>
+                  {f.bullets.length > 0 && (
                   <ul className="mt-5 max-w-[26rem] max-[900px]:mb-4 max-[900px]:mt-1">
                     {f.bullets.map((b) => (
                       <li key={b} className="flex items-center gap-3.5 border-t border-line py-3.5 text-[15px] leading-snug first:border-t-0 first:pt-0 last:pb-0">
@@ -69,6 +73,7 @@ export function FeatureList() {
                       </li>
                     ))}
                   </ul>
+                  )}
                 </div>
 
                 <div
@@ -76,7 +81,7 @@ export function FeatureList() {
                   className="relative grid w-full min-w-0 place-items-center overflow-hidden rounded-[28px] border border-line bg-sunken max-[900px]:h-[calc(650px*var(--s,.8))] min-[901px]:aspect-[849/640] min-[901px]:min-h-[670px] min-[901px]:px-10 min-[901px]:py-10"
                 >
                   <div className="contents max-[900px]:absolute max-[900px]:left-1/2 max-[900px]:top-0 max-[900px]:ml-[calc(-240px*var(--s,.8))] max-[900px]:flex max-[900px]:origin-top-left max-[900px]:items-center max-[900px]:justify-center max-[900px]:pb-20 max-[900px]:pt-5 max-[900px]:[scale:var(--s,.75)] max-[900px]:w-[480px] max-[900px]:h-[650px]">
-                    <div data-demo={f.id} className={`w-full max-[900px]:w-[440px] max-[900px]:max-w-none ${WIDE[f.id] ? "max-w-[640px]" : "max-w-[520px]"}`}>
+                    <div data-demo={f.id} className={`w-full max-[900px]:w-[440px] max-[900px]:max-w-none ${FULL[f.id] ? "max-w-none" : WIDE[f.id] ? "max-w-[640px]" : "max-w-[520px]"}`}>
                       <Demo />
                     </div>
                   </div>

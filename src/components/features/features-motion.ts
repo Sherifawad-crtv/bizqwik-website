@@ -1,61 +1,13 @@
 import { gsap, ScrollTrigger } from "@/motion/gsap";
 import { playOnView, replay, toggleOnView } from "@/motion/primitives";
-import { duration, enterFrom, ease, gap, press, stagger } from "@/motion/tokens";
+import { duration, enterFrom, ease, gap, stagger } from "@/motion/tokens";
+import { buildBusiness } from "./business-motion";
+import { count, grow, swap, tap, typeText, type TL } from "./demo-kit";
 
-type TL = gsap.core.Timeline;
 type Role = "business" | "frontdesk" | "coaches" | "clients";
 type Colors = { green: string; violet: string; ink: string; muted: string };
 type Q = { one: <T extends HTMLElement>(sel: string) => T; all: <T extends HTMLElement>(sel: string) => T[] };
 
-const money = (n: number, dec = 2) => n.toLocaleString("en-US", { minimumFractionDigits: dec, maximumFractionDigits: dec });
-
-/** Count a number up. The shown value is reset as the demo begins (the previous run's final number would linger otherwise). */
-function count(el: HTMLElement, from: number, to: number, tl: TL, at: number, dec = 2, d: number = duration.count) {
-  const o = { v: from };
-  tl.add(() => (el.textContent = money(from, dec)), 0.02);
-  tl.fromTo(o, { v: from }, { v: to, duration: d, ease: ease.standard, onUpdate: () => (el.textContent = money(o.v, dec)) }, at);
-}
-
-/** Type a string in, one letter at a time. */
-function typeText(tl: TL, el: HTMLElement, text: string, at: number, d: number) {
-  const o = { n: 0 };
-  tl.add(() => (el.textContent = ""), 0.01);
-  tl.add(() => (el.textContent = ""), at);
-  tl.fromTo(o, { n: 0 }, { n: text.length, duration: d, ease: ease.linear, onUpdate: () => (el.textContent = text.slice(0, Math.round(o.n))) }, at);
-}
-
-/** Cross-fade a `Swap` pair (starting content a, replacement b). */
-function swap(tl: TL, stage: HTMLElement, name: string, at: number) {
-  const a = stage.querySelector(`[data-swap-a="${name}"]`)!;
-  const b = stage.querySelector(`[data-swap-b="${name}"]`)!;
-  tl.fromTo(a, { opacity: 1, y: 0 }, { opacity: 0, y: -enterFrom.y / 2, duration: duration.fast, ease: ease.standard }, at).fromTo(
-    b,
-    { opacity: 0, y: enterFrom.y / 2, scale: enterFrom.scale },
-    { opacity: 1, y: 0, scale: 1, duration: duration.base, ease: ease.spring },
-    at + gap.beat,
-  );
-}
-
-/** The pointer glides to a control and presses it. Returns the time the press lands. */
-function tap(tl: TL, stage: HTMLElement, target: HTMLElement, at: number): number {
-  const cursor = stage.querySelector<HTMLElement>("[data-cursor]")!;
-  const where = () => {
-    const s = stage.getBoundingClientRect();
-    const t = target.getBoundingClientRect();
-    const k = s.width / stage.offsetWidth || 1; // the panel scales the demo down on phones
-    return { x: (t.left - s.left + t.width * 0.6) / k, y: (t.top - s.top + t.height * 0.5) / k };
-  };
-  const land = at + duration.slow + gap.beat;
-  tl.fromTo(cursor, { opacity: 0, x: () => where().x + 56, y: () => where().y + 48, scale: 1 }, { opacity: 1, x: () => where().x, y: () => where().y, duration: duration.slow, ease: ease.standard }, at)
-    .to(cursor, { scale: press.scale - 0.17, duration: duration.instant, ease: ease.standard }, land)
-    .to(cursor, { scale: 1, opacity: 0, duration: duration.base, ease: ease.standard }, land + duration.instant);
-  return land;
-}
-
-/** The card gets taller as a section opens (`Grow` in ui.tsx). */
-function grow(tl: TL, el: HTMLElement, at: number) {
-  tl.fromTo(el, { height: 0 }, { height: "auto", duration: duration.slow, ease: ease.standard }, at).fromTo(el, { opacity: 0 }, { opacity: 1, duration: duration.base, ease: ease.standard }, at + gap.beat);
-}
 
 /** Each bundle's demo. Every tween states its own start value, so a replay resets itself cleanly. */
 const BRANDS = [
@@ -66,20 +18,7 @@ const BRANDS = [
 const NEUTRAL = { "--app-brand": "#a8a5b3", "--app-on": "#ffffff", "--app-bg": "#fbfaf7", "--app-soft": "#f3f2ee", "--app-ink": "#1a1726" };
 
 const BUILD: Record<Role, (tl: TL, stage: HTMLElement, c: Colors, q: Q) => void> = {
-  business(tl, stage, _c, { one, all }) {
-    const [team, schedule, payout] = all("[data-grow]");
-    count(one("[data-count]"), 96400, 118400, tl, 0.55, 0);
-    tl.fromTo(all("[data-bar]"), { scaleY: 0 }, { scaleY: 1, duration: duration.slow, ease: ease.standard, stagger: stagger.tight }, 0.55);
-    grow(tl, team, 2.4);
-    tl.fromTo(all("[data-row]"), { opacity: 0, y: 8 }, { opacity: 1, y: 0, duration: duration.base, ease: ease.enter, stagger: stagger.base }, 2.7);
-    tl.fromTo(all("[data-pop]"), { opacity: 0, scale: 0.8 }, { opacity: 1, scale: 1, duration: duration.fast, ease: ease.spring, stagger: stagger.loose }, 3.3);
-    grow(tl, schedule, 4.4);
-    tl.fromTo(one("[data-new]"), { opacity: 0, y: -10 }, { opacity: 1, y: 0, duration: duration.base, ease: ease.spring }, 4.9);
-    grow(tl, payout, 6.2);
-    const land = tap(tl, stage, one('[data-tap="pay"]'), 7.2);
-    swap(tl, stage, "pay", land + 0.05);
-    swap(tl, stage, "sub", land + 0.1);
-  },
+  business: buildBusiness,
 
   frontdesk(tl, stage, _c, { one, all }) {
     const list = one('[data-layer="list"]');
@@ -179,7 +118,8 @@ export function initFeatureMotion(root: HTMLElement): () => void {
         all: <T extends HTMLElement>(sel: string) => Array.from(stage.querySelectorAll<T>(sel)),
       };
       const tl = gsap.timeline({ paused: true });
-      tl.fromTo(inner, { opacity: 0, y: enterFrom.y, scale: enterFrom.scale }, { opacity: 1, y: 0, scale: 1, duration: duration.enter, ease: ease.enter }, 0);
+      // The business phone brings its own entrance (it flies in from the side).
+      if (!stage.hasAttribute("data-own-entrance")) tl.fromTo(inner, { opacity: 0, y: enterFrom.y, scale: enterFrom.scale }, { opacity: 1, y: 0, scale: 1, duration: duration.enter, ease: ease.enter }, 0);
       BUILD[demo.dataset.demo as Role](tl, stage, colors, q);
       timelines.set(panel, tl);
       return playOnView(panel, () => replay(tl));

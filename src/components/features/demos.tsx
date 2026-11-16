@@ -1,75 +1,10 @@
 import { Icon } from "@/components/ui/Icon";
-import { Card, Grow, IconTile, Initial, Label, MiniButton, Row, SearchGlyph, Stage, Status, Swap, Table, Tick } from "./ui";
+import { Card, IconTile, Initial, Label, MiniButton, Row, SearchGlyph, Stage, Status, Swap, Table, Tick } from "./ui";
 
 /*
  * The four demos, one per bundle. Illustrative names and figures (brief GAP 7). Each demo's default markup is
  * its FINISHED state; features-motion.ts plays it from the start and reduced motion shows it as it is.
  */
-
-/* ---------- Run the business: revenue and analytics, the team, the schedule, the payout ---------- */
-const BARS = [44, 58, 52, 66, 61, 78, 100];
-
-export function BusinessDemo() {
-  return (
-    <Stage>
-      <Card>
-        <div>
-          <div className="flex items-center justify-between">
-            <p className="text-[14px] text-ink-muted">Revenue · last 7 months</p>
-            <span className="inline-flex items-center gap-1 text-[13px] font-semibold text-green-fg">
-              <Icon name="arrow-up" size={13} />
-              22.8%
-            </span>
-          </div>
-          <p className="tabular mt-1 text-[36px] font-bold leading-none tracking-[-.03em]">
-            <span data-count>118,400</span> <span className="text-[14px] font-medium tracking-normal text-ink-muted">EGP</span>
-          </p>
-          <div className="mt-3 flex h-12 items-end gap-1.5">
-            {BARS.map((h, i) => (
-              <span key={i} data-bar className={`flex-1 origin-bottom rounded-[6px] ${i === BARS.length - 1 ? "bg-primary" : "bg-primary/20"}`} style={{ height: `${h}%` }} />
-            ))}
-          </div>
-        </div>
-
-        <Grow>
-          <Label>Team today</Label>
-          <div className="space-y-2">
-            <Row data-row tile={<Initial letter="N" />} title="Coach Nour" sub="Strength · arrived 5:52 PM" right={<span data-pop><Status>On time</Status></span>} />
-            <Row data-row tile={<Initial letter="O" />} title="Coach Omar" sub="Yoga · arrived 5:09 PM" right={<span data-pop><Status tone="amber">9 min late</Status></span>} />
-          </div>
-        </Grow>
-
-        <Grow>
-          <Label>Schedule</Label>
-          <Row data-new tile={<IconTile name="calendar-add" />} title="Strength class" sub="Fri 17 · 6:00 PM · Coach Nour" right={<Status>Added</Status>} />
-        </Grow>
-
-        <Grow>
-          <Label>Payouts</Label>
-          <Row
-            tile={<IconTile name="banknote" />}
-            title="Coach Nour"
-            sub={<Swap name="sub" a="14 sessions · 4,200.00 EGP" b="Paid · 4,200.00 EGP" />}
-            right={
-              <span data-tap="pay">
-                <Swap
-                  name="pay"
-                  a={<span className="inline-flex h-9 items-center rounded-[10px] bg-ink px-4 text-[14px] font-semibold text-white">Pay</span>}
-                  b={
-                    <span className="inline-flex h-9 items-center gap-1.5 rounded-[10px] bg-green-fg px-3.5 text-[14px] font-semibold text-white">
-                      <Tick />
-                      Paid
-                    </span>
-                  }
-                />
-              </span>
-            }
-          />
-        </Grow>
-      </Card>
-    </Stage>
-  );
-}
 
 /* ---------- Front desk and CRM: find a client, open the record, act on it ---------- */
 export function FrontDeskDemo() {
