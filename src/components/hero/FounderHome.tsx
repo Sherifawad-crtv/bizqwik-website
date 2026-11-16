@@ -17,6 +17,8 @@ import { DESIGN, SAFE, type PieceId } from "./phone";
  * the app; the hero timeline measures where each landed and flies it in.
  */
 
+/** The app's `--bar-bottom`: max(8px, safe area - 8px). On this device the bar sits 26px above the screen's bottom edge. */
+const BAR_BOTTOM = Math.max(8, SAFE.bottom - 8);
 const fmt = (n: number) => n.toLocaleString("en-US");
 const label = "font-mono text-[11px] font-bold tracking-[.08em] text-ink-faint";
 const card = "bg-surface";
@@ -192,8 +194,11 @@ export function FounderPieces() {
         </div>
       </Piece>
 
-      {/* Fixed bottom bar: 16px sides, 12px + home indicator below, nav pill + 64px FAB, 12px apart */}
-      <div className="absolute inset-x-0 flex items-center justify-center gap-3 px-4" style={{ bottom: 12 + SAFE.bottom }}>
+      {/* The app's soft fade under the bar, so content slips away behind it instead of being cut (.bq-bottom-fade), rounded to the screen corners */}
+      <div data-screen-fade aria-hidden className="pointer-events-none absolute inset-x-0 bottom-0 rounded-b-[68px] bg-gradient-to-b from-paper/0 to-paper to-[78%]" style={{ height: BAR_BOTTOM + 64 + 36 }} />
+
+      {/* Fixed bottom bar, as in Shell.tsx: 16px sides, --bar-bottom (the safe area minus 8px) below, nav pill + 64px FAB, 12px apart */}
+      <div className="absolute inset-x-0 flex items-center justify-center gap-3 px-4" style={{ bottom: BAR_BOTTOM }}>
         <Piece id="nav" outer="shrink-0 will-change-transform" className="relative flex h-16 will-change-[opacity,transform] items-center gap-1.5 overflow-hidden rounded-full border border-white/55 bg-surface/55 px-1.5 shadow-[0_14px_34px_rgba(26,23,38,.18),inset_0_1px_0_rgba(255,255,255,.7)] backdrop-blur-[28px] backdrop-saturate-[1.8]">
           <span aria-hidden className="absolute left-1.5 top-[6px] size-[50px] rounded-full bg-primary-tint-strong" />
           {d.nav.map((n, i) => (

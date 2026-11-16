@@ -138,6 +138,7 @@ export function initHeroMotion(root: HTMLElement): () => void {
       .fromTo(piece("fab"), { y: 160 }, { y: 0, ease: ease.scrub.outStrong, duration: 0.3 }, 0.66)
       .fromTo(barFace("fab"), { opacity: 0 }, { opacity: 1, ease: ease.scrub.out, duration: 0.3 }, 0.66)
       .fromTo(chrome, { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.2 }, 0.6)
+      .fromTo(one("[data-screen-fade]"), { autoAlpha: 0 }, { autoAlpha: 1, ease: ease.scrub.out, duration: 0.3 }, 0.6)
       .fromTo(bars, { scaleY: 0, transformOrigin: "50% 100%" }, { scaleY: 1, ease: ease.scrub.out, duration: 0.28, stagger: 0.02 }, 0.62);
 
     const counter = { v: 0 };

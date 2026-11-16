@@ -8,3 +8,6 @@ What changed against the old mock (which followed an earlier build of the app):
 - Hero animation: the "wallet" piece became "sources" (the punch-card prop now morphs into that card); the revenue count-up runs on the Revenue tile. Order of the pieces settling follows the new layout.
 - Files: `content/demoApp.ts`, `components/hero/FounderHome.tsx`, `components/hero/phone.ts`. Illustrative figures still sum (profit 365,700 = revenue 587,400 - payouts 221,700).
 - Checked at 1440 and 390 (scatter, mid-morph and final screens), no overflow, no console errors.
+
+## Update: nav bar at the app's real bottom offset
+Shell.tsx sits the bar at `--bar-bottom` = max(8px, safe area - 8px), which is 26px above the screen's bottom edge on this device (the mock had 46px). The pill and FAB now use that value, and the app's soft paper fade under the bar (`.bq-bottom-fade`, bar height + 36px, rounded to the screen corners) is in; it fades in with the bar. Files: `FounderHome.tsx`, `hero-motion.ts`.
