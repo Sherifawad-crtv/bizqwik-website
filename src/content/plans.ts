@@ -7,7 +7,7 @@ import type { CompareGroup, Plan, PlanId } from "./types";
  */
 
 export const plansIntro = {
-  heading: "Four plans. One monthly price each.",
+  heading: "Three plans. One monthly price each.",
   lede: "Start small. Move up as you grow.",
   callout: {
     lead: "Extra clients never cost more than the next plan.",
@@ -45,21 +45,6 @@ export const plans: Plan[] = [
     locations: "1",
     physicalIntegrations: "Not included",
     clientExperience: "Branded client app (PWA)",
-    nextPlan: "Scale · 14,990 EGP / month · 1,500 clients, 5 departments and a native app on the app stores",
-  },
-  {
-    id: "scale",
-    name: "Scale",
-    forWho: "Clubs with several departments",
-    priceEgpMonthly: 14990,
-    clientsIncluded: "1,500",
-    extraClient: "12 EGP",
-    summary: "Several departments, 2–3 locations and a native app on the app stores.",
-    staff: "5 per department",
-    departments: "5",
-    locations: "2–3",
-    physicalIntegrations: "Included",
-    clientExperience: "Native app on the app stores",
     nextPlan: "Enterprise · Contact us · For large or multi-site communities",
   },
   {
@@ -85,7 +70,6 @@ export const planById = (id: PlanId): Plan => plans.find((p) => p.id === id)!;
 export const planApps: Record<PlanId, { founder: string; accountant: boolean | string; frontDesk: boolean | string; coaches: boolean | string; client: string }> = {
   solopreneur: { founder: "Included", accountant: false, frontDesk: false, coaches: false, client: "Branded booking page" },
   grow: { founder: "Included", accountant: true, frontDesk: true, coaches: true, client: "Branded client app (PWA)" },
-  scale: { founder: "Included, per department", accountant: true, frontDesk: true, coaches: true, client: "Native app on the app stores" },
   enterprise: { founder: "Custom", accountant: "Custom", frontDesk: "Custom", coaches: "Custom", client: "Custom" },
 };
 
@@ -116,30 +100,30 @@ export const compareGroups: CompareGroup[] = [
   {
     label: "Price and capacity",
     rows: [
-      { label: "Price (EGP / month)", values: [t("1,290"), t("4,990"), t("14,990"), t("Contact us")] },
+      { label: "Price (EGP / month)", values: [t("1,290"), t("4,990"), t("Contact us")] },
       { label: "For", values: plans.map((p) => t(p.forWho)) as CompareGroup["rows"][number]["values"] },
-      { label: "Active clients included", values: [t("60"), t("300"), t("1,500"), t("Custom")] },
-      { label: "Each extra client", values: [t("25 EGP"), t("20 EGP"), t("12 EGP"), t("Custom")] },
-      { label: "Staff", values: [t("1"), t("10"), t("5 per department"), t("Custom")] },
-      { label: "Departments", values: [t("1"), t("1"), t("5"), t("Custom")] },
-      { label: "Locations", values: [t("1"), t("1"), t("2–3"), t("Custom")] },
+      { label: "Active clients included", values: [t("60"), t("300"), t("Custom")] },
+      { label: "Each extra client", values: [t("25 EGP"), t("20 EGP"), t("Custom")] },
+      { label: "Staff", values: [t("1"), t("10"), t("Custom")] },
+      { label: "Departments", values: [t("1"), t("1"), t("Custom")] },
+      { label: "Locations", values: [t("1"), t("1"), t("Custom")] },
     ],
   },
   {
     label: "Experience",
     rows: [
-      { label: "Client experience", values: [t("Branded booking page"), t("Branded client app (PWA)"), t("Native app on the app stores"), t("Custom")] },
-      { label: "Physical integrations (e.g. gate access)", values: [no, no, { kind: "yes", note: "Included" }, t("Custom")] },
+      { label: "Client experience", values: [t("Branded booking page"), t("Branded client app (PWA)"), t("Custom")] },
+      { label: "Physical integrations (e.g. gate access)", values: [no, no, t("Custom")] },
     ],
   },
   {
     label: "Apps included",
     rows: [
-      { label: "Founder / C-suite app", values: [yes, yes, { kind: "yes", note: "per department" }, t("Custom")] },
-      { label: "Accountant dashboard", values: [no, yes, yes, t("Custom")] },
-      { label: "Front-desk / reception app", values: [no, yes, yes, t("Custom")] },
-      { label: "Coaches app (junior, senior, head)", values: [no, yes, yes, t("Custom")] },
-      { label: "Branded client app", values: [t("Booking page"), t("PWA"), t("Native app on the stores"), t("Custom")] },
+      { label: "Founder / C-suite app", values: [yes, yes, t("Custom")] },
+      { label: "Accountant dashboard", values: [no, yes, t("Custom")] },
+      { label: "Front-desk / reception app", values: [no, yes, t("Custom")] },
+      { label: "Coaches app (junior, senior, head)", values: [no, yes, t("Custom")] },
+      { label: "Branded client app", values: [t("Booking page"), t("PWA"), t("Custom")] },
     ],
   },
 ];

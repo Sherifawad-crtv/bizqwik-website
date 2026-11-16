@@ -294,14 +294,14 @@ export const articles: Article[] = [
             ul: [
               "After your plan is agreed, we set up your business with you: your team, your plans and prices, and your branding.",
               "We will confirm with you what is included and when it will be ready, in writing, because it depends on your plan and the size of your business.",
-              "A branded client app is delivered as a web app (PWA) on the Grow plan, and as a native app on the app stores on the Scale plan and as an add-on. App store publishing follows the stores' own review times, which we do not control.",
+              "A branded client app is delivered as a web app (PWA) on the Grow plan, and as a native app on the app stores as an add-on or on an Enterprise plan. App store publishing follows the stores' own review times, which we do not control.",
             ],
           },
         ],
       },
       {
         heading: "On-site work",
-        blocks: [{ p: "Some plans include physical integrations, such as gate access, and some businesses ask for on-the-ground help. Where this applies, we agree the date and scope with you in advance and carry it out at your location." }],
+        blocks: [{ p: "Some businesses need physical integrations, such as gate access, or ask for on-the-ground help. Where this applies, we agree the date and scope with you in advance and carry it out at your location." }],
       },
       {
         heading: "Shipping",

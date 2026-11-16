@@ -1,7 +1,7 @@
 /** Typed shapes for all page content. Components render these; they never hold copy. */
 
 export type AppId = "founder" | "accountant" | "frontDesk" | "coaches" | "client";
-export type PlanId = "solopreneur" | "grow" | "scale" | "enterprise";
+export type PlanId = "solopreneur" | "grow" | "enterprise";
 export type SectionId = "top" | "ecosystem" | "benefits" | "apps" | "client-app" | "plans" | "compare" | "add-ons" | "faq" | "contact";
 
 export interface Link {
@@ -66,7 +66,7 @@ export interface Plan {
 
 export interface CompareRow {
   label: string;
-  values: [Cell, Cell, Cell, Cell];
+  values: [Cell, Cell, Cell];
 }
 
 export interface CompareGroup {

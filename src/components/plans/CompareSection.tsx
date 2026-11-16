@@ -53,7 +53,7 @@ export function CompareSection() {
             {compareGroups.map((g) => (
               <tbody key={g.label}>
                 <tr>
-                  <th colSpan={5} scope="colgroup" className="bg-sunken px-4 py-2.5 font-mono text-[12px] font-bold uppercase tracking-[.08em] text-ink-muted">
+                  <th colSpan={plans.length + 1} scope="colgroup" className="bg-sunken px-4 py-2.5 font-mono text-[12px] font-bold uppercase tracking-[.08em] text-ink-muted">
                     {g.label}
                   </th>
                 </tr>

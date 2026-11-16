@@ -10,9 +10,9 @@ const fail: string[] = [];
 const check = (ok: boolean, msg: string) => ok || fail.push(msg);
 
 const price = Object.fromEntries(plans.map((p) => [p.id, p.priceEgpMonthly]));
-check(price.solopreneur === 1290 && price.grow === 4990 && price.scale === 14990, "plan prices must be 1,290 / 4,990 / 14,990");
+check(price.solopreneur === 1290 && price.grow === 4990, "plan prices must be 1,290 / 4,990");
 check(price.enterprise === null, "Enterprise must have no price");
-check(plans.map((p) => p.name).join() === "Solopreneur,Grow,Scale,Enterprise", "plan names/order");
+check(plans.map((p) => p.name).join() === "Solopreneur,Grow,Enterprise", "plan names/order");
 check(plans.filter((p) => p.tag).length === 1 && plans[1].tag === "Best fit for studios", "only Grow carries a badge");
 
 const enterprise = JSON.stringify(plans.find((p) => p.id === "enterprise"));

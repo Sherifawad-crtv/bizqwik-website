@@ -11,18 +11,18 @@ export const faq: FaqItem[] = [
   {
     question: "What if I have more clients than my plan includes?",
     answer:
-      "Every extra active client is charged at your plan's rate: 25 EGP on Solopreneur, 20 EGP on Grow, 12 EGP on Scale. Extra clients never cost more than the next plan. If the extra-client charges would pass the next plan's price, you simply move up.",
+      "Every extra active client is charged at your plan's rate: 25 EGP on Solopreneur and 20 EGP on Grow. Extra clients never cost more than the next plan. If the extra-client charges would pass the next plan's price, you simply move up.",
   },
   {
     question: "Which plan is right for me?",
     answer:
-      "Solopreneur is for independent coaches and solo studios. Grow is for studios and gyms with a team, and is our best fit for studios. Scale is for clubs with several departments. Enterprise is for large or multi-site communities.",
+      "Solopreneur is for independent coaches and solo studios. Grow is for studios and gyms with a team, and is our best fit for studios. Enterprise is for large or multi-site communities.",
     cta: { label: "See plans", href: "#plans" },
   },
   {
     question: "What do my clients get?",
     answer:
-      "A client experience under your brand: your gym's own name, logo, colours and web address. On Solopreneur it is a branded booking page. On Grow it is a branded client app (PWA). On Scale it is a native app on the app stores. Clients check in with a QR code, book classes, buy memberships and bundles, top up a wallet, earn loyalty points and freeze their own plan.",
+      "A client experience under your brand: your gym's own name, logo, colours and web address. On Solopreneur it is a branded booking page. On Grow it is a branded client app (PWA). On Enterprise it is custom. Clients check in with a QR code, book classes, buy memberships and bundles, top up a wallet, earn loyalty points and freeze their own plan.",
   },
   {
     question: "How do clients pay?",
@@ -37,7 +37,7 @@ export const faq: FaqItem[] = [
   {
     question: "Can I run more than one department or location?",
     answer:
-      "Yes, on Scale: up to 5 departments and 2–3 locations, each department with its own prices, coaches and sessions. You can also add an extra department or location to a plan as an add-on. Enterprise is custom.",
+      "Yes. Each department has its own prices, coaches and sessions. You can add an extra department or location to a plan as an add-on, and Enterprise is custom, built around your community.",
   },
   {
     question: "Can I add things later?",

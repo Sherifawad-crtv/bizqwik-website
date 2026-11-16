@@ -80,7 +80,7 @@ export function PlansSection() {
           <p className="mt-4 text-[19px] leading-snug text-ink-muted">{plansIntro.lede}</p>
         </div>
 
-        <ul className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+        <ul className="grid gap-4 lg:grid-cols-3">
           {plans.map((p) => (
             <PlanCard key={p.id} plan={p} />
           ))}
