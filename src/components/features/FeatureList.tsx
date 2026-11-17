@@ -62,9 +62,6 @@ export function FeatureList() {
                     <span data-rule aria-hidden className="mb-4 block h-px bg-ink/15" />
                     <h3 className="text-[28px] font-extrabold leading-[1.05] tracking-[-.025em]">{f.title}</h3>
                   </div>
-                  {f.id === "business" && (
-                    <p className="mt-3 max-w-[26rem] text-[18px] leading-snug text-ink-muted max-[900px]:mb-4 max-[900px]:mt-0">{f.headline}</p>
-                  )}
                   {f.bullets.length > 0 && (
                   <ul className="mt-5 max-w-[26rem] max-[900px]:mb-4 max-[900px]:mt-1">
                     {f.bullets.map((b) => (
