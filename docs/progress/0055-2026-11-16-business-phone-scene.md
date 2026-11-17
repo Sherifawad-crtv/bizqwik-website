@@ -38,3 +38,6 @@ The coaches in the scene are four of the Revolt team, with the avatars they have
 - Still using the old invented names: the clients demo ("Coach Nour", "Coach Omar") and the hero's paper props (payouts note).
 - Privacy: these are real people on a public page. Confirm each coach agrees before launch (their avatars are stylised illustrations, not photographs).
 - Environment: `aylhnxniqrihpvrllpgz.supabase.co` was added to the "Open" environment to download the images.
+
+## Update 2026-11-17: the iPhone frame
+The scene's phone now wears the same device frame as the hero (`public/devices/iphone-frame.webp`, the owner's mockup; there is no separate "iPhone 18" file in the repo). The app screen is built 390 x 848 pt, the frame's screen shape, and scaled into the frame's transparent screen (geometry from `components/hero/phone.ts`). The frame is 289 px wide on desktop and 268 px in the phone panels, with a soft drop shadow instead of the old rounded-card shadow. The pointer sits above the frame; the zoom, slide-up and replay are unchanged.

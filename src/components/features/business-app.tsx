@@ -1,18 +1,20 @@
 import Image from "next/image";
 import type { ReactNode } from "react";
 import { Icon, type IconName } from "@/components/ui/Icon";
+import { FRAME, SCREEN } from "@/components/hero/phone";
 import { Cursor } from "./ui";
 
 /*
  * "Run the business": a phone-shaped screen (rounded corners, no bezel) that walks through the founder app, one page
- * at a time, sliding sideways like a real app. Built at 390 x 816 points and scaled to --pw px wide.
+ * at a time, sliding sideways like a real app. Built at 390 x 848 points (the iPhone frame's screen) and scaled into the frame, --pw px wide.
  * Pages, left to right: Overview (scrolls: tiles, chart, where the money came from), Accounting, Team, Coach,
  * Schedule, To pay. business-motion.ts plays it; this markup is the FINISHED state of page 1 (reduced motion shows it).
  * Styling follows the dev branch of the product (routes/Oversight.tsx, overview/*, BottomNav.tsx).
  */
 
 export const PAGE_W = 390;
-export const PAGE_H = 816;
+/** The app screen is 390 pt wide and as tall as the iPhone frame's screen: 390 x 848 (the frame's screen is 878 x 1910 px). */
+export const PAGE_H = 848;
 export const PAGES = 6;
 
 const label = "font-mono text-[11px] font-bold tracking-[.08em] text-ink-faint";
@@ -583,31 +585,39 @@ function Confirm() {
 
 /**
  * The phone. `data-phone` is the moving thing (it slides up on entry and zooms on the charts and the payout); the pointer lives inside it so it moves along.
- * `--pw` is its width in px (the height keeps the screen's 390:816 shape).
+ * `--pw` is its width in px (the frame keeps its 980:2000 shape).
  */
 export function BusinessPhone() {
+  const pct = (n: number) => `${n * 100}%`;
   return (
     <div data-stage data-own-entrance className="relative w-full">
       <div
         data-phone
         data-inner
-        className="relative mx-auto overflow-hidden rounded-[44px] bg-paper shadow-[0_28px_70px_rgba(26,23,38,.16),0_0_0_1px_rgba(26,23,38,.05)] [--pw:282] max-[900px]:[--pw:262]"
-        style={{ width: "calc(var(--pw) * 1px)", height: "calc(var(--pw) * 2.0923px)" }}
+        className="relative mx-auto [--pw:289] max-[900px]:[--pw:268] [filter:drop-shadow(0_26px_36px_rgba(26,23,38,.18))]"
+        style={{ width: "calc(var(--pw) * 1px)", aspectRatio: `${FRAME.w} / ${FRAME.h}` }}
       >
-        <div className="origin-top-left" style={{ width: PAGE_W, height: PAGE_H, transform: "scale(calc(var(--pw) / 390))" }}>
-          <div className="relative size-full overflow-hidden">
-            <div data-pages className="absolute inset-0">
-              <Overview />
-              <Accounting />
-              <Team />
-              <Coach />
-              <Schedule />
-              <Pay />
+        {/* The screen sits where the frame's transparent screen is; the app is built 390 pt wide and scaled to it. */}
+        <div
+          className="absolute overflow-hidden bg-paper"
+          style={{ left: pct(SCREEN.left), top: pct(SCREEN.top), width: pct(SCREEN.width), height: pct(SCREEN.height), borderRadius: `calc(var(--pw) * 1px * ${SCREEN.radius})` }}
+        >
+          <div className="origin-top-left" style={{ width: PAGE_W, height: PAGE_H, transform: `scale(calc(var(--pw) * ${SCREEN.width} / ${PAGE_W}))` }}>
+            <div className="relative size-full overflow-hidden">
+              <div data-pages className="absolute inset-0">
+                <Overview />
+                <Accounting />
+                <Team />
+                <Coach />
+                <Schedule />
+                <Pay />
+              </div>
+              <Chrome />
+              <Confirm />
             </div>
-            <Chrome />
-            <Confirm />
           </div>
         </div>
+        <Image src="/devices/iphone-frame.webp" alt="" width={FRAME.w} height={FRAME.h} className="pointer-events-none absolute inset-0 size-full select-none" />
         <Cursor />
       </div>
     </div>

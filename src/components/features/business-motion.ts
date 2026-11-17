@@ -1,5 +1,5 @@
 import { duration, ease, stagger } from "@/motion/tokens";
-import { NAV_STEP, PAGE_W } from "./business-app";
+import { NAV_STEP, PAGE_H, PAGE_W } from "./business-app";
 import { grow, swap, tap, typeText, type TL } from "./demo-kit";
 
 /*
@@ -169,7 +169,7 @@ export function buildBusiness(tl: TL, _stage: HTMLElement, c: Colors, { one, all
   tl.to(one("[data-tip]"), { opacity: 0, duration: duration.fast, ease: ease.standard }, land + 1.3);
   zoomOut(land + 1.4, duration.count);
   t = land + 1.4 + duration.count + 0.1;
-  tl.to(scroll, { y: () => -(one("[data-pnl]").offsetTop + one("[data-pnl]").offsetHeight - 690), duration: duration.scene, ease: ease.standard }, t);
+  tl.to(scroll, { y: () => -(one("[data-pnl]").offsetTop + one("[data-pnl]").offsetHeight - (PAGE_H - 126)), duration: duration.scene, ease: ease.standard }, t);
   tl.fromTo(all('[data-share="service"] [data-fill]'), { scaleX: 0 }, { scaleX: 1, duration: duration.slow, ease: ease.standard, stagger: stagger.tight, immediateRender: false }, t + 0.6);
   land = tapAt(one('[data-opt="TYPE"]'), t + 1.3);
   segTo("source", "TYPE", land);
