@@ -1,9 +1,10 @@
 import { gsap, ScrollTrigger } from "@/motion/gsap";
 import { playOnView, replay, toggleOnView } from "@/motion/primitives";
-import { duration, enterFrom, ease, gap, stagger } from "@/motion/tokens";
+import { duration, enterFrom, ease, gap } from "@/motion/tokens";
 import { buildBusiness } from "./business-motion";
+import { buildCoach } from "./coach-motion";
 import { buildFrontDesk } from "./frontdesk-motion";
-import { count, grow, swap, typeText, type TL } from "./demo-kit";
+import { swap, typeText, type TL } from "./demo-kit";
 
 type Role = "business" | "frontdesk" | "coaches" | "clients";
 type Colors = { green: string; violet: string; ink: string; muted: string; pressed: string };
@@ -23,13 +24,7 @@ const BUILD: Record<Role, (tl: TL, stage: HTMLElement, c: Colors, q: Q) => void>
 
   frontdesk: buildFrontDesk,
 
-  coaches(tl, stage, _c, { one, all }) {
-    const fresh = one("[data-new]");
-    tl.fromTo(all("[data-grow] ~ div, [data-new] ~ div"), { opacity: 0, y: 8 }, { opacity: 1, y: 0, duration: duration.base, ease: ease.enter, stagger: stagger.base }, 0.7);
-    grow(tl, fresh, 2.0);
-    count(one("[data-count]"), 4200, 4500, tl, 2.2, 2);
-    swap(tl, stage, "paid", 5.4);
-  },
+  coaches: buildCoach,
 
   clients(tl, stage, _c, { one, all }) {
     const app = one("[data-app]");

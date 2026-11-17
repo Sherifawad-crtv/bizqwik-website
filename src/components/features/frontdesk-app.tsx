@@ -16,13 +16,13 @@ const TABS: Tab[] = [
 ];
 
 const TONE = { green: "text-green-fg", amber: "text-amber-fg", red: "text-danger-fg", muted: "text-ink-faint" } as const;
-type Tone = keyof typeof TONE;
+export type Tone = keyof typeof TONE;
 const PILL = { green: "bg-green-bg text-green-fg", amber: "bg-amber-bg text-amber-fg", red: "bg-danger-bg text-danger-fg", muted: "bg-sunken text-ink-muted" } as const;
 
-const Pill = ({ tone, children }: { tone: Tone; children: React.ReactNode }) => (
+export const Pill = ({ tone, children }: { tone: Tone; children: React.ReactNode }) => (
   <span className={`inline-flex items-center whitespace-nowrap rounded-full px-[9px] py-[3px] font-mono text-[11px] font-bold tracking-[.02em] ${PILL[tone]}`}>{children}</span>
 );
-const Initial = ({ n, size = 44 }: { n: string; size?: number }) => (
+export const Initial = ({ n, size = 44 }: { n: string; size?: number }) => (
   <span className="grid shrink-0 place-items-center rounded-full bg-primary-tint text-[17px] font-extrabold text-primary-pressed" style={{ width: size, height: size }}>
     {n[0]}
   </span>
@@ -35,14 +35,14 @@ const Search = ({ children, typeKey }: { children?: string; typeKey?: string }) 
     </span>
   </div>
 );
-const Check = ({ size = 15 }: { size?: number }) => (
+export const Check = ({ size = 15 }: { size?: number }) => (
   <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
     <path d="M5 12.5l4.5 4.5L19 7.5" />
   </svg>
 );
 /** A bottom sheet that waits below the page until the scene lifts it. */
-const sheetCls = "absolute inset-x-0 bottom-0 z-20 rounded-t-[40px] bg-surface px-5 pb-[34px] pt-3 opacity-0 shadow-[0_-20px_50px_rgba(26,23,38,.18)]";
-const Grabber = () => <span className="mx-auto mb-4 block h-1 w-10 rounded-full bg-line" />;
+export const sheetCls = "absolute inset-x-0 bottom-0 z-20 rounded-t-[40px] bg-surface px-5 pb-[34px] pt-3 opacity-0 shadow-[0_-20px_50px_rgba(26,23,38,.18)]";
+export const Grabber = () => <span className="mx-auto mb-4 block h-1 w-10 rounded-full bg-line" />;
 const Field = ({ l, children, type }: { l: string; children?: string; type?: string }) => (
   <div className="mb-2.5 rounded-[16px] bg-paper px-4 py-2.5">
     <p className={label}>{l}</p>

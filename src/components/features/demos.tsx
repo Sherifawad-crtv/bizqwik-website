@@ -1,58 +1,10 @@
 import { Icon } from "@/components/ui/Icon";
-import { Card, IconTile, Label, Row, Stage, Swap, Tick } from "./ui";
+import { Card, Stage, Swap } from "./ui";
 
 /*
  * The four demos, one per bundle. Illustrative names and figures (brief GAP 7). Each demo's default markup is
  * its FINISHED state; features-motion.ts plays it from the start and reduced motion shows it as it is.
  */
-
-/* ---------- Coaches: a wallet of this month's earnings ---------- */
-export function CoachDemo() {
-  return (
-    <Stage>
-      <Card>
-        <div className="relative pt-3">
-          <span aria-hidden className="absolute inset-x-5 top-0 h-24 rounded-[20px] bg-primary-pressed/35" />
-          <div className="relative overflow-hidden rounded-[20px] p-5 text-white" style={{ background: "linear-gradient(135deg,#7a63ff 0%,#5a41ff 48%,#3d28c4 100%)" }}>
-            <span aria-hidden className="absolute -right-12 -top-14 size-48 rounded-full bg-white/10" />
-            <span aria-hidden className="absolute -bottom-20 right-10 size-44 rounded-full bg-white/[.07]" />
-            <div className="relative flex items-center justify-between text-[14px]">
-              <span className="text-white/75">Earned this month</span>
-              <span className="rounded-full bg-white/15 px-2.5 py-1 text-[12px] font-semibold">October</span>
-            </div>
-            <p className="tabular relative mt-3 text-[42px] font-bold leading-none tracking-[-.03em]">
-              <span data-count>4,500.00</span> <span className="text-[15px] font-medium tracking-normal text-white/75">EGP</span>
-            </p>
-            <div className="relative mt-5 flex items-center justify-between gap-3 text-[13px] text-white/80">
-              <span>Senior tier · 300 EGP each</span>
-              <Swap
-                name="paid"
-                className="justify-items-end whitespace-nowrap"
-                a="Payout Nov 2"
-                b={
-                  <span className="inline-flex items-center gap-1 font-semibold text-white">
-                    <Tick size={14} />
-                    Paid Nov 2
-                  </span>
-                }
-              />
-            </div>
-          </div>
-        </div>
-
-        <Label className="mt-5">Sessions</Label>
-        <div className="space-y-2">
-          <div data-grow data-new className="overflow-hidden">
-            <Row tile={<IconTile name="qr-code" />} title="Strength class" sub="Fri 17 · scanned 6:02 PM" right={<span className="text-[14px] font-semibold text-green-fg">+300</span>} />
-            <div className="h-2" />
-          </div>
-          <Row tile={<IconTile name="qr-code" />} title="Strength class" sub="Thu 16 · scanned 5:58 PM" right={<span className="text-[14px] font-semibold text-green-fg">+300</span>} />
-          <Row tile={<IconTile name="qr-code" />} title="Yoga" sub="Wed 15 · scanned 5:01 PM" right={<span className="text-[14px] font-semibold text-green-fg">+300</span>} />
-        </div>
-      </Card>
-    </Stage>
-  );
-}
 
 /* ---------- Your gym, your brand: set a name, logo, colour and address, and the client app follows ---------- */
 export function ClientDemo() {
