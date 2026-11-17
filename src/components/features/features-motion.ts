@@ -2,7 +2,8 @@ import { gsap, ScrollTrigger } from "@/motion/gsap";
 import { playOnView, replay, toggleOnView } from "@/motion/primitives";
 import { duration, enterFrom, ease, gap, stagger } from "@/motion/tokens";
 import { buildBusiness } from "./business-motion";
-import { count, grow, swap, tap, typeText, type TL } from "./demo-kit";
+import { buildFrontDesk } from "./frontdesk-motion";
+import { count, grow, swap, typeText, type TL } from "./demo-kit";
 
 type Role = "business" | "frontdesk" | "coaches" | "clients";
 type Colors = { green: string; violet: string; ink: string; muted: string; pressed: string };
@@ -20,21 +21,7 @@ const NEUTRAL = { "--app-brand": "#a8a5b3", "--app-on": "#ffffff", "--app-bg": "
 const BUILD: Record<Role, (tl: TL, stage: HTMLElement, c: Colors, q: Q) => void> = {
   business: buildBusiness,
 
-  frontdesk(tl, stage, _c, { one, all }) {
-    const list = one('[data-layer="list"]');
-    const record = one('[data-layer="record"]');
-    typeText(tl, one('[data-type="search"]'), "Mona", 0.7, 0.8);
-    all("[data-res]").forEach((el) => tl.fromTo(el, { height: () => el.offsetHeight, opacity: 1 }, { height: 0, opacity: 0, duration: duration.slow, ease: ease.standard }, 2.0));
-    const open = tap(tl, stage, one('[data-tap="row"]'), 3.1);
-    tl.fromTo(list, { opacity: 1, y: 0 }, { opacity: 0, y: -8, duration: duration.fast, ease: ease.standard }, open + 0.05)
-      .fromTo(record, { opacity: 0, y: 8 }, { opacity: 1, y: 0, duration: duration.base, ease: ease.enter }, open + 0.25);
-    const checkin = tap(tl, stage, one('[data-tap="checkin"]'), open + 1.5);
-    swap(tl, stage, "checkin", checkin + 0.05);
-    swap(tl, stage, "seen", checkin + 0.1);
-    const renew = tap(tl, stage, one('[data-tap="renew"]'), checkin + 1.1);
-    swap(tl, stage, "renew", renew + 0.05);
-    swap(tl, stage, "renews", renew + 0.1);
-  },
+  frontdesk: buildFrontDesk,
 
   coaches(tl, stage, _c, { one, all }) {
     const fresh = one("[data-new]");

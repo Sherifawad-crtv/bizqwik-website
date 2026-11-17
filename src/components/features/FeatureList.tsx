@@ -6,12 +6,13 @@ import { Icon } from "@/components/ui/Icon";
 import { ReplayButton } from "@/components/ui/ReplayButton";
 import { features, type FeatureId } from "@/content";
 import { BusinessPhone } from "./business-app";
-import { ClientDemo, CoachDemo, FrontDeskDemo } from "./demos";
+import { ClientDemo, CoachDemo } from "./demos";
+import { FrontDeskPhone } from "./frontdesk-app";
 import { initFeatureMotion } from "./features-motion";
 
 const DEMOS: Record<FeatureId, () => React.JSX.Element> = {
   business: BusinessPhone,
-  frontdesk: FrontDeskDemo,
+  frontdesk: FrontDeskPhone,
   coaches: CoachDemo,
   clients: ClientDemo,
 };
@@ -22,7 +23,7 @@ const DESIGN_W = 480;
 /** The client demo shows two cards side by side, so its stage is wider. */
 const WIDE: Partial<Record<FeatureId, true>> = { clients: true };
 /** The business phone spans the whole panel: it flies in from its edges. */
-const FULL: Partial<Record<FeatureId, true>> = { business: true };
+const FULL: Partial<Record<FeatureId, true>> = { business: true, frontdesk: true };
 
 /**
  * Section 5 of the outline, laid out like the reference's feature list: one row per feature. The text sits on the

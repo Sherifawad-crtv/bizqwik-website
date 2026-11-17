@@ -72,3 +72,4 @@ Convention (same as the app repo, `Sherifawad-crtv/bizqwik`):
 | 0053 | Three plans: Scale removed |
 | 0054 | Shorter FAQ |
 | 0055 | Run the business: a phone that walks through the founder app |
+| 0056 | Front desk and CRM: a phone scene in the iPhone frame |

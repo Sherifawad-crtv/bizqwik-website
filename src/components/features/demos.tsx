@@ -1,73 +1,10 @@
 import { Icon } from "@/components/ui/Icon";
-import { Card, IconTile, Initial, Label, MiniButton, Row, SearchGlyph, Stage, Status, Swap, Table, Tick } from "./ui";
+import { Card, IconTile, Label, Row, Stage, Swap, Tick } from "./ui";
 
 /*
  * The four demos, one per bundle. Illustrative names and figures (brief GAP 7). Each demo's default markup is
  * its FINISHED state; features-motion.ts plays it from the start and reduced motion shows it as it is.
  */
-
-/* ---------- Front desk and CRM: find a client, open the record, act on it ---------- */
-export function FrontDeskDemo() {
-  return (
-    <Stage>
-      <Card>
-        <div className="grid">
-          <div data-layer="list" className="col-start-1 row-start-1">
-            <p className="text-[18px] font-bold tracking-[-.01em]">Clients</p>
-            <div className="mt-3 flex h-11 items-center gap-2.5 rounded-[12px] bg-paper px-3.5 text-[15px]">
-              <SearchGlyph />
-              <span data-type="search">Mona</span>
-            </div>
-            <div className="mt-3 space-y-2">
-              <Row data-tap="row" tile={<Initial letter="M" />} title="Mona Khaled" sub="Monthly plan" right={<Status>Active</Status>} />
-              <div data-res className="overflow-hidden">
-                <Row tile={<Initial letter="M" />} title="Moustafa Ali" sub="10-class pack" right={<Status tone="red">Expired</Status>} />
-              </div>
-              <div data-res className="overflow-hidden">
-                <Row tile={<Initial letter="S" />} title="Sara Mostafa" sub="Drop-in pass" right={<Status tone="muted">Frozen</Status>} />
-              </div>
-            </div>
-          </div>
-
-          <div data-layer="record" className="col-start-1 row-start-1 opacity-0">
-            <div className="flex items-center gap-3">
-              <span className="grid size-14 shrink-0 place-items-center rounded-[16px] bg-primary-tint-strong text-[22px] font-bold text-primary-pressed">M</span>
-              <div className="min-w-0 flex-1">
-                <p className="truncate text-[18px] font-bold leading-tight tracking-[-.01em]">Mona Khaled</p>
-                <p className="mt-1 text-[14px] text-ink-muted">01012345678</p>
-              </div>
-              <span className="text-[14px]">
-                <Status>Active</Status>
-              </span>
-            </div>
-            <div className="mt-4">
-              <Table
-                rows={[
-                  ["Plan", "Monthly plan"],
-                  ["Renews", <Swap key="r" name="renews" a="Nov 16" b="Dec 16" className="justify-items-end" />],
-                  ["Wallet", "250.00 EGP"],
-                  ["Last check-in", <Swap key="c" name="seen" a="Yesterday" b="Today, 6:02 PM" className="justify-items-end" />],
-                ]}
-              />
-            </div>
-            <div className="mt-3 grid grid-cols-3 gap-2">
-              <MiniButton data-tap="checkin">
-                <Swap name="checkin" a="Check in" b={<span className="inline-flex items-center gap-1 text-green-fg"><Tick size={14} />Checked in</span>} />
-              </MiniButton>
-              <MiniButton data-tap="renew">
-                <Swap name="renew" a="Renew" b={<span className="inline-flex items-center gap-1 text-green-fg"><Tick size={14} />Renewed</span>} />
-              </MiniButton>
-              <MiniButton>
-                <Icon name="snowflake" size={16} />
-                <span className="ml-1.5">Freeze</span>
-              </MiniButton>
-            </div>
-          </div>
-        </div>
-      </Card>
-    </Stage>
-  );
-}
 
 /* ---------- Coaches: a wallet of this month's earnings ---------- */
 export function CoachDemo() {

@@ -17,12 +17,12 @@ export const PAGE_W = 390;
 export const PAGE_H = 848;
 export const PAGES = 6;
 
-const label = "font-mono text-[11px] font-bold tracking-[.08em] text-ink-faint";
-const card = "rounded-[28px] bg-surface";
+export const label = "font-mono text-[11px] font-bold tracking-[.08em] text-ink-faint";
+export const card = "rounded-[28px] bg-surface";
 
 /* ---------- small pieces ---------- */
 
-const Back = () => (
+export const Back = () => (
   <span data-tap="back" className="grid size-10 place-items-center rounded-full bg-surface shadow-[0_1px_0_rgba(26,23,38,.06)]">
     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
       <path d="m14.5 6-6 6 6 6" />
@@ -30,13 +30,13 @@ const Back = () => (
   </span>
 );
 
-const Chevron = () => (
+export const Chevron = () => (
   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
     <path d="m9.5 6 6 6-6 6" />
   </svg>
 );
 
-function Header({ kicker, title, back, photo }: { kicker: string; title: string; back?: boolean; photo?: string }) {
+export function Header({ kicker, title, back, photo }: { kicker: string; title: string; back?: boolean; photo?: string }) {
   return (
     <div className="mb-5 flex items-center gap-3">
       {back && <Back />}
@@ -59,7 +59,7 @@ function Delta({ text, tone = "good" }: { text: string; tone?: "good" | "neutral
 }
 
 /** The app's pill selector: sunken track, the chosen option on a surface pill that slides (`data-thumb`). */
-function Seg({ name, options, widths }: { name: string; options: readonly string[]; widths: number }) {
+export function Seg({ name, options, widths }: { name: string; options: readonly string[]; widths: number }) {
   return (
     <div data-seg={name} className="relative flex w-fit gap-1.5 rounded-full bg-sunken p-1">
       <span data-thumb className="absolute left-0 top-1 bottom-1 rounded-full bg-surface" style={{ width: widths, transform: "translateX(4px)" }} />
@@ -197,9 +197,9 @@ function Shares({ name, rows, hidden }: { name: string; rows: [string, string, n
 
 /* ---------- pages ---------- */
 
-const pageCls = "absolute inset-0 overflow-hidden bg-paper px-4 pt-[56px]";
+export const pageCls = "absolute inset-0 overflow-hidden bg-paper px-4 pt-[56px]";
 /** Every page but Overview waits off to the right (inline, so GSAP reads it as its starting x). */
-const away = { transform: `translateX(${PAGE_W}px)` };
+export const away = { transform: `translateX(${PAGE_W}px)` };
 
 function Overview() {
   return (
@@ -329,7 +329,7 @@ const COACHES: { n: string; photo: string; tier: string; sub: string; tone: "gre
   { n: "Fatma", photo: "fatma", tier: "Head coach · 500 EGP", sub: "Mobility · 6:58 PM", tone: "green", status: "On time" },
   { n: "Yassin", photo: "yassin", tier: "Junior coach · 250 EGP", sub: "Off today", tone: "muted", status: "—" },
 ];
-const Face = ({ photo, size = 44 }: { photo: string; size?: number }) => (
+export const Face = ({ photo, size = 44 }: { photo: string; size?: number }) => (
   <Image src={`/demo/coach-${photo}.webp`} alt="" width={160} height={160} unoptimized className="shrink-0 rounded-full object-cover" style={{ width: size, height: size }} />
 );
 const TONE = { green: "text-green-fg", amber: "text-amber-fg", muted: "text-ink-faint" } as const;
@@ -524,10 +524,18 @@ function Pay() {
 
 /* ---------- chrome: status bar, bottom nav ---------- */
 
-const NAV: IconName[] = ["home-smile", "users-group-rounded", "clipboard-list", "tag", "clock-circle"];
+export type Tab = { icon: IconName; key: string };
+const BUSINESS_TABS: Tab[] = [
+  { icon: "home-smile", key: "home" },
+  { icon: "users-group-rounded", key: "team" },
+  { icon: "clipboard-list", key: "clients" },
+  { icon: "tag", key: "catalog" },
+  { icon: "clock-circle", key: "history" },
+];
 export const NAV_STEP = 50 + 6;
 
-function Chrome() {
+/** Status bar and the tab bar with its round action button (BottomNav + Fab). */
+export function Chrome({ tabs = BUSINESS_TABS }: { tabs?: Tab[] }) {
   return (
     <>
       <div className="pointer-events-none absolute inset-x-0 top-0 z-30 h-[58px] bg-gradient-to-b from-paper from-65% to-paper/0">
@@ -544,18 +552,18 @@ function Chrome() {
       <div data-navbar className="absolute inset-x-0 z-40 flex items-center justify-center gap-3 px-4" style={{ bottom: 26 }}>
         <div className="relative flex h-16 items-center gap-1.5 overflow-hidden rounded-full border border-white/55 bg-surface/55 px-1.5 shadow-[0_14px_34px_rgba(26,23,38,.18),inset_0_1px_0_rgba(255,255,255,.7)] backdrop-blur-[28px] backdrop-saturate-[1.8]">
           <span data-nav-ind aria-hidden className="absolute left-1.5 top-[6px] size-[50px] rounded-full bg-primary-tint-strong" />
-          {NAV.map((n, i) => (
-            <span key={n} data-tab={["home", "team", "clients", "catalog", "history"][i]} className={`relative grid size-[50px] shrink-0 place-items-center rounded-full ${i === 0 ? "text-primary-pressed" : "text-ink-muted"}`}>
+          {tabs.map((t, i) => (
+            <span key={t.key} data-tab={t.key} className={`relative grid size-[50px] shrink-0 place-items-center rounded-full ${i === 0 ? "text-primary-pressed" : "text-ink-muted"}`}>
               <span data-glyph="lin" className={`col-start-1 row-start-1 ${i === 0 ? "opacity-0" : ""}`}>
-                <Icon name={n} size={22} />
+                <Icon name={t.icon} size={22} />
               </span>
               <span data-glyph="solid" className={`col-start-1 row-start-1 ${i === 0 ? "" : "opacity-0"}`}>
-                <Icon name={n} size={22} solid />
+                <Icon name={t.icon} size={22} solid />
               </span>
             </span>
           ))}
         </div>
-        <span className="grid size-16 shrink-0 place-items-center rounded-full bg-primary text-surface shadow-[0_12px_30px_rgba(90,65,255,.4)]">
+        <span data-fab className="grid size-16 shrink-0 place-items-center rounded-full bg-primary text-surface shadow-[0_12px_30px_rgba(90,65,255,.4)]">
           <Icon name="add" size={28} strokeWidth={2.4} />
         </span>
       </div>
@@ -564,7 +572,7 @@ function Chrome() {
 }
 
 /** The "paid" confirmation: a full screen that rises over the app, with a ring that pulses and a check that draws itself. */
-function Confirm() {
+export function Confirm({ title = "Paid", sub = "Coach Ali · 4,200.00 EGP", chip = "OCT 2026 · SAVED TO HISTORY" }: { title?: string; sub?: string; chip?: string }) {
   return (
     <div data-confirm className="pointer-events-none absolute inset-0 z-50 flex flex-col items-center justify-center bg-paper px-8 text-center opacity-0">
       <div className="relative grid size-[140px] place-items-center">
@@ -576,9 +584,9 @@ function Confirm() {
           </svg>
         </span>
       </div>
-      <p data-c-text className="mt-9 text-[36px] font-extrabold leading-none tracking-[-.025em]">Paid</p>
-      <p data-c-text className="mt-3 text-[16px] text-ink-muted">Coach Ali · 4,200.00 EGP</p>
-      <p data-c-text className="mt-6 rounded-full bg-surface px-4 py-2 font-mono text-[11px] font-bold tracking-[.06em] text-ink-muted">OCT 2026 · SAVED TO HISTORY</p>
+      <p data-c-text className="mt-9 text-[36px] font-extrabold leading-none tracking-[-.025em]">{title}</p>
+      <p data-c-text className="mt-3 text-[16px] text-ink-muted">{sub}</p>
+      <p data-c-text className="mt-6 rounded-full bg-surface px-4 py-2 font-mono text-[11px] font-bold tracking-[.06em] text-ink-muted">{chip}</p>
     </div>
   );
 }
@@ -587,7 +595,8 @@ function Confirm() {
  * The phone. `data-phone` is the moving thing (it slides up on entry and zooms on the charts and the payout); the pointer lives inside it so it moves along.
  * `--pw` is its width in px (the frame keeps its 980:2000 shape).
  */
-export function BusinessPhone() {
+/** The iPhone frame with the app screen scaled into it, and the pointer on top. `children` are the app's layers (pages, bar, overlays). */
+export function PhoneFrame({ children }: { children: ReactNode }) {
   const pct = (n: number) => `${n * 100}%`;
   return (
     <div data-stage data-own-entrance className="relative w-full">
@@ -603,23 +612,29 @@ export function BusinessPhone() {
           style={{ left: pct(SCREEN.left), top: pct(SCREEN.top), width: pct(SCREEN.width), height: pct(SCREEN.height), borderRadius: `calc(var(--pw) * 1px * ${SCREEN.radius})` }}
         >
           <div className="origin-top-left" style={{ width: PAGE_W, height: PAGE_H, transform: `scale(calc(var(--pw) * ${SCREEN.width} / ${PAGE_W}))` }}>
-            <div className="relative size-full overflow-hidden">
-              <div data-pages className="absolute inset-0">
-                <Overview />
-                <Accounting />
-                <Team />
-                <Coach />
-                <Schedule />
-                <Pay />
-              </div>
-              <Chrome />
-              <Confirm />
-            </div>
+            <div className="relative size-full overflow-hidden">{children}</div>
           </div>
         </div>
         <Image src="/devices/iphone-frame.webp" alt="" width={FRAME.w} height={FRAME.h} className="pointer-events-none absolute inset-0 size-full select-none" />
         <Cursor />
       </div>
     </div>
+  );
+}
+
+export function BusinessPhone() {
+  return (
+    <PhoneFrame>
+      <div data-pages className="absolute inset-0">
+        <Overview />
+        <Accounting />
+        <Team />
+        <Coach />
+        <Schedule />
+        <Pay />
+      </div>
+      <Chrome />
+      <Confirm />
+    </PhoneFrame>
   );
 }
