@@ -10,8 +10,12 @@ export const features: Feature[] = [
     id: "business",
     title: "Run the business",
     headline: "See the whole business. Run it from one place.",
-    // No bullets: the phone itself walks through what the founder gets to do.
-    bullets: [],
+    bullets: [
+      "Track revenue, profit, coach payouts and active subscribers in one dashboard.",
+      "See who showed up and when, with timestamps, on time or late.",
+      "Plan the whole month: dates, start times and a coach for every class.",
+      "Run the monthly payout: settle, pay, mark paid.",
+    ],
   },
   {
     id: "frontdesk",

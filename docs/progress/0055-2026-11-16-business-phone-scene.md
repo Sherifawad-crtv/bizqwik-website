@@ -28,3 +28,6 @@ Replaces the old card demo. One row, one scene, no bullets (the flow carries the
 7. **Payout.** Settle month, then a 1.32x zoom on the list, Pay turns to Paid, the camera pulls back and a full "Paid" screen rises over the app: a seal that springs in, a check that draws itself, a pulsing ring, the amount and "Saved to History". It holds as the last frame.
 - Navigation model: pages are stacked; a new page slides in from the right over the old one (which eases left), and Back reverses it. Back taps were added after Accounting and Coach, so the scene is about 36 seconds.
 - Checked at 1440 and 390: replay resets cleanly (slides up again), no console errors.
+
+## Update 2026-11-17: bullets back
+The four bullets are back under "Run the business" (title, subtitle, four bullets, like the other rows). I had removed them after reading "bullets just showcase a cool UI flow" as "no bullets"; the intent was that the flow shows what the bullets say. Wording is the approved original.
