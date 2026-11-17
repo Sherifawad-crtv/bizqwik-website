@@ -34,7 +34,7 @@ const Chevron = () => (
   </svg>
 );
 
-function Header({ kicker, title, back }: { kicker: string; title: string; back?: boolean }) {
+function Header({ kicker, title, back, photo }: { kicker: string; title: string; back?: boolean; photo?: string }) {
   return (
     <div className="mb-5 flex items-center gap-3">
       {back && <Back />}
@@ -42,6 +42,11 @@ function Header({ kicker, title, back }: { kicker: string; title: string; back?:
         <p className={label}>{kicker}</p>
         <h3 className="text-[26px] font-extrabold leading-[1.15] tracking-[-.02em]">{title}</h3>
       </div>
+      {photo && (
+        <span className="ml-auto">
+          <Face photo={photo} size={48} />
+        </span>
+      )}
     </div>
   );
 }
@@ -315,12 +320,16 @@ function Accounting() {
   );
 }
 
-const COACHES: { n: string; tier: string; sub: string; tone: "green" | "amber" | "muted"; status: string }[] = [
-  { n: "Nour", tier: "Senior coach · 300 EGP", sub: "Strength · 5:52 PM", tone: "green", status: "On time" },
-  { n: "Omar", tier: "Junior coach · 250 EGP", sub: "Yoga · 5:09 PM", tone: "amber", status: "9 min late" },
-  { n: "Salma", tier: "Head coach · 500 EGP", sub: "Mobility · 6:58 PM", tone: "green", status: "On time" },
-  { n: "Adel", tier: "Junior coach · 250 EGP", sub: "Off today", tone: "muted", status: "—" },
+/** The team: the Revolt coaches (their app avatars), first names only. Tiers and rates are illustrative. */
+const COACHES: { n: string; photo: string; tier: string; sub: string; tone: "green" | "amber" | "muted"; status: string }[] = [
+  { n: "Ali", photo: "ali", tier: "Senior coach · 300 EGP", sub: "Strength · 5:52 PM", tone: "green", status: "On time" },
+  { n: "Lana", photo: "lana", tier: "Junior coach · 250 EGP", sub: "Yoga · 5:09 PM", tone: "amber", status: "9 min late" },
+  { n: "Fatma", photo: "fatma", tier: "Head coach · 500 EGP", sub: "Mobility · 6:58 PM", tone: "green", status: "On time" },
+  { n: "Yassin", photo: "yassin", tier: "Junior coach · 250 EGP", sub: "Off today", tone: "muted", status: "—" },
 ];
+const Face = ({ photo, size = 44 }: { photo: string; size?: number }) => (
+  <Image src={`/demo/coach-${photo}.webp`} alt="" width={160} height={160} unoptimized className="shrink-0 rounded-full object-cover" style={{ width: size, height: size }} />
+);
 const TONE = { green: "text-green-fg", amber: "text-amber-fg", muted: "text-ink-faint" } as const;
 
 function Team() {
@@ -330,7 +339,7 @@ function Team() {
       <div className="flex flex-col gap-2.5">
         {COACHES.map((c, i) => (
           <div key={c.n} data-crow {...(i === 0 ? { "data-tap": "coach" } : {})} className={`${card} flex items-center gap-3 px-4 py-3.5`}>
-            <span className="grid size-11 shrink-0 place-items-center rounded-full bg-primary-tint text-[17px] font-extrabold text-primary-pressed">{c.n[0]}</span>
+            <Face photo={c.photo} />
             <div className="min-w-0 flex-1">
               <p className="text-[16px] font-bold leading-tight">Coach {c.n}</p>
               <p className="mt-1 text-[12.5px] leading-tight text-ink-muted">{c.tier}</p>
@@ -359,7 +368,7 @@ const SESSIONS: [string, string, string, "green" | "amber"][] = [
 function Coach() {
   return (
     <section data-page="coach" className={pageCls} style={away}>
-      <Header kicker="SENIOR COACH" title="Coach Nour" back />
+      <Header kicker="SENIOR COACH" title="Coach Ali" back photo="ali" />
       <div className="mb-3.5 grid grid-cols-2 gap-2.5">
         <div className={`${card} px-4 py-[14px]`}>
           <div className={label}>SESSIONS</div>
@@ -437,7 +446,7 @@ function Schedule() {
         {[
           ["TITLE", <span key="t" data-type="cls" className="font-semibold">Strength</span>],
           ["TIME", <span key="ti" className="font-semibold">6:00 PM</span>],
-          ["COACH", <span key="c" className="font-semibold">Coach Nour</span>],
+          ["COACH", <span key="c" className="font-semibold">Coach Ali</span>],
         ].map(([l, v]) => (
           <div key={l as string} className="mb-2.5 rounded-[16px] bg-paper px-4 py-2.5">
             <p className={label}>{l}</p>
@@ -458,11 +467,11 @@ function Schedule() {
   );
 }
 
-const PAYEES: [string, string, string][] = [
-  ["Nour", "14 sessions · Senior", "4,200.00"],
-  ["Omar", "12 sessions · Junior", "3,000.00"],
-  ["Salma", "11 sessions · Head", "5,500.00"],
-  ["Adel", "11 sessions · Junior", "2,750.00"],
+const PAYEES: [string, string, string, string][] = [
+  ["Ali", "ali", "14 sessions · Senior", "4,200.00"],
+  ["Lana", "lana", "12 sessions · Junior", "3,000.00"],
+  ["Fatma", "fatma", "11 sessions · Head", "5,500.00"],
+  ["Yassin", "yassin", "11 sessions · Junior", "2,750.00"],
 ];
 
 function Pay() {
@@ -483,9 +492,9 @@ function Pay() {
         </span>
       </div>
       <div data-payees className="flex flex-col gap-2.5">
-        {PAYEES.map(([n, s, a], i) => (
+        {PAYEES.map(([n, photo, s, a], i) => (
           <div key={n} data-prow className={`${card} flex items-center gap-3 px-4 py-3.5`}>
-            <span className="grid size-11 shrink-0 place-items-center rounded-full bg-primary-tint text-[17px] font-extrabold text-primary-pressed">{n[0]}</span>
+            <Face photo={photo} />
             <div className="min-w-0 flex-1">
               <p className="text-[16px] font-bold leading-tight">Coach {n}</p>
               <p className="mt-1 text-[12.5px] leading-tight text-ink-muted">{s}</p>
@@ -566,7 +575,7 @@ function Confirm() {
         </span>
       </div>
       <p data-c-text className="mt-9 text-[36px] font-extrabold leading-none tracking-[-.025em]">Paid</p>
-      <p data-c-text className="mt-3 text-[16px] text-ink-muted">Coach Nour · 4,200.00 EGP</p>
+      <p data-c-text className="mt-3 text-[16px] text-ink-muted">Coach Ali · 4,200.00 EGP</p>
       <p data-c-text className="mt-6 rounded-full bg-surface px-4 py-2 font-mono text-[11px] font-bold tracking-[.06em] text-ink-muted">OCT 2026 · SAVED TO HISTORY</p>
     </div>
   );

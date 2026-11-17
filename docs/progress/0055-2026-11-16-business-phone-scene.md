@@ -31,3 +31,10 @@ Replaces the old card demo. One row, one scene, no bullets (the flow carries the
 
 ## Update 2026-11-17: bullets back
 The four bullets are back under "Run the business" (title, subtitle, four bullets, like the other rows). I had removed them after reading "bullets just showcase a cool UI flow" as "no bullets"; the intent was that the flow shows what the bullets say. Wording is the approved original.
+
+## Update 2026-11-17: real coaches from the Revolt app
+The coaches in the scene are four of the Revolt team, with the avatars they have in the app (read from the product's Supabase `profiles` for the Revolt organisation; first names only, no emails or surnames): Ali (Senior coach), Lana (Junior coach), Fatma (Head coach), Yassin (Junior coach). Images are 160px WebP in `public/demo/coach-*.webp`. They replace the invented Nour, Omar, Salma and Adel on the Team page, the coach page (now Coach Ali), the To pay list, the schedule sheet and the Paid screen. Tiers, rates, session counts and amounts are still illustrative.
+- Revolt also has Abdelrahman Ahmed (head coach), Abdelrahman Salah (coach) and the owner with avatars; not used.
+- Still using the old invented names: the clients demo ("Coach Nour", "Coach Omar") and the hero's paper props (payouts note).
+- Privacy: these are real people on a public page. Confirm each coach agrees before launch (their avatars are stylised illustrations, not photographs).
+- Environment: `aylhnxniqrihpvrllpgz.supabase.co` was added to the "Open" environment to download the images.
