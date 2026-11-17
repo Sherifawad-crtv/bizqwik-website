@@ -41,6 +41,10 @@ import { MapPointIcon } from "@solar-icons/react/linear/map-point";
 import { DocumentTextIcon } from "@solar-icons/react/linear/document-text";
 import { CloudCheckIcon } from "@solar-icons/react/linear/cloud-check";
 import { RefreshCircleIcon } from "@solar-icons/react/linear/refresh-circle";
+import { UsersGroupRoundedIcon as UsersGroupRoundedSolidIcon } from "@solar-icons/react/bold-duotone/users-group-rounded";
+import { ClipboardListIcon as ClipboardListSolidIcon } from "@solar-icons/react/bold-duotone/clipboard-list";
+import { TagIcon as TagSolidIcon } from "@solar-icons/react/bold-duotone/tag";
+import { ClockCircleIcon as ClockCircleSolidIcon } from "@solar-icons/react/bold-duotone/clock-circle";
 import { HomeSmileIcon as HomeSmileSolidIcon } from "@solar-icons/react/bold-duotone/home-smile";
 
 /**
@@ -95,8 +99,14 @@ const ICONS = {
 
 export type IconName = keyof typeof ICONS;
 
-/** Active bottom-nav tabs use the filled (bold duotone) glyph, as in the product. Only "home-smile" is wired so far. */
-const SOLID: Partial<Record<IconName, typeof HomeSmileIcon>> = { "home-smile": HomeSmileSolidIcon };
+/** Active bottom-nav tabs use the filled (bold duotone) glyph, as in the product. Wired for the five tabs of the app. */
+const SOLID: Partial<Record<IconName, typeof HomeSmileIcon>> = {
+  "home-smile": HomeSmileSolidIcon,
+  "users-group-rounded": UsersGroupRoundedSolidIcon,
+  "clipboard-list": ClipboardListSolidIcon,
+  tag: TagSolidIcon,
+  "clock-circle": ClockCircleSolidIcon,
+};
 
 export function Icon({
   name,

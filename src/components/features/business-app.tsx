@@ -21,7 +21,7 @@ const card = "rounded-[28px] bg-surface";
 /* ---------- small pieces ---------- */
 
 const Back = () => (
-  <span data-back className="grid size-10 place-items-center rounded-full bg-surface shadow-[0_1px_0_rgba(26,23,38,.06)]">
+  <span data-tap="back" className="grid size-10 place-items-center rounded-full bg-surface shadow-[0_1px_0_rgba(26,23,38,.06)]">
     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
       <path d="m14.5 6-6 6 6 6" />
     </svg>
@@ -190,7 +190,9 @@ function Shares({ name, rows, hidden }: { name: string; rows: [string, string, n
 
 /* ---------- pages ---------- */
 
-const pageCls = "relative h-[816px] w-[390px] shrink-0 overflow-hidden px-4 pt-[56px]";
+const pageCls = "absolute inset-0 overflow-hidden bg-paper px-4 pt-[56px]";
+/** Every page but Overview waits off to the right (inline, so GSAP reads it as its starting x). */
+const away = { transform: `translateX(${PAGE_W}px)` };
 
 function Overview() {
   return (
@@ -251,7 +253,7 @@ const EXPENSES: [string, string][] = [
 function Accounting() {
   const line = "flex items-baseline justify-between border-t border-line py-3 text-[15px]";
   return (
-    <section data-page="accounting" className={pageCls}>
+    <section data-page="accounting" className={pageCls} style={away}>
       <Header kicker="BUSINESS" title="Accounting" back />
       <div className={`${card} mb-3.5 px-[18px] py-4`}>
         <div className={label}>PROFIT &amp; LOSS</div>
@@ -283,12 +285,8 @@ function Accounting() {
       </div>
 
       <div className={`${card} px-[18px] py-4`}>
-        <div className="mb-1 flex items-center">
+        <div className="mb-1">
           <div className={label}>EXPENSES</div>
-          <span data-tap="addexp" className="ml-auto inline-flex h-9 items-center gap-1.5 rounded-full bg-ink px-3.5 text-[13px] font-bold text-surface">
-            <Icon name="add" size={15} strokeWidth={2.4} />
-            Add expense
-          </span>
         </div>
         {EXPENSES.map(([n, v]) => (
           <div key={n} className="flex items-baseline justify-between border-t border-line py-3 text-[15px]">
@@ -301,6 +299,16 @@ function Accounting() {
             <span className="font-semibold">Equipment</span>
             <span className="tabular font-semibold text-primary-pressed">8,400</span>
           </div>
+        </div>
+      </div>
+
+      {/* A sub-page has no tab bar; its main action floats where the bar was (Shell.tsx) */}
+      <div className="absolute inset-x-0 flex justify-center" style={{ bottom: 26 }}>
+        <div className="rounded-[32px] border border-line bg-surface p-2 shadow-[0_14px_34px_rgba(26,23,38,.18)]">
+          <span data-tap="addexp" className="inline-flex h-12 items-center gap-2 rounded-[24px] bg-primary px-6 text-[16px] font-bold text-surface">
+            <Icon name="add" size={18} strokeWidth={2.4} />
+            Add expense
+          </span>
         </div>
       </div>
     </section>
@@ -317,7 +325,7 @@ const TONE = { green: "text-green-fg", amber: "text-amber-fg", muted: "text-ink-
 
 function Team() {
   return (
-    <section data-page="team" className={pageCls}>
+    <section data-page="team" className={pageCls} style={away}>
       <Header kicker="YOUR TEAM" title="Team" />
       <div className="flex flex-col gap-2.5">
         {COACHES.map((c, i) => (
@@ -350,7 +358,7 @@ const SESSIONS: [string, string, string, "green" | "amber"][] = [
 
 function Coach() {
   return (
-    <section data-page="coach" className={pageCls}>
+    <section data-page="coach" className={pageCls} style={away}>
       <Header kicker="SENIOR COACH" title="Coach Nour" back />
       <div className="mb-3.5 grid grid-cols-2 gap-2.5">
         <div className={`${card} px-4 py-[14px]`}>
@@ -392,7 +400,7 @@ const FRIDAYS = new Set([6, 13, 20, 27]);
 function Schedule() {
   const cells: (number | null)[] = [...Array.from({ length: 30 }, (_, i) => i + 1), null, null, null, null, null]; // November 2026 starts on a Sunday
   return (
-    <section data-page="schedule" className={pageCls}>
+    <section data-page="schedule" className={pageCls} style={away}>
       <Header kicker="WHAT YOU SELL" title="Schedule" />
       <div className={`${card} px-[14px] py-4`}>
         <div className="mb-3 flex items-center px-1">
@@ -459,7 +467,7 @@ const PAYEES: [string, string, string][] = [
 
 function Pay() {
   return (
-    <section data-page="pay" className={pageCls}>
+    <section data-page="pay" className={pageCls} style={away}>
       <Header kicker="SETTLED · READY" title="To pay" />
       <div className={`${card} mb-3.5 flex items-center gap-3 px-[18px] py-4`}>
         <div className="flex-1">
@@ -527,7 +535,12 @@ function Chrome() {
           <span data-nav-ind aria-hidden className="absolute left-1.5 top-[6px] size-[50px] rounded-full bg-primary-tint-strong" />
           {NAV.map((n, i) => (
             <span key={n} data-tab={["home", "team", "clients", "catalog", "history"][i]} className={`relative grid size-[50px] shrink-0 place-items-center rounded-full ${i === 0 ? "text-primary-pressed" : "text-ink-muted"}`}>
-              <Icon name={n} size={22} strokeWidth={1.9} />
+              <span data-glyph="lin" className={`col-start-1 row-start-1 ${i === 0 ? "opacity-0" : ""}`}>
+                <Icon name={n} size={22} />
+              </span>
+              <span data-glyph="solid" className={`col-start-1 row-start-1 ${i === 0 ? "" : "opacity-0"}`}>
+                <Icon name={n} size={22} solid />
+              </span>
             </span>
           ))}
         </div>
@@ -539,16 +552,33 @@ function Chrome() {
   );
 }
 
+/** The "paid" confirmation: a full screen that rises over the app, with a ring that pulses and a check that draws itself. */
+function Confirm() {
+  return (
+    <div data-confirm className="pointer-events-none absolute inset-0 z-50 flex flex-col items-center justify-center bg-paper px-8 text-center opacity-0">
+      <div className="relative grid size-[140px] place-items-center">
+        <i data-ring className="absolute inset-0 rounded-full bg-green-fg/20 opacity-0" />
+        <i data-ring className="absolute inset-0 rounded-full bg-green-fg/20 opacity-0" />
+        <span data-seal className="relative grid size-[112px] place-items-center rounded-full bg-green-fg shadow-[0_18px_40px_rgba(23,122,75,.35)]">
+          <svg width="58" height="58" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+            <path data-check pathLength={1} d="M5.5 12.5l4.2 4.2L18.5 8" style={{ strokeDasharray: 1, strokeDashoffset: 0 }} />
+          </svg>
+        </span>
+      </div>
+      <p data-c-text className="mt-9 text-[36px] font-extrabold leading-none tracking-[-.025em]">Paid</p>
+      <p data-c-text className="mt-3 text-[16px] text-ink-muted">Coach Nour · 4,200.00 EGP</p>
+      <p data-c-text className="mt-6 rounded-full bg-surface px-4 py-2 font-mono text-[11px] font-bold tracking-[.06em] text-ink-muted">OCT 2026 · SAVED TO HISTORY</p>
+    </div>
+  );
+}
+
 /**
- * The phone. `data-phone` is the moving thing (it flies in and drifts); the pointer lives inside it so it moves along.
+ * The phone. `data-phone` is the moving thing (it slides up on entry and zooms on the charts and the payout); the pointer lives inside it so it moves along.
  * `--pw` is its width in px (the height keeps the screen's 390:816 shape).
  */
 export function BusinessPhone() {
   return (
     <div data-stage data-own-entrance className="relative w-full">
-      <p data-caption className="absolute left-0 top-0 z-10 hidden max-w-[200px] text-[17px] font-bold leading-snug tracking-[-.01em] min-[901px]:block">
-        Revenue, profit and payouts, live
-      </p>
       <div
         data-phone
         data-inner
@@ -557,7 +587,7 @@ export function BusinessPhone() {
       >
         <div className="origin-top-left" style={{ width: PAGE_W, height: PAGE_H, transform: "scale(calc(var(--pw) / 390))" }}>
           <div className="relative size-full overflow-hidden">
-            <div data-track className="flex" style={{ width: PAGE_W * PAGES }}>
+            <div data-pages className="absolute inset-0">
               <Overview />
               <Accounting />
               <Team />
@@ -566,6 +596,7 @@ export function BusinessPhone() {
               <Pay />
             </div>
             <Chrome />
+            <Confirm />
           </div>
         </div>
         <Cursor />

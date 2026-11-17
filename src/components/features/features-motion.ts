@@ -5,7 +5,7 @@ import { buildBusiness } from "./business-motion";
 import { count, grow, swap, tap, typeText, type TL } from "./demo-kit";
 
 type Role = "business" | "frontdesk" | "coaches" | "clients";
-type Colors = { green: string; violet: string; ink: string; muted: string };
+type Colors = { green: string; violet: string; ink: string; muted: string; pressed: string };
 type Q = { one: <T extends HTMLElement>(sel: string) => T; all: <T extends HTMLElement>(sel: string) => T[] };
 
 
@@ -106,7 +106,7 @@ export function initFeatureMotion(root: HTMLElement): () => void {
   mm.add("(prefers-reduced-motion: no-preference)", () => {
     const css = getComputedStyle(root);
     const token = (n: string) => css.getPropertyValue(n).trim();
-    const colors: Colors = { green: token("--color-green-fg"), violet: token("--color-primary"), ink: token("--color-ink"), muted: token("--color-ink-muted") };
+    const colors: Colors = { green: token("--color-green-fg"), violet: token("--color-primary"), ink: token("--color-ink"), muted: token("--color-ink-muted"), pressed: token("--color-primary-pressed") };
 
     const timelines = new Map<Element, TL>();
     const triggers = all<HTMLElement>("[data-panel]").map((panel) => {

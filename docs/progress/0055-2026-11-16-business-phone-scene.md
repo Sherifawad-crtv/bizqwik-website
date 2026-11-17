@@ -17,3 +17,14 @@ Replaces the old card demo. One row, one scene, no bullets (the flow carries the
 - Figures are illustrative and consistent with the hero phone (profit 365,700 = revenue 587,400 - payouts 221,700).
 - Length: about 30 seconds. Trim by dropping a step or tightening the gaps in `business-motion.ts`.
 - Not changed: the other three rows. The owner said "make them all a phone view"; read as "all the pages of this scene". Confirm if the other rows should follow.
+
+## Update 2026-11-17 (owner notes, seven changes)
+1. **No wiggle.** The phone slides up on entry and then stays exactly where it is (no drift between steps, no random sides).
+2. **The app's real tab bar.** 64px bar, five 50px tabs, 6px gaps, sliding circle, FAB 64px, as BottomNav/Shell. The active tab turns solid duotone and violet (`--primary-pressed`), the others go back to outline and grey; the tab presses in when tapped. Solid glyphs were added to `ui/Icon.tsx` for all five tabs. As in the app, sub-pages (Accounting, Coach) have no tab bar and show a back button; Accounting's main action ("Add expense") floats where the bar was.
+3. **Caption removed** (the in-container text).
+4. **Subtitle back** under "Run the business" ("See the whole business. Run it from one place."). Only for this row; the other rows still have none.
+5. **Slide-up entry** from below (about 1.2s, the enter curve).
+6. **Charts zoom.** After the scroll to the chart the phone zooms to 1.4x centred on the chart card (about 1.2s, the standard curve), the bar is tapped, then it zooms back out smoothly before the scene moves on.
+7. **Payout.** Settle month, then a 1.32x zoom on the list, Pay turns to Paid, the camera pulls back and a full "Paid" screen rises over the app: a seal that springs in, a check that draws itself, a pulsing ring, the amount and "Saved to History". It holds as the last frame.
+- Navigation model: pages are stacked; a new page slides in from the right over the old one (which eases left), and Back reverses it. Back taps were added after Accounting and Coach, so the scene is about 36 seconds.
+- Checked at 1440 and 390: replay resets cleanly (slides up again), no console errors.
