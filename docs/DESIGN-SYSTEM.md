@@ -207,3 +207,6 @@ No heading above the list. Demos play once when their panel scrolls into view (s
 
 ### Feature panels on phones
 Under 901px every feature panel has the same shape (aspect 480/650). The demo is laid out at 480px wide and scaled to the panel width (`--s`, set by a ResizeObserver in `FeatureList.tsx`), so the frame never changes height with its content. The demo pointer divides by that scale (`tap` in `features-motion.ts`).
+
+### Feature scenes (update 2026-11-18)
+All four feature rows are phone scenes now: `business-app/-motion`, `frontdesk-app/-motion`, `coach-app/-motion`, `brand-app/-motion`. They share `PhoneFrame`, `Chrome` (the tab bar), `Confirm` and `Header` from `business-app.tsx`, and the moves in `phone-motion.ts` and `demo-kit.ts`. The older description of the card demos above is superseded. Progress notes 0055 to 0058 have the details of each scene.

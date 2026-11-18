@@ -74,3 +74,4 @@ Convention (same as the app repo, `Sherifawad-crtv/bizqwik`):
 | 0055 | Run the business: a phone that walks through the founder app |
 | 0056 | Front desk and CRM: a phone scene in the iPhone frame |
 | 0057 | Coaches: a phone scene in the iPhone frame |
+| 0058 | Your gym, your brand: the white-label client app on the iPhone frame |

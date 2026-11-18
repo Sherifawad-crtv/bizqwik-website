@@ -48,6 +48,8 @@ import { ClockCircleIcon as ClockCircleSolidIcon } from "@solar-icons/react/bold
 import { CalendarIcon as CalendarSolidIcon } from "@solar-icons/react/bold-duotone/calendar";
 import { MagnifierIcon } from "@solar-icons/react/linear/magnifier";
 import { GiftIcon } from "@solar-icons/react/linear/gift";
+import { TicketIcon as TicketSolidIcon } from "@solar-icons/react/bold-duotone/ticket";
+import { UserRoundedIcon as UserRoundedSolidIcon } from "@solar-icons/react/bold-duotone/user-rounded";
 import { HomeSmileIcon as HomeSmileSolidIcon } from "@solar-icons/react/bold-duotone/home-smile";
 
 /**
@@ -110,6 +112,8 @@ const SOLID: Partial<Record<IconName, typeof HomeSmileIcon>> = {
   "users-group-rounded": UsersGroupRoundedSolidIcon,
   "clipboard-list": ClipboardListSolidIcon,
   tag: TagSolidIcon,
+  ticket: TicketSolidIcon,
+  "user-rounded": UserRoundedSolidIcon,
   calendar: CalendarSolidIcon,
   "clock-circle": ClockCircleSolidIcon,
 };

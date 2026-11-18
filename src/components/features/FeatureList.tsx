@@ -6,7 +6,7 @@ import { Icon } from "@/components/ui/Icon";
 import { ReplayButton } from "@/components/ui/ReplayButton";
 import { features, type FeatureId } from "@/content";
 import { BusinessPhone } from "./business-app";
-import { ClientDemo } from "./demos";
+import { BrandPhone } from "./brand-app";
 import { CoachPhone } from "./coach-app";
 import { FrontDeskPhone } from "./frontdesk-app";
 import { initFeatureMotion } from "./features-motion";
@@ -15,16 +15,14 @@ const DEMOS: Record<FeatureId, () => React.JSX.Element> = {
   business: BusinessPhone,
   frontdesk: FrontDeskPhone,
   coaches: CoachPhone,
-  clients: ClientDemo,
+  clients: BrandPhone,
 };
 
 /** Phone panels hold a demo laid out at this size (px) and scaled to fit, so every panel has the same height. */
 const DESIGN_W = 480;
 
-/** The client demo shows two cards side by side, so its stage is wider. */
-const WIDE: Partial<Record<FeatureId, true>> = { clients: true };
-/** The business phone spans the whole panel: it flies in from its edges. */
-const FULL: Partial<Record<FeatureId, true>> = { business: true, frontdesk: true, coaches: true };
+/** The phone scenes span the whole panel (the phone slides up from below it). */
+const FULL: Partial<Record<FeatureId, true>> = { business: true, frontdesk: true, coaches: true, clients: true };
 
 /**
  * Section 5 of the outline, laid out like the reference's feature list: one row per feature. The text sits on the
@@ -83,7 +81,7 @@ export function FeatureList() {
                   className="relative grid w-full min-w-0 place-items-center overflow-hidden rounded-[28px] border border-line bg-sunken max-[900px]:h-[calc(650px*var(--s,.8))] min-[901px]:aspect-[849/640] min-[901px]:min-h-[670px] min-[901px]:px-10 min-[901px]:py-10"
                 >
                   <div className="contents max-[900px]:absolute max-[900px]:left-1/2 max-[900px]:top-0 max-[900px]:ml-[calc(-240px*var(--s,.8))] max-[900px]:flex max-[900px]:origin-top-left max-[900px]:items-center max-[900px]:justify-center max-[900px]:pb-20 max-[900px]:pt-5 max-[900px]:[scale:var(--s,.75)] max-[900px]:w-[480px] max-[900px]:h-[650px]">
-                    <div data-demo={f.id} className={`w-full max-[900px]:w-[440px] max-[900px]:max-w-none ${FULL[f.id] ? "max-w-none" : WIDE[f.id] ? "max-w-[640px]" : "max-w-[520px]"}`}>
+                    <div data-demo={f.id} className={`w-full max-[900px]:w-[440px] max-[900px]:max-w-none ${FULL[f.id] ? "max-w-none" : "max-w-[520px]"}`}>
                       <Demo />
                     </div>
                   </div>

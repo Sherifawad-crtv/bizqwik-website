@@ -535,10 +535,12 @@ const BUSINESS_TABS: Tab[] = [
 export const NAV_STEP = 50 + 6;
 
 /** Status bar and the tab bar with its round action button (BottomNav + Fab). */
-export function Chrome({ tabs = BUSINESS_TABS }: { tabs?: Tab[] }) {
+export function Chrome({ tabs = BUSINESS_TABS, themed = false }: { tabs?: Tab[]; themed?: boolean }) {
+  // Themed (the white-label client app): the page colour, the active tab and the round button follow the gym's brand variables.
+  const bg = themed ? "var(--app-bg)" : "var(--color-paper)";
   return (
     <>
-      <div className="pointer-events-none absolute inset-x-0 top-0 z-30 h-[58px] bg-gradient-to-b from-paper from-65% to-paper/0">
+      <div className="pointer-events-none absolute inset-x-0 top-0 z-30 h-[58px] bg-gradient-to-b from-65%" style={{ backgroundImage: `linear-gradient(to bottom, ${bg} 65%, transparent)` }}>
         <div className="flex items-center justify-between px-[34px] pt-[14px] text-[15px] font-semibold tabular">
           <span>9:41</span>
           <span className="flex items-center gap-[6px]" aria-hidden>
@@ -548,12 +550,12 @@ export function Chrome({ tabs = BUSINESS_TABS }: { tabs?: Tab[] }) {
         </div>
       </div>
 
-      <div data-navfade aria-hidden className="pointer-events-none absolute inset-x-0 bottom-0 z-30 bg-gradient-to-b from-paper/0 to-paper to-[78%]" style={{ height: 126 }} />
+      <div data-navfade aria-hidden className="pointer-events-none absolute inset-x-0 bottom-0 z-30" style={{ height: 126, backgroundImage: `linear-gradient(to bottom, transparent, ${bg} 78%)` }} />
       <div data-navbar className="absolute inset-x-0 z-40 flex items-center justify-center gap-3 px-4" style={{ bottom: 26 }}>
         <div className="relative flex h-16 items-center gap-1.5 overflow-hidden rounded-full border border-white/55 bg-surface/55 px-1.5 shadow-[0_14px_34px_rgba(26,23,38,.18),inset_0_1px_0_rgba(255,255,255,.7)] backdrop-blur-[28px] backdrop-saturate-[1.8]">
-          <span data-nav-ind aria-hidden className="absolute left-1.5 top-[6px] size-[50px] rounded-full bg-primary-tint-strong" />
+          <span data-nav-ind aria-hidden className={`absolute left-1.5 top-[6px] size-[50px] rounded-full ${themed ? "bg-[color-mix(in_srgb,var(--app-brand)_16%,transparent)]" : "bg-primary-tint-strong"}`} />
           {tabs.map((t, i) => (
-            <span key={t.key} data-tab={t.key} className={`relative grid size-[50px] shrink-0 place-items-center rounded-full ${i === 0 ? "text-primary-pressed" : "text-ink-muted"}`}>
+            <span key={t.key} data-tab={t.key} className={`relative grid size-[50px] shrink-0 place-items-center rounded-full ${i === 0 ? (themed ? "text-[var(--app-brand)]" : "text-primary-pressed") : "text-ink-muted"}`}>
               <span data-glyph="lin" className={`col-start-1 row-start-1 ${i === 0 ? "opacity-0" : ""}`}>
                 <Icon name={t.icon} size={22} />
               </span>
@@ -563,7 +565,7 @@ export function Chrome({ tabs = BUSINESS_TABS }: { tabs?: Tab[] }) {
             </span>
           ))}
         </div>
-        <span data-fab className="grid size-16 shrink-0 place-items-center rounded-full bg-primary text-surface shadow-[0_12px_30px_rgba(90,65,255,.4)]">
+        <span data-fab className={`grid size-16 shrink-0 place-items-center rounded-full ${themed ? "bg-[var(--app-brand)] text-[var(--app-on)] shadow-[0_12px_30px_color-mix(in_srgb,var(--app-brand)_40%,transparent)]" : "bg-primary text-surface shadow-[0_12px_30px_rgba(90,65,255,.4)]"}`}>
           <Icon name="add" size={28} strokeWidth={2.4} />
         </span>
       </div>

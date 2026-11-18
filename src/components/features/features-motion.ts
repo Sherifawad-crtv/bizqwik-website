@@ -2,23 +2,17 @@ import { gsap, ScrollTrigger } from "@/motion/gsap";
 import { playOnView, replay, toggleOnView } from "@/motion/primitives";
 import { duration, enterFrom, ease, gap } from "@/motion/tokens";
 import { buildBusiness } from "./business-motion";
+import { buildBrand } from "./brand-motion";
 import { buildCoach } from "./coach-motion";
 import { buildFrontDesk } from "./frontdesk-motion";
-import { swap, typeText, type TL } from "./demo-kit";
+import type { TL } from "./demo-kit";
 
 type Role = "business" | "frontdesk" | "coaches" | "clients";
 type Colors = { green: string; violet: string; ink: string; muted: string; pressed: string };
 type Q = { one: <T extends HTMLElement>(sel: string) => T; all: <T extends HTMLElement>(sel: string) => T[] };
 
 
-/** Each bundle's demo. Every tween states its own start value, so a replay resets itself cleanly. */
-const BRANDS = [
-  { name: "Forge Athletics", url: "forgeathletics.com", hex: "#151515", letter: "F", vars: { "--app-brand": "#151515", "--app-on": "#ffffff", "--app-bg": "#fbfaf7", "--app-soft": "#f1f0ec", "--app-ink": "#151515" } },
-  { name: "Grove Pilates", url: "grovepilates.com", hex: "#6B7A3A", letter: "G", vars: { "--app-brand": "#6b7a3a", "--app-on": "#ffffff", "--app-bg": "#f1ebdd", "--app-soft": "#e6dec9", "--app-ink": "#2b3016" } },
-  { name: "Pulse Studio", url: "pulsestudio.fit", hex: "#5A41FF", letter: "P", vars: { "--app-brand": "#5a41ff", "--app-on": "#ffffff", "--app-bg": "#fbfaf7", "--app-soft": "#f3f2ee", "--app-ink": "#1a1726" } },
-] as const;
-const NEUTRAL = { "--app-brand": "#a8a5b3", "--app-on": "#ffffff", "--app-bg": "#fbfaf7", "--app-soft": "#f3f2ee", "--app-ink": "#1a1726" };
-
+/** Each bundle's scene. Every tween states its own start value, so a replay resets itself cleanly. */
 const BUILD: Record<Role, (tl: TL, stage: HTMLElement, c: Colors, q: Q) => void> = {
   business: buildBusiness,
 
@@ -26,52 +20,14 @@ const BUILD: Record<Role, (tl: TL, stage: HTMLElement, c: Colors, q: Q) => void>
 
   coaches: buildCoach,
 
-  clients(tl, stage, _c, { one, all }) {
-    const app = one("[data-app]");
-    const sw = one("[data-swatch]");
-    const logoEd = one("[data-logo-ed]");
-    const appLogo = one("[data-app-logo]");
-    const hex = one("[data-hex]");
-    const name = one('[data-type="name"]');
-    const appName = one('[data-type="appname"]');
-    const url = one('[data-type="url"]');
-    const dots = all("[data-dot]");
-
-    tl.add(() => {
-      hex.textContent = "#------";
-      appLogo.textContent = "Y";
-      logoEd.textContent = "F";
-    }, 0.01);
-    tl.set(app, NEUTRAL, 0);
-    tl.set(sw, { background: "#a8a5b3" }, 0);
-
-    BRANDS.forEach((b, i) => {
-      const at = 0.6 + i * 4.2;
-      typeText(tl, name, b.name, at, 0.8);
-      typeText(tl, appName, b.name, at, 0.8);
-      typeText(tl, url, b.url, at + 0.5, 0.8);
-      if (i === 0) swap(tl, stage, "logo", at + 1.3);
-      const paint = at + 1.5;
-      tl.add(() => {
-        hex.textContent = b.hex;
-        appLogo.textContent = b.letter;
-        logoEd.textContent = b.letter;
-      }, paint);
-      tl.to(sw, { background: b.vars["--app-brand"], duration: duration.fast, ease: ease.standard }, paint)
-        .to(logoEd, { background: b.vars["--app-brand"], color: b.vars["--app-on"], duration: duration.base, ease: ease.standard }, paint)
-        .to(app, { ...b.vars, duration: duration.slow, ease: ease.standard }, paint)
-        .fromTo(dots[i], { scale: 1 }, { scale: 1.4, duration: duration.fast, ease: ease.spring, yoyo: true, repeat: 1 }, paint);
-    });
-  },
+  clients: buildBrand,
 };
 
-/** The finished frame for visitors who prefer reduced motion (the default markup is already the finished state, except the swaps and layers). */
+/** The finished frame for visitors who prefer reduced motion (the default markup is already the finished state, except the swaps). */
 function showFinal(root: HTMLElement) {
   const set = (sel: string, props: gsap.TweenVars) => gsap.set(root.querySelectorAll(sel), props);
   set("[data-swap-a]", { opacity: 0 });
   set("[data-swap-b]", { opacity: 1 });
-  set('[data-layer="list"]', { opacity: 0 });
-  set('[data-layer="record"]', { opacity: 1 });
 }
 
 /**
