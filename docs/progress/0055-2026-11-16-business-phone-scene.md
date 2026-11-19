@@ -44,3 +44,6 @@ The scene's phone now wears the same device frame as the hero (`public/devices/i
 
 ## Update 2026-11-17: no subtitle on this row either
 Every row is now the same shape: title, then the bullets. The subtitle I had restored under "Run the business" is removed again (the owner's rule for all rows). Do not add it back unless asked.
+
+## Update 2026-11-19: the Paid confirmation uses the QR-scan confirmation's look
+The end of the business scene no longer shows the full-screen seal, rings and drawn check. It reuses the QR scan confirmation of the other scenes: a dark sheet rises over the app (kicker "PAYOUT · OCT 2026", title "Coach payout") and a white card springs up in it with a green check circle, "Paid" and "Coach Ali · 4,200.00 EGP · saved to History" (same colours and spring as the scan card). The camera still pulls back as it appears. The other three scenes keep their full-screen confirmations (Renewed, Swapped, You're in).

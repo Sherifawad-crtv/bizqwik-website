@@ -11,7 +11,7 @@ import { grow, swap, tap, typeText, type TL } from "./demo-kit";
  *   3 Accounting      (a sub-page: no tab bar) Profit & loss, add an expense, go back
  *   4 Team            coaches and who showed up; open a coach (sub-page), see the QR-scanned sessions, go back
  *   5 Schedule        pick a Friday, add a weekly class
- *   6 To pay          settle the month, ZOOM IN, pay a coach, a full "Paid" confirmation screen
+ *   6 To pay          settle the month, ZOOM IN, pay a coach, a dark sheet with a "Paid" card, like the QR scan confirmation
  * The tab bar follows Shell.tsx: tabs show it, sub-pages hide it, the active tab's glyph turns solid and violet.
  * Every tween that repeats a property uses `to`, and the pointer reads its target when its glide starts (`lazy`),
  * so pages that slide in are found where they really are. Times are positions on the timeline (seconds).
@@ -134,11 +134,8 @@ export function buildBusiness(tl: TL, _stage: HTMLElement, c: Colors, { one, all
   tl.set(one("[data-sheet]"), { autoAlpha: 0, y: 380 }, 0);
   tl.set(one('[data-type="cls"]'), { opacity: 1 }, 0);
   tl.set(one("[data-cursor]"), { opacity: 0 }, 0);
-  tl.set(one("[data-confirm]"), { autoAlpha: 0 }, 0);
-  tl.set(one("[data-seal]"), { scale: 0.5 }, 0);
-  tl.set(one("[data-check]"), { strokeDashoffset: 1 }, 0);
-  tl.set(all("[data-ring]"), { opacity: 0, scale: 1 }, 0);
-  tl.set(all("[data-c-text]"), { opacity: 0, y: 14 }, 0);
+  tl.set(one("[data-paid]"), { autoAlpha: 0, y: 760 }, 0);
+  tl.set(one("[data-paid-card]"), { opacity: 0, y: 24 }, 0);
 
   /* ---------- 0. the phone slides up into place, then stays put ---------- */
   tl.fromTo(
@@ -230,12 +227,9 @@ export function buildBusiness(tl: TL, _stage: HTMLElement, c: Colors, { one, all
   land = tapAt(one('[data-tap="pay"]'), zin2 + duration.count + 0.1);
   swap(tl, phone, "pay", land + 0.05);
 
-  // the confirmation rises over the app while the camera pulls back
+  // the camera pulls back while a dark sheet rises and the confirmation card springs up in it, like the QR scan confirmation
   const cf = land + 0.55;
   zoomOut(cf, duration.count);
-  tl.to(one("[data-confirm]"), { autoAlpha: 1, duration: duration.base, ease: ease.standard }, cf);
-  tl.fromTo(one("[data-seal]"), { scale: 0.5 }, { scale: 1, duration: duration.slow, ease: ease.spring, immediateRender: false }, cf + 0.15);
-  tl.fromTo(one("[data-check]"), { strokeDashoffset: 1 }, { strokeDashoffset: 0, duration: duration.slow, ease: ease.standard, immediateRender: false }, cf + 0.4);
-  tl.fromTo(all("[data-ring]"), { scale: 1, opacity: 0.55 }, { scale: 1.9, opacity: 0, duration: duration.count, ease: ease.standard, stagger: stagger.loose, immediateRender: false }, cf + 0.6);
-  tl.to(all("[data-c-text]"), { opacity: 1, y: 0, duration: duration.base, ease: ease.enter, stagger: stagger.base }, cf + 0.65);
+  tl.to(one("[data-paid]"), { autoAlpha: 1, y: 0, duration: duration.slow, ease: ease.enter }, cf + 0.1);
+  tl.to(one("[data-paid-card]"), { opacity: 1, y: 0, duration: duration.slow, ease: ease.spring }, cf + 0.75);
 }

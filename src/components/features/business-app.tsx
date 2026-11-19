@@ -594,6 +594,35 @@ export function Confirm({ title = "Paid", sub = "Coach Ali · 4,200.00 EGP", chi
 }
 
 /**
+ * The payout confirmation, made like the QR scan confirmation of the other scenes: a dark sheet rises over the app and a
+ * white card springs up in it with a green check, the title and the amount.
+ */
+const CheckMark = ({ size = 20 }: { size?: number }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+    <path d="M5 12.5l4.5 4.5L19 7.5" />
+  </svg>
+);
+
+function PaidSheet() {
+  return (
+    <div data-paid className="absolute inset-x-0 bottom-0 top-[70px] z-50 overflow-hidden rounded-t-[40px] bg-ink px-5 pt-3 text-surface opacity-0">
+      <span className="mx-auto mb-5 block h-1 w-10 rounded-full bg-white/25" />
+      <p className="font-mono text-[11px] font-bold tracking-[.08em] text-white/50">PAYOUT · OCT 2026</p>
+      <p className="mt-1 text-[26px] font-extrabold tracking-[-.02em]">Coach payout</p>
+      <div data-paid-card className="absolute inset-x-5 top-[44%] flex items-center gap-3 rounded-[24px] bg-surface px-4 py-3.5 text-ink opacity-0">
+        <span className="grid size-11 shrink-0 place-items-center rounded-full bg-green-fg text-white">
+          <CheckMark size={20} />
+        </span>
+        <div className="min-w-0 flex-1">
+          <p className="text-[17px] font-extrabold leading-tight">Paid</p>
+          <p className="mt-1 text-[13px] text-ink-muted">Coach Ali · 4,200.00 EGP · saved to History</p>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/**
  * The phone. `data-phone` is the moving thing (it slides up on entry and zooms on the charts and the payout); the pointer lives inside it so it moves along.
  * `--pw` is its width in px (the frame keeps its 980:2000 shape).
  */
@@ -636,7 +665,7 @@ export function BusinessPhone() {
         <Pay />
       </div>
       <Chrome />
-      <Confirm />
+      <PaidSheet />
     </PhoneFrame>
   );
 }
