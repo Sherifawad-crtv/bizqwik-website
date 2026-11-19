@@ -594,38 +594,40 @@ export function Confirm({ title = "Paid", sub = "Coach Ali · 4,200.00 EGP", chi
 }
 
 /**
- * The payout confirmation, made like the QR scan confirmation of the other scenes: a dark sheet rises over the app and a
- * white card springs up in it with a green check, the title and the amount.
+ * The app's own confirm-and-done sheet (ConfirmSheet + SheetSuccessIcon on the main branch): a scrim, a sheet that slides
+ * up with the question and two buttons; on confirm its content gives way to the success icon: an 84px tinted circle that
+ * pops in with a spring while a ring and then a check draw themselves, in the app's primary colour, and a label under it.
  */
-const CheckMark = ({ size = 20 }: { size?: number }) => (
-  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
-    <path d="M5 12.5l4.5 4.5L19 7.5" />
-  </svg>
-);
+const CIRCLE = 176; // the ring's length in the app's 64-unit viewBox
+const CHECK = 42;
 
-function PaidSheet() {
+function PaySheet() {
   return (
-    <div data-paid className="absolute inset-x-0 bottom-0 top-[70px] z-50 overflow-hidden rounded-t-[40px] bg-ink px-5 pt-3 text-surface opacity-0">
-      <span className="mx-auto mb-5 block h-1 w-10 rounded-full bg-white/25" />
-      <p className="font-mono text-[11px] font-bold tracking-[.08em] text-white/50">PAYOUT · OCT 2026</p>
-      <p className="mt-1 text-[26px] font-extrabold tracking-[-.02em]">Coach payout</p>
-      <div data-paid-card className="absolute inset-x-5 top-[44%] flex items-center gap-3 rounded-[24px] bg-surface px-4 py-3.5 text-ink opacity-0">
-        <span className="grid size-11 shrink-0 place-items-center rounded-full bg-green-fg text-white">
-          <CheckMark size={20} />
-        </span>
-        <div className="min-w-0 flex-1">
-          <p className="text-[17px] font-extrabold leading-tight">Paid</p>
-          <p className="mt-1 text-[13px] text-ink-muted">Coach Ali · 4,200.00 EGP · saved to History</p>
+    <>
+      <div data-paid-scrim className="pointer-events-none absolute inset-0 z-50 bg-[rgba(26,23,38,.34)] opacity-0" />
+      <div data-paid className="absolute inset-x-0 bottom-0 z-[51] rounded-t-[40px] bg-surface px-5 pt-3 opacity-0" style={{ height: 372 }}>
+        <span className="mx-auto mb-4 block h-1 w-10 rounded-full bg-line" />
+        <div data-layer="pay1" className="absolute inset-x-5 top-9">
+          <p className={label}>PAY</p>
+          <p className="mb-1 mt-1 text-[26px] font-extrabold leading-[1.2] tracking-[-.02em]">Pay Coach Ali?</p>
+          <p className="mb-5 font-mono text-[13px] text-ink-muted">4,200.00 EGP · October 2026</p>
+          <span data-tap="markpaid" className="flex h-14 items-center justify-center rounded-[24px] bg-primary text-[16px] font-bold text-surface">Mark paid</span>
+          <span className="mt-2 flex h-12 items-center justify-center rounded-[24px] border border-line bg-paper text-[16px] font-bold text-ink-muted">Cancel</span>
+        </div>
+        <div data-layer="pay2" className="absolute inset-x-1 top-9 flex flex-col items-center opacity-0" style={{ padding: "28px 4px 10px" }}>
+          <div data-ok-circle aria-hidden className="grid size-[84px] place-items-center rounded-full bg-primary-tint">
+            <svg width={44} height={44} viewBox="0 0 64 64" fill="none">
+              <circle data-ok-ring cx={32} cy={32} r={28} stroke="var(--color-primary)" strokeWidth={3} strokeLinecap="round" style={{ strokeDasharray: CIRCLE, strokeDashoffset: 0 }} />
+              <path data-ok-check d="M18 34 L27 43 L46 21" stroke="var(--color-primary)" strokeWidth={4} strokeLinecap="round" strokeLinejoin="round" style={{ strokeDasharray: CHECK, strokeDashoffset: 0 }} />
+            </svg>
+          </div>
+          <p className="mt-4 text-[16px] font-bold text-ink">Marked as paid</p>
         </div>
       </div>
-    </div>
+    </>
   );
 }
 
-/**
- * The phone. `data-phone` is the moving thing (it slides up on entry and zooms on the charts and the payout); the pointer lives inside it so it moves along.
- * `--pw` is its width in px (the frame keeps its 980:2000 shape).
- */
 /** The iPhone frame with the app screen scaled into it, and the pointer on top. `children` are the app's layers (pages, bar, overlays). */
 export function PhoneFrame({ children }: { children: ReactNode }) {
   const pct = (n: number) => `${n * 100}%`;
@@ -665,7 +667,7 @@ export function BusinessPhone() {
         <Pay />
       </div>
       <Chrome />
-      <PaidSheet />
+      <PaySheet />
     </PhoneFrame>
   );
 }

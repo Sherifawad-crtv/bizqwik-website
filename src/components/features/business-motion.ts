@@ -11,7 +11,7 @@ import { grow, swap, tap, typeText, type TL } from "./demo-kit";
  *   3 Accounting      (a sub-page: no tab bar) Profit & loss, add an expense, go back
  *   4 Team            coaches and who showed up; open a coach (sub-page), see the QR-scanned sessions, go back
  *   5 Schedule        pick a Friday, add a weekly class
- *   6 To pay          settle the month, ZOOM IN, pay a coach, a dark sheet with a "Paid" card, like the QR scan confirmation
+ *   6 To pay          settle the month, ZOOM IN, pay a coach, the app's confirm sheet and its success icon (ring and check drawing themselves)
  * The tab bar follows Shell.tsx: tabs show it, sub-pages hide it, the active tab's glyph turns solid and violet.
  * Every tween that repeats a property uses `to`, and the pointer reads its target when its glide starts (`lazy`),
  * so pages that slide in are found where they really are. Times are positions on the timeline (seconds).
@@ -134,8 +134,13 @@ export function buildBusiness(tl: TL, _stage: HTMLElement, c: Colors, { one, all
   tl.set(one("[data-sheet]"), { autoAlpha: 0, y: 380 }, 0);
   tl.set(one('[data-type="cls"]'), { opacity: 1 }, 0);
   tl.set(one("[data-cursor]"), { opacity: 0 }, 0);
-  tl.set(one("[data-paid]"), { autoAlpha: 0, y: 760 }, 0);
-  tl.set(one("[data-paid-card]"), { opacity: 0, y: 24 }, 0);
+  tl.set(one("[data-paid-scrim]"), { opacity: 0 }, 0);
+  tl.set(one("[data-paid]"), { autoAlpha: 0, yPercent: 100, height: 372 }, 0);
+  tl.set(one('[data-layer="pay1"]'), { opacity: 1 }, 0);
+  tl.set(one('[data-layer="pay2"]'), { opacity: 0 }, 0);
+  tl.set(one("[data-ok-circle]"), { scale: 0.7, opacity: 0 }, 0);
+  tl.set(one("[data-ok-ring]"), { strokeDashoffset: 176 }, 0);
+  tl.set(one("[data-ok-check]"), { strokeDashoffset: 42 }, 0);
 
   /* ---------- 0. the phone slides up into place, then stays put ---------- */
   tl.fromTo(
@@ -225,11 +230,27 @@ export function buildBusiness(tl: TL, _stage: HTMLElement, c: Colors, { one, all
   const zin2 = land + 0.9;
   zoomIn(() => one("[data-payees]"), ZOOM.pay, zin2, duration.count);
   land = tapAt(one('[data-tap="pay"]'), zin2 + duration.count + 0.1);
-  swap(tl, phone, "pay", land + 0.05);
 
-  // the camera pulls back while a dark sheet rises and the confirmation card springs up in it, like the QR scan confirmation
-  const cf = land + 0.55;
-  zoomOut(cf, duration.count);
-  tl.to(one("[data-paid]"), { autoAlpha: 1, y: 0, duration: duration.slow, ease: ease.enter }, cf + 0.1);
-  tl.to(one("[data-paid-card]"), { opacity: 1, y: 0, duration: duration.slow, ease: ease.spring }, cf + 0.75);
+  // Pay opens the app's confirm sheet (scrim, a sheet sliding up) while the camera pulls back
+  const open = land + 0.15;
+  zoomOut(open, duration.count);
+  tl.to(one("[data-paid-scrim]"), { opacity: 1, duration: duration.fast, ease: ease.standard }, open);
+  tl.to(one("[data-paid]"), { autoAlpha: 1, yPercent: 0, duration: duration.fast + 0.03, ease: ease.enter }, open);
+  land = tapAt(one('[data-tap="markpaid"]'), open + duration.count * 0.6);
+
+  // the sheet's content gives way to the app's success icon: a tinted circle pops in with a spring, then the ring and the check draw themselves
+  const ok = land + 0.1;
+  tl.to(one('[data-layer="pay1"]'), { opacity: 0, duration: duration.instant, ease: ease.standard }, ok);
+  tl.to(one('[data-layer="pay2"]'), { opacity: 1, duration: duration.instant, ease: ease.standard }, ok);
+  tl.to(one("[data-paid]"), { height: 250, duration: duration.fast, ease: ease.standard }, ok); // the app's sheet hugs its content
+  tl.to(one("[data-ok-circle]"), { scale: 1, duration: duration.base, ease: ease.spring }, ok + 0.05);
+  tl.to(one("[data-ok-circle]"), { opacity: 1, duration: duration.fast, ease: ease.standard }, ok + 0.05);
+  tl.to(one("[data-ok-ring]"), { strokeDashoffset: 0, duration: duration.enter, ease: ease.standard }, ok + 0.05);
+  tl.to(one("[data-ok-check]"), { strokeDashoffset: 0, duration: duration.fast, ease: ease.enter }, ok + 0.4);
+
+  // after a short hold the sheet leaves, as the app's does, and the list shows Coach Ali as paid
+  const out = ok + 0.4 + duration.fast + 0.9;
+  tl.to(one("[data-paid]"), { yPercent: 100, duration: duration.fast, ease: ease.standard }, out);
+  tl.to(one("[data-paid-scrim]"), { opacity: 0, duration: duration.fast, ease: ease.standard }, out);
+  swap(tl, phone, "pay", out + 0.3);
 }
