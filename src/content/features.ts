@@ -24,7 +24,7 @@ export const features: Feature[] = [
     bullets: [
       "Register a client, sell them a plan and send their app invite in one step.",
       "Find anyone by name or phone, and see their plan, packages and wallet on one record.",
-      "Check clients in by QR code and book them into classes.",
+      "Check clients in and book them into classes.",
       "Take cash, card, wallet or InstaPay. Renew or freeze a plan, and refund to the wallet.",
     ],
   },

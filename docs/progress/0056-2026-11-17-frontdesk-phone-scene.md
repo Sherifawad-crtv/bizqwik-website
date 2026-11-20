@@ -17,3 +17,6 @@ Same treatment as the business scene. After the receipt is approved and the paym
 
 ## Update 2026-11-20: Book sheet buttons centred
 In the Book sheet the "Book" label sat on the left of its button (it shares a grid cell with the wider "Booked" state) and the three buttons had different widths. All swapping labels are now centred in their cell (rule in globals.css for `[data-swap-a]`/`[data-swap-b]`), the three row buttons share a 84px minimum width, and the status pill under each name no longer leaves a gap (the paragraph is a flex row).
+
+## Update 2026-11-20: QR check-in step removed
+The front desk scene no longer has the QR scan step (the scan sheet, scan line and "Checked in" card are gone from the markup and the timeline). It now runs four steps: New client, Bookings, Clients (zoom on the record), Renew (success sheet). Today's checked-in count simply counts up to 39 on entry. The first bullet now reads "Check clients in and book them into classes." (it said "by QR code"). The coaches and brand scenes keep their own QR scan steps.

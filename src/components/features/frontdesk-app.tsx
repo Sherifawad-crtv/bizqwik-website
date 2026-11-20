@@ -3,7 +3,7 @@ import { away, card, Chrome, DoneSheet, Header, label, pageCls, PhoneFrame, type
 
 /*
  * "Front desk and CRM": the front-desk app on the iPhone frame. Tabs as in the product (Desk, Bookings, Clients,
- * Activity, and the round button that scans). Pages: Desk (with the New client sheet and the QR scan sheet),
+ * Activity, and the round button that scans). Pages: Desk (with the New client sheet),
  * Bookings (with the Book sheet), Clients, and one client's record (a sub-page, with the renew-and-pay sheet).
  * Illustrative clients. frontdesk-motion.ts plays it; this markup is the finished state of the Desk page.
  */
@@ -164,31 +164,6 @@ function Desk() {
           </span>
           <p className="mt-6 text-[28px] font-extrabold tracking-[-.02em]">Client created</p>
           <p className="mt-2 text-[15px] text-ink-muted">Monthly plan sold · app invite sent to mona@example.com</p>
-        </div>
-      </div>
-
-      {/* QR scan */}
-      <div data-sheet="scan" className="absolute inset-x-0 bottom-0 top-[70px] z-20 overflow-hidden rounded-t-[40px] bg-ink px-5 pt-3 text-surface opacity-0">
-        <span className="mx-auto mb-5 block h-1 w-10 rounded-full bg-white/25" />
-        <p className="font-mono text-[11px] font-bold tracking-[.08em] text-white/50">CHECK-IN</p>
-        <p className="mt-1 text-[26px] font-extrabold tracking-[-.02em]">Scan a QR</p>
-        <div className="relative mx-auto mt-10 size-[250px]">
-          {["left-0 top-0 border-l-4 border-t-4 rounded-tl-[26px]", "right-0 top-0 border-r-4 border-t-4 rounded-tr-[26px]", "bottom-0 left-0 border-b-4 border-l-4 rounded-bl-[26px]", "bottom-0 right-0 border-b-4 border-r-4 rounded-br-[26px]"].map((c) => (
-            <i key={c} className={`absolute size-14 border-white ${c}`} />
-          ))}
-          <span data-qr className="absolute inset-[34px] grid place-items-center rounded-[22px] bg-surface text-ink">
-            <Icon name="qr-code" size={120} strokeWidth={1.6} />
-          </span>
-          <span data-scanline className="absolute inset-x-3 top-3 h-[3px] rounded-full bg-primary-light shadow-[0_0_24px_var(--color-primary-light)]" />
-        </div>
-        <div data-scan-ok className="absolute inset-x-5 bottom-[110px] flex items-center gap-3 rounded-[24px] bg-surface px-4 py-3.5 text-ink opacity-0">
-          <span className="grid size-11 shrink-0 place-items-center rounded-full bg-green-fg text-white">
-            <Check size={20} />
-          </span>
-          <div className="min-w-0 flex-1">
-            <p className="text-[17px] font-extrabold leading-tight">Mona Khaled</p>
-            <p className="mt-1 text-[13px] text-ink-muted">Checked in · Monthly plan, valid</p>
-          </div>
         </div>
       </div>
     </section>

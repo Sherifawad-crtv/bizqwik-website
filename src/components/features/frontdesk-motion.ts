@@ -3,12 +3,11 @@ import { grow, swap, typeText, type TL } from "./demo-kit";
 import { phoneKit, type PhoneColors } from "./phone-motion";
 
 /*
- * The "Front desk and CRM" scene (iPhone frame, slides up and stays put), five steps:
+ * The "Front desk and CRM" scene (iPhone frame, slides up and stays put), four steps:
  *   1 Desk       New client: name, phone, email typed, a plan picked, the app invite on, registered
- *   2 Check-in   the round button scans a QR: it finds her, "Checked in", today's count goes up
- *   3 Bookings   book her into Strength at 6:00 PM
- *   4 Clients    find "Mona", open her one record (a sub-page), ZOOM IN on the CRM card
- *   5 Renew      Renew, pick InstaPay, approve the receipt (ZOOM IN), the app's success sheet
+ *   2 Bookings   book her into Strength at 6:00 PM
+ *   3 Clients    find "Mona", open her one record (a sub-page), ZOOM IN on the CRM card
+ *   4 Renew      Renew, pick InstaPay, approve the receipt (ZOOM IN), the app's success sheet
  * Same rules as business-motion.ts: `to` for repeated properties, lazy pointer, times are timeline positions.
  */
 
@@ -26,7 +25,6 @@ export function buildFrontDesk(tl: TL, _stage: HTMLElement, c: PhoneColors, q: Q
   /* ---------- start state ---------- */
   k.reset(["desk", "bookings", "clients", "record"]);
   tl.set(sheet("new"), { autoAlpha: 0, y: 580 }, 0);
-  tl.set(sheet("scan"), { autoAlpha: 0, y: 760 }, 0);
   tl.set(sheet("book"), { autoAlpha: 0, y: 490 }, 0);
   tl.set(sheet("pay"), { autoAlpha: 0, y: 620 }, 0);
   tl.set(layer("n1"), { opacity: 1, x: 0 }, 0);
@@ -35,9 +33,6 @@ export function buildFrontDesk(tl: TL, _stage: HTMLElement, c: PhoneColors, q: Q
   tl.set(one("[data-method-ring]"), { opacity: 0 }, 0);
   tl.set(one("[data-seal-s]"), { scale: 0.5 }, 0);
   tl.set(one("[data-check-s]"), { strokeDashoffset: 1 }, 0);
-  tl.set(one("[data-qr]"), { y: 230, scale: 0.7, opacity: 0 }, 0);
-  tl.set(one("[data-scanline]"), { y: 0, opacity: 0 }, 0);
-  tl.set(one("[data-scan-ok]"), { opacity: 0, y: 24 }, 0);
   tl.set(one("[data-receipt]"), { height: 0, opacity: 0 }, 0);
   tl.set(one("[data-newchip]"), { scale: 0 }, 0);
   tl.add(() => {
@@ -52,7 +47,7 @@ export function buildFrontDesk(tl: TL, _stage: HTMLElement, c: PhoneColors, q: Q
   }, 0.01);
   /* ---------- the phone slides up, the desk's numbers count up ---------- */
   k.enter(0.05);
-  countTo(val("checked"), 0, 38, 1.0, duration.count);
+  countTo(val("checked"), 0, 39, 1.0, duration.count);
   countTo(val("dropins"), 0, 6, 1.0, duration.count);
   countTo(val("active"), 0, 11, 1.0, duration.count);
 
@@ -76,22 +71,8 @@ export function buildFrontDesk(tl: TL, _stage: HTMLElement, c: PhoneColors, q: Q
   sheetDown(sheet("new"), 580, land + 1.6);
   navVisible(true, land + 1.7);
 
-  /* ---------- 2. Check in by QR ---------- */
-  land = tapAt(one("[data-fab]"), land + 2.1);
-  navVisible(false, land, duration.fast);
-  sheetUp(sheet("scan"), land + 0.1);
-  tl.to(one("[data-scanline]"), { opacity: 1, duration: duration.fast, ease: ease.standard }, land + 0.5);
-  tl.to(one("[data-scanline]"), { y: 215, duration: duration.slow + 0.3, ease: ease.standard }, land + 0.6);
-  tl.to(one("[data-qr]"), { y: 0, scale: 1, opacity: 1, duration: duration.scene, ease: ease.enter }, land + 0.6);
-  const ok = land + 0.6 + duration.scene + 0.35;
-  tl.to(one("[data-scanline]"), { opacity: 0, duration: duration.fast, ease: ease.standard }, ok - 0.2);
-  tl.to(one("[data-scan-ok]"), { opacity: 1, y: 0, duration: duration.slow, ease: ease.spring }, ok);
-  sheetDown(sheet("scan"), 760, ok + 1.1);
-  navVisible(true, ok + 1.2);
-  countTo(val("checked"), 38, 39, ok + 1.4, duration.slow);
-
-  /* ---------- 3. Bookings: book her into Strength ---------- */
-  land = tapAt(one('[data-tab="bookings"]'), ok + 2.0);
+  /* ---------- 2. Bookings: book her into Strength ---------- */
+  land = tapAt(one('[data-tab="bookings"]'), land + 2.1);
   push(page("desk"), page("bookings"), land);
   navTo(1, land);
   land = tapAt(one('[data-tap="book"]'), land + duration.scene + 0.35);
@@ -104,7 +85,7 @@ export function buildFrontDesk(tl: TL, _stage: HTMLElement, c: PhoneColors, q: Q
   tl.to(one("[data-newchip]"), { scale: 1, duration: duration.base, ease: ease.spring }, land + 1.0);
   countTo(val("booked"), 8, 9, land + 1.0, duration.base);
 
-  /* ---------- 4. Clients: find her, open the record, zoom on it ---------- */
+  /* ---------- 3. Clients: find her, open the record, zoom on it ---------- */
   land = tapAt(one('[data-tab="clients"]'), land + 1.6);
   push(page("bookings"), page("clients"), land);
   navTo(2, land);
@@ -121,7 +102,7 @@ export function buildFrontDesk(tl: TL, _stage: HTMLElement, c: PhoneColors, q: Q
   const zo = z1 + duration.count + 1.2;
   zoomOut(zo, duration.count);
 
-  /* ---------- 5. Renew: InstaPay, approve the receipt, a full confirmation ---------- */
+  /* ---------- 4. Renew: InstaPay, approve the receipt, a full confirmation ---------- */
   land = tapAt(one('[data-tap="renew"]'), zo + duration.count * 0.6);
   sheetUp(sheet("pay"), land + 0.1);
   land = tapAt(one('[data-tap="instapay"]'), land + 0.9);
