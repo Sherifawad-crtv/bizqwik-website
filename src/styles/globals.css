@@ -99,3 +99,16 @@
     scroll-behavior: auto !important;
   }
 }
+
+/* Optical centring for labels inside the animated phone mockups: Urbanist sits ~0.06em high in its line box, so every fixed-height
+   button, pill and initial badge gets the same top padding the site's CTAs have. Rows of two lines (flex-col) are left alone. */
+[data-demo] :is(span, div)[class*="h-8"]:is(.inline-flex, .flex),
+[data-demo] :is(span, div)[class*="h-9"]:is(.inline-flex, .flex),
+[data-demo] :is(span, div)[class*="h-10"]:is(.inline-flex, .flex),
+[data-demo] :is(span, div)[class*="h-12"]:is(.inline-flex, .flex),
+[data-demo] :is(span, div)[class*="h-14"]:is(.inline-flex, .flex),
+[data-demo] :is(span, div)[class*="h-16"]:is(.inline-flex, .flex),
+[data-demo] span.grid[class*="place-items-center"][class*="rounded-"][class*="font-"] {
+  padding-top: 0.12em;
+  line-height: 1;
+}
