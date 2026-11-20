@@ -4,8 +4,8 @@ import { Check, Grabber, Pill, sheetCls } from "./frontdesk-app";
 
 /*
  * "Coaches": the coach's app on the iPhone frame. Tabs as in the product for a coach (My Month, Clients, History and
- * the round button that scans). The home is "My Month": the running total at the coach's tier rate, then the days
- * logged by QR. Sheets: scan the coaches' room QR, a day's detail, and Swap a session (from the brief; the dev branch
+ * the round button). The home is "My Month": the running total at the coach's tier rate, then the days
+ * logged. Sheets: a day's detail and Swap a session (from the brief; the dev branch
  * of the app does not have it yet). Coach Ali is one of the Revolt team (his app avatar); the figures are illustrative.
  * coach-motion.ts plays it; this markup is the finished state of the home page.
  */
@@ -17,9 +17,9 @@ const TABS: Tab[] = [
 ];
 
 const DAYS: [string, string, string][] = [
-  ["Sat, Nov 14", "QR  5:52 PM", "300"],
-  ["Fri, Nov 13", "QR  6:09 PM", "300"],
-  ["Thu, Nov 12", "QR  5:55 PM", "300"],
+  ["Sat, Nov 14", "5:52 PM", "300"],
+  ["Fri, Nov 13", "6:09 PM", "300"],
+  ["Thu, Nov 12", "5:55 PM", "300"],
 ];
 
 function DayCard({ d, t, a, tapKey }: { d: string; t: string; a: string; tapKey?: string }) {
@@ -28,10 +28,7 @@ function DayCard({ d, t, a, tapKey }: { d: string; t: string; a: string; tapKey?
       <div className="min-w-0 flex-1">
         <p className="text-[16px] font-bold leading-tight tracking-[-.01em]">{d}</p>
         <p className="mt-0.5 font-mono text-[13px] text-ink-muted">1 session</p>
-        <p className="mt-1 flex gap-2 font-mono text-[13px] font-semibold">
-          <span className="min-w-[52px] text-[10px] font-bold tracking-[.08em] text-ink-faint">{t.split("  ")[0]}</span>
-          {t.split("  ")[1]}
-        </p>
+        <p className="mt-1 font-mono text-[13px] font-semibold">{t}</p>
         <p className="mt-2">
           <Pill tone="green">LOGGED</Pill>
         </p>
@@ -52,28 +49,11 @@ function Home() {
         <Face photo="ali" size={64} />
       </div>
 
-      <div data-hero className={`${card} mb-3.5 px-5 pb-[18px] pt-5`}>
-        <div className={label}>RUNNING TOTAL · EGP</div>
-        <div data-val="total" className="tabular my-1.5 mb-2.5 text-[56px] font-extrabold leading-none tracking-[-.03em]">
+      <div data-hero className={`${card} mb-3.5 flex items-baseline gap-2 px-6 py-8`}>
+        <span data-val="total" className="tabular text-[64px] font-extrabold leading-none tracking-[-.03em]">
           4,500
-        </div>
-        <div className="flex flex-wrap gap-x-4 gap-y-2">
-          {(
-            [
-              ["SESSIONS", "15 sessions", "sessions"],
-              ["GROUP", "4,500 EGP", "group"],
-              ["PRIVATE", "0 EGP", ""],
-              ["STATE", "LOGGING", ""],
-            ] as [string, string, string][]
-          ).map(([k, v, id]) => (
-            <div key={k}>
-              <div className={label}>{k}</div>
-              <div {...(id ? { "data-val": id } : {})} className="font-mono text-[13px] text-ink-muted">
-                {v}
-              </div>
-            </div>
-          ))}
-        </div>
+        </span>
+        <span className="font-mono text-[15px] font-bold tracking-[.06em] text-ink-faint">EGP</span>
       </div>
 
       {/* From the brief: swap a session with another coach, 2 hours ahead, if they accept */}
@@ -102,39 +82,14 @@ function Home() {
         <span data-val="days" className="ml-auto font-mono text-[13px] text-ink-faint">15 DAYS</span>
       </div>
       <div className="flex flex-col gap-2.5">
-        <div data-newday className="overflow-hidden">
-          <DayCard d="Mon, Nov 16" t="QR  5:52 PM" a="300" tapKey="day" />
+        <div data-dayrow>
+          <DayCard d="Mon, Nov 16" t="5:52 PM" a="300" tapKey="day" />
         </div>
         {DAYS.map(([d, t, a]) => (
           <div key={d} data-dayrow>
             <DayCard d={d} t={t} a={a} />
           </div>
         ))}
-      </div>
-
-      {/* Scan the coaches' room QR */}
-      <div data-sheet="scan" className="absolute inset-x-0 bottom-0 top-[70px] z-20 overflow-hidden rounded-t-[40px] bg-ink px-5 pt-3 text-surface opacity-0">
-        <span className="mx-auto mb-5 block h-1 w-10 rounded-full bg-white/25" />
-        <p className="font-mono text-[11px] font-bold tracking-[.08em] text-white/50">COACHES&apos; ROOM</p>
-        <p className="mt-1 text-[26px] font-extrabold tracking-[-.02em]">Scan the room QR</p>
-        <div className="relative mx-auto mt-10 size-[250px]">
-          {["left-0 top-0 border-l-4 border-t-4 rounded-tl-[26px]", "right-0 top-0 border-r-4 border-t-4 rounded-tr-[26px]", "bottom-0 left-0 border-b-4 border-l-4 rounded-bl-[26px]", "bottom-0 right-0 border-b-4 border-r-4 rounded-br-[26px]"].map((c) => (
-            <i key={c} className={`absolute size-14 border-white ${c}`} />
-          ))}
-          <span data-qr className="absolute inset-[34px] grid place-items-center rounded-[22px] bg-surface text-ink">
-            <Icon name="qr-code" size={120} strokeWidth={1.6} />
-          </span>
-          <span data-scanline className="absolute inset-x-3 top-3 h-[3px] rounded-full bg-primary-light shadow-[0_0_24px_var(--color-primary-light)]" />
-        </div>
-        <div data-scan-ok className="absolute inset-x-5 bottom-[110px] flex items-center gap-3 rounded-[24px] bg-surface px-4 py-3.5 text-ink opacity-0">
-          <span className="grid size-11 shrink-0 place-items-center rounded-full bg-green-fg text-white">
-            <Check size={20} />
-          </span>
-          <div className="min-w-0 flex-1">
-            <p className="text-[17px] font-extrabold leading-tight">Session logged</p>
-            <p className="mt-1 text-[13px] text-ink-muted">Mon, Nov 16 · 5:52 PM · +300 EGP</p>
-          </div>
-        </div>
       </div>
 
       {/* A day's detail: what each session earned, at the tier rate */}
@@ -144,11 +99,11 @@ function Home() {
         <p className="mb-4 mt-1 text-[26px] font-extrabold tracking-[-.02em]">1 session</p>
         <div className="flex items-center gap-3 rounded-[18px] bg-paper px-4 py-3">
           <span className="grid size-10 shrink-0 place-items-center rounded-[12px] bg-sunken">
-            <Icon name="qr-code" size={20} />
+            <Icon name="clock-circle" size={20} />
           </span>
           <div className="min-w-0 flex-1">
-            <p className="text-[15px] font-bold leading-tight">Scanned at 5:52 PM</p>
-            <p className="mt-1 text-[12.5px] text-ink-muted">Coaches&apos; room QR</p>
+            <p className="text-[15px] font-bold leading-tight">Logged at 5:52 PM</p>
+            <p className="mt-1 text-[12.5px] text-ink-muted">Session logged</p>
           </div>
           <p className="tabular text-[17px] font-extrabold">300 EGP</p>
         </div>

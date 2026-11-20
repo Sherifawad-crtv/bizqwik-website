@@ -11,3 +11,7 @@ Same treatment as the business and front-desk rows (slide-up entry, still phone,
 - Coaches shown are real Revolt coaches' first names and app avatars (Ali, Lana, Fatma, Yassin) as in progress 0055; amounts are illustrative.
 - Reduced motion shows the finished home (new day added, swap done).
 - Checked at 1440 and 390 in headless Chromium; replay resets (slides up again, total back to 0); no console errors.
+
+## Update 2026-11-20: no QR, wallet-style home
+- The QR scan step is gone (scan sheet, scan line, "Session logged" card, the QR icon and the "QR" tag on day cards). The scene is now: My Month (counts up), open the latest day and zoom on the tier rate, swap with Coach Lana. Day cards show just the time; the day sheet says "Logged at 5:52 PM". The bullet "Log a session by scanning the QR..." now reads "Log your sessions and see every day you've worked."
+- The hero card is now just the total: a 64px number with a small EGP, no kicker, sessions, group, private or state lines. The round button stays in the tab bar as the product's chrome.

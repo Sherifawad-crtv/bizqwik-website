@@ -33,7 +33,7 @@ export const features: Feature[] = [
     title: "Coaches",
     headline: "Sessions, schedules and earnings, in one app.",
     bullets: [
-      "Log a session by scanning the QR in the coaches' room.",
+      "Log your sessions and see every day you've worked.",
       "See what you've earned this month at your tier's rate.",
       "Swap a session with another coach, at least 2 hours ahead, if they accept.",
     ],
