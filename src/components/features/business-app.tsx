@@ -573,26 +573,6 @@ export function Chrome({ tabs = BUSINESS_TABS, themed = false }: { tabs?: Tab[];
   );
 }
 
-/** The "paid" confirmation: a full screen that rises over the app, with a ring that pulses and a check that draws itself. */
-export function Confirm({ title = "Paid", sub = "Coach Ali · 4,200.00 EGP", chip = "OCT 2026 · SAVED TO HISTORY" }: { title?: string; sub?: string; chip?: string }) {
-  return (
-    <div data-confirm className="pointer-events-none absolute inset-0 z-50 flex flex-col items-center justify-center bg-paper px-8 text-center opacity-0">
-      <div className="relative grid size-[140px] place-items-center">
-        <i data-ring className="absolute inset-0 rounded-full bg-green-fg/20 opacity-0" />
-        <i data-ring className="absolute inset-0 rounded-full bg-green-fg/20 opacity-0" />
-        <span data-seal className="relative grid size-[112px] place-items-center rounded-full bg-green-fg shadow-[0_18px_40px_rgba(23,122,75,.35)]">
-          <svg width="58" height="58" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
-            <path data-check pathLength={1} d="M5.5 12.5l4.2 4.2L18.5 8" style={{ strokeDasharray: 1, strokeDashoffset: 0 }} />
-          </svg>
-        </span>
-      </div>
-      <p data-c-text className="mt-9 text-[36px] font-extrabold leading-none tracking-[-.025em]">{title}</p>
-      <p data-c-text className="mt-3 text-[16px] text-ink-muted">{sub}</p>
-      <p data-c-text className="mt-6 rounded-full bg-surface px-4 py-2 font-mono text-[11px] font-bold tracking-[.06em] text-ink-muted">{chip}</p>
-    </div>
-  );
-}
-
 /**
  * The app's own confirm-and-done sheet (ConfirmSheet + SheetSuccessIcon on the main branch): a scrim, a sheet that slides
  * up with the question and two buttons; on confirm its content gives way to the success icon: an 84px tinted circle that
@@ -628,20 +608,28 @@ function PaySheet() {
   );
 }
 
+/** The app's success icon (SheetSuccessIcon): an 84px tinted circle, a ring and a check that draw themselves. `id` keys it to its timeline. */
+export function SuccessIcon({ id, themed = false }: { id: string; themed?: boolean }) {
+  const col = themed ? "var(--app-brand)" : "var(--color-primary)";
+  return (
+    <div data-sx-c={id} aria-hidden className="grid size-[84px] place-items-center rounded-full" style={{ background: themed ? "color-mix(in srgb, var(--app-brand) 16%, transparent)" : "var(--color-primary-tint)" }}>
+      <svg width={44} height={44} viewBox="0 0 64 64" fill="none">
+        <circle data-sx-r={id} cx={32} cy={32} r={28} stroke={col} strokeWidth={3} strokeLinecap="round" style={{ strokeDasharray: CIRCLE, strokeDashoffset: 0 }} />
+        <path data-sx-k={id} d="M18 34 L27 43 L46 21" stroke={col} strokeWidth={4} strokeLinecap="round" strokeLinejoin="round" style={{ strokeDasharray: CHECK, strokeDashoffset: 0 }} />
+      </svg>
+    </div>
+  );
+}
+
 /** The app's success sheet on its own (the done half of ConfirmSheet): scrim, a short sheet, the success icon and a label. */
-export function DoneSheet({ title }: { title: string }) {
+export function DoneSheet({ title, themed = false }: { title: string; themed?: boolean }) {
   return (
     <>
       <div data-done-scrim className="pointer-events-none absolute inset-0 z-50 bg-[rgba(26,23,38,.34)] opacity-0" />
-      <div data-done className="pointer-events-none absolute inset-x-0 bottom-0 z-[51] flex flex-col items-center rounded-t-[40px] bg-surface px-5 pt-3 opacity-0" style={{ height: 250 }}>
+      <div data-done className={`pointer-events-none absolute inset-x-0 bottom-0 z-[51] flex flex-col items-center rounded-t-[40px] px-5 pt-3 opacity-0 ${themed ? "bg-[var(--app-bg)] text-[var(--app-ink)]" : "bg-surface text-ink"}`} style={{ height: 250 }}>
         <span className="mx-auto mb-4 block h-1 w-10 rounded-full bg-line" />
-        <div data-done-circle aria-hidden className="mt-6 grid size-[84px] place-items-center rounded-full bg-primary-tint">
-          <svg width={44} height={44} viewBox="0 0 64 64" fill="none">
-            <circle data-done-ring cx={32} cy={32} r={28} stroke="var(--color-primary)" strokeWidth={3} strokeLinecap="round" style={{ strokeDasharray: CIRCLE, strokeDashoffset: 0 }} />
-            <path data-done-check d="M18 34 L27 43 L46 21" stroke="var(--color-primary)" strokeWidth={4} strokeLinecap="round" strokeLinejoin="round" style={{ strokeDasharray: CHECK, strokeDashoffset: 0 }} />
-          </svg>
-        </div>
-        <p className="mt-4 text-[16px] font-bold text-ink">{title}</p>
+        <div className="mt-6"><SuccessIcon id="done" themed={themed} /></div>
+        <p className="mt-4 text-[16px] font-bold">{title}</p>
       </div>
     </>
   );

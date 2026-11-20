@@ -30,8 +30,7 @@ export function buildBrand(tl: TL, _stage: HTMLElement, c: PhoneColors, q: Q) {
     // the sheet's content gives way to its "it worked" layer: a seal, a check that draws itself
     tl.to(layer(`${name}1`), { opacity: 0, x: -40, duration: duration.base, ease: ease.standard }, at);
     tl.to(layer(`${name}2`), { opacity: 1, x: 0, duration: duration.base, ease: ease.enter }, at + 0.1);
-    tl.fromTo(one(`[data-seal-x="${name}"]`), { scale: 0.5 }, { scale: 1, duration: duration.slow, ease: ease.spring, immediateRender: false }, at + 0.2);
-    tl.fromTo(one(`[data-check-x="${name}"]`), { strokeDashoffset: 1 }, { strokeDashoffset: 0, duration: duration.slow, ease: ease.standard, immediateRender: false }, at + 0.45);
+    k.okPlay(name, at + 0.2);
   };
   const pick = (ringSel: string, at: number) => tl.to(one(ringSel), { opacity: 1, duration: duration.fast, ease: ease.standard }, at);
   const chipOn = (tapSel: string, at: number) => {
@@ -50,8 +49,7 @@ export function buildBrand(tl: TL, _stage: HTMLElement, c: PhoneColors, q: Q) {
   tl.set([layer("b1"), layer("p1"), layer("t1")], { opacity: 1, x: 0 }, 0);
   tl.set([layer("b2"), layer("p2"), layer("t2")], { opacity: 0, x: 40 }, 0);
   ["b", "p", "t"].forEach((n) => {
-    tl.set(one(`[data-seal-x="${n}"]`), { scale: 0.5 }, 0);
-    tl.set(one(`[data-check-x="${n}"]`), { strokeDashoffset: 1 }, 0);
+    k.okReset(n);
   });
   tl.set(one("[data-logo]"), { opacity: 0, scale: 0.6 }, 0);
   tl.set(one("[data-sw-ring]"), { opacity: 0 }, 0);
@@ -159,6 +157,6 @@ export function buildBrand(tl: TL, _stage: HTMLElement, c: PhoneColors, q: Q) {
   tl.to(one("[data-scan-ok]"), { opacity: 1, y: 0, duration: duration.slow, ease: ease.spring }, ok);
   countTo(val("points"), 120, 121, ok + 0.4, duration.base);
   sheetDown(sheet("scan"), 760, ok + 1.0);
-  k.confirm(ok + 1.2, stagger.loose);
+  k.done(ok + 1.2);
   void phone; void fmt; void zoomIn; void zoomOut;
 }

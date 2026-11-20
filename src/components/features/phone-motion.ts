@@ -63,6 +63,19 @@ export function phoneKit(tl: TL, c: PhoneColors, { one, all }: Q) {
     tl.set(phone, { opacity: 0, x: 0, y: () => phone.offsetHeight + 70, scale: 1 }, 0);
     tl.fromTo(phone, { y: () => phone.offsetHeight + 70, opacity: 0 }, { y: 0, opacity: 1, duration: duration.count, ease: ease.enter, immediateRender: false }, at);
   };
+  /** Start state of one success icon (circle small and hidden, ring and check undrawn). */
+  const okReset = (id: string) => {
+    tl.set(one(`[data-sx-c="${id}"]`), { scale: 0.7, opacity: 0 }, 0);
+    tl.set(one(`[data-sx-r="${id}"]`), { strokeDashoffset: 176 }, 0);
+    tl.set(one(`[data-sx-k="${id}"]`), { strokeDashoffset: 42 }, 0);
+  };
+  /** The success icon: the circle springs in, the ring draws, then the check. */
+  const okPlay = (id: string, at: number) => {
+    tl.to(one(`[data-sx-c="${id}"]`), { scale: 1, duration: duration.base, ease: ease.spring }, at);
+    tl.to(one(`[data-sx-c="${id}"]`), { opacity: 1, duration: duration.fast, ease: ease.standard }, at);
+    tl.to(one(`[data-sx-r="${id}"]`), { strokeDashoffset: 0, duration: duration.enter, ease: ease.standard }, at);
+    tl.to(one(`[data-sx-k="${id}"]`), { strokeDashoffset: 0, duration: duration.fast, ease: ease.enter }, at + 0.35);
+  };
   /** The start state of the shared chrome (pages off to the right but the first, bar shown, first tab active, overlays hidden). */
   const reset = (pageNames: string[]) => {
     const pages = pageNames.map(page);
@@ -77,37 +90,18 @@ export function phoneKit(tl: TL, c: PhoneColors, { one, all }: Q) {
     });
     tl.set([nav, navFade], { opacity: 1 }, 0);
     tl.set(one("[data-cursor]"), { opacity: 0 }, 0);
-    tl.set(one("[data-confirm]"), { autoAlpha: 0 }, 0);
-    tl.set(one("[data-seal]"), { scale: 0.5 }, 0);
-    tl.set(one("[data-check]"), { strokeDashoffset: 1 }, 0);
-    tl.set(all("[data-ring]"), { opacity: 0, scale: 1 }, 0);
-    tl.set(all("[data-c-text]"), { opacity: 0, y: 14 }, 0);
     tl.set(one("[data-done-scrim]"), { opacity: 0 }, 0);
     tl.set(one("[data-done]"), { autoAlpha: 0, yPercent: 100 }, 0);
-    tl.set(one("[data-done-circle]"), { scale: 0.7, opacity: 0 }, 0);
-    tl.set(one("[data-done-ring]"), { strokeDashoffset: 176 }, 0);
-    tl.set(one("[data-done-check]"), { strokeDashoffset: 42 }, 0);
+    okReset("done");
   };
   /** The app's success sheet: it rises, the circle springs in, the ring and then the check draw, a short hold, it leaves. */
   const done = (at: number) => {
     tl.to(one("[data-done-scrim]"), { opacity: 1, duration: duration.fast, ease: ease.standard }, at);
     tl.to(one("[data-done]"), { autoAlpha: 1, yPercent: 0, duration: duration.fast + 0.03, ease: ease.enter }, at);
-    tl.to(one("[data-done-circle]"), { scale: 1, duration: duration.base, ease: ease.spring }, at + 0.15);
-    tl.to(one("[data-done-circle]"), { opacity: 1, duration: duration.fast, ease: ease.standard }, at + 0.15);
-    tl.to(one("[data-done-ring]"), { strokeDashoffset: 0, duration: duration.enter, ease: ease.standard }, at + 0.15);
-    tl.to(one("[data-done-check]"), { strokeDashoffset: 0, duration: duration.fast, ease: ease.enter }, at + 0.5);
+    okPlay("done", at + 0.15);
     const out = at + 0.5 + duration.fast + 0.9;
     tl.to(one("[data-done]"), { yPercent: 100, duration: duration.fast, ease: ease.standard }, out);
     tl.to(one("[data-done-scrim]"), { opacity: 0, duration: duration.fast, ease: ease.standard }, out);
   };
-  /** The full confirmation screen: rises over the app, the seal springs in, the check draws itself, a ring pulses. */
-  const confirm = (at: number, stag: number) => {
-    tl.to(one("[data-confirm]"), { autoAlpha: 1, duration: duration.base, ease: ease.standard }, at);
-    tl.fromTo(one("[data-seal]"), { scale: 0.5 }, { scale: 1, duration: duration.slow, ease: ease.spring, immediateRender: false }, at + 0.15);
-    tl.fromTo(one("[data-check]"), { strokeDashoffset: 1 }, { strokeDashoffset: 0, duration: duration.slow, ease: ease.standard, immediateRender: false }, at + 0.4);
-    tl.fromTo(all("[data-ring]"), { scale: 1, opacity: 0.55 }, { scale: 1.9, opacity: 0, duration: duration.count, ease: ease.standard, stagger: stag, immediateRender: false }, at + 0.6);
-    tl.to(all("[data-c-text]"), { opacity: 1, y: 0, duration: duration.base, ease: ease.enter, stagger: 0.08 }, at + 0.65);
-  };
-
-  return { phone, page, tapAt, countTo, push, navVisible, navTo, sheetUp, sheetDown, zoomIn, zoomOut, enter, reset, confirm, done };
+  return { phone, page, tapAt, countTo, push, navVisible, navTo, sheetUp, sheetDown, zoomIn, zoomOut, enter, reset, done, okReset, okPlay };
 }

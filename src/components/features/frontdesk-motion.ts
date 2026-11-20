@@ -31,8 +31,7 @@ export function buildFrontDesk(tl: TL, _stage: HTMLElement, c: PhoneColors, q: Q
   tl.set([layer("n2"), layer("n3")], { opacity: 0, x: 40 }, 0);
   tl.set(one("[data-plan-ring]"), { opacity: 0 }, 0);
   tl.set(one("[data-method-ring]"), { opacity: 0 }, 0);
-  tl.set(one("[data-seal-s]"), { scale: 0.5 }, 0);
-  tl.set(one("[data-check-s]"), { strokeDashoffset: 1 }, 0);
+  k.okReset("n");
   tl.set(one("[data-receipt]"), { height: 0, opacity: 0 }, 0);
   tl.set(one("[data-newchip]"), { scale: 0 }, 0);
   tl.add(() => {
@@ -66,8 +65,7 @@ export function buildFrontDesk(tl: TL, _stage: HTMLElement, c: PhoneColors, q: Q
   land = tapAt(one('[data-tap="register"]'), land + 0.6);
   tl.to(layer("n2"), { opacity: 0, x: -40, duration: duration.base, ease: ease.standard }, land + 0.1);
   tl.to(layer("n3"), { opacity: 1, x: 0, duration: duration.base, ease: ease.enter }, land + 0.25);
-  tl.fromTo(one("[data-seal-s]"), { scale: 0.5 }, { scale: 1, duration: duration.slow, ease: ease.spring, immediateRender: false }, land + 0.35);
-  tl.fromTo(one("[data-check-s]"), { strokeDashoffset: 1 }, { strokeDashoffset: 0, duration: duration.slow, ease: ease.standard, immediateRender: false }, land + 0.6);
+  k.okPlay("n", land + 0.35);
   sheetDown(sheet("new"), 580, land + 1.6);
   navVisible(true, land + 1.7);
 

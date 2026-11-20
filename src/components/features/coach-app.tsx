@@ -1,5 +1,5 @@
 import { Icon } from "@/components/ui/Icon";
-import { card, Chrome, Confirm, Face, label, pageCls, PhoneFrame, type Tab } from "./business-app";
+import { card, Chrome, DoneSheet, Face, label, pageCls, PhoneFrame, type Tab } from "./business-app";
 import { Check, Grabber, Pill, sheetCls } from "./frontdesk-app";
 
 /*
@@ -171,7 +171,7 @@ export function CoachPhone() {
         <Home />
       </div>
       <Chrome tabs={TABS} />
-      <Confirm title="Swapped" sub="Lana takes Fri 20 · Strength 6:00 PM" chip="SHE ACCEPTED · YOUR SCHEDULE IS UPDATED" />
+      <DoneSheet title="Session swapped" />
     </PhoneFrame>
   );
 }

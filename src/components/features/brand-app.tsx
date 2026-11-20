@@ -1,7 +1,7 @@
 import Image from "next/image";
 import type { ReactNode } from "react";
 import { Icon } from "@/components/ui/Icon";
-import { Chrome, Confirm, label, PhoneFrame, type Tab } from "./business-app";
+import { Chrome, DoneSheet, label, SuccessIcon, PhoneFrame, type Tab } from "./business-app";
 import { Check, Grabber, sheetCls } from "./frontdesk-app";
 
 /*
@@ -33,11 +33,7 @@ const ring = "absolute inset-0 rounded-[16px] opacity-0 shadow-[inset_0_0_0_2px_
 function Done({ name, title, sub }: { name: string; title: string; sub: string }) {
   return (
     <div data-layer={`${name}2`} className="absolute inset-x-5 top-24 flex flex-col items-center text-center opacity-0">
-      <span data-seal-x={name} className="grid size-24 place-items-center rounded-full bg-[var(--app-brand)] shadow-[0_16px_36px_color-mix(in_srgb,var(--app-brand)_35%,transparent)]">
-        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="var(--app-on)" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
-          <path data-check-x={name} pathLength={1} d="M5.5 12.5l4.2 4.2L18.5 8" style={{ strokeDasharray: 1, strokeDashoffset: 0 }} />
-        </svg>
-      </span>
+      <SuccessIcon id={name} themed />
       <p className="mt-6 text-[28px] font-extrabold tracking-[-.02em]">{title}</p>
       <p className="mt-2 text-[15px] opacity-70">{sub}</p>
     </div>
@@ -314,7 +310,7 @@ export function BrandPhone() {
         </div>
         <Chrome tabs={TABS} themed />
         <Splash />
-        <Confirm title="You're in" sub="Grove Pilates · Reformer 6:00 PM" chip="CHECKED IN · +1 POINT" />
+        <DoneSheet title="You're in" themed />
       </div>
     </PhoneFrame>
   );

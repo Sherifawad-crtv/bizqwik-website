@@ -7,7 +7,7 @@ import { phoneKit, fmt, type PhoneColors } from "./phone-motion";
  *   1 My Month   the running total counts up on a wallet-style card; the days logged are listed
  *   2 Earnings   tap the latest day and ZOOM IN on its detail (the tier rate, 300 EGP a session)
  *   3 Swap       from the brief: swap Friday's session with Coach Lana (2 hours ahead, she has to accept):
- *                pick her, send, wait, accepted, a full "Swapped" screen
+ *                pick her, send, wait, accepted, the app's success sheet
  */
 
 type Q = { one: <T extends HTMLElement>(sel: string) => T; all: <T extends HTMLElement>(sel: string) => T[] };
@@ -72,5 +72,5 @@ export function buildCoach(tl: TL, _stage: HTMLElement, c: PhoneColors, q: Q) {
   swap(tl, phone, "swapbtn", acc + 0.6);
   sheetDown(sheet("swap"), 620, acc + 1.2);
   const cf = acc + 1.3;
-  k.confirm(cf, stagger.loose);
+  k.done(cf);
 }

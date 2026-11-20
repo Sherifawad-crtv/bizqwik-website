@@ -1,5 +1,5 @@
 import { Icon, type IconName } from "@/components/ui/Icon";
-import { away, card, Chrome, DoneSheet, Header, label, pageCls, PhoneFrame, type Tab } from "./business-app";
+import { away, card, Chrome, DoneSheet, Header, SuccessIcon, label, pageCls, PhoneFrame, type Tab } from "./business-app";
 
 /*
  * "Front desk and CRM": the front-desk app on the iPhone frame. Tabs as in the product (Desk, Bookings, Clients,
@@ -157,11 +157,7 @@ function Desk() {
           <span data-tap="register" className="flex h-12 items-center justify-center rounded-[18px] bg-primary text-[16px] font-bold text-surface">Register client</span>
         </div>
         <div data-layer="n3" className="absolute inset-x-5 top-28 flex flex-col items-center text-center opacity-0">
-          <span data-seal-s className="grid size-24 place-items-center rounded-full bg-green-fg text-white shadow-[0_16px_36px_rgba(23,122,75,.3)]">
-            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
-              <path data-check-s pathLength={1} d="M5.5 12.5l4.2 4.2L18.5 8" style={{ strokeDasharray: 1, strokeDashoffset: 0 }} />
-            </svg>
-          </span>
+          <SuccessIcon id="n" />
           <p className="mt-6 text-[28px] font-extrabold tracking-[-.02em]">Client created</p>
           <p className="mt-2 text-[15px] text-ink-muted">Monthly plan sold · app invite sent to mona@example.com</p>
         </div>
