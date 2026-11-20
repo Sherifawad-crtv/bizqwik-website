@@ -256,15 +256,15 @@ function Bookings() {
             <Initial n={n as string} size={40} />
             <div className="min-w-0 flex-1">
               <p className="text-[15px] font-bold leading-tight">{n as string}</p>
-              <p className="mt-1"><Pill tone={tone as Tone}>{st as string}</Pill></p>
+              <p className="mt-1 flex"><Pill tone={tone as Tone}>{st as string}</Pill></p>
             </div>
             {first ? (
               <span data-tap="bookmona" className="grid">
-                <span data-swap-a="bookmona" className="col-start-1 row-start-1 inline-flex h-9 items-center rounded-full bg-primary px-4 text-[13px] font-bold text-surface">Book</span>
-                <span data-swap-b="bookmona" className="col-start-1 row-start-1 inline-flex h-9 items-center gap-1.5 rounded-full bg-green-fg px-3.5 text-[13px] font-bold text-white opacity-0"><Check size={13} />Booked</span>
+                <span data-swap-a="bookmona" className="col-start-1 row-start-1 inline-flex h-9 min-w-[84px] items-center justify-center rounded-full bg-primary px-4 text-[13px] font-bold text-surface">Book</span>
+                <span data-swap-b="bookmona" className="col-start-1 row-start-1 inline-flex h-9 min-w-[84px] items-center justify-center gap-1.5 rounded-full bg-green-fg px-3.5 text-[13px] font-bold text-white opacity-0"><Check size={13} />Booked</span>
               </span>
             ) : (
-              <span className={`inline-flex h-9 items-center rounded-full border border-line px-4 text-[13px] font-bold ${st === "Expired" ? "text-ink-faint" : ""}`}>{st === "Expired" ? "Options" : "Book"}</span>
+              <span className={`inline-flex h-9 min-w-[84px] items-center justify-center rounded-full border border-line px-4 text-[13px] font-bold ${st === "Expired" ? "text-ink-faint" : ""}`}>{st === "Expired" ? "Options" : "Book"}</span>
             )}
           </div>
         ))}

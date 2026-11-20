@@ -14,3 +14,6 @@ Same treatment as "Run the business" (progress 0055): the phone slides up and st
 
 ## Update 2026-11-20: the renewal ends on the app's real success sheet
 Same treatment as the business scene. After the receipt is approved and the payment sheet leaves, the app's success sheet rises over the dimmed record: the tinted circle springs in, the ring and then the check draw, "Plan renewed" under it, a short hold, then it closes on Mona's record. The full-screen "Renewed" seal is gone from this scene. Shared pieces: `DoneSheet` (business-app.tsx) and `done()` in phone-motion.ts. Coaches and brand scenes still use the full-screen confirmation.
+
+## Update 2026-11-20: Book sheet buttons centred
+In the Book sheet the "Book" label sat on the left of its button (it shares a grid cell with the wider "Booked" state) and the three buttons had different widths. All swapping labels are now centred in their cell (rule in globals.css for `[data-swap-a]`/`[data-swap-b]`), the three row buttons share a 84px minimum width, and the status pill under each name no longer leaves a gap (the paragraph is a flex row).

@@ -112,3 +112,6 @@
   padding-top: 0.12em;
   line-height: 1;
 }
+
+/* Swapping labels share one grid cell: centre each in it so the narrower one is not left-aligned. */
+[data-demo] :is([data-swap-a], [data-swap-b]) { justify-content: center; }
