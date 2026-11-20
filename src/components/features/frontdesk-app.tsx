@@ -1,5 +1,5 @@
 import { Icon, type IconName } from "@/components/ui/Icon";
-import { away, card, Chrome, Confirm, Header, label, pageCls, PhoneFrame, type Tab } from "./business-app";
+import { away, card, Chrome, DoneSheet, Header, label, pageCls, PhoneFrame, type Tab } from "./business-app";
 
 /*
  * "Front desk and CRM": the front-desk app on the iPhone frame. Tabs as in the product (Desk, Bookings, Clients,
@@ -414,7 +414,7 @@ export function FrontDeskPhone() {
         <Record />
       </div>
       <Chrome tabs={TABS} />
-      <Confirm title="Renewed" sub="Monthly plan · until Jan 16" chip="1,200.00 EGP · INSTAPAY · SAVED TO ACTIVITY" />
+      <DoneSheet title="Plan renewed" />
     </PhoneFrame>
   );
 }

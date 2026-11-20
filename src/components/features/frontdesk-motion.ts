@@ -1,4 +1,4 @@
-import { duration, ease, stagger } from "@/motion/tokens";
+import { duration, ease } from "@/motion/tokens";
 import { grow, swap, typeText, type TL } from "./demo-kit";
 import { phoneKit, type PhoneColors } from "./phone-motion";
 
@@ -8,7 +8,7 @@ import { phoneKit, type PhoneColors } from "./phone-motion";
  *   2 Check-in   the round button scans a QR: it finds her, "Checked in", today's count goes up
  *   3 Bookings   book her into Strength at 6:00 PM
  *   4 Clients    find "Mona", open her one record (a sub-page), ZOOM IN on the CRM card
- *   5 Renew      Renew, pick InstaPay, approve the receipt (ZOOM IN), a full "Renewed" screen
+ *   5 Renew      Renew, pick InstaPay, approve the receipt (ZOOM IN), the app's success sheet
  * Same rules as business-motion.ts: `to` for repeated properties, lazy pointer, times are timeline positions.
  */
 
@@ -134,5 +134,5 @@ export function buildFrontDesk(tl: TL, _stage: HTMLElement, c: PhoneColors, q: Q
   sheetDown(sheet("pay"), 620, land + 0.7);
   const cf = land + 0.9;
   zoomOut(cf, duration.count);
-  k.confirm(cf + 0.2, stagger.loose);
+  k.done(cf + 0.2);
 }

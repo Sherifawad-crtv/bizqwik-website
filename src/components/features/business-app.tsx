@@ -628,6 +628,25 @@ function PaySheet() {
   );
 }
 
+/** The app's success sheet on its own (the done half of ConfirmSheet): scrim, a short sheet, the success icon and a label. */
+export function DoneSheet({ title }: { title: string }) {
+  return (
+    <>
+      <div data-done-scrim className="pointer-events-none absolute inset-0 z-50 bg-[rgba(26,23,38,.34)] opacity-0" />
+      <div data-done className="pointer-events-none absolute inset-x-0 bottom-0 z-[51] flex flex-col items-center rounded-t-[40px] bg-surface px-5 pt-3 opacity-0" style={{ height: 250 }}>
+        <span className="mx-auto mb-4 block h-1 w-10 rounded-full bg-line" />
+        <div data-done-circle aria-hidden className="mt-6 grid size-[84px] place-items-center rounded-full bg-primary-tint">
+          <svg width={44} height={44} viewBox="0 0 64 64" fill="none">
+            <circle data-done-ring cx={32} cy={32} r={28} stroke="var(--color-primary)" strokeWidth={3} strokeLinecap="round" style={{ strokeDasharray: CIRCLE, strokeDashoffset: 0 }} />
+            <path data-done-check d="M18 34 L27 43 L46 21" stroke="var(--color-primary)" strokeWidth={4} strokeLinecap="round" strokeLinejoin="round" style={{ strokeDasharray: CHECK, strokeDashoffset: 0 }} />
+          </svg>
+        </div>
+        <p className="mt-4 text-[16px] font-bold text-ink">{title}</p>
+      </div>
+    </>
+  );
+}
+
 /** The iPhone frame with the app screen scaled into it, and the pointer on top. `children` are the app's layers (pages, bar, overlays). */
 export function PhoneFrame({ children }: { children: ReactNode }) {
   const pct = (n: number) => `${n * 100}%`;
