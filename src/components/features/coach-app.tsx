@@ -49,11 +49,14 @@ function Home() {
         <Face photo="ali" size={64} />
       </div>
 
-      <div data-hero className={`${card} mb-3.5 flex items-baseline gap-2 px-6 py-8`}>
-        <span data-val="total" className="tabular text-[64px] font-extrabold leading-none tracking-[-.03em]">
-          4,500
-        </span>
-        <span className="font-mono text-[15px] font-bold tracking-[.06em] text-ink-faint">EGP</span>
+      <div data-hero className={`${card} mb-3.5 px-6 pb-6 pt-7`}>
+        <div className="flex items-baseline gap-2">
+          <span data-val="total" className="tabular text-[64px] font-extrabold leading-none tracking-[-.03em]">
+            4,500
+          </span>
+          <span className="font-mono text-[15px] font-bold tracking-[.06em] text-ink-faint">EGP</span>
+        </div>
+        <p className="mt-3 text-[15px] text-ink-muted">Earned this month</p>
       </div>
 
       {/* From the brief: swap a session with another coach, 2 hours ahead, if they accept */}

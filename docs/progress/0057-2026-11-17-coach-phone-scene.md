@@ -15,3 +15,5 @@ Same treatment as the business and front-desk rows (slide-up entry, still phone,
 ## Update 2026-11-20: no QR, wallet-style home
 - The QR scan step is gone (scan sheet, scan line, "Session logged" card, the QR icon and the "QR" tag on day cards). The scene is now: My Month (counts up), open the latest day and zoom on the tier rate, swap with Coach Lana. Day cards show just the time; the day sheet says "Logged at 5:52 PM". The bullet "Log a session by scanning the QR..." now reads "Log your sessions and see every day you've worked."
 - The hero card is now just the total: a 64px number with a small EGP, no kicker, sessions, group, private or state lines. The round button stays in the tab bar as the product's chrome.
+
+- Home card now has one subtitle under the total: "Earned this month".
