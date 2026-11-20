@@ -75,3 +75,4 @@ Convention (same as the app repo, `Sherifawad-crtv/bizqwik`):
 | 0056 | Front desk and CRM: a phone scene in the iPhone frame |
 | 0057 | Coaches: a phone scene in the iPhone frame |
 | 0058 | Your gym, your brand: the white-label client app on the iPhone frame |
+- [0059](0059-2026-11-20-cta-text-centring.md) CTA text centring
