@@ -27,3 +27,5 @@ The brand phone now plays one motion: a colour picker (square, hue slider, HEX r
 Follow-up (2026-11-22): the picker is no longer inside the app. It is a floating card on the right of the phone, overlapping its right edge (it slides in from the right and out again), so the app stays fully visible while it recolours. It sits in the phone's own layer so the pointer stays above it. On phones (under 901px) it overlays the lower part of the phone instead, since there is no room beside it. `PhoneFrame` takes an `aside` for this.
 
 Fix (2026-11-22): the tab bar icons did not follow the picker (the shared bar forces the Bizqwik violet on the active tab). In the brand scene the active tab now uses the app brand colour and the others a tint of the app ink, so the home icon and its pill recolour with the rest.
+
+Follow-up (2026-11-22): on small screens the picker is also on the right side of the phone, not centred over it: a slightly smaller card (200px wide, shorter square) overlapping the phone's right edge and staying inside the panel, the same side as on desktop.

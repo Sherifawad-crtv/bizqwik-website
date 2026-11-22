@@ -376,15 +376,15 @@ function Splash() {
 function Picker() {
   const hue = (h: number) => `hsl(${h} 100% 50%)`;
   return (
-    <div className="pointer-events-none absolute left-[calc(100%-32px)] top-1/2 z-10 -translate-y-1/2 max-[900px]:left-[calc(50%-125px)] max-[900px]:top-auto max-[900px]:bottom-[7%] max-[900px]:translate-y-0">
-      <div data-picker className="w-[250px] rounded-[26px] bg-white p-3.5 text-[#1a1726] opacity-0 shadow-[0_24px_60px_rgba(26,23,38,.22)]">
+    <div className="pointer-events-none absolute left-[calc(100%-32px)] top-1/2 z-10 -translate-y-1/2 max-[900px]:left-[calc(100%-96px)]">
+      <div data-picker className="w-[250px] rounded-[26px] bg-white p-3.5 max-[900px]:w-[200px] max-[900px]:p-3 text-[#1a1726] opacity-0 shadow-[0_24px_60px_rgba(26,23,38,.22)]">
         <div className="mb-3 flex items-center justify-between px-1">
           <span className="text-[15px] font-extrabold">Brand colour</span>
           <span data-tap="closepicker" className="grid size-8 place-items-center rounded-full bg-[#f3f2ee]">
             <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="#1a1726" strokeWidth="2" strokeLinecap="round"><path d="M2 2l10 10M12 2L2 12" /></svg>
           </span>
         </div>
-        <div data-pk-square className="relative h-[140px] w-full rounded-[16px]" style={{ background: `linear-gradient(to top,#000,transparent),linear-gradient(to right,#fff,${hue(PICK_END.h)})` }}>
+        <div data-pk-square className="relative h-[140px] w-full rounded-[16px] max-[900px]:h-[116px]" style={{ background: `linear-gradient(to top,#000,transparent),linear-gradient(to right,#fff,${hue(PICK_END.h)})` }}>
           <span data-pk-sq-handle className="absolute size-[22px] -translate-x-1/2 -translate-y-1/2 rounded-full border-[3px] border-white bg-transparent shadow-[0_0_0_1px_rgba(0,0,0,.25),0_2px_6px_rgba(0,0,0,.3)]" style={{ left: `${PICK_END.s * 100}%`, top: `${(1 - PICK_END.v) * 100}%` }} />
         </div>
         <div className="px-1 pt-4">
