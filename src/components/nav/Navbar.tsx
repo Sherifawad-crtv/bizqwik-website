@@ -165,7 +165,7 @@ export function Navbar() {
                       href={item.href}
                       data-nav={id}
                       aria-current={on ? "true" : undefined}
-                      className={`relative flex h-11 items-center rounded-[16px] px-5 text-[17px] font-semibold transition-colors duration-(--dur-fast) ease-standard ${
+                      className={`relative flex h-11 items-center rounded-[16px] px-5 text-[17px] font-semibold transition-[color,transform] duration-(--dur-fast) ease-standard active:scale-95 ${
                         on ? "text-ink" : "text-ink/70 hover:text-ink"
                       }`}
                     >
@@ -216,7 +216,7 @@ export function Navbar() {
                     <a
                       href={item.href}
                       onClick={closeMenu}
-                      className="flex h-16 items-center rounded-tile px-4 text-h3 font-bold text-ink"
+                      className="flex h-16 items-center rounded-tile px-4 text-h3 font-bold text-ink transition-[background-color,transform] duration-(--dur-fast) ease-standard hover:bg-surface active:scale-[0.98] active:bg-surface"
                     >
                       {item.label}
                     </a>

@@ -10,3 +10,6 @@ The mobile menu shares the same links (so it already reads Features), and its tw
 ## One nav button and matching mobile styling (2026-11-22)
 - The navbar has one button, "Contact sales" (`cta.nav` in site.ts), on the desktop bar and in the mobile menu. The Phone and Email tiles are removed from the mobile menu; the button is full width there. The page's other CTAs ("Talk to us", "See plans") are unchanged.
 - The mobile bar, menu button and menu sheet now use the desktop pill's styling: light frosted glass (72% surface, soft blur), no shadow, no stroke.
+
+## Same CTA effects on touch and desktop (2026-11-22)
+Hover styles do not run on touch screens, so phones got no corner or colour feedback. The `Button` now has the same effects while pressed (`active:`): corners ease to the full pill, the colour darkens (primary) or takes `sunken` (secondary), plus the existing scale dip. Checked at 1440 (rest 20px, hover and pressed 28px) and on a touch viewport at 390 (rest 20px, pressed 28px, darker). The desktop nav links and the mobile menu links also get a press dip, and the mobile menu links a soft white fill on hover and press.
