@@ -29,3 +29,6 @@ Follow-up (2026-11-22): the picker is no longer inside the app. It is a floating
 Fix (2026-11-22): the tab bar icons did not follow the picker (the shared bar forces the Bizqwik violet on the active tab). In the brand scene the active tab now uses the app brand colour and the others a tint of the app ink, so the home icon and its pill recolour with the rest.
 
 Follow-up (2026-11-22): on small screens the picker is also on the right side of the phone, not centred over it: a slightly smaller card (200px wide, shorter square) overlapping the phone's right edge and staying inside the panel, the same side as on desktop.
+
+## Update 2026-11-22: built at the iPhone Pro Max size
+The client app was built 390 pt wide and scaled up into the frame, so its content looked narrow and short for a 440 x 956 pt screen (iPhone 16/18 Pro Max). `PhoneFrame` now takes a `width`/`height`, and the brand scene is built at 440 x 956, the real Pro Max logical size (the frame's screen has that aspect). The home now shows in full again (greeting, plan card, wallet and points, quick actions, Today with two cards) with no scroll offset. The other three scenes are still built at 390 x 848.

@@ -127,9 +127,6 @@ function ClassRow() {
 function Home() {
   return (
     <section data-page="home" className="absolute inset-0 overflow-hidden px-6 pt-[62px] text-[var(--app-ink)]">
-      {/* Shown scrolled down to the day's classes, as the real app would be when someone looks at them; the status bar keeps a soft fade. */}
-      <div aria-hidden className="pointer-events-none absolute inset-x-0 top-0 z-10 h-[70px] bg-gradient-to-b from-[var(--app-bg)] from-60% to-transparent" />
-      <div className="-translate-y-[70px]">
       <div className="flex items-center justify-between gap-3 pb-5">
         <div className="flex min-w-0 items-center gap-3">
           <span className="grid size-11 flex-none place-items-center rounded-full bg-[var(--app-brand)] text-[18px] font-extrabold text-[var(--app-on)]">M</span>
@@ -207,7 +204,6 @@ function Home() {
         <span className="ml-auto text-[14px] font-semibold text-[var(--app-brand)]">See all ›</span>
       </div>
       <ClassRow />
-      </div>
 
       {/* The gym's own "Brand your app" form (the owner's side) */}
       <div data-sheet="brand" className={themedSheet} style={{ height: 690 }}>
@@ -404,7 +400,7 @@ function Picker() {
 
 export function BrandPhone() {
   return (
-    <PhoneFrame aside={<Picker />}>
+    <PhoneFrame aside={<Picker />} width={440} height={956}>
       <div data-app className="absolute inset-0 bg-[var(--app-bg)]" style={themeFrom(PICK_END)}>
         <div data-pages className="absolute inset-0">
           <Home />

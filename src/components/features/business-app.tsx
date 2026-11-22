@@ -636,7 +636,7 @@ export function DoneSheet({ title, themed = false }: { title: string; themed?: b
 }
 
 /** The iPhone frame with the app screen scaled into it, and the pointer on top. `children` are the app's layers (pages, bar, overlays). */
-export function PhoneFrame({ children, aside }: { children: ReactNode; aside?: ReactNode }) {
+export function PhoneFrame({ children, aside, width = PAGE_W, height = PAGE_H }: { children: ReactNode; aside?: ReactNode; width?: number; height?: number }) {
   const pct = (n: number) => `${n * 100}%`;
   return (
     <div data-stage data-own-entrance className="relative w-full">
@@ -651,7 +651,7 @@ export function PhoneFrame({ children, aside }: { children: ReactNode; aside?: R
           className="absolute overflow-hidden bg-paper"
           style={{ left: pct(SCREEN.left), top: pct(SCREEN.top), width: pct(SCREEN.width), height: pct(SCREEN.height), borderRadius: `calc(var(--pw) * 1px * ${SCREEN.radius})` }}
         >
-          <div className="origin-top-left" style={{ width: PAGE_W, height: PAGE_H, transform: `scale(calc(var(--pw) * ${SCREEN.width} / ${PAGE_W}))` }}>
+          <div className="origin-top-left" style={{ width, height, transform: `scale(calc(var(--pw) * ${SCREEN.width} / ${width}))` }}>
             <div className="relative size-full overflow-hidden">{children}</div>
           </div>
         </div>
