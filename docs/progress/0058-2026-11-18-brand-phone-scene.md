@@ -15,3 +15,6 @@ The fourth and last row now has the same kind of scene as the others (slide-up e
 ## Update 2026-11-22: class photos, and no in-app motion
 - The two class cards under "Today" now carry photos (Reformer, Mat Flow: `public/demo/class-reformer.webp`, `class-matflow.webp`, 900x600, generated for this site, no real people), with the price/plan chip on the photo.
 - The brand phone has no in-app motion for now: it shows the gym's branded home, still (`brand-motion.ts` is an empty stub; the five-step scene is in git history), and its Replay pill is hidden. The new motion comes next.
+
+## Update 2026-11-22: the real class card
+The Today cards are now the client app's own `ClassCard` and carousel (bizqwik-client-app, ClassCard.tsx): a tall 4:5 photo card with a dark gradient, the "On your plan" / price chip top left (black 40%, uppercase), the title, a clock and the time, up to three initials ("You" in white) with a "+N" count, and a "when" pill ("In 2 hrs"), each 70% of the row wide (max 260) so the next card peeks in, the row bleeding to the screen edge like the real one. The still home is shown scrolled down to these cards, with a soft fade under the status bar. The app's display font (Clash Grotesk) is replaced by the site's Urbanist.

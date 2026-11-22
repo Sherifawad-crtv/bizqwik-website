@@ -46,9 +46,66 @@ const Chip = ({ children, on, tap }: { children: ReactNode; on?: boolean; tap?: 
   </span>
 );
 
+/**
+ * The client app's ClassCard and carousel (bizqwik-client-app, ClassCard.tsx): a tall 4:5 photo card with everything laid over
+ * the picture (a dark gradient, the price or plan chip top left, the title, the time with a clock, up to three initials with a
+ * head count, and a "when" pill), 70% of the row wide (max 260) so the next card peeks in, the row bleeding to the screen edge.
+ */
+const CLASSES = [
+  { title: "Reformer", time: "6:00 PM", chip: "On your plan", img: "/demo/class-reformer.webp", initials: ["You", "S", "K"], more: "+5", when: "In 2 hrs" },
+  { title: "Mat Flow", time: "7:30 PM", chip: "150 EGP", img: "/demo/class-matflow.webp", initials: ["R", "M", "A"], more: "+3", when: "In 3 hrs" },
+];
+const SHADES = ["0%", "22%", "40%"];
+
+function ClassRow() {
+  return (
+    <div role="list" className="-mx-6 flex gap-3 overflow-hidden px-6">
+      {CLASSES.map((c) => (
+        <div key={c.title} role="listitem" className="w-[70%] max-w-[260px] flex-none">
+          <div className="relative aspect-[4/5] w-full overflow-hidden rounded-[1.75rem] bg-neutral-900 text-left">
+            <Image src={c.img} alt="" fill sizes="260px" className="object-cover" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/35 to-black/10" />
+            <div className="absolute left-3 right-3 top-3 flex items-start justify-between gap-2">
+              <span className="rounded-full bg-black/40 px-2.5 py-1 text-[11px] font-semibold uppercase tracking-wide text-white">{c.chip}</span>
+            </div>
+            <div className="absolute inset-x-0 bottom-0 p-4">
+              <div className="line-clamp-2 text-[21px] font-extrabold leading-[1.1] text-white">{c.title}</div>
+              <div className="mt-1.5 flex items-center gap-1.5 text-[13px] text-white/80">
+                <Icon name="clock-circle" size={14} /> {c.time}
+              </div>
+              <div className="mt-3 flex items-center justify-between gap-2">
+                <div className="flex min-w-0 items-center gap-2">
+                  <div className="flex flex-none -space-x-1.5">
+                    {c.initials.map((ini, i) => (
+                      <span
+                        key={ini}
+                        className={`grid size-8 place-items-center rounded-full font-semibold tracking-tight ring-2 ring-black/40 ${ini === "You" ? "text-[9px]" : "text-[11px]"}`}
+                        style={ini === "You" ? { background: "#fff", color: "var(--app-brand)" } : { background: `color-mix(in srgb, var(--app-brand), #fff ${SHADES[i]})`, color: "var(--app-on)" }}
+                      >
+                        {ini}
+                      </span>
+                    ))}
+                  </div>
+                  <span className="truncate text-xs text-white/85">{c.more}</span>
+                </div>
+                <span className="flex-none rounded-full px-3 py-1.5 text-[11px] font-semibold" style={{ background: "color-mix(in srgb, var(--app-brand), #fff 45%)", color: "var(--app-ink)" }}>
+                  {c.when}
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+}
+
 function Home() {
   return (
     <section data-page="home" className="absolute inset-0 overflow-hidden px-6 pt-[62px] text-[var(--app-ink)]">
+      {/* Shown scrolled down to the day's classes, as the real app would be when someone looks at them; the status bar keeps a soft fade. */}
+      <div aria-hidden className="pointer-events-none absolute inset-x-0 top-0 z-10 h-[70px] bg-gradient-to-b from-[var(--app-bg)] from-60% to-transparent" />
+      <div className="-translate-y-[205px]">
       <div className="flex items-center justify-between gap-3 pb-5">
         <div className="flex min-w-0 items-center gap-3">
           <span className="grid size-11 flex-none place-items-center rounded-full bg-[var(--app-brand)] text-[18px] font-extrabold text-[var(--app-on)]">M</span>
@@ -125,22 +182,7 @@ function Home() {
         <span className="text-[20px] font-extrabold tracking-[-.01em]">Today</span>
         <span className="ml-auto text-[14px] font-semibold text-[var(--app-brand)]">See all ›</span>
       </div>
-      <div className="flex gap-2.5">
-        {[
-          ["Reformer", "6:00 PM · Coach Fatma", "On your plan", "/demo/class-reformer.webp"],
-          ["Mat Flow", "7:30 PM · Coach Lana", "150 EGP", "/demo/class-matflow.webp"],
-        ].map(([t, s, c, img]) => (
-          <div key={t} className="min-w-0 flex-1 overflow-hidden rounded-[22px] bg-[var(--app-soft)]">
-            <div className="relative aspect-[3/2] w-full">
-              <Image src={img} alt="" fill sizes="200px" className="object-cover" />
-              <span className="absolute left-2.5 top-2.5 inline-block rounded-full bg-[var(--app-brand)] px-2.5 py-1 font-mono text-[10px] font-bold uppercase tracking-[.06em] text-[var(--app-on)]">{c}</span>
-            </div>
-            <div className="p-3.5 pt-3">
-              <p className="truncate text-[17px] font-extrabold">{t}</p>
-              <p className="mt-0.5 truncate text-[12px] opacity-65">{s}</p>
-            </div>
-          </div>
-        ))}
+      <ClassRow />
       </div>
 
       {/* The gym's own "Brand your app" form (the owner's side) */}
