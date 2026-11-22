@@ -27,6 +27,6 @@ export const faq: FaqItem[] = [
   {
     question: "How do I get started?",
     answer: "Call 01000401407 or email info@bizqwik.com. We set up your studio with you.",
-    cta: { label: "Contact us", href: "#contact" },
+    cta: { label: "Talk to us", href: "#contact" },
   },
 ];
