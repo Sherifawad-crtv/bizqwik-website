@@ -31,7 +31,7 @@ export const business = {
 } as const;
 
 export const nav: { label: string; href: `#${SectionId}` }[] = [
-  { label: "The apps", href: "#apps" },
+  { label: "Features", href: "#apps" },
   { label: "Plans", href: "#plans" },
   { label: "FAQ", href: "#faq" },
 ];
