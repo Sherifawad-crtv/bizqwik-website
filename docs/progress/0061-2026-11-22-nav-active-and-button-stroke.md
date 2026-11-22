@@ -13,3 +13,5 @@ The mobile menu shares the same links (so it already reads Features), and its tw
 
 ## Same CTA effects on touch and desktop (2026-11-22)
 Hover styles do not run on touch screens, so phones got no corner or colour feedback. The `Button` now has the same effects while pressed (`active:`): corners ease to the full pill, the colour darkens (primary) or takes `sunken` (secondary), plus the existing scale dip. Checked at 1440 (rest 20px, hover and pressed 28px) and on a touch viewport at 390 (rest 20px, pressed 28px, darker). The desktop nav links and the mobile menu links also get a press dip, and the mobile menu links a soft white fill on hover and press.
+
+Fix (2026-11-22): the corner morph while pressed felt odd on phones (the corners animate slowly, so a tap makes the button wobble and settle after release). Pressed on touch is now the colour change and the scale dip only; the corner morph is hover-only (hover devices). Buttons and summaries also lose the grey tap flash (links already did).
