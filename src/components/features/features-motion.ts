@@ -59,6 +59,9 @@ export function initFeatureMotion(root: HTMLElement): () => void {
       // The business phone brings its own entrance (it flies in from the side).
       if (!stage.hasAttribute("data-own-entrance")) tl.fromTo(inner, { opacity: 0, y: enterFrom.y, scale: enterFrom.scale }, { opacity: 1, y: 0, scale: 1, duration: duration.enter, ease: ease.enter }, 0);
       BUILD[demo.dataset.demo as Role](tl, stage, colors, q);
+      // Show the start frame now: until its panel plays, the phone waits off-screen and the app is in its first state, so the
+      // entrance is seen when the row arrives (otherwise the finished scene sits there and then snaps back to start).
+      tl.time(0.05, false).time(0, false);
       timelines.set(panel, tl);
       return playOnView(panel, () => replay(tl));
     });
