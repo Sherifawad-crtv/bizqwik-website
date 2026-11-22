@@ -154,7 +154,7 @@ export function Navbar() {
                 <span
                   ref={indicator}
                   aria-hidden
-                  className="invisible absolute left-0 top-1.5 h-11 rounded-[16px] bg-surface opacity-0 shadow-card"
+                  className="invisible absolute left-0 top-1.5 h-11 rounded-full bg-primary-tint-strong opacity-0"
                 />
                 {nav.map((item) => {
                   const id = item.href.slice(1);
@@ -165,14 +165,10 @@ export function Navbar() {
                       href={item.href}
                       data-nav={id}
                       aria-current={on ? "true" : undefined}
-                      className={`relative flex h-11 items-center rounded-[16px] px-5 text-[17px] font-semibold transition-colors duration-(--dur-fast) ease-standard ${
-                        on ? "text-ink" : "text-ink/70 hover:text-ink"
+                      className={`relative flex h-11 items-center rounded-full px-5 text-[17px] font-semibold transition-colors duration-(--dur-fast) ease-standard ${
+                        on ? "text-primary-pressed" : "text-ink-muted hover:text-ink"
                       }`}
                     >
-                      <span
-                        aria-hidden
-                        className={`absolute left-2.5 size-1.5 rounded-full bg-primary transition-opacity duration-(--dur-fast) ease-standard ${on ? "opacity-100" : "opacity-0"}`}
-                      />
                       {item.label}
                     </a>
                   );
