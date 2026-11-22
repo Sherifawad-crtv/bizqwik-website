@@ -12,7 +12,7 @@ import { phoneKit, type PhoneColors } from "./phone-motion";
 type Q = { one: <T extends HTMLElement>(sel: string) => T; all: <T extends HTMLElement>(sel: string) => T[] };
 
 export function buildBrand(tl: TL, stage: HTMLElement, c: PhoneColors, q: Q) {
-  const { one } = q;
+  const { one, all } = q;
   const k = phoneKit(tl, c, q);
   const { phone, tapAt } = k;
   const app = one("[data-app]");
@@ -52,6 +52,9 @@ export function buildBrand(tl: TL, stage: HTMLElement, c: PhoneColors, q: Q) {
 
   /* ---------- start state ---------- */
   k.reset(["home"]);
+  // The shared tab bar colours its icons with the Bizqwik violet; in the white-label app they follow the picked colour.
+  const tabs = all("[data-tab]");
+  tabs.forEach((t, i) => tl.set(t, { color: i === 0 ? "var(--app-brand)" : "color-mix(in srgb, var(--app-ink) 55%, transparent)" }, 0));
   tl.add(() => {
     Object.assign(st, PICK_START);
     paint();
