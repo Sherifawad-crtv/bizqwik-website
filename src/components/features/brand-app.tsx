@@ -135,9 +135,6 @@ function Home() {
             <h3 className="truncate text-[22px] font-extrabold leading-tight tracking-[-.01em]">Hi, Mona</h3>
           </div>
         </div>
-        <span className="grid size-11 place-items-center rounded-full bg-[var(--app-soft)]">
-          <Icon name="calendar-mark" size={20} />
-        </span>
       </div>
 
       <div data-hero className="relative isolate overflow-hidden rounded-[28px] bg-[var(--app-brand)] px-5 pb-[18px] pt-5 text-[var(--app-on)]">
