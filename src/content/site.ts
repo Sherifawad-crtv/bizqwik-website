@@ -37,10 +37,10 @@ export const nav: { label: string; href: `#${SectionId}` }[] = [
 ];
 
 export const cta = {
-  primary: { label: "Contact sales", href: "#contact" },
+  primary: { label: "Contact us", href: "#contact" },
   secondary: { label: "See plans", href: "#plans" },
   /** The navbar's single button (desktop bar and mobile menu). */
-  nav: { label: "Contact sales", href: "#contact" },
+  nav: { label: "Contact us", href: "#contact" },
 } satisfies Record<string, Link>;
 
 export const seo = {
@@ -51,8 +51,8 @@ export const seo = {
 
 export const microcopy = {
   planLink: "See what's included",
-  enterpriseLink: "Contact sales",
-  addonsLink: "Need more? Contact sales.",
+  enterpriseLink: "Contact us",
+  addonsLink: "Need more? Contact us.",
   callAria: "Call Bizqwik",
   menuAria: "Open menu",
   copied: "Copied",

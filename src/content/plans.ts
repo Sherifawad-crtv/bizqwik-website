@@ -60,7 +60,7 @@ export const plans: Plan[] = [
     locations: "Custom",
     physicalIntegrations: "Custom",
     clientExperience: "Custom",
-    nextPlan: "Custom · Contact sales.",
+    nextPlan: "Custom · Contact us.",
   },
 ];
 

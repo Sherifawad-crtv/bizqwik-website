@@ -225,7 +225,7 @@ export function Navbar() {
               </ul>
             </nav>
             <div className="mt-2 border-t border-line/70 p-1 pt-4" data-menu-item>
-              <Button href={cta.nav.href} size="lg" onClick={closeMenu} className="w-full">
+              <Button href={cta.nav.href} size="lg" onClick={closeMenu}>
                 {cta.nav.label}
               </Button>
             </div>

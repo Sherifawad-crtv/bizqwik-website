@@ -61,7 +61,7 @@ function PlanCard({ plan }: { plan: Plan }) {
           </p>
         )}
 
-        <Button href={cta.primary.href} variant={dark ? "secondary" : "primary"} className="mt-6 w-full">
+        <Button href={cta.primary.href} variant={dark ? "secondary" : "primary"} className="mt-6 self-start">
           {plan.priceEgpMonthly === null ? microcopy.enterpriseLink : cta.primary.label}
         </Button>
       </Box>
