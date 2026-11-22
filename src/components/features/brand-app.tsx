@@ -127,13 +127,18 @@ function Home() {
       </div>
       <div className="flex gap-2.5">
         {[
-          ["Reformer", "6:00 PM · Coach Fatma", "On your plan"],
-          ["Mat Flow", "7:30 PM · Coach Lana", "150 EGP"],
-        ].map(([t, s, c]) => (
-          <div key={t} className="min-w-0 flex-1 rounded-[22px] bg-[var(--app-soft)] p-3.5">
-            <span className="inline-block rounded-full bg-[var(--app-brand)] px-2.5 py-1 font-mono text-[10px] font-bold uppercase tracking-[.06em] text-[var(--app-on)]">{c}</span>
-            <p className="mt-6 truncate text-[17px] font-extrabold">{t}</p>
-            <p className="mt-0.5 truncate text-[12px] opacity-65">{s}</p>
+          ["Reformer", "6:00 PM · Coach Fatma", "On your plan", "/demo/class-reformer.webp"],
+          ["Mat Flow", "7:30 PM · Coach Lana", "150 EGP", "/demo/class-matflow.webp"],
+        ].map(([t, s, c, img]) => (
+          <div key={t} className="min-w-0 flex-1 overflow-hidden rounded-[22px] bg-[var(--app-soft)]">
+            <div className="relative aspect-[3/2] w-full">
+              <Image src={img} alt="" fill sizes="200px" className="object-cover" />
+              <span className="absolute left-2.5 top-2.5 inline-block rounded-full bg-[var(--app-brand)] px-2.5 py-1 font-mono text-[10px] font-bold uppercase tracking-[.06em] text-[var(--app-on)]">{c}</span>
+            </div>
+            <div className="p-3.5 pt-3">
+              <p className="truncate text-[17px] font-extrabold">{t}</p>
+              <p className="mt-0.5 truncate text-[12px] opacity-65">{s}</p>
+            </div>
           </div>
         ))}
       </div>
