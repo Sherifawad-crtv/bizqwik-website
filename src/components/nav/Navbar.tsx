@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/Button";
-import { contact, cta, microcopy, nav } from "@/content";
+import { cta, microcopy, nav } from "@/content";
 import { useActiveSection } from "@/lib/useActiveSection";
 import { gsap } from "@/motion/gsap";
 import { getLenis } from "@/motion/lenis";
@@ -11,7 +11,7 @@ import { duration, ease, enterFrom, gap, stagger } from "@/motion/tokens";
 import { initNavbarMotion } from "./motion";
 
 const SECTION_IDS = nav.map((n) => n.href.slice(1));
-const glass = "bg-surface/70 backdrop-blur-xl backdrop-saturate-150 shadow-[0_10px_28px_-10px_rgb(26_23_38/0.2),0_1px_2px_rgb(26_23_38/0.06)]";
+const glass = "bg-surface/72 backdrop-blur-lg backdrop-saturate-150";
 /** Desktop pill and logo tile: light frosted glass: mostly opaque, soft blur, no stroke and no shadow. */
 const glassDesktop = "lg:bg-surface/72 lg:backdrop-blur-lg lg:backdrop-saturate-150 lg:shadow-none";
 
@@ -178,7 +178,7 @@ export function Navbar() {
 
             {/* Desktop CTA */}
             <div ref={cta_} className="hidden lg:absolute lg:right-0 lg:top-0 lg:block">
-              <Button href={cta.primary.href}>{cta.primary.label}</Button>
+              <Button href={cta.nav.href}>{cta.nav.label}</Button>
             </div>
 
             {/* Mobile menu button */}
@@ -188,7 +188,7 @@ export function Navbar() {
               aria-expanded={open}
               aria-controls="mobile-menu"
               onClick={open ? closeMenu : openMenu}
-              className="grid size-12 place-items-center rounded-[18px] bg-surface shadow-card transition-transform duration-(--dur-fast) ease-standard active:scale-95 lg:hidden"
+              className="grid size-12 place-items-center rounded-[18px] bg-surface transition-transform duration-(--dur-fast) ease-standard active:scale-95 lg:hidden"
             >
               <span className="relative block h-3 w-6" aria-hidden>
                 <span
@@ -207,7 +207,7 @@ export function Navbar() {
             id="mobile-menu"
             hidden={!shown}
             inert={!open}
-            className="pointer-events-auto mt-2 rounded-card bg-surface/92 p-3 shadow-float backdrop-blur-2xl backdrop-saturate-150 lg:hidden"
+            className="pointer-events-auto mt-2 rounded-[22px] bg-surface/72 p-3 backdrop-blur-lg backdrop-saturate-150 lg:hidden"
           >
             <nav aria-label="Mobile">
               <ul>
@@ -224,18 +224,10 @@ export function Navbar() {
                 ))}
               </ul>
             </nav>
-            <div className="mt-2 grid gap-2 border-t border-line/70 p-1 pt-4" data-menu-item>
-              <Button href={cta.primary.href} size="lg" onClick={closeMenu}>
-                {cta.primary.label}
+            <div className="mt-2 border-t border-line/70 p-1 pt-4" data-menu-item>
+              <Button href={cta.nav.href} size="lg" onClick={closeMenu} className="w-full">
+                {cta.nav.label}
               </Button>
-              <a href={contact.phoneHref} className="flex h-14 items-center justify-between rounded-tile border border-ink/10 bg-surface px-5 font-semibold text-ink shadow-card">
-                <span className="font-mono text-label font-bold uppercase text-ink-muted">Phone</span>
-                {contact.phoneDisplay}
-              </a>
-              <a href={contact.emailHref} className="flex h-14 items-center justify-between rounded-tile border border-ink/10 bg-surface px-5 font-semibold text-ink shadow-card">
-                <span className="font-mono text-label font-bold uppercase text-ink-muted">Email</span>
-                {contact.email}
-              </a>
             </div>
           </div>
         </div>

@@ -39,6 +39,8 @@ export const nav: { label: string; href: `#${SectionId}` }[] = [
 export const cta = {
   primary: { label: "Talk to us", href: "#contact" },
   secondary: { label: "See plans", href: "#plans" },
+  /** The navbar's single button (desktop bar and mobile menu). */
+  nav: { label: "Contact sales", href: "#contact" },
 } satisfies Record<string, Link>;
 
 export const seo = {
