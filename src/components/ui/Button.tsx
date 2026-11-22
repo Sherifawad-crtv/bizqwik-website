@@ -10,8 +10,8 @@ const TRANSITION =
 const base = `inline-flex items-center justify-center rounded-[20px] pt-[2px] text-center font-bold leading-none whitespace-nowrap select-none ${TRANSITION} hover:rounded-[28px] active:rounded-[28px] pointer-fine:active:scale-95`;
 const variants: Record<Variant, string> = {
   primary: "bg-primary text-white hover:bg-primary-pressed hover:brightness-105 active:bg-primary-pressed active:brightness-105",
-  /** The white CTA with a small stroke: on hover it takes a darker shade of itself (`sunken`). No brightness boost here, it would undo the darkening. */
-  secondary: "border border-ink/10 bg-surface text-ink shadow-card hover:bg-sunken active:bg-sunken",
+  /** The white CTA: a small stroke, no shadow. On hover it takes a darker shade of itself (`sunken`). No brightness boost here, it would undo the darkening. */
+  secondary: "border border-ink/10 bg-surface text-ink hover:bg-sunken active:bg-sunken",
 };
 const sizes: Record<Size, string> = {
   md: "h-14 px-7 text-[17px]",

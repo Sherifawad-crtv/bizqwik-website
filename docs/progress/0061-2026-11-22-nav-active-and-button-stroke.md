@@ -19,3 +19,5 @@ Fix (2026-11-22): the corner morph while pressed felt odd on phones (the corners
 Revert (2026-11-22): mobile should behave exactly like desktop, so the pressed state is back to the hover look (corners ease to the full pill with the same transition, same darker colour, scale dip). The grey tap flash stays removed.
 
 Update (2026-11-22): no scale dip on touch. The press scale on CTAs, nav links, the menu button and the Replay pill now applies only to mouse-like pointers (`pointer-fine:`); on a phone a press keeps the corner morph and the darker colour but the button no longer shrinks. Checked: pressed scale is 0.95 on desktop and none on a touch viewport.
+
+Update (2026-11-22): the soft shadow is removed from the white (secondary) CTA; it keeps its small stroke. The primary CTA never had one.
