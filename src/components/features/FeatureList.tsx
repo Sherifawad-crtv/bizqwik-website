@@ -85,7 +85,7 @@ export function FeatureList() {
                       <Demo />
                     </div>
                   </div>
-                  {f.id !== "clients" && <ReplayButton className="absolute bottom-4 right-4 z-10" />}
+                  <ReplayButton className="absolute bottom-4 right-4 z-10" />
                 </div>
               </div>
             );

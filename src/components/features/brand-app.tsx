@@ -13,6 +13,30 @@ import { Check, Grabber, sheetCls } from "./frontdesk-app";
  * brand-motion.ts plays it; this markup is the FINISHED state (Grove Pilates, a class bundle, 800 EGP, 121 points).
  */
 
+/** The app's colours from one picked colour (hue 0-360, saturation and value 0-1). The picker scene drives this live. */
+export type Hsv = { h: number; s: number; v: number };
+export const PICK_START: Hsv = { h: 252, s: 0.76, v: 1 };
+export const PICK_END: Hsv = { h: 72, s: 0.56, v: 0.5 };
+const hsl = (h: number, s: number, l: number) => `hsl(${h.toFixed(0)} ${s}% ${l}%)`;
+export function hexOf({ h, s, v }: Hsv) {
+  const f = (n: number) => {
+    const k = (n + h / 60) % 6;
+    return Math.round((v - v * s * Math.max(0, Math.min(k, 4 - k, 1))) * 255);
+  };
+  return `#${[f(5), f(3), f(1)].map((x) => x.toString(16).padStart(2, "0")).join("")}`.toUpperCase();
+}
+export function themeFrom(c: Hsv) {
+  const hex = hexOf(c);
+  const lum = (0.299 * parseInt(hex.slice(1, 3), 16) + 0.587 * parseInt(hex.slice(3, 5), 16) + 0.114 * parseInt(hex.slice(5, 7), 16)) / 255;
+  return {
+    "--app-brand": hex,
+    "--app-on": lum > 0.62 ? "#1a1726" : "#ffffff",
+    "--app-bg": hsl(c.h, 30, 94),
+    "--app-soft": hsl(c.h, 26, 88),
+    "--app-ink": hsl(c.h, 45, 13),
+  } as React.CSSProperties;
+}
+
 export const GROVE = { "--app-brand": "#6b7a3a", "--app-on": "#ffffff", "--app-bg": "#f1ebdd", "--app-soft": "#e6dec9", "--app-ink": "#2b3016" } as const;
 export const NEUTRAL = { "--app-brand": "#a8a5b3", "--app-on": "#ffffff", "--app-bg": "#fbfaf7", "--app-soft": "#f3f2ee", "--app-ink": "#1a1726" } as const;
 
@@ -348,16 +372,45 @@ function Splash() {
   );
 }
 
+/** The colour picker over the app (square, hue slider, hex): its handles are positioned from the colour, the scene drags them. */
+function Picker() {
+  const hue = (h: number) => `hsl(${h} 100% 50%)`;
+  return (
+    <div data-picker className="pointer-events-none absolute inset-x-4 bottom-[112px] z-[52] rounded-[28px] bg-white p-3.5 text-[#1a1726] opacity-0 shadow-[0_24px_60px_rgba(26,23,38,.28)]">
+      <div className="mb-3 flex items-center justify-between px-1">
+        <span className="text-[15px] font-extrabold">Brand colour</span>
+        <span data-tap="closepicker" className="grid size-8 place-items-center rounded-full bg-[#f3f2ee]">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="#1a1726" strokeWidth="2" strokeLinecap="round"><path d="M2 2l10 10M12 2L2 12" /></svg>
+        </span>
+      </div>
+      <div data-pk-square className="relative h-[150px] w-full rounded-[16px]" style={{ background: `linear-gradient(to top,#000,transparent),linear-gradient(to right,#fff,${hue(PICK_END.h)})` }}>
+        <span data-pk-sq-handle className="absolute size-[22px] -translate-x-1/2 -translate-y-1/2 rounded-full border-[3px] border-white bg-transparent shadow-[0_0_0_1px_rgba(0,0,0,.25),0_2px_6px_rgba(0,0,0,.3)]" style={{ left: `${PICK_END.s * 100}%`, top: `${(1 - PICK_END.v) * 100}%` }} />
+      </div>
+      <div className="px-1 pt-4">
+        <div data-pk-hue className="relative h-3 w-full rounded-full" style={{ background: "linear-gradient(to right,#f00,#ff0,#0f0,#0ff,#00f,#f0f,#f00)" }}>
+          <span data-pk-hue-handle className="absolute top-1/2 size-[22px] -translate-x-1/2 -translate-y-1/2 rounded-full border-[3px] border-white shadow-[0_0_0_1px_rgba(0,0,0,.25),0_2px_6px_rgba(0,0,0,.3)]" style={{ left: `${(PICK_END.h / 360) * 100}%`, background: hue(PICK_END.h) }} />
+        </div>
+      </div>
+      <div className="flex items-center justify-between px-3 pb-1 pt-4 font-mono text-[13px] text-[#6d6a78]">
+        <span>HEX</span>
+        <span data-pk-hex className="font-bold text-[#1a1726]">{hexOf(PICK_END).slice(1)}</span>
+        <span>100%</span>
+      </div>
+    </div>
+  );
+}
+
 export function BrandPhone() {
   return (
     <PhoneFrame>
-      <div data-app className="absolute inset-0 bg-[var(--app-bg)]" style={GROVE as React.CSSProperties}>
+      <div data-app className="absolute inset-0 bg-[var(--app-bg)]" style={themeFrom(PICK_END)}>
         <div data-pages className="absolute inset-0">
           <Home />
         </div>
         <Chrome tabs={TABS} themed />
         <Splash />
         <DoneSheet title="You're in" themed />
+        <Picker />
       </div>
     </PhoneFrame>
   );
