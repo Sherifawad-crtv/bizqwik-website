@@ -1,4 +1,4 @@
 # 0061 Nav active state and secondary button stroke (2026-11-22)
 
 - Secondary (white) buttons get a small 1px stroke (`border-ink/10`), same height.
-- The desktop nav's selected tab now matches the app's tab bar: a soft violet tint pill (`primary-tint-strong`, fully rounded) with violet text, no shadow at all and no blue dot. Unselected links are `ink-muted`, as in the app bar.
+- The desktop nav's selected tab keeps its original look (white pill, dark text) but loses its shadow, and the blue dot is removed. (An earlier version of this change also recoloured it violet; that was not asked for and is reverted.)
