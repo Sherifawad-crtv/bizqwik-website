@@ -17,3 +17,5 @@ Hover styles do not run on touch screens, so phones got no corner or colour feed
 Fix (2026-11-22): the corner morph while pressed felt odd on phones (the corners animate slowly, so a tap makes the button wobble and settle after release). Pressed on touch is now the colour change and the scale dip only; the corner morph is hover-only (hover devices). Buttons and summaries also lose the grey tap flash (links already did).
 
 Revert (2026-11-22): mobile should behave exactly like desktop, so the pressed state is back to the hover look (corners ease to the full pill with the same transition, same darker colour, scale dip). The grey tap flash stays removed.
+
+Update (2026-11-22): no scale dip on touch. The press scale on CTAs, nav links, the menu button and the Replay pill now applies only to mouse-like pointers (`pointer-fine:`); on a phone a press keeps the corner morph and the darker colour but the button no longer shrinks. Checked: pressed scale is 0.95 on desktop and none on a touch viewport.

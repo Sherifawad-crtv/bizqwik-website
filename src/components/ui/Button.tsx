@@ -7,7 +7,7 @@ type Size = "md" | "lg";
 const TRANSITION =
   "[transition:border-radius_var(--dur-enter)_var(--ease-standard),transform_var(--dur-fast)_var(--ease-standard),filter_var(--dur-fast)_var(--ease-standard),background-color_var(--dur-fast)_var(--ease-standard),color_var(--dur-fast)_var(--ease-standard)]";
 /* text-center + leading-none + pt-[2px]: Urbanist sits about 1px high in its line box, the padding puts the caps on the button's optical centre. */
-const base = `inline-flex items-center justify-center rounded-[20px] pt-[2px] text-center font-bold leading-none whitespace-nowrap select-none ${TRANSITION} hover:rounded-[28px] active:rounded-[28px] active:scale-95`;
+const base = `inline-flex items-center justify-center rounded-[20px] pt-[2px] text-center font-bold leading-none whitespace-nowrap select-none ${TRANSITION} hover:rounded-[28px] active:rounded-[28px] pointer-fine:active:scale-95`;
 const variants: Record<Variant, string> = {
   primary: "bg-primary text-white hover:bg-primary-pressed hover:brightness-105 active:bg-primary-pressed active:brightness-105",
   /** The white CTA with a small stroke: on hover it takes a darker shade of itself (`sunken`). No brightness boost here, it would undo the darkening. */

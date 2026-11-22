@@ -10,7 +10,7 @@ export function ReplayButton({ className = "" }: { className?: string }) {
     <button
       type="button"
       data-replay
-      className={`inline-flex h-10 items-center gap-2 rounded-[14px] border border-line bg-surface px-3.5 text-[15px] font-semibold text-ink shadow-card transition-[transform,background-color] hover:bg-paper duration-(--dur-fast) ease-standard active:scale-95 motion-reduce:hidden ${className}`}
+      className={`inline-flex h-10 items-center gap-2 rounded-[14px] border border-line bg-surface px-3.5 text-[15px] font-semibold text-ink shadow-card transition-[transform,background-color] hover:bg-paper duration-(--dur-fast) ease-standard pointer-fine:active:scale-95 motion-reduce:hidden ${className}`}
     >
       <Icon name="restart" size={18} />
       Replay
