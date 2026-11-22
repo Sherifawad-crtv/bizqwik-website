@@ -41,15 +41,15 @@ export const articles: Article[] = [
     path: "/about",
     title: "About Bizqwik",
     summary: "Who we are, what Bizqwik is, and who it is for.",
-    intro: "Bizqwik is software that helps gyms, studios and clubs in Egypt run their whole community from one place.",
+    intro: "Bizqwik is software that helps fitness studios, gyms and clubs in Egypt run their whole business from one place.",
     icon: "home-smile",
     dated: false,
     sections: [
       {
         heading: "Who we are",
         blocks: [
-          { p: "Bizqwik is a software company based in Heliopolis, Cairo, Egypt. We build the apps that gyms, studios and clubs use every day, and we work with each business directly to set it up." },
-          { p: "Our tagline says it: one ecosystem, your whole community." },
+          { p: "Bizqwik is a software company based in Heliopolis, Cairo, Egypt. We build the apps that fitness studios, gyms and clubs use every day, and we work with each business directly to set it up." },
+          { p: "Our tagline says it: one system, your whole studio." },
         ],
       },
       {
@@ -62,7 +62,7 @@ export const articles: Article[] = [
               "Accountant dashboard: monthly settlement and payouts, with a clear record of what was paid and when.",
               "Front-desk app: register clients, sell plans, check people in and take payments at the desk.",
               "Coaches app: coaches log sessions by scanning a QR code and see their earnings.",
-              "Branded client app: your gym's own name, logo and colours, where clients book, pay and check in.",
+              "Branded client app: your studio's own name, logo and colours, where clients book, pay and check in.",
             ],
           },
         ],
@@ -70,7 +70,7 @@ export const articles: Article[] = [
       {
         heading: "Who it is for",
         blocks: [
-          { p: "Bizqwik is a business-to-business service. Our customers are independent coaches, studios, gyms and clubs. The people who train at those businesses use the client app, but their relationship is with their gym, and ours is with the gym." },
+          { p: "Bizqwik is a business-to-business service. Our customers are independent coaches, fitness studios, gyms and clubs. The people who train at those businesses use the client app, but their relationship is with their studio, and ours is with the studio." },
         ],
       },
       {
@@ -130,7 +130,7 @@ export const articles: Article[] = [
       {
         heading: "Who this policy covers",
         blocks: [
-          { p: "Bizqwik provides software to gyms, studios and clubs (“businesses”). Three groups of people have data in our systems or on our website:" },
+          { p: "Bizqwik provides software to fitness studios, gyms and clubs (“businesses”). Three groups of people have data in our systems or on our website:" },
           {
             ul: [
               "Visitors to bizqwik.com.",
@@ -215,7 +215,7 @@ export const articles: Article[] = [
         heading: "Your choices and rights",
         blocks: [
           { p: "Under Egypt's Personal Data Protection Law (Law No. 151 of 2020) and similar rules, you can ask to see your personal data, correct it, or have it deleted, and you can object to certain uses." },
-          { p: "If you are a client of a gym or studio, start with that business, because it controls your record. You can also write to us and we will point your request to the right place or act on it ourselves. " + SUPPORT },
+          { p: "If you are a client of a studio or gym, start with that business, because it controls your record. You can also write to us and we will point your request to the right place or act on it ourselves. " + SUPPORT },
         ],
       },
       {
@@ -265,9 +265,9 @@ export const articles: Article[] = [
         blocks: [{ p: "All prices are in Egyptian pounds (EGP) per month and exclude 14% VAT, which is added on the invoice. Refunds, where agreed, follow the same currency and include any VAT that was charged on the refunded amount." }],
       },
       {
-        heading: "Payments between a gym and its clients",
+        heading: "Payments between a studio and its clients",
         blocks: [
-          { p: "Memberships, class bundles, wallet top-ups and classes that a gym's clients buy are sales by that gym, not by Bizqwik. The gym sets its own refund and cancellation rules. Bizqwik gives the gym the tools to apply them, for example freezing a membership or refunding an amount to a client's wallet. Clients should ask their gym about those payments." },
+          { p: "Memberships, class bundles, wallet top-ups and classes that a studio's clients buy are sales by that studio, not by Bizqwik. The studio sets its own refund and cancellation rules. Bizqwik gives the studio the tools to apply them, for example freezing a membership or refunding an amount to a client's wallet. Clients should ask their studio about those payments." },
         ],
       },
     ],

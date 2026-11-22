@@ -3,7 +3,7 @@ import type { AddonGroup } from "./types";
 /** No prices. No plan labels. No "coming soon". */
 export const addonsIntro = {
   heading: "Add what you need.",
-  lede: "Start with your plan. Add more whenever your gym needs it.",
+  lede: "Start with your plan. Add more whenever your studio needs it.",
 } as const;
 
 export const addonGroups: AddonGroup[] = [
@@ -17,7 +17,7 @@ export const addonGroups: AddonGroup[] = [
   {
     label: "AI",
     addons: [
-      { name: "AI assistant", line: "Ask questions about your gym in plain language and get answers and analysis", icon: "stars" },
+      { name: "AI assistant", line: "Ask questions about your studio in plain language and get answers and analysis", icon: "stars" },
       { name: "AI agent", line: "An assistant that does tasks for you inside the app, not just answers", icon: "cpu-bolt" },
     ],
   },

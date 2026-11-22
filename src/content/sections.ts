@@ -4,9 +4,9 @@
  */
 
 export const statement = {
-  line1: "One ecosystem.",
+  line1: "One system.",
   line2Before: "Your ",
-  highlight: "whole community.",
+  highlight: "whole studio.",
 } as const;
 
 /** The moving pills in the statement section (reference: the merchant list). Every line is a task from the brief. */
@@ -33,5 +33,5 @@ export const benefits: { title: string; line: string }[] = [
 ];
 
 export const closing = {
-  statement: "Run your gym, your team and your payouts from one place. Every app stays in sync.",
+  statement: "Run your studio, your team and your payouts from one place. Every app stays in sync.",
 } as const;

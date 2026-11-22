@@ -149,7 +149,7 @@ export default function Foundation() {
         <div className="space-y-10">
           <div>
             <Label>Urbanist 800 · H1 · −3.5%</Label>
-            <p className="mt-2 text-h1 font-extrabold">One ecosystem.</p>
+            <p className="mt-2 text-h1 font-extrabold">One system.</p>
           </div>
           <div>
             <Label>Urbanist 800 · H2 · −3%</Label>
@@ -162,7 +162,7 @@ export default function Foundation() {
           <div>
             <Label>Urbanist 500 · Body</Label>
             <p className="mt-2 max-w-3xl text-body">
-              Everyone who touches your gym gets their own app, and every app stays in sync.
+              Everyone who touches your studio gets their own app, and every app stays in sync.
             </p>
           </div>
           <div className="flex flex-wrap items-end gap-10">
@@ -173,7 +173,7 @@ export default function Foundation() {
             </div>
             <div>
               <Label>Space Mono · labels only</Label>
-              <p className="mt-2 font-mono text-label font-bold uppercase">For gyms, studios and clubs</p>
+              <p className="mt-2 font-mono text-label font-bold uppercase">For fitness studios, gyms and clubs</p>
             </div>
           </div>
         </div>

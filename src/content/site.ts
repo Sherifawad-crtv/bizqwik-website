@@ -7,7 +7,7 @@ import type { Link, SectionId } from "./types";
 
 export const brand = {
   name: "Bizqwik",
-  tagline: "One ecosystem. Your whole community.",
+  tagline: "One system. Your whole studio.",
 } as const;
 
 export const contact = {
@@ -15,7 +15,7 @@ export const contact = {
   // TODO(owner): confirm tel: format and whether the number is on WhatsApp.
   phoneHref: "tel:+201000401407",
   email: "info@bizqwik.com",
-  emailHref: "mailto:info@bizqwik.com?subject=Set%20up%20my%20gym",
+  emailHref: "mailto:info@bizqwik.com?subject=Set%20up%20my%20studio",
 } as const;
 
 /** Business location (shown on Contact, About and the footer). */
@@ -44,9 +44,9 @@ export const cta = {
 } satisfies Record<string, Link>;
 
 export const seo = {
-  title: "Bizqwik | One ecosystem. Your whole community.",
+  title: "Bizqwik | One system. Your whole studio.",
   description:
-    "Five connected apps run your gym: founder, accountant, front desk, coaches and a branded client app. Plans from 1,290 EGP a month.",
+    "Five connected apps run your fitness studio: founder, accountant, front desk, coaches and a branded client app. Plans from 1,290 EGP a month.",
 } as const;
 
 export const microcopy = {

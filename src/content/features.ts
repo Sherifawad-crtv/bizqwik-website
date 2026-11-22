@@ -40,10 +40,10 @@ export const features: Feature[] = [
   },
   {
     id: "clients",
-    title: "Your gym, your brand",
-    headline: "Your gym in your clients' pockets, under your brand.",
+    title: "Your studio, your brand",
+    headline: "Your studio in your clients' pockets, under your brand.",
     bullets: [
-      "Your gym's own name, logo, colours and web address.",
+      "Your studio's own name, logo, colours and web address.",
       "Clients book classes and buy memberships and bundles.",
       "Top up a wallet, earn loyalty points and check in with a QR code.",
     ],

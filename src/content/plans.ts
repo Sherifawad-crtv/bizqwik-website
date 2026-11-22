@@ -35,7 +35,7 @@ export const plans: Plan[] = [
     id: "grow",
     name: "Grow",
     tag: "Best fit for studios",
-    forWho: "Studios and gyms with a team",
+    forWho: "Fitness studios with a team",
     priceEgpMonthly: 4990,
     clientsIncluded: "300",
     extraClient: "20 EGP",
@@ -45,16 +45,16 @@ export const plans: Plan[] = [
     locations: "1",
     physicalIntegrations: "Not included",
     clientExperience: "Branded client app (PWA)",
-    nextPlan: "Enterprise · Contact us · For large or multi-site communities",
+    nextPlan: "Enterprise · Contact us · For multi-studio groups",
   },
   {
     id: "enterprise",
     name: "Enterprise",
-    forWho: "Large or multi-site communities",
+    forWho: "Multi-studio groups",
     priceEgpMonthly: null,
     clientsIncluded: "Custom",
     extraClient: "Custom",
-    summary: "Everything is custom, built around your community.",
+    summary: "Everything is custom, built around your studios.",
     staff: "Custom",
     departments: "Custom",
     locations: "Custom",
@@ -75,9 +75,9 @@ export const planApps: Record<PlanId, { founder: string; accountant: boolean | s
 
 /** Enterprise gets its own treatment: a numbered list, never a number. */
 export const enterprisePanel = {
-  summary: "Everything is custom, built around your community.",
+  summary: "Everything is custom, built around your studios.",
   listHeading: "Every part of the plan is set around you.",
-  listNote: "Large or multi-site communities get all of these tailored.",
+  listNote: "Multi-studio groups get all of these tailored.",
   items: [
     "Active clients included",
     "Each extra client",

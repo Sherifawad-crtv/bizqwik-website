@@ -1,18 +1,18 @@
 import type { AppBlock, AppSummary } from "./types";
 
 export const appSummaries: AppSummary[] = [
-  { id: "founder", number: "01", title: "Founder / C-suite app", role: "Sets prices, schedules and the team", usedBy: "Gym owner, department head", icon: "chart-square", short: "Founder" },
+  { id: "founder", number: "01", title: "Founder / C-suite app", role: "Sets prices, schedules and the team", usedBy: "Studio owner, department head", icon: "chart-square", short: "Founder" },
   { id: "accountant", number: "02", title: "Accountant dashboard", role: "Runs the monthly payout", usedBy: "Accountant", icon: "calculator", short: "Accountant" },
   { id: "frontDesk", number: "03", title: "Front-desk / reception app", role: "Checks clients in and takes payments", usedBy: "Front desk", icon: "qr-code", short: "Reception" },
   { id: "coaches", number: "04", title: "Coaches app", role: "Logs sessions and tracks earnings", usedBy: "Coaches", icon: "users-group-two-rounded", short: "Coaches" },
-  { id: "client", number: "05", title: "Branded client app", role: "Books, buys and checks in", usedBy: "The gym's clients", icon: "smartphone", short: "Client" },
+  { id: "client", number: "05", title: "Branded client app", role: "Books, buys and checks in", usedBy: "The studio's clients", icon: "smartphone", short: "Client" },
 ];
 
 export const appBlocks: AppBlock[] = [
   {
     id: "founder",
     eyebrow: "App 1 · Founder / C-suite app",
-    usedBy: "Gym owner, department head",
+    usedBy: "Studio owner, department head",
     headline: "See the whole business. Run it from one place.",
     bullets: [
       { text: "See revenue, profit, coach payouts and active subscribers in one dashboard." },
@@ -72,18 +72,18 @@ export const appBlocks: AppBlock[] = [
   {
     id: "client",
     eyebrow: "App 5 · Branded client app",
-    usedBy: "The gym's clients",
-    headline: "Your gym in your clients' pockets, under your brand.",
+    usedBy: "The studio's clients",
+    headline: "Your studio in your clients' pockets, under your brand.",
     bullets: [
-      { text: "Your gym's own name, logo, colours and web address." },
+      { text: "Your studio's own name, logo, colours and web address." },
       { text: "Check in with a QR code." },
       { text: "Book classes and say \"I'm coming\"." },
       { text: "Buy memberships and bundles." },
       { text: "Top up a wallet and earn loyalty points." },
       { text: "Freeze your own plan." },
     ],
-    callout: "This is the app that carries your gym's own brand.",
-    caption: "Same app, three illustrative gym brands",
+    callout: "This is the app that carries your studio's own brand.",
+    caption: "Same app, three illustrative studio brands",
   },
 ];
 

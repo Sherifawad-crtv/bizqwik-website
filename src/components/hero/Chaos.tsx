@@ -109,7 +109,7 @@ export function Receipt() {
   return (
     <Chaos w={152} h={300} rot={5} torn className={`bg-[#f4f3ee] [-webkit-mask:conic-gradient(from_-45deg_at_bottom,#0000,#000_1deg_89deg,#0000_90deg)_50%/14px_100%] [mask:conic-gradient(from_-45deg_at_bottom,#0000,#000_1deg_89deg,#0000_90deg)_50%/14px_100%]`}>
       <div className="px-3.5 pb-6 pt-4 font-mono text-[10px] leading-[1.55] text-[#3b3b3b]">
-        <p className="text-center font-bold">BIZ GYM · SALES</p>
+        <p className="text-center font-bold">BIZ STUDIO · SALES</p>
         <p className="text-center text-[#6b6b66]">oct — printed 23:41</p>
         <p className="my-1.5 border-t border-dashed border-[#9a9a94]" />
         {rows.map(([a, b]) => (
