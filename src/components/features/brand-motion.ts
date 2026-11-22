@@ -75,7 +75,6 @@ export function buildBrand(tl: TL, _stage: HTMLElement, c: PhoneColors, q: Q) {
     val("points").textContent = "120";
   }, 0.01);
 
-  k.enter(0.05);
 
   /* ---------- 1. The gym brands its app ---------- */
   sheetUp(sheet("brand"), 1.0);

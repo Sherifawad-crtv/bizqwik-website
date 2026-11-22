@@ -39,7 +39,6 @@ export function buildCoach(tl: TL, _stage: HTMLElement, c: PhoneColors, q: Q) {
   }, 0.01);
 
   /* ---------- 1. My Month ---------- */
-  k.enter(0.05);
   countTo(val("total"), 0, 4500, 1.0, duration.count);
   countTo(val("days"), 0, 15, 1.0, duration.count, (v) => `${fmt(v)} DAYS`);
   tl.to(one("[data-nextcard]"), { opacity: 1, y: 0, duration: duration.base, ease: ease.enter }, 1.5);

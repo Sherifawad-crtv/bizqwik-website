@@ -45,7 +45,6 @@ export function buildFrontDesk(tl: TL, _stage: HTMLElement, c: PhoneColors, q: Q
     one('[data-type="search"]').textContent = "";
   }, 0.01);
   /* ---------- the phone slides up, the desk's numbers count up ---------- */
-  k.enter(0.05);
   countTo(val("checked"), 0, 39, 1.0, duration.count);
   countTo(val("dropins"), 0, 6, 1.0, duration.count);
   countTo(val("active"), 0, 11, 1.0, duration.count);
