@@ -636,7 +636,7 @@ export function DoneSheet({ title, themed = false }: { title: string; themed?: b
 }
 
 /** The iPhone frame with the app screen scaled into it, and the pointer on top. `children` are the app's layers (pages, bar, overlays). */
-export function PhoneFrame({ children }: { children: ReactNode }) {
+export function PhoneFrame({ children, aside }: { children: ReactNode; aside?: ReactNode }) {
   const pct = (n: number) => `${n * 100}%`;
   return (
     <div data-stage data-own-entrance className="relative w-full">
@@ -656,6 +656,7 @@ export function PhoneFrame({ children }: { children: ReactNode }) {
           </div>
         </div>
         <Image src="/devices/iphone-frame.webp" alt="" width={FRAME.w} height={FRAME.h} className="pointer-events-none absolute inset-0 size-full select-none" />
+        {aside}
         <Cursor />
       </div>
     </div>

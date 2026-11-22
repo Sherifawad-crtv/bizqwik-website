@@ -4,7 +4,7 @@ import { hexOf, PICK_END, PICK_START, themeFrom, type Hsv } from "./brand-app";
 import { phoneKit, type PhoneColors } from "./phone-motion";
 
 /*
- * "Your gym, your brand": a colour picker opens over the app. The pointer grabs the hue handle and drags it along the
+ * "Your gym, your brand": a colour picker slides in beside the phone, overlapping its right edge. The pointer grabs the hue handle and drags it along the
  * slider, then the handle in the square; the whole app takes the picked colour live, frame by frame (brand colour, the
  * text on it, background, soft tiles, ink). The picker closes on the gym's green. Rows 2-4 have no phone entrance.
  */
@@ -56,11 +56,11 @@ export function buildBrand(tl: TL, stage: HTMLElement, c: PhoneColors, q: Q) {
     Object.assign(st, PICK_START);
     paint();
   }, 0.01);
-  tl.set(one("[data-picker]"), { autoAlpha: 0, y: 60 }, 0);
+  tl.set(one("[data-picker]"), { autoAlpha: 0, x: 48 }, 0);
 
   /* ---------- the picker opens ---------- */
   const open = 0.7;
-  tl.to(one("[data-picker]"), { autoAlpha: 1, y: 0, duration: duration.scene, ease: ease.enter }, open);
+  tl.to(one("[data-picker]"), { autoAlpha: 1, x: 0, duration: duration.scene, ease: ease.enter }, open);
 
   /* ---------- the pointer grabs the hue handle and drags it ---------- */
   const grab = open + duration.scene + 0.2;
@@ -85,5 +85,5 @@ export function buildBrand(tl: TL, stage: HTMLElement, c: PhoneColors, q: Q) {
 
   /* ---------- close ---------- */
   const land = tapAt(one('[data-tap="closepicker"]'), release + 0.7);
-  tl.to(one("[data-picker]"), { autoAlpha: 0, y: 60, duration: duration.base, ease: ease.standard }, land + 0.2);
+  tl.to(one("[data-picker]"), { autoAlpha: 0, x: 48, duration: duration.base, ease: ease.standard }, land + 0.2);
 }

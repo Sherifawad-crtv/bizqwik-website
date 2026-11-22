@@ -376,25 +376,27 @@ function Splash() {
 function Picker() {
   const hue = (h: number) => `hsl(${h} 100% 50%)`;
   return (
-    <div data-picker className="pointer-events-none absolute inset-x-4 bottom-[112px] z-[52] rounded-[28px] bg-white p-3.5 text-[#1a1726] opacity-0 shadow-[0_24px_60px_rgba(26,23,38,.28)]">
-      <div className="mb-3 flex items-center justify-between px-1">
-        <span className="text-[15px] font-extrabold">Brand colour</span>
-        <span data-tap="closepicker" className="grid size-8 place-items-center rounded-full bg-[#f3f2ee]">
-          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="#1a1726" strokeWidth="2" strokeLinecap="round"><path d="M2 2l10 10M12 2L2 12" /></svg>
-        </span>
-      </div>
-      <div data-pk-square className="relative h-[150px] w-full rounded-[16px]" style={{ background: `linear-gradient(to top,#000,transparent),linear-gradient(to right,#fff,${hue(PICK_END.h)})` }}>
-        <span data-pk-sq-handle className="absolute size-[22px] -translate-x-1/2 -translate-y-1/2 rounded-full border-[3px] border-white bg-transparent shadow-[0_0_0_1px_rgba(0,0,0,.25),0_2px_6px_rgba(0,0,0,.3)]" style={{ left: `${PICK_END.s * 100}%`, top: `${(1 - PICK_END.v) * 100}%` }} />
-      </div>
-      <div className="px-1 pt-4">
-        <div data-pk-hue className="relative h-3 w-full rounded-full" style={{ background: "linear-gradient(to right,#f00,#ff0,#0f0,#0ff,#00f,#f0f,#f00)" }}>
-          <span data-pk-hue-handle className="absolute top-1/2 size-[22px] -translate-x-1/2 -translate-y-1/2 rounded-full border-[3px] border-white shadow-[0_0_0_1px_rgba(0,0,0,.25),0_2px_6px_rgba(0,0,0,.3)]" style={{ left: `${(PICK_END.h / 360) * 100}%`, background: hue(PICK_END.h) }} />
+    <div className="pointer-events-none absolute left-[calc(100%-32px)] top-1/2 z-10 -translate-y-1/2 max-[900px]:left-[calc(50%-125px)] max-[900px]:top-auto max-[900px]:bottom-[7%] max-[900px]:translate-y-0">
+      <div data-picker className="w-[250px] rounded-[26px] bg-white p-3.5 text-[#1a1726] opacity-0 shadow-[0_24px_60px_rgba(26,23,38,.22)]">
+        <div className="mb-3 flex items-center justify-between px-1">
+          <span className="text-[15px] font-extrabold">Brand colour</span>
+          <span data-tap="closepicker" className="grid size-8 place-items-center rounded-full bg-[#f3f2ee]">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="#1a1726" strokeWidth="2" strokeLinecap="round"><path d="M2 2l10 10M12 2L2 12" /></svg>
+          </span>
         </div>
-      </div>
-      <div className="flex items-center justify-between px-3 pb-1 pt-4 font-mono text-[13px] text-[#6d6a78]">
-        <span>HEX</span>
-        <span data-pk-hex className="font-bold text-[#1a1726]">{hexOf(PICK_END).slice(1)}</span>
-        <span>100%</span>
+        <div data-pk-square className="relative h-[140px] w-full rounded-[16px]" style={{ background: `linear-gradient(to top,#000,transparent),linear-gradient(to right,#fff,${hue(PICK_END.h)})` }}>
+          <span data-pk-sq-handle className="absolute size-[22px] -translate-x-1/2 -translate-y-1/2 rounded-full border-[3px] border-white bg-transparent shadow-[0_0_0_1px_rgba(0,0,0,.25),0_2px_6px_rgba(0,0,0,.3)]" style={{ left: `${PICK_END.s * 100}%`, top: `${(1 - PICK_END.v) * 100}%` }} />
+        </div>
+        <div className="px-1 pt-4">
+          <div data-pk-hue className="relative h-3 w-full rounded-full" style={{ background: "linear-gradient(to right,#f00,#ff0,#0f0,#0ff,#00f,#f0f,#f00)" }}>
+            <span data-pk-hue-handle className="absolute top-1/2 size-[22px] -translate-x-1/2 -translate-y-1/2 rounded-full border-[3px] border-white shadow-[0_0_0_1px_rgba(0,0,0,.25),0_2px_6px_rgba(0,0,0,.3)]" style={{ left: `${(PICK_END.h / 360) * 100}%`, background: hue(PICK_END.h) }} />
+          </div>
+        </div>
+        <div className="flex items-center justify-between px-3 pb-1 pt-4 font-mono text-[13px] text-[#6d6a78]">
+          <span>HEX</span>
+          <span data-pk-hex className="font-bold text-[#1a1726]">{hexOf(PICK_END).slice(1)}</span>
+          <span>100%</span>
+        </div>
       </div>
     </div>
   );
@@ -402,7 +404,7 @@ function Picker() {
 
 export function BrandPhone() {
   return (
-    <PhoneFrame>
+    <PhoneFrame aside={<Picker />}>
       <div data-app className="absolute inset-0 bg-[var(--app-bg)]" style={themeFrom(PICK_END)}>
         <div data-pages className="absolute inset-0">
           <Home />
@@ -410,7 +412,6 @@ export function BrandPhone() {
         <Chrome tabs={TABS} themed />
         <Splash />
         <DoneSheet title="You're in" themed />
-        <Picker />
       </div>
     </PhoneFrame>
   );
