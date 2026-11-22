@@ -19,8 +19,8 @@ export function ClosingSection() {
 
           <ul className="mt-16 grid gap-4 md:grid-cols-3">
             {[
-              { title: "Talk to us", action: <Button href={contact.phoneHref}>{contact.phoneDisplay}</Button> },
-              { title: "Write to us", action: <Button href={contact.emailHref}>{contact.email}</Button> },
+              { title: "Call us", action: <Button href={contact.phoneHref}>{contact.phoneDisplay}</Button> },
+              { title: "Email us", action: <Button href={contact.emailHref}>{contact.email}</Button> },
               { title: "See the plans", action: <Button href={cta.secondary.href} variant="secondary">{cta.secondary.label}</Button> },
             ].map((c) => (
               <li key={c.title} data-reveal>

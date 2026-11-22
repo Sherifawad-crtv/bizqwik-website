@@ -79,3 +79,4 @@ Convention (same as the app repo, `Sherifawad-crtv/bizqwik`):
 - [0060](0060-2026-11-20-one-success-icon.md) One success icon everywhere
 - [0061](0061-2026-11-22-nav-active-and-button-stroke.md) Nav active state and secondary button stroke
 - [0062](0062-2026-11-22-studio-copy.md) Copy: fitness studio, not community
+- [0063](0063-2026-11-22-copy-rewrite.md) Copy rewrite: studio vocabulary, no filler

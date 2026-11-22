@@ -3,15 +3,15 @@ import type { CompareGroup, Plan, PlanId } from "./types";
 /**
  * Display content for the marketing page. These numbers are NOT billing logic:
  * when subscriptions ship, the backend owns plans and money (see docs/DECISIONS.md D-005).
- * Hard rules: Enterprise never shows a number; extra clients never cost more than the next plan.
+ * Hard rules: Enterprise never shows a number; extra members never cost more than the next plan.
  */
 
 export const plansIntro = {
   heading: "Three plans. One monthly price each.",
-  lede: "Start small. Move up as you grow.",
+  lede: "Priced by active members and team size.",
   callout: {
-    lead: "Extra clients never cost more than the next plan.",
-    text: "If extra-client charges would pass the next plan's price, you simply move up.",
+    lead: "Extra members never cost more than the next plan.",
+    text: "If extra-member charges would pass the next plan's price, you move up.",
   },
 } as const;
 
@@ -29,7 +29,7 @@ export const plans: Plan[] = [
     locations: "1",
     physicalIntegrations: "Not included",
     clientExperience: "Branded booking page",
-    nextPlan: "Grow · 4,990 EGP / month · 300 clients, 10 staff and all five apps",
+    nextPlan: "Grow · 4,990 EGP / month · 300 members, 10 staff and all five apps",
   },
   {
     id: "grow",
@@ -54,13 +54,13 @@ export const plans: Plan[] = [
     priceEgpMonthly: null,
     clientsIncluded: "Custom",
     extraClient: "Custom",
-    summary: "Everything is custom, built around your studios.",
+    summary: "Custom limits, apps and integrations.",
     staff: "Custom",
     departments: "Custom",
     locations: "Custom",
     physicalIntegrations: "Custom",
     clientExperience: "Custom",
-    nextPlan: "Let's talk · Contact us to set yours up.",
+    nextPlan: "Custom · Contact sales.",
   },
 ];
 
@@ -75,17 +75,17 @@ export const planApps: Record<PlanId, { founder: string; accountant: boolean | s
 
 /** Enterprise gets its own treatment: a numbered list, never a number. */
 export const enterprisePanel = {
-  summary: "Everything is custom, built around your studios.",
-  listHeading: "Every part of the plan is set around you.",
-  listNote: "Multi-studio groups get all of these tailored.",
+  summary: "Custom limits, apps and integrations.",
+  listHeading: "Each limit is set with you.",
+  listNote: "Set per group.",
   items: [
-    "Active clients included",
-    "Each extra client",
+    "Active members included",
+    "Each extra member",
     "Staff",
     "Departments",
     "Locations",
     "Apps included",
-    "Client experience",
+    "Member experience",
     "Physical integrations (e.g. gate access)",
   ],
 } as const;
@@ -102,8 +102,8 @@ export const compareGroups: CompareGroup[] = [
     rows: [
       { label: "Price (EGP / month)", values: [t("1,290"), t("4,990"), t("Contact us")] },
       { label: "For", values: plans.map((p) => t(p.forWho)) as CompareGroup["rows"][number]["values"] },
-      { label: "Active clients included", values: [t("60"), t("300"), t("Custom")] },
-      { label: "Each extra client", values: [t("25 EGP"), t("20 EGP"), t("Custom")] },
+      { label: "Active members included", values: [t("60"), t("300"), t("Custom")] },
+      { label: "Each extra member", values: [t("25 EGP"), t("20 EGP"), t("Custom")] },
       { label: "Staff", values: [t("1"), t("10"), t("Custom")] },
       { label: "Departments", values: [t("1"), t("1"), t("Custom")] },
       { label: "Locations", values: [t("1"), t("1"), t("Custom")] },
@@ -112,7 +112,7 @@ export const compareGroups: CompareGroup[] = [
   {
     label: "Experience",
     rows: [
-      { label: "Client experience", values: [t("Branded booking page"), t("Branded client app (PWA)"), t("Custom")] },
+      { label: "Member experience", values: [t("Branded booking page"), t("Branded client app (PWA)"), t("Custom")] },
       { label: "Physical integrations (e.g. gate access)", values: [no, no, t("Custom")] },
     ],
   },
@@ -131,5 +131,5 @@ export const compareGroups: CompareGroup[] = [
 export const compareFooter = {
   inEveryPlanLead: "In every plan:",
   inEveryPlan:
-    "memberships and class bundles (monthly, 3-month, annual, class passes), freezing a membership, class schedule and booking, payment tracking (cash, card, wallet, InstaPay with receipt approval), revenue dashboard, your own branding on the client experience.",
+    "memberships and class bundles (monthly, 3-month, annual, class passes), freezing a membership, class schedule and booking, payment tracking (cash, card, wallet, InstaPay with receipt approval), revenue dashboard, your own branding on the member experience.",
 } as const;

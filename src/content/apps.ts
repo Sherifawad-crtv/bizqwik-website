@@ -3,9 +3,9 @@ import type { AppBlock, AppSummary } from "./types";
 export const appSummaries: AppSummary[] = [
   { id: "founder", number: "01", title: "Founder / C-suite app", role: "Sets prices, schedules and the team", usedBy: "Studio owner, department head", icon: "chart-square", short: "Founder" },
   { id: "accountant", number: "02", title: "Accountant dashboard", role: "Runs the monthly payout", usedBy: "Accountant", icon: "calculator", short: "Accountant" },
-  { id: "frontDesk", number: "03", title: "Front-desk / reception app", role: "Checks clients in and takes payments", usedBy: "Front desk", icon: "qr-code", short: "Reception" },
+  { id: "frontDesk", number: "03", title: "Front-desk / reception app", role: "Checks members in and takes payments", usedBy: "Front desk", icon: "qr-code", short: "Reception" },
   { id: "coaches", number: "04", title: "Coaches app", role: "Logs sessions and tracks earnings", usedBy: "Coaches", icon: "users-group-two-rounded", short: "Coaches" },
-  { id: "client", number: "05", title: "Branded client app", role: "Books, buys and checks in", usedBy: "The studio's clients", icon: "smartphone", short: "Client" },
+  { id: "client", number: "05", title: "Branded client app", role: "Books, buys and checks in", usedBy: "The studio's members", icon: "smartphone", short: "Client" },
 ];
 
 export const appBlocks: AppBlock[] = [
@@ -44,11 +44,11 @@ export const appBlocks: AppBlock[] = [
     usedBy: "Front desk",
     headline: "Check-in, sales and bookings, all at the desk.",
     bullets: [
-      { text: "Check clients in by QR code." },
+      { text: "Check members in by QR code." },
       { text: "Sell memberships, bundles and drop-in passes." },
       { lead: "Take payments:", text: "cash, card, wallet or InstaPay." },
-      { text: "Book clients into classes and see who is coming." },
-      { text: "Freeze a client's membership." },
+      { text: "Book members into classes and see who is coming." },
+      { text: "Freeze a membership." },
     ],
     caption: "Class calendar (week view) · Home",
   },
@@ -61,7 +61,7 @@ export const appBlocks: AppBlock[] = [
     bullets: [
       { text: "Log sessions by scanning a QR in the coaches' room." },
       { text: "See what you've earned this month at your tier's rate." },
-      { text: "Deliver personal training sessions by scanning the client's PT code." },
+      { text: "Deliver personal training sessions by scanning the member's PT code." },
       { lead: "Monthly scheduling:", text: "the head coach sets the whole month up front, with dates and start times, and assigns classes to coaches.", highlight: true },
       { lead: "Attendance on your assigned date only:", text: "a coach can't log a session outside their assigned slot." },
       { lead: "Hand over a session:", text: "a coach can assign or request a swap with another coach, at least 2 hours before the session, and only if the other coach accepts.", highlight: true },
@@ -72,8 +72,8 @@ export const appBlocks: AppBlock[] = [
   {
     id: "client",
     eyebrow: "App 5 · Branded client app",
-    usedBy: "The studio's clients",
-    headline: "Your studio in your clients' pockets, under your brand.",
+    usedBy: "The studio's members",
+    headline: "Your studio in your members' pockets, under your brand.",
     bullets: [
       { text: "Your studio's own name, logo, colours and web address." },
       { text: "Check in with a QR code." },

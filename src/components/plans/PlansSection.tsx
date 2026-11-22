@@ -8,10 +8,10 @@ const fmt = (n: number) => n.toLocaleString("en-US");
 
 /** The four or five facts that decide a plan; the full list is in the comparison below. */
 function facts(p: Plan): [string, string][] {
-  if (p.priceEgpMonthly === null) return [["Everything", "Custom, built around you"]];
+  if (p.priceEgpMonthly === null) return [["Limits, apps, integrations", "Custom"]];
   return [
-    ["Active clients included", p.clientsIncluded],
-    ["Each extra client", p.extraClient],
+    ["Active members included", p.clientsIncluded],
+    ["Each extra member", p.extraClient],
     ["Staff", p.staff],
     ["Departments", p.departments],
     ["Locations", p.locations],
@@ -69,7 +69,7 @@ function PlanCard({ plan }: { plan: Plan }) {
   );
 }
 
-/** Section 7: the three plans as equal cards (Grow inverted), then the one rule that matters about extra clients. */
+/** Section 7: the three plans as equal cards (Grow inverted), then the one rule that matters about extra members. */
 export function PlansSection() {
   return (
     <section id="plans" aria-labelledby="plans-title" className="py-16 lg:py-28">

@@ -1,5 +1,5 @@
 export const contactSection = {
-  heading: "Let's set up your studio.",
+  heading: "Set up your studio.",
   lede: "One system. Your whole studio.",
   cards: [
     { kind: "phone", label: "Phone", icon: "phone-calling-rounded" },

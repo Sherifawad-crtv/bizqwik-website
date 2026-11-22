@@ -1,32 +1,32 @@
 import type { FaqItem } from "./types";
 
 /** Answers use only facts in the brief. No FAQs on trials, demos, contracts, security, uptime, migration, cancellation or support hours. */
-export const faqHeading = "Questions owners ask.";
+export const faqHeading = "Questions studio owners ask.";
 
 export const faq: FaqItem[] = [
   {
     question: "How does pricing work?",
-    answer: "Each plan has one monthly price in EGP, excluding 14% VAT. VAT is added on the invoice. Enterprise is priced on request.",
+    answer: "Each plan has one monthly price in EGP, excluding 14% VAT, which is added on the invoice. Enterprise is priced on request.",
   },
   {
-    question: "What if I have more clients than my plan includes?",
+    question: "What if I have more members than my plan includes?",
     answer:
-      "Every extra active client is charged at your plan's rate: 25 EGP on Solopreneur and 20 EGP on Grow. Extra clients never cost more than the next plan. If the extra-client charges would pass the next plan's price, you simply move up.",
+      "Each extra active member is charged at your plan's rate: 25 EGP on Solopreneur, 20 EGP on Grow. Extras never cost more than the next plan: if they would, you move up.",
   },
   {
     question: "Which plan is right for me?",
     answer:
-      "Solopreneur is for independent coaches and solo studios. Grow is for studios with a team, and is our best fit for fitness studios. Enterprise is for multi-studio groups and large operators.",
+      "Solopreneur: independent coaches and solo studios. Grow: studios with a team, and our best fit for fitness studios. Enterprise: multi-studio groups and large operators.",
     cta: { label: "See plans", href: "#plans" },
   },
   {
-    question: "What do my clients get?",
+    question: "What do my members get?",
     answer:
-      "A client experience under your brand: your studio's own name, logo, colours and web address. On Solopreneur it is a branded booking page. On Grow it is a branded client app (PWA). On Enterprise it is custom. Clients check in with a QR code, book classes, buy memberships and bundles, top up a wallet, earn loyalty points and freeze their own plan.",
+      "An experience under your brand: your studio's name, logo, colours and web address. Solopreneur gets a branded booking page, Grow a branded client app (PWA), Enterprise a custom build. Members check in with a QR code, book classes, buy memberships and bundles, top up a wallet, earn points and freeze their own plan.",
   },
   {
     question: "How do I get started?",
-    answer: "Call us on 01000401407 or email info@bizqwik.com and we'll set up your studio.",
-    cta: { label: "Talk to us", href: "#contact" },
+    answer: "Call 01000401407 or email info@bizqwik.com. We set up your studio with you.",
+    cta: { label: "Contact sales", href: "#contact" },
   },
 ];

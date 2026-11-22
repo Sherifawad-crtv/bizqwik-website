@@ -37,7 +37,7 @@ export const nav: { label: string; href: `#${SectionId}` }[] = [
 ];
 
 export const cta = {
-  primary: { label: "Talk to us", href: "#contact" },
+  primary: { label: "Contact sales", href: "#contact" },
   secondary: { label: "See plans", href: "#plans" },
   /** The navbar's single button (desktop bar and mobile menu). */
   nav: { label: "Contact sales", href: "#contact" },
@@ -46,13 +46,13 @@ export const cta = {
 export const seo = {
   title: "Bizqwik | One system. Your whole studio.",
   description:
-    "Five connected apps run your fitness studio: founder, accountant, front desk, coaches and a branded client app. Plans from 1,290 EGP a month.",
+    "Run classes, members, coach payouts and payments from one system built for fitness studios. Five connected apps. Plans from 1,290 EGP a month.",
 } as const;
 
 export const microcopy = {
   planLink: "See what's included",
-  enterpriseLink: "Contact us",
-  addonsLink: "Want to add something? Talk to us.",
+  enterpriseLink: "Contact sales",
+  addonsLink: "Need more? Contact sales.",
   callAria: "Call Bizqwik",
   menuAria: "Open menu",
   copied: "Copied",
