@@ -5,3 +5,4 @@
 
 ## Nav label (2026-11-22)
 The first nav link now reads "Features" instead of "The apps" (same #apps anchor).
+The mobile menu shares the same links (so it already reads Features), and its two white contact tiles (Phone, Email) get the same small stroke as the secondary buttons.

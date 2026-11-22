@@ -228,11 +228,11 @@ export function Navbar() {
               <Button href={cta.primary.href} size="lg" onClick={closeMenu}>
                 {cta.primary.label}
               </Button>
-              <a href={contact.phoneHref} className="flex h-14 items-center justify-between rounded-tile bg-surface px-5 font-semibold text-ink shadow-card">
+              <a href={contact.phoneHref} className="flex h-14 items-center justify-between rounded-tile border border-ink/10 bg-surface px-5 font-semibold text-ink shadow-card">
                 <span className="font-mono text-label font-bold uppercase text-ink-muted">Phone</span>
                 {contact.phoneDisplay}
               </a>
-              <a href={contact.emailHref} className="flex h-14 items-center justify-between rounded-tile bg-surface px-5 font-semibold text-ink shadow-card">
+              <a href={contact.emailHref} className="flex h-14 items-center justify-between rounded-tile border border-ink/10 bg-surface px-5 font-semibold text-ink shadow-card">
                 <span className="font-mono text-label font-bold uppercase text-ink-muted">Email</span>
                 {contact.email}
               </a>
