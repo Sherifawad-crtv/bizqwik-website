@@ -18,3 +18,5 @@ The fourth and last row now has the same kind of scene as the others (slide-up e
 
 ## Update 2026-11-22: the real class card
 The Today cards are now the client app's own `ClassCard` and carousel (bizqwik-client-app, ClassCard.tsx): a tall 4:5 photo card with a dark gradient, the "On your plan" / price chip top left (black 40%, uppercase), the title, a clock and the time, up to three initials ("You" in white) with a "+N" count, and a "when" pill ("In 2 hrs"), each 70% of the row wide (max 260) so the next card peeks in, the row bleeding to the screen edge like the real one. The still home is shown scrolled down to these cards, with a soft fade under the status bar. The app's display font (Clash Grotesk) is replaced by the site's Urbanist.
+
+Follow-up (2026-11-22): the cards are back to the earlier cards' footprint, two to a row (each half the width, no peeking), so both are fully visible above the tab bar. They keep the real card's layout (photo, gradient, chip, title, time, initials with a count, "when" pill) at a 5:6 ratio with two initials; the home is scrolled only 70pt, so the plan card and the quick actions stay in view.
