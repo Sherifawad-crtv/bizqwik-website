@@ -7,3 +7,5 @@ The four 3D clay renders supplied (QR check-in with a dumbbell, a zip wallet wit
 
 ## Replaced with the Figma cut-outs (2026-11-26)
 My own automatic background removal left soft smudges, so the four illustrations now come from the "Website" page of the "Bizqwik Launch Visuals" Figma file (the four "Generated Image" frames): the transparent-background versions stored in the file, exported at their native 1280 x 960 and saved as WebP with alpha (64-74 KB each). There is no floor shadow in these; the objects sit directly on the card.
+
+Quality (2026-11-26): the first export used WebP quality 88, and the Next.js image optimizer then re-encoded at its default 75 (the PNGs in Figma are 730-920 KB). The files are now WebP quality 95 with lossless alpha (110-133 KB each), served as they are (`unoptimized`), so there is no second compression.

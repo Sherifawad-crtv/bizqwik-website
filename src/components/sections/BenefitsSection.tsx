@@ -4,7 +4,7 @@ import { benefits } from "@/content";
 
 /**
  * One 3D clay render per card, in the order of `benefits` in content/sections.ts (check-in, payment, who's coming,
- * numbers). Files live in public/illustrations, 1280 x 960 WebP with a transparent background, taken from the "Website" page of the Bizqwik Launch Visuals Figma file, so they sit straight on the card.
+ * numbers). Files live in public/illustrations, 1280 x 960 WebP with a transparent background, taken from the "Website" page of the Bizqwik Launch Visuals Figma file, so they sit straight on the card. `unoptimized`: they are already WebP (quality 95, lossless alpha), and the image optimizer would re-encode them at quality 75.
  */
 const ART = [
   { src: "/illustrations/benefit-checkin.webp", width: 1280, height: 960 },
@@ -25,7 +25,7 @@ export function BenefitsSection() {
                 <h3 className="text-[28px] font-extrabold leading-tight tracking-[-.02em]">{b.title}</h3>
                 <p className="mt-3 max-w-md text-[17px] leading-snug text-ink-muted">{b.line}</p>
                 <div className="mt-6 flex flex-1 items-end">
-                  <Image {...ART[i]} alt="" sizes="(min-width: 1024px) 560px, (min-width: 640px) 45vw, 100vw" className="h-auto w-full" />
+                  <Image {...ART[i]} alt="" unoptimized className="h-auto w-full" />
                 </div>
               </Box>
             </li>
