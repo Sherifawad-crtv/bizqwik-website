@@ -9,7 +9,7 @@ const YEAR = new Date().getFullYear();
 /** Section 6 of the outline: the closing statement (brightens word by word), three action cards and the footer. */
 export function ClosingSection() {
   return (
-    <section id="contact" aria-labelledby="contact-title" className="pb-(--gutter) pt-12 lg:pt-20">
+    <section id="contact" aria-labelledby="contact-title" className="pb-(--gutter) pt-12 max-lg:pb-24 lg:pt-20">
       <Container>
         <div className="rounded-[40px] bg-ink px-6 pb-8 pt-20 text-white lg:px-16 lg:pt-28">
           <h2 id="contact-title" className="sr-only">

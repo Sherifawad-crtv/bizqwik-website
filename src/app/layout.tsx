@@ -51,6 +51,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <SmoothScroll />
         <Motion />
         {children}
+        {/* Phones: the page fades into the paper colour over the last 72px above the browser's bottom bar (the theme colour), so content no longer ends in a hard edge; the same low-to-high opacity as the status bar at the top. */}
+        <div aria-hidden className="pointer-events-none fixed inset-x-0 bottom-0 z-40 h-[72px] bg-gradient-to-b from-transparent to-paper lg:hidden" />
       </body>
     </html>
   );

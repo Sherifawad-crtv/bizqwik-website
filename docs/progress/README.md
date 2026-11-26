@@ -81,3 +81,4 @@ Convention (same as the app repo, `Sherifawad-crtv/bizqwik`):
 - [0062](0062-2026-11-22-studio-copy.md) Copy: fitness studio, not community
 - [0063](0063-2026-11-22-copy-rewrite.md) Copy rewrite: studio vocabulary, no filler
 - [0064](0064-2026-11-26-benefit-illustrations.md) New clay illustrations for the benefit cards
+- [0065](0065-2026-11-26-bottom-fade.md) Bottom fade above the browser bar on phones
