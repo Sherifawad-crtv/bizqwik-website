@@ -4,13 +4,13 @@ import { benefits } from "@/content";
 
 /**
  * One 3D clay render per card, in the order of `benefits` in content/sections.ts (check-in, payment, who's coming,
- * numbers). Files live in public/illustrations, 1400 x 1050 WebP with a transparent background (a soft contact shadow is kept), so they sit straight on the card.
+ * numbers). Files live in public/illustrations, 1280 x 960 WebP with a transparent background, taken from the "Website" page of the Bizqwik Launch Visuals Figma file, so they sit straight on the card.
  */
 const ART = [
-  { src: "/illustrations/benefit-checkin.webp", width: 1400, height: 1050 },
-  { src: "/illustrations/benefit-payment.webp", width: 1400, height: 1050 },
-  { src: "/illustrations/benefit-roster.webp", width: 1400, height: 1050 },
-  { src: "/illustrations/benefit-numbers.webp", width: 1400, height: 1050 },
+  { src: "/illustrations/benefit-checkin.webp", width: 1280, height: 960 },
+  { src: "/illustrations/benefit-payment.webp", width: 1280, height: 960 },
+  { src: "/illustrations/benefit-roster.webp", width: 1280, height: 960 },
+  { src: "/illustrations/benefit-numbers.webp", width: 1280, height: 960 },
 ];
 
 /** Section 4 of the outline: four outlined cards, each a title, a line and a 3D illustration. */
