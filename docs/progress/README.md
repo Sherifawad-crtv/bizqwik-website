@@ -80,3 +80,4 @@ Convention (same as the app repo, `Sherifawad-crtv/bizqwik`):
 - [0061](0061-2026-11-22-nav-active-and-button-stroke.md) Nav active state and secondary button stroke
 - [0062](0062-2026-11-22-studio-copy.md) Copy: fitness studio, not community
 - [0063](0063-2026-11-22-copy-rewrite.md) Copy rewrite: studio vocabulary, no filler
+- [0064](0064-2026-11-26-benefit-illustrations.md) New clay illustrations for the benefit cards
