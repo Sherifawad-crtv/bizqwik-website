@@ -46,7 +46,7 @@ export function StatementSection() {
                   className="absolute left-0 top-1/2 flex h-[60px] items-center gap-3 whitespace-nowrap rounded-full border border-white/10 py-2 pl-2 pr-4 text-[15px] font-bold max-[900px]:left-1/2 min-[901px]:h-[100px] min-[901px]:gap-4 min-[901px]:py-[18px] min-[901px]:pl-[18px] min-[901px]:pr-7 min-[901px]:text-[18px]"
                 >
                   <span className="grid aspect-square h-full place-items-center rounded-full bg-white/10">
-                    <Icon name={o.icon as IconName} size={22} />
+                    <Icon name={o.icon as IconName} size={24} solid />
                   </span>
                   {o.label}
                 </li>

@@ -45,6 +45,14 @@ import { UsersGroupRoundedIcon as UsersGroupRoundedSolidIcon } from "@solar-icon
 import { ClipboardListIcon as ClipboardListSolidIcon } from "@solar-icons/react/bold-duotone/clipboard-list";
 import { TagIcon as TagSolidIcon } from "@solar-icons/react/bold-duotone/tag";
 import { ClockCircleIcon as ClockCircleSolidIcon } from "@solar-icons/react/bold-duotone/clock-circle";
+import { QrCodeIcon as QrCodeSolidIcon } from "@solar-icons/react/bold-duotone/qr-code";
+import { CalendarMarkIcon as CalendarMarkSolidIcon } from "@solar-icons/react/bold-duotone/calendar-mark";
+import { WalletIcon as WalletSolidIcon } from "@solar-icons/react/bold-duotone/wallet";
+import { CalculatorIcon as CalculatorSolidIcon } from "@solar-icons/react/bold-duotone/calculator";
+import { ChartSquareIcon as ChartSquareSolidIcon } from "@solar-icons/react/bold-duotone/chart-square";
+import { UsersGroupTwoRoundedIcon as UsersGroupTwoRoundedSolidIcon } from "@solar-icons/react/bold-duotone/users-group-two-rounded";
+import { SmartphoneIcon as SmartphoneSolidIcon } from "@solar-icons/react/bold-duotone/smartphone";
+import { BanknoteIcon as BanknoteSolidIcon } from "@solar-icons/react/bold-duotone/banknote";
 import { CalendarIcon as CalendarSolidIcon } from "@solar-icons/react/bold-duotone/calendar";
 import { MagnifierIcon } from "@solar-icons/react/linear/magnifier";
 import { GiftIcon } from "@solar-icons/react/linear/gift";
@@ -116,6 +124,14 @@ const SOLID: Partial<Record<IconName, typeof HomeSmileIcon>> = {
   "user-rounded": UserRoundedSolidIcon,
   calendar: CalendarSolidIcon,
   "clock-circle": ClockCircleSolidIcon,
+  "qr-code": QrCodeSolidIcon,
+  "calendar-mark": CalendarMarkSolidIcon,
+  "wallet": WalletSolidIcon,
+  "calculator": CalculatorSolidIcon,
+  "chart-square": ChartSquareSolidIcon,
+  "users-group-two-rounded": UsersGroupTwoRoundedSolidIcon,
+  "smartphone": SmartphoneSolidIcon,
+  "banknote": BanknoteSolidIcon,
 };
 
 export function Icon({
